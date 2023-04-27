@@ -1,6 +1,6 @@
+import Cost from "@/components/Cost";
 import { DropdownMenuDemo } from "@/components/Dropdown";
 import MonthlyChart from "@/components/MonthlyChart";
-import MonthlyUsage from "@/components/MonthlyUsage";
 import Requests from "@/components/Requests";
 import { useDialog } from "@/components/SignInModal";
 import { default as Tokens } from "@/components/Tokens";
@@ -141,7 +141,7 @@ export default function KpiCardGrid() {
 
       <Grid numColsMd={1} numColsLg={3} className="gap-6 mt-4">
         <Card>
-          <MonthlyUsage
+          <Cost
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}

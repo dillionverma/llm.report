@@ -72,6 +72,9 @@ const MonthlyUsage = ({
       const cumulativeTotalCost = usage.data.daily_costs.reduce(
         (acc, { line_items }) =>
           line_items.reduce((innerAcc, { name, cost }) => {
+            if (!categories.includes(name as Category)) {
+              return innerAcc;
+            }
             // @ts-ignore
             if (!innerAcc[name]) {
               // @ts-ignore
@@ -84,17 +87,20 @@ const MonthlyUsage = ({
         {}
       );
 
-      const data = Object.entries(cumulativeTotalCost).map(([name, cost]) => ({
-        name,
-        cost: (cost as number) / 100,
-      }));
+      const data = Object.entries(cumulativeTotalCost)
+        .map(([name, cost]) => ({
+          name,
+          cost: (cost as number) / 100,
+          color: CATEGORY_TO_COLOR[name as Category],
+        }))
+        .filter(({ name }) => categories.includes(name as Category));
 
       setLoading(false);
       setData(data);
       setSubscription(subscription.data);
       setCurrentUsage(usage.data.total_usage);
     })();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, categories]);
 
   if (
     loading ||
@@ -134,7 +140,9 @@ const MonthlyUsage = ({
         {/* <BadgeDelta deltaType="moderateIncrease">23.1%</BadgeDelta> */}
       </Flex>
 
-      <Metric>$ {(currentUsage / 100).toFixed(2)}</Metric>
+      <Metric>
+        $ {data.reduce((acc, { cost }) => acc + cost, 0).toFixed(2)}
+      </Metric>
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -152,7 +160,7 @@ const MonthlyUsage = ({
           category="cost"
           index="name"
           valueFormatter={(v) => `$ ${v.toFixed(2)}`}
-          colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
+          colors={data.map(({ color }) => color)}
         />
       </motion.div>
       <Flex className="mt-4">
