@@ -53,7 +53,7 @@ export const CATEGORY_TO_COLOR: Record<Category, Color> = {
   "GPT-4": "emerald",
   "Image models": "sky",
   "Instruct models": "lime",
-  "DALL-E API": "yellow",
+  "DALL-E API": "pink",
 };
 
 export const animationVariant = {

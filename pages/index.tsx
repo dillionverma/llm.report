@@ -25,11 +25,11 @@ export default function Home() {
           )}
         </nav>
       </header>
-      <main className="p-10 ">
+      <main className="px-10 ">
         <Dashboard />
       </main>
-      <footer>
-        <div className="w-full absolute bottom-0 text-center border-slate-200 h-[3rem]">
+      <footer className="p-5">
+        <div className="w-full text-center border-slate-200 ">
           <div className="text-slate-600 flex justify-center">
             <Link
               href="https://twitter.com/dillionverma"
