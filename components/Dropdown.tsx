@@ -18,7 +18,7 @@ export function DropdownMenuDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-gray-300 sm:h-9 sm:w-9 hover:border-gray-400 focus:outline-none hover:border-1">
+        <button className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-gray-300 hover:border-gray-400 focus:outline-none hover:border-1">
           <Image
             alt={session?.user?.email || "User"}
             src={

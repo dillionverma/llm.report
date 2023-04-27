@@ -15,7 +15,15 @@ export default function App({
       <DialogProvider>
         <Meta />
         <Component {...pageProps} />
-        <Toaster position="bottom-center" reverseOrder={false} />
+        <Toaster
+          position="bottom-center"
+          reverseOrder={false}
+          toastOptions={{
+            style: {
+              maxWidth: 500,
+            },
+          }}
+        />
         <SignInModal />
       </DialogProvider>
     </SessionProvider>

@@ -37,17 +37,22 @@ export default function KpiCardGrid() {
   const { data: session } = useSession();
 
   return (
-    <div className="h-full min-h-screen bg-slate-50 p-10 sm:p-10">
-      <Flex className="lg:flex-row flex-col items-start lg:items-center space-y-4">
+    <div className="h-full bg-slate-50 p-10 sm:p-10">
+      <nav className="flex items-end flex-col">
+        {session?.user ? (
+          <div className="flex justify-center items-center">
+            <DropdownMenuDemo />
+          </div>
+        ) : (
+          <Button onClick={openDialog}>Login</Button>
+        )}
+      </nav>
+
+      <Flex className="md:flex-row flex-col items-start lg:items-center space-y-4">
         <div className="space-y-2">
           <Title>OpenAI Analytics</Title>
           <Text>Let&apos;s see how we&apos;re doing today</Text>
 
-          {session?.user ? (
-            <DropdownMenuDemo />
-          ) : (
-            <Button onClick={openDialog}>Login</Button>
-          )}
           {/* {process.env.NODE_ENV === "development" ? (
             <>
               <script
@@ -73,9 +78,8 @@ export default function KpiCardGrid() {
           )} */}
         </div>
 
-        <div className="w-full max-w-md lg:mt-0 items-end flex flex-col space-y-4">
+        <div className="w-full max-w-2xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col">
           <DateRangePicker
-            className="md:max-w-[500px]"
             value={value}
             onValueChange={setValue}
             dropdownPlaceholder="Select"
@@ -112,7 +116,7 @@ export default function KpiCardGrid() {
           />
 
           <MultiSelectBox
-            className="w-full"
+            // className="w-full"
             value={categories}
             onValueChange={(a) => setCategories(a as Category[])}
           >
@@ -124,11 +128,6 @@ export default function KpiCardGrid() {
               />
             ))}
           </MultiSelectBox>
-          {/* {session?.user ? (
-            <DropdownMenuDemo />
-          ) : (
-            <Button onClick={openDialog}>Login</Button>
-          )} */}
         </div>
       </Flex>
 
@@ -173,9 +172,8 @@ export default function KpiCardGrid() {
           <div className="h-28" />
         </Card>
       </Grid> */}
-
       <footer className="bg-slate-50 px-6 sm:px-10 text-sm leading-5">
-        <div className="py-6 sm:py-8 max-w-10xl text-center space-y-0 border-t border-slate-200">
+        <div className="py-4 sm:py-8 max-w-10xl text-center space-y-0 border-slate-200">
           <div className="text-slate-600 flex justify-center">
             <Link
               href="https://twitter.com/dillionverma"
