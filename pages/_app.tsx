@@ -16,7 +16,7 @@ export default function App({
         <Meta />
         <Component {...pageProps} />
         <Toaster
-          position="bottom-center"
+          position="top-center"
           reverseOrder={false}
           toastOptions={{
             style: {

@@ -1,5 +1,4 @@
 import Cost from "@/components/Cost";
-import { DropdownMenuDemo } from "@/components/Dropdown";
 import MonthlyChart from "@/components/MonthlyChart";
 import Requests from "@/components/Requests";
 import { useDialog } from "@/components/SignInModal";
@@ -7,7 +6,6 @@ import { default as Tokens } from "@/components/Tokens";
 import { CATEGORIES } from "@/src/constants";
 import { Category } from "@/src/types";
 import {
-  Button,
   Card,
   DateRangePicker,
   DateRangePickerValue,
@@ -20,7 +18,6 @@ import {
 } from "@tremor/react";
 import { add, startOfMonth, sub } from "date-fns";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { useState } from "react";
 
 export default function KpiCardGrid() {
@@ -37,17 +34,7 @@ export default function KpiCardGrid() {
   const { data: session } = useSession();
 
   return (
-    <div className="h-full bg-slate-50 p-10 sm:p-10">
-      <nav className="flex items-end flex-col">
-        {session?.user ? (
-          <div className="flex justify-center items-center">
-            <DropdownMenuDemo />
-          </div>
-        ) : (
-          <Button onClick={openDialog}>Login</Button>
-        )}
-      </nav>
-
+    <div>
       <Flex className="md:flex-row flex-col items-start lg:items-center space-y-4">
         <div className="space-y-2">
           <Title>OpenAI Analytics</Title>
@@ -172,21 +159,6 @@ export default function KpiCardGrid() {
           <div className="h-28" />
         </Card>
       </Grid> */}
-      <footer className="bg-slate-50 px-6 sm:px-10 text-sm leading-5">
-        <div className="py-4 sm:py-8 max-w-10xl text-center space-y-0 border-slate-200">
-          <div className="text-slate-600 flex justify-center">
-            <Link
-              href="https://twitter.com/dillionverma"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              <p className="hover:text-slate-800 transition-all">
-                Made with ❤️ by Dillion
-              </p>
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { dateFormat } from "@/src/utils";
 import {
   AreaChart,
   BarChart,
+  Flex,
   Legend,
   Metric,
   Title,
@@ -256,13 +257,16 @@ const MonthlyChart = ({
         }}
         className="animate-pulse flex flex-col h-full w-full"
       >
-        <div>
-          <div className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-[7rem] h-3 mb-2.5 "></div>
-          <div className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-[8rem] h-8 mb-2.5 "></div>
+        <div className="flex flex-row justify-between items-center">
+          <div>
+            <div className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-[7rem] h-3 mb-2.5 "></div>
+            <div className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-[8rem] h-8 mb-2.5 "></div>
+          </div>
+          <div className="bg-gray-200 rounded-full dark:bg-gray-700 w-[10rem] h-8 mb-2.5"></div>
         </div>
-        <div className="flex flex-col items-end">
-          <div className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-[8rem] h-8 mb-2.5"></div>
-        </div>
+        {/* <div className="flex flex-col items-end">
+          <div className="bg-gray-200 rounded-full dark:bg-gray-700 w-[8rem] h-8 mb-2.5"></div>
+        </div> */}
         <LoadingChart />
         <div className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-full h-4 mb-2.5 "></div>
       </motion.div>
@@ -271,22 +275,21 @@ const MonthlyChart = ({
 
   return (
     <>
-      <Title>Daily Usage (USD)</Title>
-      <Metric>$ {(totalUsage / 100).toFixed(2)}</Metric>
-
-      <div className="mt-4 sm:mt-0">
-        <div className="flex justify-end flex-col md:flex-row mt-2 gap-2 w-full">
-          <Toggle
-            className="max-w-fit mt-2 mb-2 md:mt-0"
-            color="zinc"
-            defaultValue="daily"
-            onValueChange={(value) => setSelectedValue(value as Select)}
-          >
-            <ToggleItem value="daily" text="Daily" />
-            <ToggleItem value="cumulative" text="Cumulative" />
-          </Toggle>
+      <Flex>
+        <div>
+          <Title>Daily Usage (USD)</Title>
+          <Metric>$ {(totalUsage / 100).toFixed(2)}</Metric>
         </div>
-      </div>
+        <Toggle
+          className="max-w-fit mt-2 mb-2 md:mt-0"
+          color="zinc"
+          defaultValue="daily"
+          onValueChange={(value) => setSelectedValue(value as Select)}
+        >
+          <ToggleItem value="daily" text="Daily" />
+          <ToggleItem value="cumulative" text="Cumulative" />
+        </Toggle>
+      </Flex>
 
       {selectedValue === "daily" && data.length > 0 && (
         <motion.div
