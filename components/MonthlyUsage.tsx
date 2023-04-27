@@ -110,10 +110,9 @@ const MonthlyUsage = ({
         whileInView="show"
         animate="show"
         variants={{
-          hidden: { opacity: 0, originX: 1 },
+          hidden: { opacity: 0 },
           show: {
             opacity: 1,
-            originX: 1,
           },
         }}
         className="animate-pulse flex flex-col justify-between h-full w-full"
@@ -129,31 +128,33 @@ const MonthlyUsage = ({
   }
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="show"
-      animate="show"
-      variants={{
-        hidden: { opacity: 0 },
-        show: {
-          opacity: 1,
-        },
-      }}
-    >
+    <>
       <Flex alignItems="start">
         <Title>Cost</Title>
         {/* <BadgeDelta deltaType="moderateIncrease">23.1%</BadgeDelta> */}
       </Flex>
 
       <Metric>$ {(currentUsage / 100).toFixed(2)}</Metric>
-      <DonutChart
-        className="mt-6"
-        data={data}
-        category="cost"
-        index="name"
-        valueFormatter={(v) => `$ ${v.toFixed(2)}`}
-        colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
-      />
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        animate="show"
+        variants={{
+          hidden: { opacity: 0 },
+          show: {
+            opacity: 1,
+          },
+        }}
+      >
+        <DonutChart
+          className="mt-6"
+          data={data}
+          category="cost"
+          index="name"
+          valueFormatter={(v) => `$ ${v.toFixed(2)}`}
+          colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
+        />
+      </motion.div>
       <Flex className="mt-4">
         <Text className="truncate">{`${(percentage / 100).toFixed(
           2
@@ -161,7 +162,7 @@ const MonthlyUsage = ({
         <Text>$ {(subscription.hard_limit / 10000).toFixed(2)}</Text>
       </Flex>
       <ProgressBar percentageValue={percentage / 100} className="mt-2" />
-    </motion.div>
+    </>
   );
 };
 

@@ -241,7 +241,7 @@ const MonthlyChart = ({
     })();
   }, [startDate, endDate]);
 
-  if (!loading) {
+  if (loading) {
     return (
       <motion.div
         initial="hidden"
@@ -271,62 +271,24 @@ const MonthlyChart = ({
 
   return (
     <>
-      {/* <Text>Gross</Text> */}
-      {loading ? (
-        <motion.div
-          className="animate-pulse transition-all duration-500 ease-in-out"
-          initial="hidden"
-          whileInView="show"
-          animate="show"
-          variants={{
-            hidden: { opacity: 0, originX: 0 },
-            show: {
-              opacity: 1,
-              // scaleX: 1,
-              originX: 0,
-            },
-          }}
-        >
-          <div className="w-48 h-4 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-          <div className="mt-3 h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2.5"></div>
-        </motion.div>
-      ) : (
-        <>
-          <Title>Daily Usage (USD)</Title>
-          <Metric>$ {(totalUsage / 100).toFixed(2)}</Metric>
-        </>
-      )}
+      <Title>Daily Usage (USD)</Title>
+      <Metric>$ {(totalUsage / 100).toFixed(2)}</Metric>
+
       <div className="mt-4 sm:mt-0">
         <div className="flex justify-end flex-col md:flex-row mt-2 gap-2 w-full">
-          {loading ? (
-            <motion.div
-              initial="hidden"
-              whileInView="show"
-              animate="show"
-              variants={{
-                hidden: { opacity: 0, originX: 1 },
-                show: {
-                  opacity: 1,
-                  originX: 1,
-                },
-              }}
-              className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-40 h-8 mb-2.5 animate-pulse transition-all duration-500 ease-in-out"
-            ></motion.div>
-          ) : (
-            <Toggle
-              className="max-w-fit mt-2 mb-2 md:mt-0"
-              color="zinc"
-              defaultValue="daily"
-              onValueChange={(value) => setSelectedValue(value as Select)}
-            >
-              <ToggleItem value="daily" text="Daily" />
-              <ToggleItem value="cumulative" text="Cumulative" />
-            </Toggle>
-          )}
+          <Toggle
+            className="max-w-fit mt-2 mb-2 md:mt-0"
+            color="zinc"
+            defaultValue="daily"
+            onValueChange={(value) => setSelectedValue(value as Select)}
+          >
+            <ToggleItem value="daily" text="Daily" />
+            <ToggleItem value="cumulative" text="Cumulative" />
+          </Toggle>
         </div>
       </div>
 
-      {selectedValue === "daily" && data.length > 0 && !loading ? (
+      {selectedValue === "daily" && data.length > 0 && (
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -357,9 +319,9 @@ const MonthlyChart = ({
             colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
           />
         </motion.div>
-      ) : selectedValue === "cumulative" &&
-        cumulativeData.length > 0 &&
-        !loading ? (
+      )}
+
+      {selectedValue === "cumulative" && cumulativeData.length > 0 && (
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -383,13 +345,11 @@ const MonthlyChart = ({
             showLegend={false}
           />
           <Legend
-            className="mt-4"
+            className="mt-4 space-x-2"
             categories={categories}
             colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
           />
         </motion.div>
-      ) : (
-        <LoadingChart />
       )}
     </>
   );
