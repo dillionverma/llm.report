@@ -1,10 +1,10 @@
 import Cost from "@/components/Cost";
 import MonthlyChart from "@/components/MonthlyChart";
 import Requests from "@/components/Requests";
-import { useDialog } from "@/components/SignInModal";
 import { default as Tokens } from "@/components/Tokens";
-import { CATEGORIES } from "@/src/constants";
-import { Category } from "@/src/types";
+import { CATEGORIES } from "@/lib/constants";
+import { addMock, enableMocking } from "@/lib/mock-axios";
+import { Category } from "@/lib/types";
 import {
   Card,
   DateRangePicker,
@@ -16,9 +16,12 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import { add, startOfMonth, sub } from "date-fns";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { add, format, startOfMonth, sub } from "date-fns";
+import { useEffect, useState } from "react";
+
+import subscription from "../fixtures/openai/subscription.json";
+import usageDay1 from "../fixtures/openai/usage-day-1.json";
+import usageRange from "../fixtures/openai/usage-range.json";
 
 export default function KpiCardGrid() {
   const [value, setValue] = useState<DateRangePickerValue>([
@@ -27,11 +30,36 @@ export default function KpiCardGrid() {
     "mtd",
   ]);
 
+  useEffect(() => {
+    if (!value[0] || !value[1]) return;
+
+    addMock(
+      `https://api.openai.com/dashboard/billing/usage?start_date=${format(
+        value[0],
+        "yyyy-MM-dd"
+      )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
+      { data: usageRange, status: 200 }
+    );
+
+    for (let i = 0; i < 300; i++) {
+      const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
+      addMock(`https://api.openai.com/v1/usage?date=${date}`, {
+        data: usageDay1,
+        status: 200,
+      });
+    }
+
+    addMock("https://api.openai.com/dashboard/billing/subscription", {
+      data: subscription,
+      status: 200,
+    });
+
+    enableMocking(true);
+  }, [value]);
+
   const [categories, setCategories] = useState<Category[]>(
     CATEGORIES.filter((c) => c !== "Total Cost ($)")
   );
-  const { isOpen, openDialog, closeDialog } = useDialog();
-  const { data: session } = useSession();
 
   return (
     <div>

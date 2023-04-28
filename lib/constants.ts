@@ -64,3 +64,47 @@ export const animationVariant = {
     },
   },
 };
+
+export type PricingPlan = "Developer" | "Startup";
+
+interface PriceIds {
+  [key: string]: {
+    [key in PricingPlan]: {
+      month: string;
+      year: string;
+    };
+  };
+}
+
+export const priceIds: PriceIds = {
+  test: {
+    Developer: {
+      month: "price_1N1fnCB24wj8TkEzsPjdXlFm",
+      year: "price_1N1fnCB24wj8TkEz2UlQ6WvY",
+    },
+    Startup: {
+      month: "price_1N1fnDB24wj8TkEzbmFVTz4U",
+      year: "price_1N1fnDB24wj8TkEziDehJxEh",
+    },
+  },
+  development: {
+    Developer: {
+      month: "price_1N1fnCB24wj8TkEzsPjdXlFm",
+      year: "price_1N1fnCB24wj8TkEz2UlQ6WvY",
+    },
+    Startup: {
+      month: "price_1N1fnDB24wj8TkEzbmFVTz4U",
+      year: "price_1N1fnDB24wj8TkEziDehJxEh",
+    },
+  },
+  production: {
+    Developer: {
+      month: "",
+      year: "",
+    },
+    Startup: {
+      month: "",
+      year: "",
+    },
+  },
+};

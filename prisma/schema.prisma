@@ -15,7 +15,7 @@ model Account {
     userId                   String
     type                     String
     provider                 String
-    providerAccountId        String
+    providerAccountId        String   @map("provider_account_id")
     refresh_token            String?  @db.Text
     refresh_token_expires_in Int?
     access_token             String?  @db.Text
@@ -41,6 +41,11 @@ model Session {
     @@index([userId])
 }
 
+enum Role {
+    USER
+    ADMIN
+}
+
 model User {
     id        String   @id @unique @default(cuid())
     createdAt DateTime @default(now())
@@ -50,18 +55,57 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
-    isAdmin       Boolean   @default(false)
+    role          Role      @default(USER)
 
-    stripeId                 String? @unique
-    isSubscribed             Boolean @default(false)
-    stripeSubscriptionId     String?
-    stripeSubscriptionStatus String?
-    stripePriceId            String?
+    stripe_customer_id String? @unique
 
-    accounts Account[]
-    sessions Session[]
+    billing_address Json?
+    payment_method  Json?
+
+    subscriptions Subscription[]
+    accounts      Account[]
+    sessions      Session[]
+    keys          ApiKey[]
 
     @@index([id])
+}
+
+model ApiKey {
+    id        String   @id @unique @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+
+    name       String?
+    key        String  @unique
+    hashed_key String  @unique
+
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String
+
+    @@index([id])
+    @@index([userId])
+}
+
+model Subscription {
+    id                   String   @id
+    status               String?
+    metadata             Json?
+    price_id             String?
+    quantity             Int?
+    cancel_at_period_end Boolean?
+    created              String
+    current_period_start String
+    current_period_end   String
+    ended_at             String?
+    cancel_at            String?
+    canceled_at          String?
+    trial_start          String?
+    trial_end            String?
+
+    User   User?   @relation(fields: [userId], references: [id])
+    userId String?
+
+    @@index([userId])
 }
 
 model VerificationToken {

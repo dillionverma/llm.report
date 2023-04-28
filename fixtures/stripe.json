@@ -1,0 +1,85 @@
+{
+  "_meta": {
+    "template_version": 0
+  },
+  "fixtures": [
+    {
+      "name": "developer",
+      "path": "/v1/products",
+      "method": "post",
+      "params": {
+        "name": "Developer",
+        "description": "Perfect for developers."
+      }
+    },
+    {
+      "name": "price_basic_month",
+      "path": "/v1/prices",
+      "method": "post",
+      "params": {
+        "product": "${developer:id}",
+        "currency": "usd",
+        "billing_scheme": "per_unit",
+        "unit_amount": 1000,
+        "recurring": {
+          "interval": "month",
+          "interval_count": 1
+        }
+      }
+    },
+    {
+      "name": "price_basic_year",
+      "path": "/v1/prices",
+      "method": "post",
+      "params": {
+        "product": "${developer:id}",
+        "currency": "usd",
+        "billing_scheme": "per_unit",
+        "unit_amount": 10000,
+        "recurring": {
+          "interval": "year",
+          "interval_count": 1
+        }
+      }
+    },
+    {
+      "name": "startup",
+      "path": "/v1/products",
+      "method": "post",
+      "params": {
+        "name": "Startup",
+        "description": "Everything you need for a growing startup"
+      }
+    },
+    {
+      "name": "price_standard_month",
+      "path": "/v1/prices",
+      "method": "post",
+      "params": {
+        "product": "${startup:id}",
+        "currency": "usd",
+        "billing_scheme": "per_unit",
+        "unit_amount": 5000,
+        "recurring": {
+          "interval": "month",
+          "interval_count": 1
+        }
+      }
+    },
+    {
+      "name": "price_standard_year",
+      "path": "/v1/prices",
+      "method": "post",
+      "params": {
+        "product": "${startup:id}",
+        "currency": "usd",
+        "billing_scheme": "per_unit",
+        "unit_amount": 50000,
+        "recurring": {
+          "interval": "year",
+          "interval_count": 1
+        }
+      }
+    }
+  ]
+}

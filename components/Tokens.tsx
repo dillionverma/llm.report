@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 
-import { animationVariant } from "@/src/constants";
-import { Category, UsageResponse } from "@/src/types";
-import useInterval from "@/src/use-interval";
+import { animationVariant } from "@/lib/constants";
+import { Category, UsageResponse } from "@/lib/types";
+import useInterval from "@/lib/use-interval";
 import {
   ArrowDownTrayIcon,
   ArrowUpTrayIcon,

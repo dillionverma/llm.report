@@ -11,9 +11,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useDialog } from "./SettingsModal";
 
 export function DropdownMenuDemo() {
   const { data: session } = useSession();
+  const { openDialog } = useDialog();
 
   return (
     <DropdownMenu>
@@ -39,7 +41,7 @@ export function DropdownMenuDemo() {
             <span>Billing</span>
             {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => openDialog()}>
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
             {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}

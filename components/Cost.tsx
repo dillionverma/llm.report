@@ -1,9 +1,9 @@
-import { CATEGORY_TO_COLOR } from "@/src/constants";
+import { CATEGORY_TO_COLOR } from "@/lib/constants";
 import {
   BillingSubscriptionResponse,
   BillingUsageResponse,
   Category,
-} from "@/src/types";
+} from "@/lib/types";
 import {
   DonutChart,
   Flex,
@@ -28,14 +28,9 @@ const MonthlyUsage = ({
 }) => {
   const [subscription, setSubscription] =
     useState<BillingSubscriptionResponse>();
-  const [currentUsage, setCurrentUsage] = useState<number>(0);
   const [data, setData] = useState<any[]>();
-
   const [loading, setLoading] = useState<boolean>(false);
-
-  const percentage = subscription
-    ? (currentUsage / 100) * (subscription.hard_limit / 10000)
-    : 0;
+  const [percentage, setPercentage] = useState<number>(0);
 
   useEffect(() => {
     (async () => {
@@ -44,7 +39,7 @@ const MonthlyUsage = ({
       }
 
       setLoading(true);
-      const subscription = await axios.get<BillingSubscriptionResponse>(
+      const subscriptionResponse = await axios.get<BillingSubscriptionResponse>(
         `https://api.openai.com/dashboard/billing/subscription`,
         {
           headers: {
@@ -95,21 +90,19 @@ const MonthlyUsage = ({
         }))
         .filter(({ name }) => categories.includes(name as Category));
 
+      setPercentage(
+        subscriptionResponse
+          ? (usage.data.total_usage / 100) *
+              (subscriptionResponse.data.hard_limit / 10000)
+          : 0
+      );
       setLoading(false);
       setData(data);
-      setSubscription(subscription.data);
-      setCurrentUsage(usage.data.total_usage);
+      setSubscription(subscriptionResponse.data);
     })();
   }, [startDate, endDate, categories]);
 
-  if (
-    loading ||
-    !subscription ||
-    !currentUsage ||
-    !percentage ||
-    !data ||
-    data?.length === 0
-  ) {
+  if (loading || !subscription || !percentage || !data || data?.length === 0) {
     return (
       <motion.div
         initial="hidden"

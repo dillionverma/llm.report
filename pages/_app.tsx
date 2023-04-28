@@ -1,5 +1,5 @@
 import Meta from "@/components/Meta";
-import SignInModal, { DialogProvider } from "@/components/SignInModal";
+import SettingsModal, { DialogProvider } from "@/components/SettingsModal";
 import "@/styles/globals.css";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
@@ -24,7 +24,7 @@ export default function App({
             },
           }}
         />
-        <SignInModal />
+        <SettingsModal />
       </DialogProvider>
     </SessionProvider>
   );

@@ -2,10 +2,10 @@ import {
   CATEGORIES,
   CATEGORY_TO_COLOR,
   animationVariant,
-} from "@/src/constants";
-import { BillingUsageResponse, Category } from "@/src/types";
-import useInterval from "@/src/use-interval";
-import { dateFormat } from "@/src/utils";
+} from "@/lib/constants";
+import { BillingUsageResponse, Category } from "@/lib/types";
+import useInterval from "@/lib/use-interval";
+import { dateFormat } from "@/lib/utils";
 import {
   AreaChart,
   BarChart,
@@ -27,6 +27,36 @@ const dataFormatter = (number: number) => {
 };
 
 type Select = "daily" | "cumulative";
+
+// import { addMock, enableMocking } from "@/lib/mock-axios";
+// import subscription from "../fixtures/openai/subscription.json";
+// import usageDay1 from "../fixtures/openai/usage-day-1.json";
+// import usageRange from "../fixtures/openai/usage-range.json";
+
+// addMock(
+//   `https://api.openai.com/dashboard/billing/usage?start_date=${format(
+//     startOfMonth(new Date()),
+//     "yyyy-MM-dd"
+//   )}&end_date=${format(new Date(), "yyyy-MM-dd")}`,
+//   { data: usageRange, status: 200 }
+// );
+
+// for (let i = 1; i < 30; i++) {
+//   const date = format(new Date(2023, 3, i), "yyyy-MM-dd");
+//   addMock(`https://api.openai.com/v1/usage?date=${date}`, {
+//     data: usageDay1,
+//     status: 200,
+//   });
+// }
+
+// addMock("https://api.openai.com/dashboard/billing/subscription", {
+//   data: {
+//     subscription,
+//     status: 200,
+//   },
+// });
+
+// enableMocking(true);
 
 const LoadingChart = () => {
   const loadingBarHeights = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
@@ -81,10 +111,12 @@ const MonthlyChart = ({
   startDate,
   endDate,
   categories,
+  demo,
 }: {
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   categories: Category[];
+  demo: boolean;
 }) => {
   const [cumulativeData, setCumulativeData] = useState<any[]>([]);
   const [data, setData] = useState<any[]>([]);
@@ -242,7 +274,7 @@ const MonthlyChart = ({
     })();
   }, [startDate, endDate]);
 
-  if (loading) {
+  if (loading || demo) {
     return (
       <motion.div
         initial="hidden"

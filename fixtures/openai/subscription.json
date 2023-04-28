@@ -1,0 +1,30 @@
+{
+  "object": "billing_subscription",
+  "has_payment_method": true,
+  "canceled": false,
+  "canceled_at": null,
+  "delinquent": null,
+  "access_until": 1667260800,
+  "soft_limit": 1600000,
+  "hard_limit": 2000000,
+  "system_hard_limit": 8333333,
+  "soft_limit_usd": 96.0,
+  "hard_limit_usd": 120.0,
+  "system_hard_limit_usd": 499.99998,
+  "plan": {
+    "title": "Pay-as-you-go",
+    "id": "payg"
+  },
+  "account_name": "Dillion Verma",
+  "po_number": null,
+  "billing_email": null,
+  "tax_ids": null,
+  "billing_address": {
+    "city": "San Francisco",
+    "line1": "123",
+    "state": "California",
+    "country": "US",
+    "postal_code": "94123"
+  },
+  "business_address": null
+}
