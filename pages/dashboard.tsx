@@ -65,7 +65,7 @@ export default function KpiCardGrid() {
 
   return (
     <div>
-      <Flex className="md:flex-row flex-col items-start lg:items-center space-y-4">
+      <Flex className="lg:flex-row flex-col items-start lg:items-center space-y-4">
         <div className="space-y-2">
           <div className="flex flex-row space-x-3">
             <Title>OpenAI Analytics</Title>
