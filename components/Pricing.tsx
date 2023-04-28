@@ -21,10 +21,11 @@ const plans = [
     isMostPop: false,
     features: [
       "Real-time analytics",
+      "Email alerts (coming soon)",
+      "Slack alerts (coming soon)",
+      "Weekly reports (coming soon)",
       "Priority support",
       "Feature requests",
-      "Email Alerts",
-      "Slack alerts",
     ],
   },
   // {
