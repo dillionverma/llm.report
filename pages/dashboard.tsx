@@ -6,6 +6,7 @@ import { CATEGORIES } from "@/lib/constants";
 import { addMock, enableMocking } from "@/lib/mock-axios";
 import { Category } from "@/lib/types";
 import {
+  Badge,
   Card,
   DateRangePicker,
   DateRangePickerValue,
@@ -19,6 +20,7 @@ import {
 import { add, format, startOfMonth, sub } from "date-fns";
 import { useEffect, useState } from "react";
 
+import { SignalIcon } from "@heroicons/react/24/solid";
 import subscription from "../fixtures/openai/subscription.json";
 import usageDay1 from "../fixtures/openai/usage-day-1.json";
 import usageRange from "../fixtures/openai/usage-range.json";
@@ -65,9 +67,15 @@ export default function KpiCardGrid() {
     <div>
       <Flex className="md:flex-row flex-col items-start lg:items-center space-y-4">
         <div className="space-y-2">
-          <Title>OpenAI Analytics</Title>
+          <div className="flex flex-row space-x-3">
+            <Title>OpenAI Analytics</Title>
+            <Badge className="px-3 space-x-1" icon={SignalIcon}>
+              demo
+            </Badge>
+          </div>
           <Text>Let&apos;s see how we&apos;re doing today</Text>
         </div>
+
         <div className="w-full max-w-2xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col">
           <DateRangePicker
             value={value}
