@@ -99,12 +99,12 @@ export const priceIds: PriceIds = {
   },
   production: {
     Developer: {
-      month: "",
-      year: "",
+      month: "price_1N1l0VB24wj8TkEzpiEMiwC7",
+      year: "price_1N1l0VB24wj8TkEzjIRPGpHV",
     },
     Startup: {
-      month: "",
-      year: "",
+      month: "price_1N1l0WB24wj8TkEz5IsaCQyj",
+      year: "price_1N1l0WB24wj8TkEzuomJxsqb",
     },
   },
 };
