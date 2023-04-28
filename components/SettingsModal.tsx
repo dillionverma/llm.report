@@ -134,7 +134,7 @@ const SettingsModal = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-[80vw] lg:w-[60vw] max-h-[80%] max-w-screen transform overflow-hidden rounded-2xl bg-white text-center align-middle shadow-xl transition-all ">
+                <Dialog.Panel className="max-w-screen min-w-[80vw] lg:max-w-[60vw] max-h-[80%] max-w-screen transform overflow-hidden rounded-2xl bg-white text-center align-middle shadow-xl transition-all ">
                   {session?.user ? (
                     <>
                       <div className="relative text-gray-500 sm:hidden p-4">
@@ -332,6 +332,7 @@ const SettingsModal = () => {
                           className="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
                           src="/screenshot.png"
                           alt="App screenshot"
+                          rel="preload"
                           width={1824}
                           height={1080}
                         />
