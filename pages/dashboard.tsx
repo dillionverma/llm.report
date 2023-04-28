@@ -67,32 +67,7 @@ export default function KpiCardGrid() {
         <div className="space-y-2">
           <Title>OpenAI Analytics</Title>
           <Text>Let&apos;s see how we&apos;re doing today</Text>
-
-          {/* {process.env.NODE_ENV === "development" ? (
-            <>
-              <script
-                async
-                src="https://js.stripe.com/v3/buy-button.js"
-              ></script>
-              <stripe-buy-button
-                buy-button-id="buy_btn_1N1HIoB24wj8TkEzgwFtnzpU"
-                publishable-key="pk_test_51N1AtxB24wj8TkEzMfn8iSqXkThvyKEaiWrGe7L8DQaGhojJpaud2xWyCQfzymmK7ZPwsewSYzg0i1fSkSpnMpjG00w9h7rhtj"
-              />
-            </>
-          ) : (
-            <>
-              <script
-                async
-                src="https://js.stripe.com/v3/buy-button.js"
-              ></script>
-              <stripe-buy-button
-                buy-button-id="buy_btn_1N1HF1B24wj8TkEzCn4mLzy9"
-                publishable-key="pk_live_51N1AtxB24wj8TkEz3li5RqdgbYON9DXrSudOzmMc80gegb5h8CFPpXIUEvIur8yckJlmsbR8sqKrN58O5m6h8uOW00Syk5n0vt"
-              />
-            </>
-          )} */}
         </div>
-
         <div className="w-full max-w-2xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col">
           <DateRangePicker
             value={value}
