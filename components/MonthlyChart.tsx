@@ -116,7 +116,7 @@ const MonthlyChart = ({
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   categories: Category[];
-  demo: boolean;
+  demo?: boolean;
 }) => {
   const [cumulativeData, setCumulativeData] = useState<any[]>([]);
   const [data, setData] = useState<any[]>([]);
