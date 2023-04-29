@@ -1,8 +1,4 @@
-import {
-  FIRST_VISIT_AFTER_LOGIN,
-  FIRST_VISIT_KEY,
-  LOCAL_STORAGE_KEY,
-} from "@/lib/constants";
+import { FIRST_VISIT_KEY, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Dialog, Transition } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
@@ -422,8 +418,8 @@ const SettingsModal = () => {
 
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
 
-  const [firstVisitAfterLogin, setFirstVisitAfterLogin] =
-    useLocalStorage<boolean>(FIRST_VISIT_AFTER_LOGIN, true);
+  // const [firstVisitAfterLogin, setFirstVisitAfterLogin] =
+  //   useLocalStorage<boolean>(FIRST_VISIT_AFTER_LOGIN, true);
 
   useEffect(() => {
     setTimeout(() => {
@@ -437,14 +433,14 @@ const SettingsModal = () => {
   }, [firstVisit, subscribed, session?.user]);
 
   useEffect(() => {
-    if (!firstVisitAfterLogin) return;
+    // if (!firstVisitAfterLogin) return;
 
     if (session?.user && !subscribed) {
-      setFirstVisitAfterLogin(false);
+      // setFirstVisitAfterLogin(false);
       openDialog();
       toast("Choose a payment plan", { icon: "💳", duration: 10000 });
     }
-  }, [firstVisitAfterLogin, subscribed, session?.user]);
+  }, [subscribed, session?.user]);
 
   useEffect(() => {
     if (session?.user && subscribed && !key) {
