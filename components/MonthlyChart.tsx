@@ -245,7 +245,7 @@ const MonthlyChart = ({
         }
       );
     })();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, key]);
 
   if (loading || demo) {
     return (

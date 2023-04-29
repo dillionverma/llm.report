@@ -17,7 +17,6 @@ import axios from "axios";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 const MonthlyUsage = ({
   startDate,
@@ -72,8 +71,8 @@ const MonthlyUsage = ({
           }
         );
       } catch (e: any) {
-        toast.error(e.response.data.error.message);
-        setLoading(false);
+        // toast.error(e.response.data.error.message);
+        // setLoading(false);
         return;
       }
 
@@ -113,7 +112,7 @@ const MonthlyUsage = ({
       setData(data);
       setSubscription(subscriptionResponse.data);
     })();
-  }, [startDate, endDate, categories]);
+  }, [startDate, endDate, categories, key]);
 
   if (loading || !subscription || !percentage || !data || data?.length === 0) {
     return (

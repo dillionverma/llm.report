@@ -127,28 +127,34 @@ const Tokens = ({
 
       const dates = dateRange(startDate, endDate);
 
-      const data = await Promise.all(
-        dates.map(async (date) => {
-          const query = {
-            // ...query,
-            date: format(date, "yyyy-MM-dd"),
-          };
+      let data;
+      try {
+        data = await Promise.all(
+          dates.map(async (date) => {
+            const query = {
+              // ...query,
+              date: format(date, "yyyy-MM-dd"),
+            };
 
-          const res = await axios.get<UsageResponse>(
-            `https://api.openai.com/v1/usage?date=${format(
-              date,
-              "yyyy-MM-dd"
-            )}`,
-            {
-              headers: {
-                Authorization: `Bearer ${key}`,
-              },
-            }
-          );
+            const res = await axios.get<UsageResponse>(
+              `https://api.openai.com/v1/usage?date=${format(
+                date,
+                "yyyy-MM-dd"
+              )}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${key}`,
+                },
+              }
+            );
 
-          return res.data;
-        })
-      );
+            return res.data;
+          })
+        );
+      } catch (e) {
+        console.error(e);
+        return;
+      }
 
       const cumulativeUsage = data.reduce(
         (acc, cv) => {
@@ -234,7 +240,7 @@ const Tokens = ({
 
       setLoading(false);
     })();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, key]);
 
   const tabcategories = [
     { key: "total", name: "Total", icon: ChartBarIcon },

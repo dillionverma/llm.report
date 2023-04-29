@@ -180,7 +180,7 @@ const Requests = ({
       );
       setLoading(false);
     })();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, key]);
 
   return (
     <>

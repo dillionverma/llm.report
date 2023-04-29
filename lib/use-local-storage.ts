@@ -36,7 +36,7 @@ const useLocalStorage = <T>(
     const intervalId = setInterval(() => {
       const storedValue = localStorage.getItem(key);
       if (storedValue !== null && storedValue !== prevValue) {
-        prevValue = storedValue;
+        prevValue = JSON.parse(storedValue);
         setValue(JSON.parse(storedValue));
       }
     }, 1000);
