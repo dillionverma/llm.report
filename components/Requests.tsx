@@ -3,6 +3,7 @@
 import { LOCAL_STORAGE_KEY, animationVariant } from "@/lib/constants";
 import { Category, UsageResponse } from "@/lib/types";
 import useInterval from "@/lib/use-interval";
+import useLocalStorage from "@/lib/use-local-storage";
 import { ChartBarIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import {
   BarList,
@@ -95,6 +96,7 @@ const Requests = ({
   const [requestData, setRequestData] = useState<
     { name: string; value: number }[]
   >([]);
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
 
   useEffect(() => {
     (async () => {
@@ -112,8 +114,6 @@ const Requests = ({
             // ...query,
             date: format(date, "yyyy-MM-dd"),
           };
-
-          const key = localStorage.getItem(LOCAL_STORAGE_KEY) || "";
 
           const res = await axios.get<UsageResponse>(
             `https://api.openai.com/v1/usage?date=${format(

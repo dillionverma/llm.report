@@ -20,6 +20,7 @@ import {
 import { add, format, startOfMonth, sub } from "date-fns";
 import { useEffect, useState } from "react";
 
+import useLocalStorage from "@/lib/use-local-storage";
 import axios from "axios";
 import subscription from "../fixtures/openai/subscription.json";
 import usageDay1 from "../fixtures/openai/usage-day-1.json";
@@ -33,56 +34,77 @@ export default function KpiCardGrid() {
   ]);
 
   const [subscribed, setSubscribed] = useState(false);
-  const [key, setKey] = useState("");
-
-  useEffect(() => {
-    const key = localStorage.getItem(LOCAL_STORAGE_KEY) || "";
-    setKey(key);
-  }, []);
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+  const [validKey, setValidKey] = useState(false);
 
   useEffect(() => {
     (async () => {
       const res = await axios.get("/api/v1/me");
+      console.log(res);
 
       const isSubscribed =
         res.data.user.subscriptions.filter(
           (sub: any) => sub.status === "active"
+        ).length > 0 ||
+        res.data.user.payments.filter(
+          (payment: any) => payment.status === "succeeded"
         ).length > 0;
 
-      console.log(res);
       setSubscribed(isSubscribed);
     })();
   }, []);
 
   useEffect(() => {
-    if (!value[0] || !value[1]) return;
+    const ping = async (): Promise<boolean> => {
+      try {
+        const res = await axios.get(
+          "https://api.openai.com/dashboard/billing/subscription",
+          {
+            headers: {
+              Authorization: `Bearer ${key}`,
+            },
+          }
+        );
+        setValidKey(true);
+        return true;
+      } catch (e) {
+        setValidKey(false);
+        return false;
+      }
+    };
 
-    console.log("subscribed", subscribed);
-    if (!subscribed) {
-      addMock(
-        `https://api.openai.com/dashboard/billing/usage?start_date=${format(
-          value[0],
-          "yyyy-MM-dd"
-        )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
-        { data: usageRange, status: 200 }
-      );
+    (async () => {
+      const working = await ping();
+      if (!value[0] || !value[1]) return;
 
-      for (let i = 0; i < 300; i++) {
-        const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
-        addMock(`https://api.openai.com/v1/usage?date=${date}`, {
-          data: usageDay1,
+      if (!subscribed || !key || !working) {
+        addMock(
+          `https://api.openai.com/dashboard/billing/usage?start_date=${format(
+            value[0],
+            "yyyy-MM-dd"
+          )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
+          { data: usageRange, status: 200 }
+        );
+
+        for (let i = 0; i < 300; i++) {
+          const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
+          addMock(`https://api.openai.com/v1/usage?date=${date}`, {
+            data: usageDay1,
+            status: 200,
+          });
+        }
+
+        addMock("https://api.openai.com/dashboard/billing/subscription", {
+          data: subscription,
           status: 200,
         });
+
+        enableMocking(true);
+      } else {
+        enableMocking(false);
       }
-
-      addMock("https://api.openai.com/dashboard/billing/subscription", {
-        data: subscription,
-        status: 200,
-      });
-
-      enableMocking(true);
-    }
-  }, [value]);
+    })();
+  }, [value, key, subscribed]);
 
   const [categories, setCategories] = useState<Category[]>(
     CATEGORIES.filter((c) => c !== "Total Cost ($)")
@@ -136,11 +158,11 @@ export default function KpiCardGrid() {
                   </span>
                 )}
               >
-                subscribe to a plan
+                waiting for subscription
               </Badge>
             )}
 
-            {key && subscribed && (
+            {key && subscribed && validKey && (
               <Badge
                 className="px-3 space-x-2"
                 color="green"
@@ -152,6 +174,21 @@ export default function KpiCardGrid() {
                 )}
               >
                 live
+              </Badge>
+            )}
+
+            {key && subscribed && !validKey && (
+              <Badge
+                className="px-3 space-x-2"
+                color="red"
+                icon={() => (
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                  </span>
+                )}
+              >
+                invalid key
               </Badge>
             )}
           </div>

@@ -26,6 +26,7 @@ export default async function handler(
       },
       include: {
         subscriptions: true,
+        payments: true,
       },
     });
 

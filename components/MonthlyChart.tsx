@@ -6,6 +6,7 @@ import {
 } from "@/lib/constants";
 import { BillingUsageResponse, Category } from "@/lib/types";
 import useInterval from "@/lib/use-interval";
+import useLocalStorage from "@/lib/use-local-storage";
 import { dateFormat } from "@/lib/utils";
 import {
   AreaChart,
@@ -97,6 +98,7 @@ const MonthlyChart = ({
   >([]);
   const [loading, setLoading] = useState(false);
   const [totalUsage, setTotalUsage] = useState(0);
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
 
   useEffect(() => {
     const totalUsage = dailyCosts.reduce((acc, cv) => {
@@ -128,7 +130,6 @@ const MonthlyChart = ({
         end_date: format(endDate, "yyyy-MM-dd"),
       };
 
-      const key = localStorage.getItem(LOCAL_STORAGE_KEY) || "";
       toast.promise(
         axios.get<BillingUsageResponse>(
           `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
@@ -238,7 +239,7 @@ const MonthlyChart = ({
             return "Ready!";
           },
           error: (err) => {
-            setLoading(false);
+            // setLoading(false);
             return err.response.data.error.message;
           },
         }

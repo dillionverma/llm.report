@@ -1,4 +1,5 @@
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
+import useLocalStorage from "@/lib/use-local-storage";
 import { Dialog, Transition } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
@@ -112,18 +113,11 @@ export function useDialog() {
 }
 
 const Settings = () => {
-  const [key, setKey] = useState<string>("");
-
-  useEffect(() => {
-    // get from local storage
-    const k = localStorage.getItem(LOCAL_STORAGE_KEY) || "";
-    setKey(k);
-  }, []);
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     // save to local storage
-    localStorage.setItem(name, value);
     setKey(value);
   };
 
@@ -139,7 +133,7 @@ const Settings = () => {
           name={LOCAL_STORAGE_KEY}
           onChange={onChange}
           required
-          value={key}
+          value={key as string}
           className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
           placeholder="sk-5q293fh..."
         />

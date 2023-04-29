@@ -61,6 +61,7 @@ const getMockResponse = (mockError: AxiosError): Promise<AxiosResponse> => {
 // Add a request interceptor
 axios.interceptors.request.use(
   async (config) => {
+    console.log("IS ENABLED", mockingEnabled);
     if (mockingEnabled && isUrlMocked(config.url as string)) {
       console.log("axios mocking " + config.url);
       await new Promise((resolve) => setTimeout(resolve, 800));

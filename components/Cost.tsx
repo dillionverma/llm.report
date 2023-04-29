@@ -4,6 +4,7 @@ import {
   BillingUsageResponse,
   Category,
 } from "@/lib/types";
+import useLocalStorage from "@/lib/use-local-storage";
 import {
   DonutChart,
   Flex,
@@ -16,6 +17,7 @@ import axios from "axios";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const MonthlyUsage = ({
   startDate,
@@ -32,6 +34,8 @@ const MonthlyUsage = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [percentage, setPercentage] = useState<number>(0);
 
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+
   useEffect(() => {
     (async () => {
       if (!startDate || !endDate) {
@@ -40,34 +44,40 @@ const MonthlyUsage = ({
 
       setLoading(true);
 
-      const key = localStorage.getItem(LOCAL_STORAGE_KEY) || "";
+      let subscriptionResponse;
+      let usageResponse;
 
-      const subscriptionResponse = await axios.get<BillingSubscriptionResponse>(
-        `https://api.openai.com/dashboard/billing/subscription`,
-        {
-          headers: {
-            Authorization: `Bearer ${key}`,
-          },
-        }
-      );
+      try {
+        subscriptionResponse = await axios.get<BillingSubscriptionResponse>(
+          `https://api.openai.com/dashboard/billing/subscription`,
+          {
+            headers: {
+              Authorization: `Bearer ${key}`,
+            },
+          }
+        );
+        const query = {
+          start_date: format(startDate, "yyyy-MM-dd"),
+          end_date: format(endDate, "yyyy-MM-dd"),
+        };
 
-      const query = {
-        start_date: format(startDate, "yyyy-MM-dd"),
-        end_date: format(endDate, "yyyy-MM-dd"),
-      };
+        usageResponse = await axios.get<BillingUsageResponse>(
+          `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
+            query
+          )}`,
+          {
+            headers: {
+              Authorization: `Bearer ${key}`,
+            },
+          }
+        );
+      } catch (e: any) {
+        toast.error(e.response.data.error.message);
+        setLoading(false);
+        return;
+      }
 
-      const usage = await axios.get<BillingUsageResponse>(
-        `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
-          query
-        )}`,
-        {
-          headers: {
-            Authorization: `Bearer ${key}`,
-          },
-        }
-      );
-
-      const cumulativeTotalCost = usage.data.daily_costs.reduce(
+      const cumulativeTotalCost = usageResponse.data.daily_costs.reduce(
         (acc, { line_items }) =>
           line_items.reduce((innerAcc, { name, cost }) => {
             if (!categories.includes(name as Category)) {
@@ -95,7 +105,7 @@ const MonthlyUsage = ({
 
       setPercentage(
         subscriptionResponse
-          ? (usage.data.total_usage / 100) *
+          ? (usageResponse.data.total_usage / 100) *
               (subscriptionResponse.data.hard_limit / 10000)
           : 0
       );
