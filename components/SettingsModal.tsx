@@ -133,7 +133,7 @@ const Settings = () => {
       className="space-y-5 mt-12 lg:pb-12 text-left"
     >
       <div>
-        <label className="font-medium">OpenAI API Key</label>
+        <label className="font-medium text-gray-500">OpenAI API Key</label>
         <input
           type="text"
           name={LOCAL_STORAGE_KEY}
