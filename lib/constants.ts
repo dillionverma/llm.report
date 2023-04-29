@@ -110,3 +110,5 @@ export const priceIds: PriceIds = {
 };
 
 export const LOCAL_STORAGE_KEY = "openai-key";
+export const FIRST_VISIT_KEY = "first-visit";
+export const FIRST_VISIT_AFTER_LOGIN = "first-visit-after-login";

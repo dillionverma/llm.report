@@ -15,15 +15,21 @@ export const createOrRetrieveCustomer = async ({
   email?: string;
   uuid: string;
 }) => {
+  console.log("Fetching user", uuid);
   const user = await prisma.user.findUnique({
     where: {
       id: uuid,
     },
   });
 
+  console.log("User: ", user);
+
   if (!user || !user.stripe_customer_id) {
-    const customerData: { metadata: { id: string } } = {
-      // email: user?.email,
+    const customerData: { metadata: { id: string }; email?: string } = {
+      // ...(email ? { email } : { email: user?.email! }),
+      // ...(email ? { email } : null),
+      // email: ,
+      email,
       metadata: {
         id: uuid,
       },

@@ -1,10 +1,15 @@
-import { LOCAL_STORAGE_KEY } from "@/lib/constants";
+import {
+  FIRST_VISIT_AFTER_LOGIN,
+  FIRST_VISIT_KEY,
+  LOCAL_STORAGE_KEY,
+} from "@/lib/constants";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Dialog, Transition } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Fragment,
   createContext,
@@ -124,7 +129,7 @@ const Settings = () => {
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
-      className="space-y-5 mt-12 lg:pb-12"
+      className="space-y-5 mt-12 lg:pb-12 text-left"
     >
       <div>
         <label className="font-medium">OpenAI API Key</label>
@@ -134,9 +139,24 @@ const Settings = () => {
           onChange={onChange}
           required
           value={key as string}
-          className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
+          className="w-full my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
           placeholder="sk-5q293fh..."
         />
+        <Link
+          href="https://beta.openai.com/account/api-keys"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-gray-500 underline mt-1 inline-block"
+        >
+          Get API Key
+        </Link>
+        <p className="text-sm text-gray-500 mt-1">
+          Note: The initial load may take up to 30 seconds.
+        </p>
+        <p className="text-sm text-gray-500 mt-1">
+          Note: We use your API key to generate the dashboard. API key is stored
+          locally.
+        </p>
       </div>
     </form>
   );
@@ -377,15 +397,45 @@ const SettingsModal = () => {
     (async () => {
       if (!session?.user) return;
       const res = await axios.get("/api/v1/me");
-
       const isSubscribed =
         res.data.user.subscriptions.filter(
           (sub: any) => sub.status === "active"
+        ).length > 0 ||
+        res.data.user.payments.filter(
+          (payment: any) => payment.status === "succeeded"
         ).length > 0;
 
       setSubscribed(isSubscribed);
     })();
-  }, []);
+  }, [session?.user]);
+
+  const [firstVisit, setFirstVisit] = useLocalStorage<boolean>(
+    FIRST_VISIT_KEY,
+    true
+  );
+
+  const [firstVisitAfterLogin, setFirstVisitAfterLogin] =
+    useLocalStorage<boolean>(FIRST_VISIT_AFTER_LOGIN, true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!firstVisit) return;
+      if (session?.user) return;
+      if (subscribed) return;
+
+      setFirstVisit(false);
+      openDialog();
+    }, 5000);
+  }, [firstVisit, openDialog, setFirstVisit]);
+
+  useEffect(() => {
+    if (!firstVisitAfterLogin) return;
+
+    if (session?.user && !subscribed) {
+      setFirstVisitAfterLogin(false);
+      openDialog();
+    }
+  }, [firstVisit, openDialog, setFirstVisit]);
 
   return (
     <>
@@ -393,10 +443,10 @@ const SettingsModal = () => {
         <Dialog as="div" className="relative z-10 " onClose={closeDialog}>
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-500"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            leave="ease-in duration-200"
+            leave="ease-in duration-400"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
@@ -407,23 +457,17 @@ const SettingsModal = () => {
             <div className="flex flex-col h-screen  min-w-screen items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
+                enter="ease-out duration-500"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
+                leave="ease-in duration-400"
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full  lg:w-[70vw] lg:max-w-[80vw] lg:max-h-[80vh] transform overflow-hidden rounded-2xl bg-white text-center align-middle shadow-xl transition-all ">
                   {session?.user ? (
                     <>
-                      {/* {!subscribed ? (
-                        <div className="overflow-y-auto h-full min-h-[70vh]">
-                          <Pricing />
-                        </div>
-                      ) : ( */}
                       <Main />
-                      {/* )} */}
                     </>
                   ) : (
                     <Login />

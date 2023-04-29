@@ -22,7 +22,6 @@ import axios from "axios";
 import { format, parse } from "date-fns";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 const dataFormatter = (number: number) => {
   return "$ " + Intl.NumberFormat("us").format(number).toString();
@@ -130,119 +129,216 @@ const MonthlyChart = ({
         end_date: format(endDate, "yyyy-MM-dd"),
       };
 
-      toast.promise(
-        axios.get<BillingUsageResponse>(
-          `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
-            query
-          )}`,
-          {
-            headers: {
-              Authorization: `Bearer ${key}`,
-            },
-          }
-        ),
+      const response = await axios.get<BillingUsageResponse>(
+        `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
+          query
+        )}`,
         {
-          loading: "Loading...",
-          success: (response) => {
-            // console.log(response);
-            const daily_costs = response.data.daily_costs;
-            setDailyCosts(daily_costs);
-            // setTotalUsage(response.data.total_usage);
-
-            // console.log(daily_costs);
-
-            const totalUsage = daily_costs.reduce((acc, cv) => {
-              return (
-                acc +
-                cv.line_items.reduce(
-                  (acc, cv) =>
-                    acc + (new Set(categories).has(cv.name) ? cv.cost : 0),
-                  0
-                )
-              );
-            }, 0);
-
-            setTotalUsage(totalUsage);
-
-            const data = daily_costs
-              .map((day) => {
-                return {
-                  date: dateFormat(day.timestamp),
-                  ...day.line_items.reduce((acc, cv) => {
-                    return {
-                      ...acc,
-                      [cv.name]: (cv.cost / 100).toFixed(2),
-                    };
-                  }, {}),
-                  "Total Cost ($)": (
-                    day.line_items.reduce((acc, cv) => acc + cv.cost, 0) / 100
-                  ).toFixed(2),
-                };
-              })
-              .filter(
-                (day) => parse(day.date, "MMM d", new Date()) < new Date()
-              );
-
-            const cumulativeData = daily_costs
-              .map((day, index) => {
-                return {
-                  date: dateFormat(day.timestamp),
-                  ...day.line_items.reduce((acc, cv) => {
-                    return {
-                      ...acc,
-                      [cv.name]: (cv.cost / 100).toFixed(2),
-                    };
-                  }, {}),
-                  ...CATEGORIES.map((category) => {
-                    return {
-                      [category]: (
-                        daily_costs
-                          .slice(0, index + 1)
-                          .reduce(
-                            (acc, cv) =>
-                              acc +
-                              cv.line_items.reduce(
-                                (acc, cv) =>
-                                  acc + (cv.name === category ? cv.cost : 0),
-                                0
-                              ),
-                            0
-                          ) / 100
-                      ).toFixed(2),
-                    };
-                  }).reduce((acc, value) => {
-                    return {
-                      ...acc,
-                      ...value,
-                    };
-                  }, {}),
-                  "Total Cost ($)": (
-                    daily_costs
-                      .slice(0, index + 1)
-                      .reduce(
-                        (acc, cv) =>
-                          acc +
-                          cv.line_items.reduce((acc, cv) => acc + cv.cost, 0),
-                        0
-                      ) / 100
-                  ).toFixed(2),
-                };
-              })
-              .filter(
-                (day) => parse(day.date, "MMM d", new Date()) < new Date()
-              );
-
-            setCumulativeData(cumulativeData);
-            setData(data);
-            setLoading(false);
-            return "Ready!";
-          },
-          error: (err) => {
-            // setLoading(false);
-            return err.response.data.error.message;
+          headers: {
+            Authorization: `Bearer ${key}`,
           },
         }
       );
+
+      // console.log(response);
+      const daily_costs = response.data.daily_costs;
+      setDailyCosts(daily_costs);
+      // setTotalUsage(response.data.total_usage);
+
+      // console.log(daily_costs);
+
+      const totalUsage = daily_costs.reduce((acc, cv) => {
+        return (
+          acc +
+          cv.line_items.reduce(
+            (acc, cv) => acc + (new Set(categories).has(cv.name) ? cv.cost : 0),
+            0
+          )
+        );
+      }, 0);
+
+      setTotalUsage(totalUsage);
+
+      const data = daily_costs
+        .map((day) => {
+          return {
+            date: dateFormat(day.timestamp),
+            ...day.line_items.reduce((acc, cv) => {
+              return {
+                ...acc,
+                [cv.name]: (cv.cost / 100).toFixed(2),
+              };
+            }, {}),
+            "Total Cost ($)": (
+              day.line_items.reduce((acc, cv) => acc + cv.cost, 0) / 100
+            ).toFixed(2),
+          };
+        })
+        .filter((day) => parse(day.date, "MMM d", new Date()) < new Date());
+
+      const cumulativeData = daily_costs
+        .map((day, index) => {
+          return {
+            date: dateFormat(day.timestamp),
+            ...day.line_items.reduce((acc, cv) => {
+              return {
+                ...acc,
+                [cv.name]: (cv.cost / 100).toFixed(2),
+              };
+            }, {}),
+            ...CATEGORIES.map((category) => {
+              return {
+                [category]: (
+                  daily_costs
+                    .slice(0, index + 1)
+                    .reduce(
+                      (acc, cv) =>
+                        acc +
+                        cv.line_items.reduce(
+                          (acc, cv) =>
+                            acc + (cv.name === category ? cv.cost : 0),
+                          0
+                        ),
+                      0
+                    ) / 100
+                ).toFixed(2),
+              };
+            }).reduce((acc, value) => {
+              return {
+                ...acc,
+                ...value,
+              };
+            }, {}),
+            "Total Cost ($)": (
+              daily_costs
+                .slice(0, index + 1)
+                .reduce(
+                  (acc, cv) =>
+                    acc + cv.line_items.reduce((acc, cv) => acc + cv.cost, 0),
+                  0
+                ) / 100
+            ).toFixed(2),
+          };
+        })
+        .filter((day) => parse(day.date, "MMM d", new Date()) < new Date());
+
+      setCumulativeData(cumulativeData);
+      setData(data);
+      setLoading(false);
+
+      // toast.promise(
+      //   axios.get<BillingUsageResponse>(
+      //     `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
+      //       query
+      //     )}`,
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${key}`,
+      //       },
+      //     }
+      //   ),
+      //   {
+      //     loading: "Loading...",
+      //     success: (response) => {
+      //       // console.log(response);
+      //       const daily_costs = response.data.daily_costs;
+      //       setDailyCosts(daily_costs);
+      //       // setTotalUsage(response.data.total_usage);
+
+      //       // console.log(daily_costs);
+
+      //       const totalUsage = daily_costs.reduce((acc, cv) => {
+      //         return (
+      //           acc +
+      //           cv.line_items.reduce(
+      //             (acc, cv) =>
+      //               acc + (new Set(categories).has(cv.name) ? cv.cost : 0),
+      //             0
+      //           )
+      //         );
+      //       }, 0);
+
+      //       setTotalUsage(totalUsage);
+
+      //       const data = daily_costs
+      //         .map((day) => {
+      //           return {
+      //             date: dateFormat(day.timestamp),
+      //             ...day.line_items.reduce((acc, cv) => {
+      //               return {
+      //                 ...acc,
+      //                 [cv.name]: (cv.cost / 100).toFixed(2),
+      //               };
+      //             }, {}),
+      //             "Total Cost ($)": (
+      //               day.line_items.reduce((acc, cv) => acc + cv.cost, 0) / 100
+      //             ).toFixed(2),
+      //           };
+      //         })
+      //         .filter(
+      //           (day) => parse(day.date, "MMM d", new Date()) < new Date()
+      //         );
+
+      //       const cumulativeData = daily_costs
+      //         .map((day, index) => {
+      //           return {
+      //             date: dateFormat(day.timestamp),
+      //             ...day.line_items.reduce((acc, cv) => {
+      //               return {
+      //                 ...acc,
+      //                 [cv.name]: (cv.cost / 100).toFixed(2),
+      //               };
+      //             }, {}),
+      //             ...CATEGORIES.map((category) => {
+      //               return {
+      //                 [category]: (
+      //                   daily_costs
+      //                     .slice(0, index + 1)
+      //                     .reduce(
+      //                       (acc, cv) =>
+      //                         acc +
+      //                         cv.line_items.reduce(
+      //                           (acc, cv) =>
+      //                             acc + (cv.name === category ? cv.cost : 0),
+      //                           0
+      //                         ),
+      //                       0
+      //                     ) / 100
+      //                 ).toFixed(2),
+      //               };
+      //             }).reduce((acc, value) => {
+      //               return {
+      //                 ...acc,
+      //                 ...value,
+      //               };
+      //             }, {}),
+      //             "Total Cost ($)": (
+      //               daily_costs
+      //                 .slice(0, index + 1)
+      //                 .reduce(
+      //                   (acc, cv) =>
+      //                     acc +
+      //                     cv.line_items.reduce((acc, cv) => acc + cv.cost, 0),
+      //                   0
+      //                 ) / 100
+      //             ).toFixed(2),
+      //           };
+      //         })
+      //         .filter(
+      //           (day) => parse(day.date, "MMM d", new Date()) < new Date()
+      //         );
+
+      //       setCumulativeData(cumulativeData);
+      //       setData(data);
+      //       setLoading(false);
+      //       return "Ready!";
+      //     },
+      //     error: (err) => {
+      //       // setLoading(false);
+      //       return err.response.data.error.message;
+      //     },
+      //   }
+      // );
     })();
   }, [startDate, endDate, key]);
 

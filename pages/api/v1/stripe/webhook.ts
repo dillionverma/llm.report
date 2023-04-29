@@ -64,6 +64,10 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           case "customer.subscription.updated":
           case "customer.subscription.deleted":
             const subscription = event.data.object as Stripe.Subscription;
+            console.log("SUB", subscription);
+
+            console.log("SUBSCRIPTION ID: ", subscription.customer);
+
             await manageSubscriptionStatusChange(
               subscription.id,
               subscription.customer as string,
@@ -73,19 +77,27 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           case "checkout.session.completed":
             const checkoutSession = event.data
               .object as Stripe.Checkout.Session;
-            const customerId = await createOrRetrieveCustomer({
-              uuid: checkoutSession.client_reference_id as string,
-              email: (checkoutSession.customer_email as string) || "",
-            });
 
             if (checkoutSession.mode === "subscription") {
+              const user = await prisma?.user.update({
+                where: {
+                  id: checkoutSession.client_reference_id as string,
+                },
+                data: {
+                  stripe_customer_id: checkoutSession.customer as string,
+                },
+              });
               const subscriptionId = checkoutSession.subscription;
               await manageSubscriptionStatusChange(
                 subscriptionId as string,
-                customerId as string,
+                user?.stripe_customer_id as string,
                 true
               );
             } else if (checkoutSession.mode === "payment") {
+              const customerId = await createOrRetrieveCustomer({
+                uuid: checkoutSession.client_reference_id as string,
+                email: checkoutSession.customer_email as string,
+              });
               const paymentIntentId = checkoutSession.payment_intent;
               console.log(checkoutSession);
               await upsertPaymentIntentRecord(

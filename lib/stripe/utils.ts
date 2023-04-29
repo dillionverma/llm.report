@@ -52,7 +52,7 @@ export const manageSubscriptionStatusChange = async (
   });
 
   console.log(
-    `User [${user?.id}] is changing subscription [${subscriptionId} wth customer [${customerId}]`
+    `User [${user?.id}] is changing subscription [${subscriptionId}] wth customer [${customerId}]`
   );
 
   if (!user) {

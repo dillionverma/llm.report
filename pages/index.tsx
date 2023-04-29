@@ -35,7 +35,7 @@ export default function Home() {
               {/* <DropdownMenuDemo /> */}
             </div>
           ) : (
-            <Button onClick={openDialog}>Login</Button>
+            <Button onClick={openDialog}>Get Started</Button>
           )}
         </nav>
       </header>

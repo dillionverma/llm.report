@@ -15,7 +15,10 @@
     "stripe:fixtures": "stripe fixtures fixtures/stripe.json",
     "migrate:prod": "dotenv -e .env -- npx prisma db push",
     "migrate:dev": "dotenv -e .env.local -- npx prisma db push",
-    "migrate:reset": "dotenv -e .env.local -- npx prisma migrate reset"
+    "db:drop:dev": "dotenv -e .env.local -- npx prisma migrate reset",
+    "db:drop:prod": "dotenv -e .env -- npx prisma migrate reset",
+    "db:reset:dev": "yarn db:drop:dev && yarn migrate:dev",
+    "db:reset:prod": "yarn db:drop:prod && yarn migrate:prod"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",

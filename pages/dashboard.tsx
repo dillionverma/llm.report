@@ -1,6 +1,7 @@
 import Cost from "@/components/Cost";
 import MonthlyChart from "@/components/MonthlyChart";
 import Requests from "@/components/Requests";
+import { useDialog } from "@/components/SettingsModal";
 import { default as Tokens } from "@/components/Tokens";
 import { CATEGORIES, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import { addMock, enableMocking } from "@/lib/mock-axios";
@@ -118,6 +119,8 @@ export default function KpiCardGrid() {
     CATEGORIES.filter((c) => c !== "Total Cost ($)")
   );
 
+  const { openDialog } = useDialog();
+
   return (
     <div>
       <Flex className="lg:flex-row flex-col items-start lg:items-center space-y-4">
@@ -127,7 +130,8 @@ export default function KpiCardGrid() {
 
             {!data?.user && (
               <Badge
-                className="px-3 space-x-2"
+                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
+                onClick={() => openDialog()}
                 color="blue"
                 icon={() => (
                   <span className="relative flex h-3 w-3">
@@ -142,7 +146,8 @@ export default function KpiCardGrid() {
 
             {!key && subscribed && (
               <Badge
-                className="px-3 space-x-2"
+                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
+                onClick={() => openDialog()}
                 color="red"
                 icon={() => (
                   <span className="relative flex h-3 w-3">
@@ -157,7 +162,8 @@ export default function KpiCardGrid() {
 
             {data?.user && !subscribed && (
               <Badge
-                className="px-3 space-x-2"
+                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
+                onClick={() => openDialog()}
                 color="red"
                 icon={() => (
                   <span className="relative flex h-3 w-3">
@@ -172,7 +178,8 @@ export default function KpiCardGrid() {
 
             {key && subscribed && validKey && (
               <Badge
-                className="px-3 space-x-2"
+                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
+                onClick={() => openDialog()}
                 color="green"
                 icon={() => (
                   <span className="relative flex h-3 w-3">
@@ -187,7 +194,8 @@ export default function KpiCardGrid() {
 
             {key && subscribed && !validKey && (
               <Badge
-                className="px-3 space-x-2"
+                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
+                onClick={() => openDialog()}
                 color="red"
                 icon={() => (
                   <span className="relative flex h-3 w-3">

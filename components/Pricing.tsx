@@ -50,6 +50,7 @@ const Pricing = () => {
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>("month");
   const [subscribed, setSubscribed] = useState(false);
+  const [isLifetime, setIsLifetime] = useState(false);
   const { data } = useSession();
 
   const handleCheckout = async (name: PricingPlan) => {
@@ -71,60 +72,88 @@ const Pricing = () => {
     }
   };
 
+  const [user, setUser] = useState<any>({});
+
   useEffect(() => {
     (async () => {
       if (!data?.user) return;
       const res = await axios.get("/api/v1/me");
+      console.log(res);
 
       const isSubscribed =
         res.data.user.subscriptions.filter(
           (sub: any) => sub.status === "active"
         ).length > 0;
 
-      setSubscribed(isSubscribed);
+      const isLifetime =
+        res.data.user.payments.filter(
+          (payment: any) => payment.status === "succeeded"
+        ).length > 0;
 
-      console.log(res.data);
+      setSubscribed(isSubscribed);
+      setIsLifetime(isLifetime);
+      setUser(res.data.user);
     })();
-  }, []);
+  }, [data?.user]);
 
   return (
     <section className="py-14">
       <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
-        <div className="relative max-w-xl mx-auto sm:text-center mb-8">
-          <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-            Choose a plan
-          </h3>
-        </div>
-
-        {process.env.NODE_ENV === "production" && (
+        {!subscribed && !isLifetime && (
           <>
-            {/* @ts-ignore */}
-            <stripe-pricing-table
-              client-reference-id={data?.user.id}
-              customer-email={data?.user.email}
-              pricing-table-id="prctbl_1N2Eb9B24wj8TkEzaJUNfSjS"
-              publishable-key="pk_live_51N1AtxB24wj8TkEz3li5RqdgbYON9DXrSudOzmMc80gegb5h8CFPpXIUEvIur8yckJlmsbR8sqKrN58O5m6h8uOW00Syk5n0vt"
-            />
+            <div className="relative max-w-xl mx-auto sm:text-center mb-8">
+              <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+                Choose a plan
+              </h3>
+            </div>
+
+            {process.env.NODE_ENV === "production" && (
+              <>
+                {/* @ts-ignore */}
+                <stripe-pricing-table
+                  client-reference-id={data?.user.id}
+                  customer-email={data?.user.email}
+                  pricing-table-id="prctbl_1N2Eb9B24wj8TkEzaJUNfSjS"
+                  publishable-key="pk_live_51N1AtxB24wj8TkEz3li5RqdgbYON9DXrSudOzmMc80gegb5h8CFPpXIUEvIur8yckJlmsbR8sqKrN58O5m6h8uOW00Syk5n0vt"
+                />
+              </>
+            )}
+
+            {process.env.NODE_ENV === "development" && (
+              <>
+                {/* @ts-ignore */}
+                <stripe-pricing-table
+                  client-reference-id={data?.user.id}
+                  customer-email={data?.user.email}
+                  pricing-table-id="prctbl_1N1vPHB24wj8TkEzwXcFhcOS"
+                  publishable-key="pk_test_51N1AtxB24wj8TkEzMfn8iSqXkThvyKEaiWrGe7L8DQaGhojJpaud2xWyCQfzymmK7ZPwsewSYzg0i1fSkSpnMpjG00w9h7rhtj"
+                />
+              </>
+            )}
           </>
         )}
 
-        {process.env.NODE_ENV === "development" && (
-          <>
-            {/* @ts-ignore */}
-            <stripe-pricing-table
-              client-reference-id={data?.user.id}
-              customer-email={data?.user.email}
-              pricing-table-id="prctbl_1N1vPHB24wj8TkEzwXcFhcOS"
-              publishable-key="pk_test_51N1AtxB24wj8TkEzMfn8iSqXkThvyKEaiWrGe7L8DQaGhojJpaud2xWyCQfzymmK7ZPwsewSYzg0i1fSkSpnMpjG00w9h7rhtj"
-            />
-          </>
-        )}
+        {(subscribed || isLifetime) && (
+          <div className="max-w-screen-xl mx-auto px-4 md:px-8">
+            <div className="items-start justify-between py-4 md:flex">
+              <div>
+                <h3 className="text-gray-800 text-2xl font-bold">Account</h3>
+              </div>
+              <div className="items-center gap-x-3 mt-6 md:mt-0 sm:flex"></div>
+            </div>
 
-        <div className="flex flex-col items-center mt-8">
-          <StripePortalButton customerId="123">
-            Manage Billing
-          </StripePortalButton>
-        </div>
+            {isLifetime && (
+              <div className="flex animate">
+                WOOHOO! You have lifetime access 🎉 🥳
+              </div>
+            )}
+            {subscribed && !isLifetime && (
+              <StripePortalButton customerId={user.stripe_customer_id}>
+                Manage Subscription
+              </StripePortalButton>
+            )}
+          </div>
+        )}
 
         {/* <div className="mt-16 justify-center gap-6 sm:grid sm:grid-cols-2 sm:space-y-0 lg:grid-cols-2">
           {plans.map((item, idx) => (
