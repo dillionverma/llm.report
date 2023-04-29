@@ -5,7 +5,7 @@ const DOMAIN = "https://llm.report";
 const Meta = ({
   title = "OpenAI Analytics Dashboard | LLM Report",
   description = "Analyze your OpenAI API usage and billing.",
-  image = `${DOMAIN}/screenshot.png`,
+  image = `${DOMAIN}/screenshot-og.png`,
   type = "website",
 }: {
   title?: string;
