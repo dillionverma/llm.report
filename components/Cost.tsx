@@ -22,10 +22,12 @@ const MonthlyUsage = ({
   startDate,
   endDate,
   categories,
+  defaultLoading,
 }: {
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   categories: Category[];
+  defaultLoading?: boolean;
 }) => {
   const [subscription, setSubscription] =
     useState<BillingSubscriptionResponse>();
@@ -114,7 +116,14 @@ const MonthlyUsage = ({
     })();
   }, [startDate, endDate, categories, key]);
 
-  if (loading || !subscription || !percentage || !data || data?.length === 0) {
+  if (
+    defaultLoading ||
+    loading ||
+    !subscription ||
+    !percentage ||
+    !data ||
+    data?.length === 0
+  ) {
     return (
       <motion.div
         initial="hidden"

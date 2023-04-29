@@ -87,10 +87,12 @@ const Requests = ({
   startDate,
   endDate,
   categories,
+  defaultLoading,
 }: {
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   categories: Category[];
+  defaultLoading?: boolean;
 }) => {
   const [loading, setLoading] = useState(false);
   const [requestData, setRequestData] = useState<
@@ -182,84 +184,69 @@ const Requests = ({
     })();
   }, [startDate, endDate, key]);
 
-  return (
-    <>
-      {loading ? (
-        <LoadingList />
-      ) : (
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          animate="show"
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-            },
-          }}
-        >
-          <Flex
-            justifyContent="start"
-            className="space-x-1"
-            alignItems="center"
-          >
-            <Title>Requests</Title>
-            <Icon
-              icon={InformationCircleIcon}
-              size="sm"
-              color="gray"
-              tooltip="Requests are the number of times you've called the API."
-            />
-          </Flex>
-          <Flex
-            justifyContent="start"
-            alignItems="baseline"
-            className="space-x-2"
-          >
-            <Metric>
-              {requestData
-                .reduce((acc, obj) => acc + obj.value, 0)
-                .toLocaleString("en-US", {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 0,
-                })}
-            </Metric>
-            <Text>Total Requests</Text>
-          </Flex>
-          <TabList
-            // onValueChange={(value) => setSelectedCategory(value)}
-            defaultValue={"Total"}
-            className="mt-6"
-          >
-            <Tab
-              key={"Total"}
-              value={"Total"}
-              icon={ChartBarIcon}
-              text={"Total"}
-            />
-          </TabList>
-          <Flex className="mt-4">
-            <Text>
-              <Bold>Model</Bold>
-            </Text>
-            <Text>
-              <Bold>Requests</Bold>
-            </Text>
-          </Flex>
+  if (defaultLoading || loading) {
+    return <LoadingList />;
+  }
 
-          <BarList
-            data={requestData}
-            className="mt-4"
-            valueFormatter={(v) =>
-              v.toLocaleString("en-US", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })
-            }
-          />
-        </motion.div>
-      )}
-    </>
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="show"
+      animate="show"
+      variants={{
+        hidden: { opacity: 0 },
+        show: {
+          opacity: 1,
+        },
+      }}
+    >
+      <Flex justifyContent="start" className="space-x-1" alignItems="center">
+        <Title>Requests</Title>
+        <Icon
+          icon={InformationCircleIcon}
+          size="sm"
+          color="gray"
+          tooltip="Requests are the number of times you've called the API."
+        />
+      </Flex>
+      <Flex justifyContent="start" alignItems="baseline" className="space-x-2">
+        <Metric>
+          {requestData
+            .reduce((acc, obj) => acc + obj.value, 0)
+            .toLocaleString("en-US", {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
+        </Metric>
+        <Text>Total Requests</Text>
+      </Flex>
+      <TabList
+        // onValueChange={(value) => setSelectedCategory(value)}
+        defaultValue={"Total"}
+        className="mt-6"
+      >
+        <Tab key={"Total"} value={"Total"} icon={ChartBarIcon} text={"Total"} />
+      </TabList>
+      <Flex className="mt-4">
+        <Text>
+          <Bold>Model</Bold>
+        </Text>
+        <Text>
+          <Bold>Requests</Bold>
+        </Text>
+      </Flex>
+
+      <BarList
+        data={requestData}
+        className="mt-4"
+        valueFormatter={(v) =>
+          v.toLocaleString("en-US", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          })
+        }
+      />
+    </motion.div>
   );
 };
 

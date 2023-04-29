@@ -375,6 +375,7 @@ const SettingsModal = () => {
 
   useEffect(() => {
     (async () => {
+      if (!session?.user) return;
       const res = await axios.get("/api/v1/me");
 
       const isSubscribed =
@@ -413,7 +414,7 @@ const SettingsModal = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full lg:w-[60vw] lg:max-w-[80vw] lg:max-h-[80vh] transform overflow-hidden rounded-2xl bg-white text-center align-middle shadow-xl transition-all ">
+                <Dialog.Panel className="w-full  lg:w-[70vw] lg:max-w-[80vw] lg:max-h-[80vh] transform overflow-hidden rounded-2xl bg-white text-center align-middle shadow-xl transition-all ">
                   {session?.user ? (
                     <>
                       {/* {!subscribed ? (

@@ -73,6 +73,7 @@ const Pricing = () => {
 
   useEffect(() => {
     (async () => {
+      if (!data?.user) return;
       const res = await axios.get("/api/v1/me");
 
       const isSubscribed =

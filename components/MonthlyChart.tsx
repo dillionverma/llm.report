@@ -83,12 +83,12 @@ const MonthlyChart = ({
   startDate,
   endDate,
   categories,
-  demo,
+  defaultLoading,
 }: {
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   categories: Category[];
-  demo?: boolean;
+  defaultLoading?: boolean;
 }) => {
   const [cumulativeData, setCumulativeData] = useState<any[]>([]);
   const [data, setData] = useState<any[]>([]);
@@ -144,7 +144,7 @@ const MonthlyChart = ({
         {
           loading: "Loading...",
           success: (response) => {
-            console.log(response);
+            // console.log(response);
             const daily_costs = response.data.daily_costs;
             setDailyCosts(daily_costs);
             // setTotalUsage(response.data.total_usage);
@@ -232,7 +232,6 @@ const MonthlyChart = ({
                 (day) => parse(day.date, "MMM d", new Date()) < new Date()
               );
 
-            console.log(cumulativeData);
             setCumulativeData(cumulativeData);
             setData(data);
             setLoading(false);
@@ -247,7 +246,7 @@ const MonthlyChart = ({
     })();
   }, [startDate, endDate, key]);
 
-  if (loading || demo) {
+  if (defaultLoading || loading) {
     return (
       <motion.div
         initial="hidden"

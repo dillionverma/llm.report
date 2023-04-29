@@ -5,6 +5,7 @@ import { default as Tokens } from "@/components/Tokens";
 import { CATEGORIES, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import { addMock, enableMocking } from "@/lib/mock-axios";
 import { Category } from "@/lib/types";
+import useLocalStorage from "@/lib/use-local-storage";
 import {
   Badge,
   Card,
@@ -17,11 +18,10 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import { add, format, startOfMonth, sub } from "date-fns";
-import { useEffect, useState } from "react";
-
-import useLocalStorage from "@/lib/use-local-storage";
 import axios from "axios";
+import { add, format, startOfMonth, sub } from "date-fns";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import subscription from "../fixtures/openai/subscription.json";
 import usageDay1 from "../fixtures/openai/usage-day-1.json";
 import usageRange from "../fixtures/openai/usage-range.json";
@@ -37,8 +37,10 @@ export default function KpiCardGrid() {
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "");
   const [validKey, setValidKey] = useState(false);
 
+  const { data } = useSession();
   useEffect(() => {
     (async () => {
+      if (!data?.user) return;
       const res = await axios.get("/api/v1/me");
       console.log(res);
 
@@ -52,7 +54,7 @@ export default function KpiCardGrid() {
 
       setSubscribed(isSubscribed);
     })();
-  }, []);
+  }, [data?.user]);
 
   useEffect(() => {
     const ping = async (): Promise<boolean> => {
@@ -74,37 +76,43 @@ export default function KpiCardGrid() {
     };
 
     (async () => {
-      const working = await ping();
-      if (!value[0] || !value[1]) return;
+      await ping();
+    })();
+  }, [key]);
 
-      if (!key || !working) {
-        addMock(
-          `https://api.openai.com/dashboard/billing/usage?start_date=${format(
-            value[0],
-            "yyyy-MM-dd"
-          )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
-          { data: usageRange, status: 200 }
-        );
+  useEffect(() => {
+    if (!value[0] || !value[1]) return;
 
-        for (let i = 0; i < 300; i++) {
-          const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
-          addMock(`https://api.openai.com/v1/usage?date=${date}`, {
-            data: usageDay1,
-            status: 200,
-          });
-        }
+    // // Only enable mocking if no user is logged in.
+    if (!data?.user) {
+      addMock(
+        `https://api.openai.com/dashboard/billing/usage?start_date=${format(
+          value[0],
+          "yyyy-MM-dd"
+        )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
+        { data: usageRange, status: 200 }
+      );
 
-        addMock("https://api.openai.com/dashboard/billing/subscription", {
-          data: subscription,
+      for (let i = 0; i < 300; i++) {
+        const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
+        addMock(`https://api.openai.com/v1/usage?date=${date}`, {
+          data: usageDay1,
           status: 200,
         });
-
-        enableMocking(true);
-      } else {
-        enableMocking(false);
       }
-    })();
-  }, [value, key, subscribed]);
+
+      addMock("https://api.openai.com/dashboard/billing/subscription", {
+        data: subscription,
+        status: 200,
+      });
+
+      console.log("enabling mocking");
+
+      enableMocking(true);
+    } else {
+      enableMocking(false);
+    }
+  }, [data?.user, value]);
 
   const [categories, setCategories] = useState<Category[]>(
     CATEGORIES.filter((c) => c !== "Total Cost ($)")
@@ -117,7 +125,7 @@ export default function KpiCardGrid() {
           <div className="flex flex-row space-x-3">
             <Title>OpenAI Analytics</Title>
 
-            {!key && !subscribed && (
+            {!data?.user && (
               <Badge
                 className="px-3 space-x-2"
                 color="blue"
@@ -147,7 +155,7 @@ export default function KpiCardGrid() {
               </Badge>
             )}
 
-            {key && !subscribed && (
+            {data?.user && !subscribed && (
               <Badge
                 className="px-3 space-x-2"
                 color="red"
@@ -254,6 +262,7 @@ export default function KpiCardGrid() {
           startDate={value[0]}
           endDate={value[1]}
           categories={categories}
+          defaultLoading={data?.user && (!subscribed || !validKey)}
         />
       </Card>
 
@@ -263,6 +272,7 @@ export default function KpiCardGrid() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}
+            defaultLoading={data?.user && (!subscribed || !validKey)}
           />
         </Card>
         <Card>
@@ -270,6 +280,7 @@ export default function KpiCardGrid() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}
+            defaultLoading={data?.user && (!subscribed || !validKey)}
           />
         </Card>
         <Card>
@@ -277,6 +288,7 @@ export default function KpiCardGrid() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}
+            defaultLoading={data?.user && (!subscribed || !validKey)}
           />
         </Card>
       </Grid>

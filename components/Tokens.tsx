@@ -94,10 +94,12 @@ const Tokens = ({
   startDate,
   endDate,
   categories,
+  defaultLoading,
 }: {
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   categories: Category[];
+  defaultLoading?: boolean;
 }) => {
   const [selectedCategory, setSelectedCategory] =
     useState<SelectedCategory>("total");
@@ -248,131 +250,121 @@ const Tokens = ({
     { key: "generated", name: "Generated", icon: ArrowUpTrayIcon },
   ];
 
+  if (defaultLoading || loading) {
+    return <LoadingList />;
+  }
+
   return (
-    <>
-      {loading ? (
-        <LoadingList />
-      ) : (
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          animate="show"
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-            },
-          }}
-        >
-          <Flex
-            justifyContent="start"
-            className="space-x-1"
-            alignItems="center"
-          >
-            <Title>Tokens</Title>
-            <Icon
-              icon={InformationCircleIcon}
-              size="sm"
-              color="gray"
-              tooltip="Tokens are how OpenAI measures usage. 1 token ~= 4 characters in english."
-            />
-          </Flex>
-          <Flex
-            justifyContent="start"
-            alignItems="baseline"
-            className="space-x-2"
-          >
-            <Metric>
-              {selectedCategory === "total" &&
-                totalTokenData
-                  .reduce((acc, obj) => acc + obj.value, 0)
-                  .toLocaleString("en-US", {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  })}
-              {selectedCategory === "context" &&
-                contextTokenData
-                  .reduce((acc, obj) => acc + obj.value, 0)
-                  .toLocaleString("en-US", {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  })}
-              {selectedCategory === "generated" &&
-                generatedTokenData
-                  .reduce((acc, obj) => acc + obj.value, 0)
-                  .toLocaleString("en-US", {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  })}
-            </Metric>
-            <Text>Total Tokens</Text>
-          </Flex>
-          <TabList
-            onValueChange={(value) =>
-              setSelectedCategory(value as SelectedCategory)
-            }
-            defaultValue={selectedCategory}
-            className="mt-6"
-          >
-            {tabcategories.map((category) => (
-              <Tab
-                key={category.key}
-                value={category.key}
-                icon={category.icon}
-                text={category.name}
-              />
-            ))}
-          </TabList>
-          <Flex className="mt-4">
-            <Text>
-              <Bold>Model</Bold>
-            </Text>
-            <Text>
-              <Bold>Tokens</Bold>
-            </Text>
-          </Flex>
+    <motion.div
+      initial="hidden"
+      whileInView="show"
+      animate="show"
+      variants={{
+        hidden: { opacity: 0 },
+        show: {
+          opacity: 1,
+        },
+      }}
+    >
+      <Flex justifyContent="start" className="space-x-1" alignItems="center">
+        <Title>Tokens</Title>
+        <Icon
+          icon={InformationCircleIcon}
+          size="sm"
+          color="gray"
+          tooltip="Tokens are how OpenAI measures usage. 1 token ~= 4 characters in english."
+        />
+      </Flex>
+      <Flex justifyContent="start" alignItems="baseline" className="space-x-2">
+        <Metric>
+          {selectedCategory === "total" &&
+            totalTokenData
+              .reduce((acc, obj) => acc + obj.value, 0)
+              .toLocaleString("en-US", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })}
+          {selectedCategory === "context" &&
+            contextTokenData
+              .reduce((acc, obj) => acc + obj.value, 0)
+              .toLocaleString("en-US", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })}
+          {selectedCategory === "generated" &&
+            generatedTokenData
+              .reduce((acc, obj) => acc + obj.value, 0)
+              .toLocaleString("en-US", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })}
+        </Metric>
+        <Text>Total Tokens</Text>
+      </Flex>
+      <TabList
+        onValueChange={(value) =>
+          setSelectedCategory(value as SelectedCategory)
+        }
+        defaultValue={selectedCategory}
+        className="mt-6"
+      >
+        {tabcategories.map((category) => (
+          <Tab
+            key={category.key}
+            value={category.key}
+            icon={category.icon}
+            text={category.name}
+          />
+        ))}
+      </TabList>
+      <Flex className="mt-4">
+        <Text>
+          <Bold>Model</Bold>
+        </Text>
+        <Text>
+          <Bold>Tokens</Bold>
+        </Text>
+      </Flex>
 
-          {selectedCategory === "generated" && (
-            <BarList
-              data={generatedTokenData}
-              className="mt-4"
-              valueFormatter={(v) =>
-                v.toLocaleString("en-US", {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 0,
-                })
-              }
-            />
-          )}
-
-          {selectedCategory === "context" && (
-            <BarList
-              data={contextTokenData}
-              className="mt-4"
-              valueFormatter={(v) =>
-                v.toLocaleString("en-US", {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 0,
-                })
-              }
-            />
-          )}
-
-          {selectedCategory === "total" && (
-            <BarList
-              data={totalTokenData}
-              className="mt-4"
-              valueFormatter={(v) =>
-                v.toLocaleString("en-US", {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 0,
-                })
-              }
-            />
-          )}
-        </motion.div>
+      {selectedCategory === "generated" && (
+        <BarList
+          data={generatedTokenData}
+          className="mt-4"
+          valueFormatter={(v) =>
+            v.toLocaleString("en-US", {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })
+          }
+        />
       )}
-    </>
+
+      {selectedCategory === "context" && (
+        <BarList
+          data={contextTokenData}
+          className="mt-4"
+          valueFormatter={(v) =>
+            v.toLocaleString("en-US", {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })
+          }
+        />
+      )}
+
+      {selectedCategory === "total" && (
+        <BarList
+          data={totalTokenData}
+          className="mt-4"
+          valueFormatter={(v) =>
+            v.toLocaleString("en-US", {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })
+          }
+        />
+      )}
+    </motion.div>
   );
 };
 
