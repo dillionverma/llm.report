@@ -1,7 +1,8 @@
 import { PricingPlan, priceIds } from "@/lib/constants";
 import getStripe from "@/lib/stripe/getStripe";
 import axios from "axios";
-import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import StripePortalButton from "./StripePortalButton";
 
 type BillingInterval = "year" | "month";
@@ -48,6 +49,8 @@ const plans = [
 const Pricing = () => {
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>("month");
+  const [subscribed, setSubscribed] = useState(false);
+  const { data } = useSession();
 
   const handleCheckout = async (name: PricingPlan) => {
     const priceId = priceIds[process.env.NODE_ENV][name][billingInterval];
@@ -68,16 +71,45 @@ const Pricing = () => {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      const res = await axios.get("/api/v1/me");
+
+      const isSubscribed =
+        res.data.user.subscriptions.filter(
+          (sub: any) => sub.status === "active"
+        ).length > 0;
+
+      setSubscribed(isSubscribed);
+
+      console.log(res.data);
+    })();
+  }, []);
+
   return (
     <section className="py-14">
-      <StripePortalButton customerId="123">Manage Billing</StripePortalButton>
       <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
-        <div className="relative max-w-xl mx-auto sm:text-center">
+        <div className="relative max-w-xl mx-auto sm:text-center mb-8">
           <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
             Choose a plan
           </h3>
         </div>
-        <div className="mt-16 justify-center gap-6 sm:grid sm:grid-cols-2 sm:space-y-0 lg:grid-cols-2">
+
+        {/* @ts-ignore */}
+        <stripe-pricing-table
+          client-reference-id={data?.user.id}
+          customer-email={data?.user.email}
+          pricing-table-id="prctbl_1N1vPHB24wj8TkEzwXcFhcOS"
+          publishable-key="pk_test_51N1AtxB24wj8TkEzMfn8iSqXkThvyKEaiWrGe7L8DQaGhojJpaud2xWyCQfzymmK7ZPwsewSYzg0i1fSkSpnMpjG00w9h7rhtj"
+        />
+
+        <div className="flex flex-col items-center mt-8">
+          <StripePortalButton customerId="123">
+            Manage Billing
+          </StripePortalButton>
+        </div>
+
+        {/* <div className="mt-16 justify-center gap-6 sm:grid sm:grid-cols-2 sm:space-y-0 lg:grid-cols-2">
           {plans.map((item, idx) => (
             <div
               key={idx}
@@ -130,7 +162,7 @@ const Pricing = () => {
               </ul>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -1,8 +1,12 @@
 import { stripe } from "@/lib/stripe/stripe";
-import { manageSubscriptionStatusChange } from "@/lib/stripe/utils";
+import {
+  manageSubscriptionStatusChange,
+  upsertPaymentIntentRecord,
+} from "@/lib/stripe/utils";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Readable } from "node:stream";
 import Stripe from "stripe";
+import { createOrRetrieveCustomer } from "./checkout";
 
 // Stripe requires the raw body to construct the event.
 export const config = {
@@ -69,12 +73,24 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           case "checkout.session.completed":
             const checkoutSession = event.data
               .object as Stripe.Checkout.Session;
+            const customerId = await createOrRetrieveCustomer({
+              uuid: checkoutSession.client_reference_id as string,
+              email: (checkoutSession.customer_email as string) || "",
+            });
+
             if (checkoutSession.mode === "subscription") {
               const subscriptionId = checkoutSession.subscription;
               await manageSubscriptionStatusChange(
                 subscriptionId as string,
-                checkoutSession.customer as string,
+                customerId as string,
                 true
+              );
+            } else if (checkoutSession.mode === "payment") {
+              const paymentIntentId = checkoutSession.payment_intent;
+              console.log(checkoutSession);
+              await upsertPaymentIntentRecord(
+                paymentIntentId as string,
+                customerId as string
               );
             }
             break;

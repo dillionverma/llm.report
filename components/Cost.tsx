@@ -1,4 +1,4 @@
-import { CATEGORY_TO_COLOR } from "@/lib/constants";
+import { CATEGORY_TO_COLOR, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import {
   BillingSubscriptionResponse,
   BillingUsageResponse,
@@ -39,11 +39,14 @@ const MonthlyUsage = ({
       }
 
       setLoading(true);
+
+      const key = localStorage.getItem(LOCAL_STORAGE_KEY) || "";
+
       const subscriptionResponse = await axios.get<BillingSubscriptionResponse>(
         `https://api.openai.com/dashboard/billing/subscription`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+            Authorization: `Bearer ${key}`,
           },
         }
       );
@@ -59,7 +62,7 @@ const MonthlyUsage = ({
         )}`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+            Authorization: `Bearer ${key}`,
           },
         }
       );

@@ -30,7 +30,7 @@ export default async function billingPortalRedirectHandler(
 
       const { url } = await stripe.billingPortal.sessions.create({
         customer,
-        return_url: `${getURL()}/settings`,
+        return_url: `${getURL()}`,
       });
       res.redirect(301, url);
     } catch (err: any) {

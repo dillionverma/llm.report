@@ -12,7 +12,7 @@ export const createOrRetrieveCustomer = async ({
   email,
   uuid,
 }: {
-  email: string;
+  email?: string;
   uuid: string;
 }) => {
   const user = await prisma.user.findUnique({
@@ -22,8 +22,8 @@ export const createOrRetrieveCustomer = async ({
   });
 
   if (!user || !user.stripe_customer_id) {
-    const customerData: { metadata: { id: string }; email: string } = {
-      email,
+    const customerData: { metadata: { id: string } } = {
+      // email: user?.email,
       metadata: {
         id: uuid,
       },

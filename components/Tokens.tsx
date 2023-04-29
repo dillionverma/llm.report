@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import { animationVariant } from "@/lib/constants";
+import { LOCAL_STORAGE_KEY, animationVariant } from "@/lib/constants";
 import { Category, UsageResponse } from "@/lib/types";
 import useInterval from "@/lib/use-interval";
 import {
@@ -131,6 +131,8 @@ const Tokens = ({
             date: format(date, "yyyy-MM-dd"),
           };
 
+          const key = localStorage.getItem(LOCAL_STORAGE_KEY) || "";
+
           const res = await axios.get<UsageResponse>(
             `https://api.openai.com/v1/usage?date=${format(
               date,
@@ -138,7 +140,7 @@ const Tokens = ({
             )}`,
             {
               headers: {
-                Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+                Authorization: `Bearer ${key}`,
               },
             }
           );

@@ -51,6 +51,10 @@ export const manageSubscriptionStatusChange = async (
     where: { stripe_customer_id: customerId },
   });
 
+  console.log(
+    `User [${user?.id}] is changing subscription [${subscriptionId} wth customer [${customerId}]`
+  );
+
   if (!user) {
     throw new Error("User not found.");
   }
@@ -62,6 +66,7 @@ export const manageSubscriptionStatusChange = async (
   // Upsert the latest status of the subscription object.
   const subscriptionData = {
     id: subscription.id,
+    userId: user.id,
     metadata: subscription.metadata,
     status: subscription.status,
     price_id: subscription.items.data[0].price.id,
@@ -109,4 +114,48 @@ export const manageSubscriptionStatusChange = async (
       user.id,
       subscription.default_payment_method as Stripe.PaymentMethod
     );
+};
+
+export const upsertPaymentIntentRecord = async (
+  paymentIntentId: string,
+  customerId: string
+) => {
+  // Get customer's UUID from mapping table.
+  const user = await prisma.user.findUnique({
+    where: { stripe_customer_id: customerId },
+  });
+
+  if (!user) {
+    throw new Error("User not found.");
+  }
+
+  // Get payment intent from Stripe.
+  const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+  if (!paymentIntent) {
+    throw new Error(`Payment intent not found: ${paymentIntentId}`);
+  }
+
+  const payment = {
+    id: paymentIntentId,
+    userId: user.id,
+    currency: paymentIntent.currency,
+    amount: paymentIntent.amount,
+    status: paymentIntent.status,
+    metadata: paymentIntent.metadata,
+    created: toDateTime(paymentIntent.created).toISOString(),
+    canceled_at: paymentIntent.canceled_at
+      ? toDateTime(paymentIntent.canceled_at).toISOString()
+      : null,
+  };
+
+  // Upsert payment intent record.
+  const paymentIntentRecord = await prisma.payment.upsert({
+    where: { id: paymentIntentId },
+    create: payment,
+    update: payment,
+  });
+
+  console.log(
+    `Inserted/updated payment intent [${paymentIntentRecord.id}] for user [${paymentIntentRecord.userId}]`
+  );
 };

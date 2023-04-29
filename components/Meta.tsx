@@ -37,6 +37,8 @@ const Meta = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+
+      <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
     </Head>
   );
 };

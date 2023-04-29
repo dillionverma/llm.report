@@ -2,7 +2,7 @@ import Cost from "@/components/Cost";
 import MonthlyChart from "@/components/MonthlyChart";
 import Requests from "@/components/Requests";
 import { default as Tokens } from "@/components/Tokens";
-import { CATEGORIES } from "@/lib/constants";
+import { CATEGORIES, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import { addMock, enableMocking } from "@/lib/mock-axios";
 import { Category } from "@/lib/types";
 import {
@@ -20,7 +20,7 @@ import {
 import { add, format, startOfMonth, sub } from "date-fns";
 import { useEffect, useState } from "react";
 
-import { SignalIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
 import subscription from "../fixtures/openai/subscription.json";
 import usageDay1 from "../fixtures/openai/usage-day-1.json";
 import usageRange from "../fixtures/openai/usage-range.json";
@@ -32,31 +32,56 @@ export default function KpiCardGrid() {
     "mtd",
   ]);
 
+  const [subscribed, setSubscribed] = useState(false);
+  const [key, setKey] = useState("");
+
+  useEffect(() => {
+    const key = localStorage.getItem(LOCAL_STORAGE_KEY) || "";
+    setKey(key);
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const res = await axios.get("/api/v1/me");
+
+      const isSubscribed =
+        res.data.user.subscriptions.filter(
+          (sub: any) => sub.status === "active"
+        ).length > 0;
+
+      console.log(res);
+      setSubscribed(isSubscribed);
+    })();
+  }, []);
+
   useEffect(() => {
     if (!value[0] || !value[1]) return;
 
-    addMock(
-      `https://api.openai.com/dashboard/billing/usage?start_date=${format(
-        value[0],
-        "yyyy-MM-dd"
-      )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
-      { data: usageRange, status: 200 }
-    );
+    console.log("subscribed", subscribed);
+    if (!subscribed) {
+      addMock(
+        `https://api.openai.com/dashboard/billing/usage?start_date=${format(
+          value[0],
+          "yyyy-MM-dd"
+        )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
+        { data: usageRange, status: 200 }
+      );
 
-    for (let i = 0; i < 300; i++) {
-      const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
-      addMock(`https://api.openai.com/v1/usage?date=${date}`, {
-        data: usageDay1,
+      for (let i = 0; i < 300; i++) {
+        const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
+        addMock(`https://api.openai.com/v1/usage?date=${date}`, {
+          data: usageDay1,
+          status: 200,
+        });
+      }
+
+      addMock("https://api.openai.com/dashboard/billing/subscription", {
+        data: subscription,
         status: 200,
       });
+
+      enableMocking(true);
     }
-
-    addMock("https://api.openai.com/dashboard/billing/subscription", {
-      data: subscription,
-      status: 200,
-    });
-
-    enableMocking(true);
   }, [value]);
 
   const [categories, setCategories] = useState<Category[]>(
@@ -69,10 +94,53 @@ export default function KpiCardGrid() {
         <div className="space-y-2">
           <div className="flex flex-row space-x-3">
             <Title>OpenAI Analytics</Title>
-            <Badge className="px-3 space-x-1" icon={SignalIcon}>
-              demo
-            </Badge>
+
+            {!key && !subscribed && (
+              <Badge
+                className="px-3 space-x-2"
+                color="blue"
+                icon={() => (
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                  </span>
+                )}
+              >
+                demo
+              </Badge>
+            )}
+
+            {!key && subscribed && (
+              <Badge
+                className="px-3 space-x-2"
+                color="red"
+                icon={() => (
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                  </span>
+                )}
+              >
+                waiting for key
+              </Badge>
+            )}
+
+            {key && subscribed && (
+              <Badge
+                className="px-3 space-x-2"
+                color="green"
+                icon={() => (
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  </span>
+                )}
+              >
+                live
+              </Badge>
+            )}
           </div>
+
           <Text>Let&apos;s see how we&apos;re doing today</Text>
         </div>
 

@@ -1,6 +1,7 @@
 import {
   CATEGORIES,
   CATEGORY_TO_COLOR,
+  LOCAL_STORAGE_KEY,
   animationVariant,
 } from "@/lib/constants";
 import { BillingUsageResponse, Category } from "@/lib/types";
@@ -127,6 +128,7 @@ const MonthlyChart = ({
         end_date: format(endDate, "yyyy-MM-dd"),
       };
 
+      const key = localStorage.getItem(LOCAL_STORAGE_KEY) || "";
       toast.promise(
         axios.get<BillingUsageResponse>(
           `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
@@ -134,7 +136,7 @@ const MonthlyChart = ({
           )}`,
           {
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+              Authorization: `Bearer ${key}`,
             },
           }
         ),

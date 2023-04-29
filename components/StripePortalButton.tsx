@@ -12,7 +12,7 @@ const StripePortalButton: React.FC<{
       className={className}
     >
       <input type={"hidden"} name={"customerId"} value={customerId} />
-      <button className="flex items-center justify-center gap-x-2 rounded-lg bg-blue-600 py-2 px-4 text-center font-medium text-white duration-150 hover:bg-blue-500 hover:shadow-none active:bg-blue-700">
+      <button className="flex items-center justify-center gap-x-2 rounded-lg bg-black py-2 px-4 text-center font-medium text-white duration-150 hover:bg-black/80 hover:shadow-none">
         {children}
       </button>
     </form>
