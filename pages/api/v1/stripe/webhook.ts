@@ -1,3 +1,4 @@
+import prisma from "@/lib/prisma";
 import { stripe } from "@/lib/stripe/stripe";
 import {
   manageSubscriptionStatusChange,
@@ -79,7 +80,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
               .object as Stripe.Checkout.Session;
 
             if (checkoutSession.mode === "subscription") {
-              const user = await prisma?.user.update({
+              const user = await prisma.user.update({
                 where: {
                   id: checkoutSession.client_reference_id as string,
                 },
