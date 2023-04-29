@@ -23,11 +23,6 @@ import Pricing from "./Pricing";
 const navigation = [
   {
     onClick: () => {},
-    name: "Account",
-    icon: <UserCircleIcon className="w-5 h-5" />,
-  },
-  {
-    onClick: () => {},
     name: "Settings",
     icon: (
       <svg
@@ -50,6 +45,11 @@ const navigation = [
         />
       </svg>
     ),
+  },
+  {
+    onClick: () => {},
+    name: "Billing",
+    icon: <UserCircleIcon className="w-5 h-5" />,
   },
 ];
 
@@ -143,14 +143,18 @@ const Settings = () => {
           className="w-full my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
           placeholder="sk-5q293fh..."
         />
-        <Link
-          href="https://beta.openai.com/account/api-keys"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-gray-500 underline mt-1 inline-block"
-        >
-          Get API Key
-        </Link>
+
+        <p className="text-sm text-gray-500  mt-1 inline-block">
+          Get API Key{" "}
+          <Link
+            href="https://beta.openai.com/account/api-keys"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            here.
+          </Link>
+        </p>
         <p className="text-sm text-gray-500 mt-1">
           Note: The initial load may take up to 30 seconds.
         </p>
@@ -254,8 +258,8 @@ const Main = () => {
         </nav>
       </aside>
       <div className="p-4 md:ml-64 overflow-y-auto h-full min-h-[70vh]">
-        {selectedItem === 0 && <Pricing />}
-        {selectedItem === 1 && <Settings />}
+        {selectedItem === 0 && <Settings />}
+        {selectedItem === 1 && <Pricing />}
       </div>
     </>
   );
