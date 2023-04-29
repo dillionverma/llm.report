@@ -34,7 +34,7 @@ export default function KpiCardGrid() {
   ]);
 
   const [subscribed, setSubscribed] = useState(false);
-  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "");
   const [validKey, setValidKey] = useState(false);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function KpiCardGrid() {
       const working = await ping();
       if (!value[0] || !value[1]) return;
 
-      if (!subscribed || !key || !working) {
+      if (!key || !working) {
         addMock(
           `https://api.openai.com/dashboard/billing/usage?start_date=${format(
             value[0],
