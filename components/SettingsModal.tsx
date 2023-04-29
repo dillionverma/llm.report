@@ -447,7 +447,7 @@ const SettingsModal = () => {
       openDialog();
       toast("Enter your API key", { icon: "🔑", duration: 10000 });
     }
-  }, [subscribed, session?.user]);
+  }, [subscribed, session?.user, key]);
 
   return (
     <>
