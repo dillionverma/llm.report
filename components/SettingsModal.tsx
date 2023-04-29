@@ -17,6 +17,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-hot-toast";
 import Pricing from "./Pricing";
 
 const navigation = [
@@ -203,7 +204,7 @@ const Main = () => {
             <div className="py-8 flex items-center px-8">
               <div className="flex items-center mx-auto">
                 <Image src="/logo.svg" width={28} height={28} alt="Logo" />
-                <span className="self-center text-xl font-semibold whitespace-nowrap ">
+                <span className="self-center text-xl font-semibold whitespace-nowrap text-black">
                   LLM Report
                 </span>
               </div>
@@ -415,6 +416,8 @@ const SettingsModal = () => {
     true
   );
 
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+
   const [firstVisitAfterLogin, setFirstVisitAfterLogin] =
     useLocalStorage<boolean>(FIRST_VISIT_AFTER_LOGIN, true);
 
@@ -435,8 +438,16 @@ const SettingsModal = () => {
     if (session?.user && !subscribed) {
       setFirstVisitAfterLogin(false);
       openDialog();
+      toast("Choose a payment plan", { icon: "💳", duration: 10000 });
     }
   }, [firstVisitAfterLogin, subscribed, session?.user]);
+
+  useEffect(() => {
+    if (session?.user && subscribed && !key) {
+      openDialog();
+      toast("Enter your API key", { icon: "🔑", duration: 10000 });
+    }
+  }, [subscribed, session?.user]);
 
   return (
     <>

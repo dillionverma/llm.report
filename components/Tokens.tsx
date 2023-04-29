@@ -273,9 +273,9 @@ const Tokens = ({
             setLoading(false);
             return "Success!";
           },
-          error: () => {
+          error: (e) => {
             setLoading(false);
-            return "Error loading usage data";
+            return e.response.data.error.message;
           },
         }
       );
