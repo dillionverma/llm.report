@@ -440,7 +440,7 @@ const SettingsModal = () => {
       openDialog();
       toast("Choose a payment plan", { icon: "💳", duration: 10000 });
     }
-  }, [subscribed, session?.user]);
+  }, [subscribed, session?.user, key]);
 
   useEffect(() => {
     if (session?.user && subscribed && !key) {
