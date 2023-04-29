@@ -380,6 +380,7 @@ const Login = () => {
           src="/screenshot.png"
           alt="App screenshot"
           rel="preload"
+          priority
           width={1824}
           height={1080}
         />
