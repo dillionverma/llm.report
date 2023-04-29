@@ -427,7 +427,7 @@ const SettingsModal = () => {
       setFirstVisit(false);
       openDialog();
     }, 5000);
-  }, [firstVisit, openDialog, setFirstVisit]);
+  }, [firstVisit, subscribed, session?.user]);
 
   useEffect(() => {
     if (!firstVisitAfterLogin) return;
@@ -436,7 +436,7 @@ const SettingsModal = () => {
       setFirstVisitAfterLogin(false);
       openDialog();
     }
-  }, [firstVisit, openDialog, setFirstVisit]);
+  }, [firstVisitAfterLogin, subscribed, session?.user]);
 
   return (
     <>
