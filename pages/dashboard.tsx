@@ -270,7 +270,7 @@ export default function KpiCardGrid() {
           startDate={value[0]}
           endDate={value[1]}
           categories={categories}
-          defaultLoading={data?.user && (!subscribed || !validKey)}
+          defaultLoading={data?.user && (!subscribed || !validKey || !key)}
         />
       </Card>
 
@@ -280,7 +280,7 @@ export default function KpiCardGrid() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}
-            defaultLoading={data?.user && (!subscribed || !validKey)}
+            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card>
@@ -288,7 +288,7 @@ export default function KpiCardGrid() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}
-            defaultLoading={data?.user && (!subscribed || !validKey)}
+            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card>
@@ -296,7 +296,7 @@ export default function KpiCardGrid() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}
-            defaultLoading={data?.user && (!subscribed || !validKey)}
+            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
       </Grid>
