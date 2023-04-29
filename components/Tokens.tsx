@@ -195,8 +195,8 @@ const Tokens = ({
                   requests: cv.data.reduce((acc, cv) => {
                     return {
                       ...acc,
-                      // @ts-ignore
                       [cv.snapshot_id]:
+                        // @ts-ignore
                         (acc[cv.snapshot_id] || 0) + cv.n_requests,
                     };
                   }, acc.requests),
