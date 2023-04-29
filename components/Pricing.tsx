@@ -95,13 +95,29 @@ const Pricing = () => {
           </h3>
         </div>
 
-        {/* @ts-ignore */}
-        <stripe-pricing-table
-          client-reference-id={data?.user.id}
-          customer-email={data?.user.email}
-          pricing-table-id="prctbl_1N1vPHB24wj8TkEzwXcFhcOS"
-          publishable-key="pk_test_51N1AtxB24wj8TkEzMfn8iSqXkThvyKEaiWrGe7L8DQaGhojJpaud2xWyCQfzymmK7ZPwsewSYzg0i1fSkSpnMpjG00w9h7rhtj"
-        />
+        {process.env.NODE_ENV === "production" && (
+          <>
+            {/* @ts-ignore */}
+            <stripe-pricing-table
+              client-reference-id={data?.user.id}
+              customer-email={data?.user.email}
+              pricing-table-id="prctbl_1N2Eb9B24wj8TkEzaJUNfSjS"
+              publishable-key="pk_live_51N1AtxB24wj8TkEz3li5RqdgbYON9DXrSudOzmMc80gegb5h8CFPpXIUEvIur8yckJlmsbR8sqKrN58O5m6h8uOW00Syk5n0vt"
+            />
+          </>
+        )}
+
+        {process.env.NODE_ENV === "development" && (
+          <>
+            {/* @ts-ignore */}
+            <stripe-pricing-table
+              client-reference-id={data?.user.id}
+              customer-email={data?.user.email}
+              pricing-table-id="prctbl_1N1vPHB24wj8TkEzwXcFhcOS"
+              publishable-key="pk_test_51N1AtxB24wj8TkEzMfn8iSqXkThvyKEaiWrGe7L8DQaGhojJpaud2xWyCQfzymmK7ZPwsewSYzg0i1fSkSpnMpjG00w9h7rhtj"
+            />
+          </>
+        )}
 
         <div className="flex flex-col items-center mt-8">
           <StripePortalButton customerId="123">
