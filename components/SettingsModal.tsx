@@ -19,6 +19,11 @@ import Pricing from "./Pricing";
 const navigation = [
   {
     onClick: () => {},
+    name: "Account",
+    icon: <UserCircleIcon className="w-5 h-5" />,
+  },
+  {
+    onClick: () => {},
     name: "Settings",
     icon: (
       <svg
@@ -41,11 +46,6 @@ const navigation = [
         />
       </svg>
     ),
-  },
-  {
-    onClick: () => {},
-    name: "Billing",
-    icon: <UserCircleIcon className="w-5 h-5" />,
   },
 ];
 
@@ -136,12 +136,12 @@ const Settings = () => {
           onChange={onChange}
           required
           value={key as string}
-          className="w-full my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg"
+          className="w-full my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
           placeholder="sk-5q293fh..."
         />
 
         <p className="text-sm text-gray-500  mt-1 inline-block">
-          Get API Key{" "}
+          Find API Key{" "}
           <Link
             href="https://beta.openai.com/account/api-keys"
             target="_blank"
@@ -254,8 +254,8 @@ const Main = () => {
         </nav>
       </aside>
       <div className="p-4 md:ml-64 overflow-y-auto h-full min-h-[70vh]">
-        {selectedItem === 0 && <Settings />}
-        {selectedItem === 1 && <Pricing />}
+        {selectedItem === 1 && <Settings />}
+        {selectedItem === 0 && <Pricing />}
       </div>
     </>
   );
@@ -394,6 +394,7 @@ const SettingsModal = () => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { data: session } = useSession();
   const [subscribed, setSubscribed] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     (async () => {
@@ -408,6 +409,7 @@ const SettingsModal = () => {
         ).length > 0;
 
       setSubscribed(isSubscribed);
+      setUser(res.data.user);
     })();
   }, [session?.user]);
 
@@ -418,8 +420,11 @@ const SettingsModal = () => {
 
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
 
-  // const [firstVisitAfterLogin, setFirstVisitAfterLogin] =
-  //   useLocalStorage<boolean>(FIRST_VISIT_AFTER_LOGIN, true);
+  useEffect(() => {
+    if (firstVisit) {
+      toast("Hi there!", { icon: "👋", duration: 5000 });
+    }
+  }, [firstVisit]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -435,17 +440,17 @@ const SettingsModal = () => {
   useEffect(() => {
     // if (!firstVisitAfterLogin) return;
 
-    if (session?.user && !subscribed) {
+    if (session?.user && user && !subscribed && !key) {
       // setFirstVisitAfterLogin(false);
       openDialog();
-      toast("Choose a payment plan", { icon: "💳", duration: 10000 });
+      toast("Choose a payment plan", { icon: "💳", duration: 5000 });
     }
-  }, [subscribed, session?.user, key]);
+  }, [subscribed, key, session?.user, user]);
 
   useEffect(() => {
     if (session?.user && subscribed && !key) {
       openDialog();
-      toast("Enter your API key", { icon: "🔑", duration: 10000 });
+      toast("Enter your API key", { icon: "🔑", duration: 5000 });
     }
   }, [subscribed, session?.user, key]);
 

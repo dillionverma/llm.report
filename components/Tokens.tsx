@@ -26,7 +26,6 @@ import { format } from "date-fns";
 import { motion } from "framer-motion";
 
 import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
 
 const dateRange = (startDate: Date, endDate: Date): Date[] => {
   const dates = [];
@@ -159,128 +158,125 @@ const Tokens = ({
         return;
       }
 
-      toast.promise(
-        Promise.all(
-          dates.map(async (date) => {
-            const query = {
-              // ...query,
-              date: format(date, "yyyy-MM-dd"),
-            };
+      const cumulativeUsage = data.reduce(
+        (acc, cv) => {
+          return {
+            ...acc,
+            total:
+              acc.total + cv.data.reduce((acc, cv) => acc + cv.n_requests, 0),
+            requests: cv.data.reduce((acc, cv) => {
+              return {
+                ...acc,
+                [cv.snapshot_id]:
+                  // @ts-ignore
+                  (acc[cv.snapshot_id] || 0) + cv.n_requests,
+              };
+            }, acc.requests),
 
-            const res = await axios.get<UsageResponse>(
-              `https://api.openai.com/v1/usage?date=${format(
-                date,
-                "yyyy-MM-dd"
-              )}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${key}`,
-                },
-              }
-            );
+            contextTokens: cv.data.reduce((acc, cv) => {
+              return {
+                ...acc,
+                [cv.snapshot_id]:
+                  // @ts-ignore
+                  (acc[cv.snapshot_id] || 0) + cv.n_context_tokens_total,
+              };
+            }, acc.contextTokens),
+            generatedTokens: cv.data.reduce((acc, cv) => {
+              return {
+                ...acc,
+                [cv.snapshot_id]:
+                  // @ts-ignore
+                  (acc[cv.snapshot_id] || 0) + cv.n_generated_tokens_total,
+              };
+            }, acc.generatedTokens),
+          };
+        },
+        { total: 0, requests: {}, contextTokens: {}, generatedTokens: {} }
+      );
 
-            return res.data;
-          })
-        ),
-        {
-          loading: "Loading...",
-          success: (data) => {
-            const cumulativeUsage = data.reduce(
-              (acc, cv) => {
-                return {
-                  ...acc,
-                  total:
-                    acc.total +
-                    cv.data.reduce((acc, cv) => acc + cv.n_requests, 0),
-                  requests: cv.data.reduce((acc, cv) => {
-                    return {
-                      ...acc,
-                      [cv.snapshot_id]:
-                        // @ts-ignore
-                        (acc[cv.snapshot_id] || 0) + cv.n_requests,
-                    };
-                  }, acc.requests),
+      console.log(cumulativeUsage);
 
-                  contextTokens: cv.data.reduce((acc, cv) => {
-                    return {
-                      ...acc,
-                      [cv.snapshot_id]:
-                        // @ts-ignore
-                        (acc[cv.snapshot_id] || 0) + cv.n_context_tokens_total,
-                    };
-                  }, acc.contextTokens),
-                  generatedTokens: cv.data.reduce((acc, cv) => {
-                    return {
-                      ...acc,
-                      [cv.snapshot_id]:
-                        // @ts-ignore
-                        (acc[cv.snapshot_id] || 0) +
-                        cv.n_generated_tokens_total,
-                    };
-                  }, acc.generatedTokens),
-                };
-              },
-              { total: 0, requests: {}, contextTokens: {}, generatedTokens: {} }
-            );
+      setContextTokenData(
+        Object.entries(cumulativeUsage.contextTokens)
+          .map(([name, value]): { name: string; value: number } => ({
+            name,
+            value: value as number,
+          }))
+          .sort((a, b) => b.value - a.value)
+      );
 
-            console.log(cumulativeUsage);
+      setGeneratedTokenData(
+        Object.entries(cumulativeUsage.generatedTokens)
+          .map(([name, value]): { name: string; value: number } => ({
+            name,
+            value: value as number,
+          }))
+          .sort((a, b) => b.value - a.value)
+      );
 
-            setContextTokenData(
-              Object.entries(cumulativeUsage.contextTokens)
-                .map(([name, value]): { name: string; value: number } => ({
-                  name,
-                  value: value as number,
-                }))
-                .sort((a, b) => b.value - a.value)
-            );
-
-            setGeneratedTokenData(
-              Object.entries(cumulativeUsage.generatedTokens)
-                .map(([name, value]): { name: string; value: number } => ({
-                  name,
-                  value: value as number,
-                }))
-                .sort((a, b) => b.value - a.value)
-            );
-
-            setTotalTokenData(
-              [
-                ...Object.entries(cumulativeUsage.contextTokens).map(
-                  ([name, value]): { name: string; value: number } => ({
-                    name,
-                    value: value as number,
-                  })
-                ),
-                ...Object.entries(cumulativeUsage.generatedTokens).map(
-                  ([name, value]): { name: string; value: number } => ({
-                    name,
-                    value: value as number,
-                  })
-                ),
-              ]
-                .reduce((acc, obj) => {
-                  const found = acc.find((item) => item.name === obj.name);
-                  if (found) {
-                    found.value += obj.value;
-                  } else {
-                    acc.push(obj);
-                  }
-                  return acc;
-                }, [] as any[])
-                .sort((a, b) => b.value - a.value)
-            );
-
-            setLoading(false);
-            return "Success!";
-          },
-          error: (e) => {
-            setLoading(false);
-            return e.response.data.error.message;
-          },
-        }
+      setTotalTokenData(
+        [
+          ...Object.entries(cumulativeUsage.contextTokens).map(
+            ([name, value]): { name: string; value: number } => ({
+              name,
+              value: value as number,
+            })
+          ),
+          ...Object.entries(cumulativeUsage.generatedTokens).map(
+            ([name, value]): { name: string; value: number } => ({
+              name,
+              value: value as number,
+            })
+          ),
+        ]
+          .reduce((acc, obj) => {
+            const found = acc.find((item) => item.name === obj.name);
+            if (found) {
+              found.value += obj.value;
+            } else {
+              acc.push(obj);
+            }
+            return acc;
+          }, [] as any[])
+          .sort((a, b) => b.value - a.value)
       );
 
       setLoading(false);
+
+      // toast.promise(
+      //   Promise.all(
+      //     dates.map(async (date) => {
+      //       const query = {
+      //         // ...query,
+      //         date: format(date, "yyyy-MM-dd"),
+      //       };
+
+      //       const res = await axios.get<UsageResponse>(
+      //         `https://api.openai.com/v1/usage?date=${format(
+      //           date,
+      //           "yyyy-MM-dd"
+      //         )}`,
+      //         {
+      //           headers: {
+      //             Authorization: `Bearer ${key}`,
+      //           },
+      //         }
+      //       );
+
+      //       return res.data;
+      //     })
+      //   ),
+      //   {
+      //     loading: "Loading...",
+      //     success: (data) => {
+      //       return "Success!";
+      //     },
+      //     error: (e) => {
+      //       setLoading(false);
+      //       return e.response.data.error.message;
+      //     },
+      //   }
+      // );
     })();
   }, [startDate, endDate, key]);
 
