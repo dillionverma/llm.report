@@ -1,7 +1,10 @@
 import { FIRST_VISIT_KEY, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Dialog, Transition } from "@headlessui/react";
-import { UserCircleIcon } from "@heroicons/react/24/solid";
+import {
+  QuestionMarkCircleIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/solid";
 import axios from "axios";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -22,6 +25,12 @@ const navigation = [
     name: "Account",
     icon: <UserCircleIcon className="w-5 h-5" />,
   },
+  {
+    onClick: () => {},
+    name: "Feedback",
+    icon: <QuestionMarkCircleIcon className="w-5 h-5" />,
+  },
+
   {
     onClick: () => {},
     name: "Settings",
@@ -113,6 +122,40 @@ export function useDialog() {
   }
   return context;
 }
+
+const Feedback = () => {
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // save to local storage
+    setKey(value);
+  };
+
+  return (
+    <section className="py-14">
+      <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
+        <div className="max-w-screen-xl mx-auto px-4 md:px-8">
+          <div className="items-start justify-between py-4 md:flex">
+            <div>
+              <h3 className="text-gray-800 text-2xl font-bold">Feedback</h3>
+            </div>
+            <div className="items-center gap-x-3 mt-6 md:mt-0 sm:flex"></div>
+          </div>
+
+          <button
+            onClick={() => {
+              window.open("https://llmreport.featurebase.app/", "_blank");
+            }}
+            className="flex items-center justify-center gap-x-2 rounded-lg bg-black py-2 px-4 text-center font-medium text-white duration-150 hover:bg-black/80 hover:shadow-none"
+          >
+            Submit Feedback
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const Settings = () => {
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
@@ -254,7 +297,8 @@ const Main = () => {
         </nav>
       </aside>
       <div className="p-4 md:ml-64 overflow-y-auto h-full min-h-[70vh]">
-        {selectedItem === 1 && <Settings />}
+        {selectedItem === 2 && <Settings />}
+        {selectedItem === 1 && <Feedback />}
         {selectedItem === 0 && <Pricing />}
       </div>
     </>
