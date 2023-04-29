@@ -25,10 +25,10 @@ async function buffer(readable: Readable) {
 }
 
 const relevantEvents = new Set([
-  "product.created",
-  "product.updated",
-  "price.created",
-  "price.updated",
+  // "product.created",
+  // "product.updated",
+  // "price.created",
+  // "price.updated",
   "checkout.session.completed",
   "customer.subscription.created",
   "customer.subscription.updated",
