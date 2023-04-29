@@ -50,8 +50,8 @@ const LoadingChart = () => {
 
   return (
     <div className="animate-pulse">
-      {/* <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2.5"></div>
-      <div className="w-48 h-2 mb-10 bg-gray-200 rounded-full dark:bg-gray-700"></div> */}
+      {/* <div className="h-2.5 bg-gray-200 rounded-full  w-32 mb-2.5"></div>
+      <div className="w-48 h-2 mb-10 bg-gray-200 rounded-full "></div> */}
       <motion.div
         className="flex items-end mt-4 space-x-1 h-[300px]"
         variants={animationVariant}
@@ -66,7 +66,7 @@ const LoadingChart = () => {
               hidden: { opacity: 0, scaleY: 0, originY: 1 },
               show: { opacity: 1, scaleY: 1, originY: 1 },
             }}
-            className={`w-full bg-gray-200 rounded-t-md dark:bg-gray-700 transition-all duration-500 ease-in-out`}
+            className={`w-full bg-gray-200 rounded-t-md transition-all duration-500 ease-in-out`}
             style={{
               height: `${value}%`,
             }}
@@ -359,16 +359,16 @@ const MonthlyChart = ({
       >
         <div className="flex flex-row justify-between items-center">
           <div>
-            <div className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-[7rem] h-3 mb-2.5 "></div>
-            <div className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-[8rem] h-8 mb-2.5 "></div>
+            <div className="mt-3 bg-gray-200 rounded-full  w-[7rem] h-3 mb-2.5 "></div>
+            <div className="mt-3 bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5 "></div>
           </div>
-          <div className="bg-gray-200 rounded-full dark:bg-gray-700 w-[10rem] h-8 mb-2.5"></div>
+          <div className="bg-gray-200 rounded-full  w-[10rem] h-8 mb-2.5"></div>
         </div>
         {/* <div className="flex flex-col items-end">
-          <div className="bg-gray-200 rounded-full dark:bg-gray-700 w-[8rem] h-8 mb-2.5"></div>
+          <div className="bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5"></div>
         </div> */}
         <LoadingChart />
-        <div className="mt-3 bg-gray-200 rounded-full dark:bg-gray-700 w-full h-4 mb-2.5 "></div>
+        <div className="mt-3 bg-gray-200 rounded-full  w-full h-4 mb-2.5 "></div>
       </motion.div>
     );
   }

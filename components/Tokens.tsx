@@ -61,8 +61,8 @@ const LoadingList = () => {
 
   return (
     <div className="animate-pulse">
-      <div className="h-6 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2.5"></div>
-      {/* <div className="w-48 h-2 mb-10 bg-gray-200 rounded-full dark:bg-gray-700"></div>  */}
+      <div className="h-6 bg-gray-200 rounded-full  w-32 mb-2.5"></div>
+      {/* <div className="w-48 h-2 mb-10 bg-gray-200 rounded-full "></div>  */}
       <motion.div
         className="flex items-start space-y-1 flex-col h-[250px] mt-4"
         variants={animationVariant}
@@ -77,7 +77,7 @@ const LoadingList = () => {
               hidden: { opacity: 0, scaleX: 0, originX: 0 },
               show: { opacity: 1, scaleX: 1, originX: 0 },
             }}
-            className={` bg-gray-200 rounded-r-md dark:bg-gray-700 transition-all duration-500 ease-in-out h-[20rem]`}
+            className={` bg-gray-200 rounded-r-md  transition-all duration-500 ease-in-out h-[20rem]`}
             style={{
               width: `${value}%`,
             }}

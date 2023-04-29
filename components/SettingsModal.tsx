@@ -203,7 +203,7 @@ const Main = () => {
             <div className="py-8 flex items-center px-8">
               <div className="flex items-center mx-auto">
                 <Image src="/logo.svg" width={28} height={28} alt="Logo" />
-                <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                <span className="self-center text-xl font-semibold whitespace-nowrap ">
                   LLM Report
                 </span>
               </div>
