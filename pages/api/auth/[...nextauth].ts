@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import axios from "axios";
 import NextAuth, { NextAuthOptions, Session } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import GitHubProvider from "next-auth/providers/github";
@@ -68,12 +69,12 @@ export const authOptions: NextAuthOptions = {
       // });
 
       if (process.env.NODE_ENV !== "production") return;
-      // await axios.post(
-      //   "https://hooks.slack.com/services/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",
-      //   {
-      //     text: `${message.user.email} just signed up! 🎉`,
-      //   }
-      // );
+      await axios.post(
+        "https://hooks.slack.com/services/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",
+        {
+          text: `${message.user.email} just signed up! 🎉`,
+        }
+      );
     },
   },
 };
