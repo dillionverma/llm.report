@@ -4,6 +4,7 @@ import {
   LOCAL_STORAGE_KEY,
   animationVariant,
 } from "@/lib/constants";
+import { addMock, enableMocking } from "@/lib/mock-axios";
 import { BillingUsageResponse, Category } from "@/lib/types";
 import useInterval from "@/lib/use-interval";
 import useLocalStorage from "@/lib/use-local-storage";
@@ -21,7 +22,9 @@ import {
 import axios from "axios";
 import { format, parse } from "date-fns";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import usageRange from "../fixtures/openai/usage-range.json";
 
 const dataFormatter = (number: number) => {
   return "$ " + Intl.NumberFormat("us").format(number).toString();
@@ -98,6 +101,7 @@ const MonthlyChart = ({
   const [loading, setLoading] = useState(false);
   const [totalUsage, setTotalUsage] = useState(0);
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const totalUsage = dailyCosts.reduce((acc, cv) => {
@@ -128,6 +132,19 @@ const MonthlyChart = ({
         start_date: format(startDate, "yyyy-MM-dd"),
         end_date: format(endDate, "yyyy-MM-dd"),
       };
+
+      if (!session?.user) {
+        addMock(
+          `https://api.openai.com/dashboard/billing/usage?start_date=${format(
+            startDate,
+            "yyyy-MM-dd"
+          )}&end_date=${format(endDate, "yyyy-MM-dd")}`,
+          { data: usageRange, status: 200 }
+        );
+        enableMocking(true);
+      } else {
+        enableMocking(false);
+      }
 
       const response = await axios.get<BillingUsageResponse>(
         `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
@@ -340,7 +357,7 @@ const MonthlyChart = ({
       //   }
       // );
     })();
-  }, [startDate, endDate, key]);
+  }, [startDate, endDate, key, session]);
 
   if (defaultLoading || loading) {
     return (

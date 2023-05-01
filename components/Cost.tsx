@@ -1,4 +1,5 @@
 import { CATEGORY_TO_COLOR, LOCAL_STORAGE_KEY } from "@/lib/constants";
+import { addMock, enableMocking } from "@/lib/mock-axios";
 import {
   BillingSubscriptionResponse,
   BillingUsageResponse,
@@ -16,7 +17,10 @@ import {
 import axios from "axios";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import subscriptionData from "../fixtures/openai/subscription.json";
+import usageRange from "../fixtures/openai/usage-range.json";
 
 const MonthlyUsage = ({
   startDate,
@@ -34,7 +38,7 @@ const MonthlyUsage = ({
   const [data, setData] = useState<any[]>();
   const [loading, setLoading] = useState<boolean>(false);
   const [percentage, setPercentage] = useState<number>(0);
-
+  const { data: session } = useSession();
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
 
   useEffect(() => {
@@ -47,6 +51,23 @@ const MonthlyUsage = ({
 
       let subscriptionResponse;
       let usageResponse;
+
+      if (!session?.user) {
+        addMock(
+          `https://api.openai.com/dashboard/billing/usage?start_date=${format(
+            startDate,
+            "yyyy-MM-dd"
+          )}&end_date=${format(endDate, "yyyy-MM-dd")}`,
+          { data: usageRange, status: 200 }
+        );
+        addMock("https://api.openai.com/dashboard/billing/subscription", {
+          data: subscriptionData,
+          status: 200,
+        });
+        enableMocking(true);
+      } else {
+        enableMocking(false);
+      }
 
       try {
         subscriptionResponse = await axios.get<BillingSubscriptionResponse>(
@@ -114,7 +135,7 @@ const MonthlyUsage = ({
       setData(data);
       setSubscription(subscriptionResponse.data);
     })();
-  }, [startDate, endDate, categories, key]);
+  }, [startDate, endDate, categories, key, session]);
 
   if (
     defaultLoading ||

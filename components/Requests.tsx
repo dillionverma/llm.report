@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 
 import { LOCAL_STORAGE_KEY, animationVariant } from "@/lib/constants";
+import { addMock, enableMocking } from "@/lib/mock-axios";
 import { Category, UsageResponse } from "@/lib/types";
 import useInterval from "@/lib/use-interval";
 import useLocalStorage from "@/lib/use-local-storage";
@@ -19,8 +20,9 @@ import {
 import axios from "axios";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
-
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import usageDay1 from "../fixtures/openai/usage-day-1.json";
 
 const dateRange = (startDate: Date, endDate: Date): Date[] => {
   const dates = [];
@@ -99,6 +101,7 @@ const Requests = ({
     { name: string; value: number }[]
   >([]);
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+  const { data: session } = useSession();
 
   useEffect(() => {
     (async () => {
@@ -109,6 +112,20 @@ const Requests = ({
       setLoading(true);
 
       const dates = dateRange(startDate, endDate);
+
+      if (!session?.user) {
+        for (const date of dates) {
+          const d = format(date, "yyyy-MM-dd");
+          addMock(`https://api.openai.com/v1/usage?date=${d}`, {
+            data: usageDay1,
+            status: 200,
+          });
+        }
+
+        enableMocking(true);
+      } else {
+        enableMocking(false);
+      }
 
       const data = await Promise.all(
         dates.map(async (date) => {
@@ -182,7 +199,7 @@ const Requests = ({
       );
       setLoading(false);
     })();
-  }, [startDate, endDate, key]);
+  }, [startDate, endDate, key, session]);
 
   if (defaultLoading || loading) {
     return <LoadingList />;
