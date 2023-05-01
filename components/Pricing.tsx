@@ -82,7 +82,7 @@ const Pricing = () => {
 
       const isSubscribed =
         res.data.user.subscriptions.filter(
-          (sub: any) => sub.status === "active"
+          (sub: any) => sub.status === "active" || sub.status === "trialing"
         ).length > 0;
 
       const isLifetime =

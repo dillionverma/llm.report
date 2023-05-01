@@ -446,7 +446,7 @@ const SettingsModal = () => {
       const res = await axios.get("/api/v1/me");
       const isSubscribed =
         res.data.user.subscriptions.filter(
-          (sub: any) => sub.status === "active"
+          (sub: any) => sub.status === "active" || sub.status === "trialing"
         ).length > 0 ||
         res.data.user.payments.filter(
           (payment: any) => payment.status === "succeeded"
