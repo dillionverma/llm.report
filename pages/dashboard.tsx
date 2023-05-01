@@ -30,7 +30,9 @@ import usageRange from "../fixtures/openai/usage-range.json";
 export default function KpiCardGrid() {
   const [value, setValue] = useState<DateRangePickerValue>([
     startOfMonth(new Date()),
-    new Date(),
+    startOfMonth(new Date()) === new Date()
+      ? new Date()
+      : add(new Date(), { months: 1 }),
     "mtd",
   ]);
 
