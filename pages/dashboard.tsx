@@ -28,9 +28,18 @@ export default function KpiCardGrid() {
     startOfMonth(new Date()),
     startOfMonth(new Date()) === new Date()
       ? new Date()
-      : add(new Date(), { months: 1 }),
+      : add(new Date(), { days: 1 }),
     "mtd",
   ]);
+
+  const setDates = (v: DateRangePickerValue) => {
+    // Edge case due to OpenAI API. They don't accept start_date === end_date.
+    if (v[0] && v[1] && v[0].getTime() === v[1].getTime()) {
+      return setValue([v[0], add(v[1], { days: 1 }), v[2]]);
+    } else {
+      setValue(v);
+    }
+  };
 
   const [subscribed, setSubscribed] = useState(false);
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "");
@@ -82,9 +91,8 @@ export default function KpiCardGrid() {
   useEffect(() => {
     if (!value[0] || !value[1]) return;
 
-    // console.log("u", !data?.user);
-    // // Only enable mocking if no user is logged in.
-    // if (!data?.use) {
+    // // // Only enable mocking if no user is logged in.
+    // if (!data?.user) {
     //   addMock(
     //     `https://api.openai.com/dashboard/billing/usage?start_date=${format(
     //       value[0],
@@ -214,7 +222,7 @@ export default function KpiCardGrid() {
         <div className="w-full max-w-2xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col">
           <DateRangePicker
             value={value}
-            onValueChange={setValue}
+            onValueChange={setDates}
             dropdownPlaceholder="Select"
             options={[
               {
@@ -245,7 +253,7 @@ export default function KpiCardGrid() {
               },
             ]}
             // minDate={sub(new Date(), { days: 100 })}
-            maxDate={new Date()}
+            // maxDate={new Date()}
           />
 
           <MultiSelectBox
