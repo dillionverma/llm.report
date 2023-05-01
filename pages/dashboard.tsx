@@ -4,7 +4,6 @@ import Requests from "@/components/Requests";
 import { useDialog } from "@/components/SettingsModal";
 import { default as Tokens } from "@/components/Tokens";
 import { CATEGORIES, LOCAL_STORAGE_KEY } from "@/lib/constants";
-import { addMock, enableMocking } from "@/lib/mock-axios";
 import { Category } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
 import {
@@ -20,12 +19,9 @@ import {
   Title,
 } from "@tremor/react";
 import axios from "axios";
-import { add, format, startOfMonth, sub } from "date-fns";
+import { add, startOfMonth, sub } from "date-fns";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import subscription from "../fixtures/openai/subscription.json";
-import usageDay1 from "../fixtures/openai/usage-day-1.json";
-import usageRange from "../fixtures/openai/usage-range.json";
 
 export default function KpiCardGrid() {
   const [value, setValue] = useState<DateRangePickerValue>([
@@ -86,35 +82,36 @@ export default function KpiCardGrid() {
   useEffect(() => {
     if (!value[0] || !value[1]) return;
 
+    // console.log("u", !data?.user);
     // // Only enable mocking if no user is logged in.
-    if (!data?.user) {
-      addMock(
-        `https://api.openai.com/dashboard/billing/usage?start_date=${format(
-          value[0],
-          "yyyy-MM-dd"
-        )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
-        { data: usageRange, status: 200 }
-      );
+    // if (!data?.use) {
+    //   addMock(
+    //     `https://api.openai.com/dashboard/billing/usage?start_date=${format(
+    //       value[0],
+    //       "yyyy-MM-dd"
+    //     )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
+    //     { data: usageRange, status: 200 }
+    //   );
 
-      for (let i = 0; i < 300; i++) {
-        const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
-        addMock(`https://api.openai.com/v1/usage?date=${date}`, {
-          data: usageDay1,
-          status: 200,
-        });
-      }
+    //   for (let i = 0; i < 300; i++) {
+    //     const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
+    //     addMock(`https://api.openai.com/v1/usage?date=${date}`, {
+    //       data: usageDay1,
+    //       status: 200,
+    //     });
+    //   }
 
-      addMock("https://api.openai.com/dashboard/billing/subscription", {
-        data: subscription,
-        status: 200,
-      });
+    //   addMock("https://api.openai.com/dashboard/billing/subscription", {
+    //     data: subscription,
+    //     status: 200,
+    //   });
 
-      console.log("enabling mocking");
+    //   console.log("enabling mocking");
 
-      enableMocking(true);
-    } else {
-      enableMocking(false);
-    }
+    //   enableMocking(true);
+    // } else {
+    //   enableMocking(false);
+    // }
   }, [data?.user, value]);
 
   const [categories, setCategories] = useState<Category[]>(
