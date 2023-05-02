@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <>
-      <header className="pt-10 px-10">
+      <header className="pt-10 px-10 pb-4">
         <nav className="flex items-end flex-col">
           {session?.user ? (
             <div className="flex justify-center items-center">
