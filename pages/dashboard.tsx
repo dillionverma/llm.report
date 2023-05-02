@@ -151,7 +151,7 @@ export default function KpiCardGrid() {
               </Badge>
             )}
 
-            {!key && subscribed && (
+            {data?.user && !key && subscribed && (
               <Badge
                 className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
                 onClick={() => openDialog()}
