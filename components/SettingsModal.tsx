@@ -1,11 +1,7 @@
 import { FIRST_VISIT_KEY, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  QuestionMarkCircleIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/solid";
-import axios from "axios";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +13,6 @@ import {
   useState,
 } from "react";
 import { toast } from "react-hot-toast";
-import Pricing from "./Pricing";
 
 const features = [
   "📊 Complete overview of your API usage",
@@ -25,17 +20,11 @@ const features = [
 ];
 
 const navigation = [
-  {
-    onClick: () => {},
-    name: "Account",
-    icon: <UserCircleIcon className="w-5 h-5" />,
-  },
-  {
-    onClick: () => {},
-    name: "Feedback",
-    icon: <QuestionMarkCircleIcon className="w-5 h-5" />,
-  },
-
+  // {
+  //   onClick: () => {},
+  //   name: "Account",
+  //   icon: <UserCircleIcon className="w-5 h-5" />,
+  // },
   {
     onClick: () => {},
     name: "Settings",
@@ -60,6 +49,11 @@ const navigation = [
         />
       </svg>
     ),
+  },
+  {
+    onClick: () => {},
+    name: "Feedback",
+    icon: <QuestionMarkCircleIcon className="w-5 h-5" />,
   },
 ];
 
@@ -147,7 +141,6 @@ const Feedback = () => {
             </div>
             <div className="items-center gap-x-3 mt-6 md:mt-0 sm:flex"></div>
           </div>
-
           <button
             onClick={() => {
               window.open("https://llmreport.featurebase.app/", "_blank");
@@ -302,9 +295,9 @@ const Main = () => {
         </nav>
       </aside>
       <div className="p-4 md:ml-64 overflow-y-auto h-full min-h-[70vh]">
-        {selectedItem === 2 && <Settings />}
+        {selectedItem === 0 && <Settings />}
         {selectedItem === 1 && <Feedback />}
-        {selectedItem === 0 && <Pricing />}
+        {/* {selectedItem === 2 && <Pricing />} */}
       </div>
     </>
   );
@@ -465,25 +458,25 @@ const Login = () => {
 const SettingsModal = () => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { data: session } = useSession();
-  const [subscribed, setSubscribed] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [subscribed, setSubscribed] = useState(true);
+  // const [user, setUser] = useState<any>(null);
 
-  useEffect(() => {
-    (async () => {
-      if (!session?.user) return;
-      const res = await axios.get("/api/v1/me");
-      const isSubscribed =
-        res.data.user.subscriptions.filter(
-          (sub: any) => sub.status === "active" || sub.status === "trialing"
-        ).length > 0 ||
-        res.data.user.payments.filter(
-          (payment: any) => payment.status === "succeeded"
-        ).length > 0;
+  // useEffect(() => {
+  //   (async () => {
+  //     if (!session?.user) return;
+  //     const res = await axios.get("/api/v1/me");
+  //     const isSubscribed =
+  //       res.data.user.subscriptions.filter(
+  //         (sub: any) => sub.status === "active" || sub.status === "trialing"
+  //       ).length > 0 ||
+  //       res.data.user.payments.filter(
+  //         (payment: any) => payment.status === "succeeded"
+  //       ).length > 0;
 
-      setSubscribed(isSubscribed);
-      setUser(res.data.user);
-    })();
-  }, [session?.user]);
+  //     // setSubscribed(isSubscribed);
+  //     setUser(res.data.user);
+  //   })();
+  // }, [session?.user]);
 
   const [firstVisit, setFirstVisit] = useLocalStorage<boolean>(
     FIRST_VISIT_KEY,
@@ -502,29 +495,26 @@ const SettingsModal = () => {
     setTimeout(() => {
       if (!firstVisit) return;
       if (session?.user) return;
-      if (subscribed) return;
+      // if (subscribed) return;
 
       setFirstVisit(false);
       openDialog();
     }, 5000);
-  }, [firstVisit, subscribed, session?.user]);
+  }, [firstVisit, session?.user]);
+
+  // useEffect(() => {
+  //   if (session?.user && user && !subscribed && !key) {
+  //     openDialog();
+  //     toast("Choose a payment plan", { icon: "💳", duration: 5000 });
+  //   }
+  // }, [subscribed, key, session?.user, user]);
 
   useEffect(() => {
-    // if (!firstVisitAfterLogin) return;
-
-    if (session?.user && user && !subscribed && !key) {
-      // setFirstVisitAfterLogin(false);
-      openDialog();
-      toast("Choose a payment plan", { icon: "💳", duration: 5000 });
-    }
-  }, [subscribed, key, session?.user, user]);
-
-  useEffect(() => {
-    if (session?.user && subscribed && !key) {
+    if (session?.user && !key) {
       openDialog();
       toast("Enter your API key", { icon: "🔑", duration: 5000 });
     }
-  }, [subscribed, session?.user, key]);
+  }, [session?.user, key]);
 
   return (
     <>

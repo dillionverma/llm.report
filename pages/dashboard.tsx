@@ -41,28 +41,28 @@ export default function KpiCardGrid() {
     }
   };
 
-  const [subscribed, setSubscribed] = useState(false);
+  const [subscribed, setSubscribed] = useState(true);
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "");
   const [validKey, setValidKey] = useState(false);
 
   const { data } = useSession();
-  useEffect(() => {
-    (async () => {
-      if (!data?.user) return;
-      const res = await axios.get("/api/v1/me");
-      console.log(res);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (!data?.user) return;
+  //     const res = await axios.get("/api/v1/me");
+  //     console.log(res);
 
-      const isSubscribed =
-        res.data.user.subscriptions.filter(
-          (sub: any) => sub.status === "active" || sub.status === "trialing"
-        ).length > 0 ||
-        res.data.user.payments.filter(
-          (payment: any) => payment.status === "succeeded"
-        ).length > 0;
+  //     const isSubscribed =
+  //       res.data.user.subscriptions.filter(
+  //         (sub: any) => sub.status === "active" || sub.status === "trialing"
+  //       ).length > 0 ||
+  //       res.data.user.payments.filter(
+  //         (payment: any) => payment.status === "succeeded"
+  //       ).length > 0;
 
-      setSubscribed(isSubscribed);
-    })();
-  }, [data?.user]);
+  //     setSubscribed(isSubscribed);
+  //   })();
+  // }, [data?.user]);
 
   useEffect(() => {
     const ping = async (): Promise<boolean> => {

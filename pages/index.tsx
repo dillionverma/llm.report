@@ -39,7 +39,7 @@ export default function Home() {
           )}
         </nav>
       </header>
-      <main className="px-10 ">
+      <main className="px-4 md:px-10">
         <Dashboard />
       </main>
       <footer className="p-5">
