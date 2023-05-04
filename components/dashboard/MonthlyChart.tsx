@@ -465,6 +465,11 @@ const MonthlyChart = ({
             // stack={view === "relative"}
             showLegend={false}
             showAnimation={false}
+            maxValue={Math.max(
+              ...cumulativeData.map((d) =>
+                Math.max(...categories.map((c) => d[c]))
+              )
+            )}
           />
           <Legend
             className="mt-4 space-x-2"
