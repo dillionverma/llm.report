@@ -1,5 +1,7 @@
 import Meta from "@/components/Meta";
 import SettingsModal, { DialogProvider } from "@/components/SettingsModal";
+import { Transition } from "@/components/Transition";
+import Layout from "@/components/layout";
 import "@/styles/globals.css";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
@@ -37,7 +39,11 @@ export default function App({
 
       <DialogProvider>
         <Meta />
-        <Component {...pageProps} />
+        <Layout>
+          <Transition>
+            <Component {...pageProps} />
+          </Transition>
+        </Layout>
         <Toaster
           position="top-center"
           reverseOrder={false}

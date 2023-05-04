@@ -24,7 +24,7 @@ import { format, parse } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import usageRange from "../fixtures/openai/usage-range.json";
+import usageRange from "../../fixtures/openai/usage-range.json";
 
 const dataFormatter = (number: number) => {
   return "$ " + Intl.NumberFormat("us").format(number).toString();
@@ -432,6 +432,7 @@ const MonthlyChart = ({
             showLegend={false}
             yAxisWidth={48}
             showYAxis={true}
+            showAnimation={false}
           />
           <Legend
             className="mt-4 space-x-2"
@@ -463,6 +464,7 @@ const MonthlyChart = ({
             startEndOnly
             // stack={view === "relative"}
             showLegend={false}
+            showAnimation={false}
           />
           <Legend
             className="mt-4 space-x-2"

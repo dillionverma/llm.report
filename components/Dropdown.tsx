@@ -1,4 +1,4 @@
-import { CreditCard, LifeBuoy, LogOut, Settings } from "lucide-react";
+import { LifeBuoy, LogOut, Settings } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -11,9 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useDialog } from "./SettingsModal";
 
-export function DropdownMenuDemo() {
+export function UserDropdownMenu() {
   const { data: session } = useSession();
   const { openDialog } = useDialog();
 
@@ -36,20 +37,28 @@ export function DropdownMenuDemo() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          {/* <DropdownMenuItem>
             <CreditCard className="mr-2 h-4 w-4" />
             <span>Billing</span>
-            {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => openDialog()}>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <LifeBuoy className="mr-2 h-4 w-4" />
-            <span>Feedback</span>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
+
+          <Link href="/settings">
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+              {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+            </DropdownMenuItem>
+          </Link>
+          <Link href="/feature-request">
+            <DropdownMenuItem
+              onClick={() =>
+                window.open("https://llmreport.featurebase.app/", "_blank")
+              }
+            >
+              <LifeBuoy className="mr-2 h-4 w-4" />
+              <span>Feedback</span>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()}>

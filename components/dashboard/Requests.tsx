@@ -22,7 +22,7 @@ import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import usageDay1 from "../fixtures/openai/usage-day-1.json";
+import usageDay1 from "../../fixtures/openai/usage-day-1.json";
 
 const dateRange = (startDate: Date, endDate: Date): Date[] => {
   const dates = [];

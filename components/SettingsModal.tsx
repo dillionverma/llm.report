@@ -5,6 +5,7 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   Fragment,
   createContext,
@@ -498,7 +499,7 @@ const SettingsModal = () => {
       // if (subscribed) return;
 
       setFirstVisit(false);
-      openDialog();
+      // openDialog();
     }, 5000);
   }, [firstVisit, session?.user]);
 
@@ -509,10 +510,13 @@ const SettingsModal = () => {
   //   }
   // }, [subscribed, key, session?.user, user]);
 
+  const router = useRouter();
+
   useEffect(() => {
     if (session?.user && !key) {
-      openDialog();
+      // openDialog();
       toast("Enter your API key", { icon: "🔑", duration: 5000 });
+      router.push("/settings");
     }
   }, [session?.user, key]);
 

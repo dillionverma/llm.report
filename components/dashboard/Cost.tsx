@@ -19,8 +19,8 @@ import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import subscriptionData from "../fixtures/openai/subscription.json";
-import usageRange from "../fixtures/openai/usage-range.json";
+import subscriptionData from "../../fixtures/openai/subscription.json";
+import usageRange from "../../fixtures/openai/usage-range.json";
 
 const MonthlyUsage = ({
   startDate,
@@ -192,6 +192,7 @@ const MonthlyUsage = ({
         <DonutChart
           className="mt-6"
           data={data}
+          showAnimation={false}
           category="cost"
           index="name"
           valueFormatter={(v) => `$ ${v.toFixed(2)}`}

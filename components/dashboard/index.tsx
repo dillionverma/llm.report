@@ -1,8 +1,8 @@
-import Cost from "@/components/Cost";
-import MonthlyChart from "@/components/MonthlyChart";
-import Requests from "@/components/Requests";
 import { useDialog } from "@/components/SettingsModal";
-import { default as Tokens } from "@/components/Tokens";
+import Cost from "@/components/dashboard/Cost";
+import MonthlyChart from "@/components/dashboard/MonthlyChart";
+import Requests from "@/components/dashboard/Requests";
+import { default as Tokens } from "@/components/dashboard/Tokens";
 import { CATEGORIES, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import { Category } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
@@ -23,7 +23,7 @@ import { add, startOfMonth, sub } from "date-fns";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export default function KpiCardGrid() {
+export default function Dashboard() {
   const [value, setValue] = useState<DateRangePickerValue>([
     startOfMonth(new Date()),
     startOfMonth(new Date()) === new Date()
@@ -130,7 +130,7 @@ export default function KpiCardGrid() {
 
   return (
     <div>
-      <Flex className="lg:flex-row flex-col items-start lg:items-center space-y-4">
+      <Flex className="xl:flex-row flex-col items-start xl:items-center space-y-4">
         <div className="space-y-2">
           <div className="flex flex-row space-x-3">
             <Title>OpenAI Analytics</Title>
@@ -272,7 +272,7 @@ export default function KpiCardGrid() {
         </div>
       </Flex>
 
-      <Card className="mt-4">
+      <Card className="mt-4 shadow-none">
         <MonthlyChart
           startDate={value[0]}
           endDate={value[1]}
@@ -282,7 +282,7 @@ export default function KpiCardGrid() {
       </Card>
 
       <Grid numColsMd={1} numColsLg={3} className="gap-6 mt-4">
-        <Card>
+        <Card className="shadow-none">
           <Cost
             startDate={value[0]}
             endDate={value[1]}
@@ -290,7 +290,7 @@ export default function KpiCardGrid() {
             defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
-        <Card>
+        <Card className="shadow-none">
           <Requests
             startDate={value[0]}
             endDate={value[1]}
@@ -298,7 +298,7 @@ export default function KpiCardGrid() {
             defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
-        <Card>
+        <Card className="shadow-none">
           <Tokens
             startDate={value[0]}
             endDate={value[1]}
@@ -307,16 +307,6 @@ export default function KpiCardGrid() {
           />
         </Card>
       </Grid>
-
-      {/* KPI section */}
-      {/* <Grid numColsMd={2} className="mt-4 gap-4">
-        <Card>
-          <div className="h-28" />
-        </Card>
-        <Card>
-          <div className="h-28" />
-        </Card>
-      </Grid> */}
     </div>
   );
 }
