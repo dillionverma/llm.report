@@ -44,7 +44,7 @@ export default function Dashboard() {
   const [subscribed, setSubscribed] = useState(true);
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "");
   const [validKey, setValidKey] = useState(false);
-
+  const { openDialog } = useDialog();
   const { data } = useSession();
   // useEffect(() => {
   //   (async () => {
@@ -125,8 +125,6 @@ export default function Dashboard() {
   const [categories, setCategories] = useState<Category[]>(
     CATEGORIES.filter((c) => c !== "Total Cost ($)")
   );
-
-  const { openDialog } = useDialog();
 
   return (
     <div>
