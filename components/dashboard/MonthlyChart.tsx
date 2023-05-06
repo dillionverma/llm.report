@@ -2,13 +2,19 @@ import {
   CATEGORIES,
   CATEGORY_TO_COLOR,
   LOCAL_STORAGE_KEY,
-  animationVariant,
+  MODEL_COST,
+  MODEL_TO_COLOR,
+  SELECTION_KEY,
 } from "@/lib/constants";
 import { addMock, enableMocking } from "@/lib/mock-axios";
-import { BillingUsageResponse, Category } from "@/lib/types";
-import useInterval from "@/lib/use-interval";
+import {
+  BillingUsageResponse,
+  Category,
+  Snapshot,
+  UsageResponse,
+} from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
-import { dateFormat } from "@/lib/utils";
+import { dateFormat, dateRange } from "@/lib/utils";
 import {
   AreaChart,
   BarChart,
@@ -24,62 +30,15 @@ import { format, parse } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import usageDay1 from "../../fixtures/openai/usage-day-1.json";
 import usageRange from "../../fixtures/openai/usage-range.json";
+import LoadingChart from "./LoadingChart";
 
 const dataFormatter = (number: number) => {
   return "$ " + Intl.NumberFormat("us").format(number).toString();
 };
 
-type Select = "daily" | "cumulative";
-
-const LoadingChart = () => {
-  const loadingBarHeights = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-  const getRandomHeight = () => {
-    return loadingBarHeights[
-      Math.floor(Math.random() * loadingBarHeights.length)
-    ];
-  };
-  const [heights, setHeights] = useState<number[]>(
-    new Array(30).fill(0).map((_) => getRandomHeight())
-  );
-
-  useInterval(() => {
-    setHeights((heights) => {
-      return heights.map((height) => {
-        return getRandomHeight();
-      });
-    });
-  }, 1500);
-
-  return (
-    <div className="animate-pulse">
-      {/* <div className="h-2.5 bg-gray-200 rounded-full  w-32 mb-2.5"></div>
-      <div className="w-48 h-2 mb-10 bg-gray-200 rounded-full "></div> */}
-      <motion.div
-        className="flex items-end mt-4 space-x-1 h-[300px]"
-        variants={animationVariant}
-        initial="hidden"
-        whileInView="show"
-        animate="show"
-      >
-        {heights.map((value, index) => (
-          <motion.div
-            key={index}
-            variants={{
-              hidden: { opacity: 0, scaleY: 0, originY: 1 },
-              show: { opacity: 1, scaleY: 1, originY: 1 },
-            }}
-            className={`w-full bg-gray-200 rounded-t-md transition-all duration-500 ease-in-out`}
-            style={{
-              height: `${value}%`,
-            }}
-          ></motion.div>
-        ))}
-      </motion.div>
-      <span className="sr-only">Loading...</span>
-    </div>
-  );
-};
+type Select = "minute" | "day" | "cumulative";
 
 const MonthlyChart = ({
   startDate,
@@ -94,13 +53,17 @@ const MonthlyChart = ({
 }) => {
   const [cumulativeData, setCumulativeData] = useState<any[]>([]);
   const [data, setData] = useState<any[]>([]);
-  const [selectedValue, setSelectedValue] = useState<Select>("daily");
+  // const [selectedValue, setSelectedValue] = useState<Select>("day");
   const [dailyCosts, setDailyCosts] = useState<
     BillingUsageResponse["daily_costs"]
   >([]);
   const [loading, setLoading] = useState(false);
   const [totalUsage, setTotalUsage] = useState(0);
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+  const [selection, setSelection] = useLocalStorage<Select>(
+    SELECTION_KEY,
+    "day"
+  );
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -242,122 +205,120 @@ const MonthlyChart = ({
       setCumulativeData(cumulativeData);
       setData(data);
       setLoading(false);
-
-      // toast.promise(
-      //   axios.get<BillingUsageResponse>(
-      //     `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
-      //       query
-      //     )}`,
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ${key}`,
-      //       },
-      //     }
-      //   ),
-      //   {
-      //     loading: "Loading...",
-      //     success: (response) => {
-      //       // console.log(response);
-      //       const daily_costs = response.data.daily_costs;
-      //       setDailyCosts(daily_costs);
-      //       // setTotalUsage(response.data.total_usage);
-
-      //       // console.log(daily_costs);
-
-      //       const totalUsage = daily_costs.reduce((acc, cv) => {
-      //         return (
-      //           acc +
-      //           cv.line_items.reduce(
-      //             (acc, cv) =>
-      //               acc + (new Set(categories).has(cv.name) ? cv.cost : 0),
-      //             0
-      //           )
-      //         );
-      //       }, 0);
-
-      //       setTotalUsage(totalUsage);
-
-      //       const data = daily_costs
-      //         .map((day) => {
-      //           return {
-      //             date: dateFormat(day.timestamp),
-      //             ...day.line_items.reduce((acc, cv) => {
-      //               return {
-      //                 ...acc,
-      //                 [cv.name]: (cv.cost / 100).toFixed(2),
-      //               };
-      //             }, {}),
-      //             "Total Cost ($)": (
-      //               day.line_items.reduce((acc, cv) => acc + cv.cost, 0) / 100
-      //             ).toFixed(2),
-      //           };
-      //         })
-      //         .filter(
-      //           (day) => parse(day.date, "MMM d", new Date()) < new Date()
-      //         );
-
-      //       const cumulativeData = daily_costs
-      //         .map((day, index) => {
-      //           return {
-      //             date: dateFormat(day.timestamp),
-      //             ...day.line_items.reduce((acc, cv) => {
-      //               return {
-      //                 ...acc,
-      //                 [cv.name]: (cv.cost / 100).toFixed(2),
-      //               };
-      //             }, {}),
-      //             ...CATEGORIES.map((category) => {
-      //               return {
-      //                 [category]: (
-      //                   daily_costs
-      //                     .slice(0, index + 1)
-      //                     .reduce(
-      //                       (acc, cv) =>
-      //                         acc +
-      //                         cv.line_items.reduce(
-      //                           (acc, cv) =>
-      //                             acc + (cv.name === category ? cv.cost : 0),
-      //                           0
-      //                         ),
-      //                       0
-      //                     ) / 100
-      //                 ).toFixed(2),
-      //               };
-      //             }).reduce((acc, value) => {
-      //               return {
-      //                 ...acc,
-      //                 ...value,
-      //               };
-      //             }, {}),
-      //             "Total Cost ($)": (
-      //               daily_costs
-      //                 .slice(0, index + 1)
-      //                 .reduce(
-      //                   (acc, cv) =>
-      //                     acc +
-      //                     cv.line_items.reduce((acc, cv) => acc + cv.cost, 0),
-      //                   0
-      //                 ) / 100
-      //             ).toFixed(2),
-      //           };
-      //         })
-      //         .filter(
-      //           (day) => parse(day.date, "MMM d", new Date()) < new Date()
-      //         );
-
-      //       setCumulativeData(cumulativeData);
-      //       setData(data);
-      //       setLoading(false);
-      //       return "Ready!";
-      //     },
-      //     error: (err) => {
-      //       // setLoading(false);
-      //       return err.response.data.error.message;
-      //     },
-      //   }
-      // );
     })();
-  }, [startDate, endDate, key, session]);
+  }, [startDate, endDate, key, session, selection]);
+
+  const [data2, setData2] = useState<{ time: string; cost: number }[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      if (!startDate || !endDate) {
+        return;
+      }
+
+      setLoading(true);
+
+      const dates = dateRange(startDate, endDate);
+
+      if (!session?.user) {
+        for (const date of dates) {
+          const d = format(date, "yyyy-MM-dd");
+          addMock(`https://api.openai.com/v1/usage?date=${d}`, {
+            data: usageDay1,
+            status: 200,
+          });
+        }
+        enableMocking(true);
+      } else {
+        enableMocking(false);
+      }
+
+      let data2;
+      try {
+        data2 = await Promise.all(
+          dates.map(async (date) => {
+            const query = {
+              // ...query,
+              date: format(date, "yyyy-MM-dd"),
+            };
+
+            const res = await axios.get<UsageResponse>(
+              `https://api.openai.com/v1/usage?${new URLSearchParams(query)}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${key}`,
+                },
+              }
+            );
+
+            return res.data;
+          })
+        );
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+
+      // Group data by aggregation_timestamp and calculate costs
+      const groupedData = data2
+        .flatMap((day) => day.data)
+        .reduce((acc, cur) => {
+          const date = format(
+            new Date(cur.aggregation_timestamp * 1000),
+            "MMMM d, yyyy h:mm a"
+          );
+
+          if (!acc[date]) {
+            acc[date] = {};
+          }
+
+          const cost =
+            MODEL_COST[cur.snapshot_id as Snapshot] *
+            (cur.n_generated_tokens_total + cur.n_context_tokens_total);
+
+          if (!acc[date][cur.snapshot_id]) {
+            acc[date][cur.snapshot_id] = cost;
+          } else {
+            acc[date][cur.snapshot_id] += cost;
+          }
+
+          return acc;
+        }, {} as { [key: string]: any });
+
+      // Transform the grouped data into chartData format
+      const chartData = Object.entries(groupedData).map(
+        ([date, snapshotCosts]) => {
+          return {
+            date,
+            ...snapshotCosts,
+          };
+        }
+      );
+
+      setData2(chartData);
+
+      // // grouped by snapshot_id
+      const groupedData1 = data2
+        .flatMap((day) => day.data)
+        .reduce((acc, cur) => {
+          const snapshotId = cur.snapshot_id;
+          if (!acc[snapshotId]) {
+            acc[snapshotId] = [];
+          }
+          return acc;
+        }, {} as { [key: string]: any });
+
+      // @ts-ignore
+      setSnapshots(Object.keys(groupedData1));
+      // @ts-ignore
+      setSelectedSnapshots(Object.keys(groupedData1));
+
+      setLoading(false);
+    })();
+  }, [startDate, endDate, key, session, selection]);
+
+  const [snapshots, setSnapshots] = useState<Snapshot[]>([]);
+  const [selectedSnapshots, setSelectedSnapshots] = useState<Snapshot[]>([]);
 
   if (defaultLoading || loading) {
     return (
@@ -400,15 +361,48 @@ const MonthlyChart = ({
         <Toggle
           className="max-w-fit mt-2 mb-2 md:mt-0"
           color="zinc"
-          defaultValue="daily"
-          onValueChange={(value) => setSelectedValue(value as Select)}
+          defaultValue={selection!}
+          onValueChange={(value) => setSelection(value as Select)}
         >
-          <ToggleItem value="daily" text="Daily" />
+          <ToggleItem value="minute" text="Minute" />
+          <ToggleItem value="day" text="Day" />
           <ToggleItem value="cumulative" text="Cumulative" />
         </Toggle>
       </Flex>
 
-      {selectedValue === "daily" && data.length > 0 && (
+      {selection === "minute" && data2.length > 0 && (
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          animate="show"
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+            },
+          }}
+        >
+          <BarChart
+            className="mt-6"
+            data={data2}
+            stack
+            index="date"
+            categories={selectedSnapshots}
+            colors={selectedSnapshots.map((s) => MODEL_TO_COLOR[s])}
+            showLegend={false}
+            showAnimation={false}
+            // connectNulls
+            valueFormatter={dataFormatter}
+          />
+          <Legend
+            className="mt-4 mr-2.5"
+            categories={categories}
+            colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
+          />
+        </motion.div>
+      )}
+
+      {selection === "day" && data.length > 0 && (
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -435,14 +429,14 @@ const MonthlyChart = ({
             showAnimation={false}
           />
           <Legend
-            className="mt-4 space-x-2"
+            className="mt-4 mr-2.5"
             categories={categories}
             colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
           />
         </motion.div>
       )}
 
-      {selectedValue === "cumulative" && cumulativeData.length > 0 && (
+      {selection === "cumulative" && cumulativeData.length > 0 && (
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -472,7 +466,7 @@ const MonthlyChart = ({
             )}
           />
           <Legend
-            className="mt-4 space-x-2"
+            className="mt-4 mr-2.5"
             categories={categories}
             colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
           />

@@ -4,6 +4,7 @@ import { LOCAL_STORAGE_KEY, animationVariant } from "@/lib/constants";
 import { Category, UsageResponse } from "@/lib/types";
 import useInterval from "@/lib/use-interval";
 import useLocalStorage from "@/lib/use-local-storage";
+import { dateRange } from "@/lib/utils";
 import {
   ArrowDownTrayIcon,
   ArrowUpTrayIcon,
@@ -23,21 +24,8 @@ import {
 } from "@tremor/react";
 import axios from "axios";
 import { format } from "date-fns";
-import { motion } from "framer-motion";
-
+import { animate, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-
-const dateRange = (startDate: Date, endDate: Date): Date[] => {
-  const dates = [];
-  let currentDate = new Date(startDate);
-
-  while (currentDate <= endDate) {
-    dates.push(new Date(currentDate));
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-
-  return dates;
-};
 
 const LoadingList = () => {
   const loadingBarHeights = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];

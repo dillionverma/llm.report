@@ -63,7 +63,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       </header>
       <main className="">
         {session?.user && (
-          <aside className="absolute w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-white border-r border-b ">
+          <aside className="absolute w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 bg-white border-r border-b ">
             <div className="h-full pb-12 bg-white overflow-auto">
               <div className={cn("pb-12")}>
                 <div className="space-y-4 py-4">
@@ -146,7 +146,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         )}
         <div
           className={cn("space-y-4 p-8 pt-6", {
-            "sm:ml-64": session?.user,
+            "lg:ml-64": session?.user,
             "max-w-[1280px] mx-auto": !session?.user,
           })}
         >

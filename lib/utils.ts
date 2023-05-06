@@ -65,3 +65,15 @@ const currencyFormat = new Intl.NumberFormat("en-US", {
 
 export const fetcher = (...args: Parameters<typeof fetch>) =>
   fetch(...args).then((res) => res.json());
+
+export const dateRange = (startDate: Date, endDate: Date): Date[] => {
+  const dates = [];
+  let currentDate = new Date(startDate);
+
+  while (currentDate <= endDate) {
+    dates.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return dates;
+};

@@ -1,5 +1,5 @@
 import { Color } from "@tremor/react";
-import { Category } from "./types";
+import { Category, Snapshot } from "./types";
 
 export const FADE_LEFT_ANIMATION_VARIANTS = {
   hidden: { opacity: 0, x: 10 },
@@ -33,6 +33,13 @@ export const CATEGORIES: Category[] = [
   "DALL-E API",
 ];
 
+export const SNAPSHOTS: Snapshot[] = [
+  "gpt-3.5-turbo-0301",
+  "text-embedding-ada-002-v2",
+  "text-davinci:003",
+  "gpt-4-0314",
+];
+
 export const COLORS: Color[] = [
   "blue",
   "purple",
@@ -54,6 +61,13 @@ export const CATEGORY_TO_COLOR: Record<Category, Color> = {
   "Image models": "sky",
   "Instruct models": "lime",
   "DALL-E API": "pink",
+};
+
+export const MODEL_TO_COLOR: Record<Snapshot, Color> = {
+  "gpt-3.5-turbo-0301": "amber",
+  "text-embedding-ada-002-v2": "rose",
+  "text-davinci:003": "lime",
+  "gpt-4-0314": "emerald",
 };
 
 export const animationVariant = {
@@ -112,3 +126,18 @@ export const priceIds: PriceIds = {
 export const LOCAL_STORAGE_KEY = "openai-key";
 export const FIRST_VISIT_KEY = "first-visit";
 export const FIRST_VISIT_AFTER_LOGIN = "first-visit-after-login";
+export const SELECTION_KEY = "selection";
+
+// https://openai.com/pricing
+export const MODEL_COST: { [key in Snapshot]: number } = {
+  "gpt-3.5-turbo-0301": 0.002 / 1000, // per 1 tokens
+  "text-embedding-ada-002-v2": 0.0004 / 1000, // per 1 tokens
+  "text-davinci:003": 0.02 / 1000, // per 1 tokens
+  "gpt-4-0314": 0.06 / 1000, // per 1 tokens
+
+  // TODO: GPT-4 Output is different
+  // {
+  //   prompt: 0.03 / 1000, // per 1 tokens
+  //   completion: 0.06 / 1000, // per 1 tokens
+  // },
+};

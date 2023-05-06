@@ -135,8 +135,8 @@ export default function Dashboard() {
 
             {!data?.user && (
               <Badge
-                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
-                onClick={() => openDialog()}
+                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                // onClick={() => openDialog()}
                 color="blue"
                 icon={() => (
                   <span className="relative flex h-3 w-3">
@@ -151,8 +151,8 @@ export default function Dashboard() {
 
             {data?.user && !key && subscribed && (
               <Badge
-                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
-                onClick={() => openDialog()}
+                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                // onClick={() => openDialog()}
                 color="red"
                 icon={() => (
                   <span className="relative flex h-3 w-3">
@@ -167,8 +167,8 @@ export default function Dashboard() {
 
             {data?.user && !subscribed && (
               <Badge
-                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
-                onClick={() => openDialog()}
+                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                // onClick={() => openDialog()}
                 color="red"
                 icon={() => (
                   <span className="relative flex h-3 w-3">
@@ -183,8 +183,8 @@ export default function Dashboard() {
 
             {data?.user && key && validKey && (
               <Badge
-                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
-                onClick={() => openDialog()}
+                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                // onClick={() => openDialog()}
                 color="green"
                 icon={() => (
                   <span className="relative flex h-3 w-3">
@@ -199,8 +199,8 @@ export default function Dashboard() {
 
             {data?.user && key && !validKey && (
               <Badge
-                className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
-                onClick={() => openDialog()}
+                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                // onClick={() => openDialog()}
                 color="red"
                 icon={() => (
                   <span className="relative flex h-3 w-3">
@@ -227,7 +227,11 @@ export default function Dashboard() {
                 value: "tdy",
                 text: "Today",
                 startDate: new Date(),
-                endDate: add(new Date(), { days: 1 }),
+              },
+              {
+                value: "3d",
+                text: "Last 3 days",
+                startDate: sub(new Date(), { days: 3 }),
               },
               {
                 value: "w",
@@ -243,6 +247,8 @@ export default function Dashboard() {
                 value: "m",
                 text: "Last 30 days",
                 startDate: sub(new Date(), { days: 30 }),
+                // utc end date
+                endDate: new Date(),
               },
               {
                 value: "100d",

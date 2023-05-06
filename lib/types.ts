@@ -70,3 +70,9 @@ export type Model =
   | "GPT-4"
   | "Image models"
   | "Instruct models";
+
+export type Snapshot =
+  | "gpt-3.5-turbo-0301"
+  | "text-embedding-ada-002-v2"
+  | "text-davinci:003"
+  | "gpt-4-0314";
