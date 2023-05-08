@@ -499,7 +499,7 @@ const SettingsModal = () => {
       // if (subscribed) return;
 
       setFirstVisit(false);
-      // openDialog();
+      openDialog();
     }, 5000);
   }, [firstVisit, session?.user]);
 
