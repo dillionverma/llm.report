@@ -1,10 +1,6 @@
 import { CATEGORY_TO_COLOR, LOCAL_STORAGE_KEY } from "@/lib/constants";
-import { addMock, enableMocking } from "@/lib/mock-axios";
-import {
-  BillingSubscriptionResponse,
-  BillingUsageResponse,
-  Category,
-} from "@/lib/types";
+import openai from "@/lib/services/openai";
+import { BillingSubscriptionResponse, Category } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
 import {
   DonutChart,
@@ -14,8 +10,6 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import axios from "axios";
-import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -27,11 +21,13 @@ const MonthlyUsage = ({
   endDate,
   categories,
   defaultLoading,
+  demo,
 }: {
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   categories: Category[];
   defaultLoading?: boolean;
+  demo?: boolean;
 }) => {
   const [subscription, setSubscription] =
     useState<BillingSubscriptionResponse>();
@@ -52,54 +48,43 @@ const MonthlyUsage = ({
       let subscriptionResponse;
       let usageResponse;
 
-      if (!session?.user) {
-        addMock(
-          `https://api.openai.com/dashboard/billing/usage?start_date=${format(
-            startDate,
-            "yyyy-MM-dd"
-          )}&end_date=${format(endDate, "yyyy-MM-dd")}`,
-          { data: usageRange, status: 200 }
-        );
-        addMock("https://api.openai.com/dashboard/billing/subscription", {
-          data: subscriptionData,
-          status: 200,
-        });
-        enableMocking(true);
-      } else {
-        enableMocking(false);
-      }
+      // if (!session?.user) {
+      //   addMock(
+      //     `https://api.openai.com/dashboard/billing/usage?start_date=${format(
+      //       startDate,
+      //       "yyyy-MM-dd"
+      //     )}&end_date=${format(endDate, "yyyy-MM-dd")}`,
+      //     { data: usageRange, status: 200 }
+      //   );
+      //   addMock("https://api.openai.com/dashboard/billing/subscription", {
+      //     data: subscriptionData,
+      //     status: 200,
+      //   });
+      //   enableMocking(true);
+      // } else {
+      //   enableMocking(false);
+      // }
 
       try {
-        subscriptionResponse = await axios.get<BillingSubscriptionResponse>(
-          `https://api.openai.com/dashboard/billing/subscription`,
-          {
-            headers: {
-              Authorization: `Bearer ${key}`,
-            },
-          }
-        );
-        const query = {
-          start_date: format(startDate, "yyyy-MM-dd"),
-          end_date: format(endDate, "yyyy-MM-dd"),
-        };
-
-        usageResponse = await axios.get<BillingUsageResponse>(
-          `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
-            query
-          )}`,
-          {
-            headers: {
-              Authorization: `Bearer ${key}`,
-            },
-          }
-        );
+        if (demo) {
+          subscriptionResponse =
+            subscriptionData as BillingSubscriptionResponse;
+          usageResponse = usageRange;
+        } else {
+          openai.setKey(key);
+          subscriptionResponse = await openai.getSubscription();
+          usageResponse = await openai.getBillingUsage(startDate, endDate);
+        }
       } catch (e: any) {
         // toast.error(e.response.data.error.message);
         // setLoading(false);
         return;
       }
 
-      const cumulativeTotalCost = usageResponse.data.daily_costs.reduce(
+      if (!usageResponse) return;
+      if (!subscriptionResponse) return;
+
+      const cumulativeTotalCost = usageResponse.daily_costs.reduce(
         (acc, { line_items }) =>
           line_items.reduce((innerAcc, { name, cost }) => {
             if (!categories.includes(name as Category)) {
@@ -127,15 +112,15 @@ const MonthlyUsage = ({
 
       setPercentage(
         subscriptionResponse
-          ? (usageResponse.data.total_usage / 100) *
-              (subscriptionResponse.data.hard_limit / 10000)
+          ? (usageResponse.total_usage / 100) *
+              (subscriptionResponse.hard_limit / 10000)
           : 0
       );
       setLoading(false);
       setData(data);
-      setSubscription(subscriptionResponse.data);
+      setSubscription(subscriptionResponse);
     })();
-  }, [startDate, endDate, categories, key, session]);
+  }, [startDate, endDate, categories, key, session, demo]);
 
   if (
     defaultLoading ||

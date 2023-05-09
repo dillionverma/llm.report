@@ -1,8 +1,8 @@
 import { useDialog } from "@/components/SettingsModal";
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
+import openai from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Badge, Card, Flex, Text, Title } from "@tremor/react";
-import axios from "axios";
 import { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -21,27 +21,7 @@ const Settings = () => {
   };
 
   useEffect(() => {
-    const ping = async (): Promise<boolean> => {
-      try {
-        const res = await axios.get(
-          "https://api.openai.com/dashboard/billing/subscription",
-          {
-            headers: {
-              Authorization: `Bearer ${key}`,
-            },
-          }
-        );
-        setValidKey(true);
-        return true;
-      } catch (e) {
-        setValidKey(false);
-        return false;
-      }
-    };
-
-    (async () => {
-      await ping();
-    })();
+    (async () => setValidKey(await openai.isValidKey(key)))();
   }, [key]);
 
   return (
@@ -77,8 +57,8 @@ const Settings = () => {
               <div className="ml-2">
                 {!key && (
                   <Badge
-                    className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
-                    onClick={() => openDialog()}
+                    className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                    // onClick={() => openDialog()}
                     color="red"
                     icon={() => (
                       <span className="relative flex h-3 w-3">
@@ -93,8 +73,8 @@ const Settings = () => {
 
                 {session?.user && key && validKey && (
                   <Badge
-                    className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
-                    onClick={() => openDialog()}
+                    className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                    // onClick={() => openDialog()}
                     color="green"
                     icon={() => (
                       <span className="relative flex h-3 w-3">
@@ -109,8 +89,8 @@ const Settings = () => {
 
                 {session?.user && key && !validKey && (
                   <Badge
-                    className="px-3 space-x-2 cursor-pointer hover:scale-110 transition-all transform duration-200 ease-in-out"
-                    onClick={() => openDialog()}
+                    className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                    // onClick={() => openDialog()}
                     color="red"
                     icon={() => (
                       <span className="relative flex h-3 w-3">

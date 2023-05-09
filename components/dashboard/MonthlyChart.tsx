@@ -1,17 +1,27 @@
+import usageDay1 from "@/fixtures/openai/usage-day-1.json";
+import usageRange from "@/fixtures/openai/usage-range.json";
 import {
+  AUDIO_MODELS,
   CATEGORIES,
   CATEGORY_TO_COLOR,
+  CHAT_GPT3_MODELS,
+  CHAT_GPT4_MODELS,
+  COMPLETION_MODELS,
+  EMBEDDING_MODELS,
+  FINE_TUNED_MODELS,
+  IMAGE_MODEL_COST,
   LOCAL_STORAGE_KEY,
   MODEL_COST,
   MODEL_TO_COLOR,
+  RESOLUTIONS,
   SELECTION_KEY,
 } from "@/lib/constants";
-import { addMock, enableMocking } from "@/lib/mock-axios";
+import openai from "@/lib/services/openai";
 import {
   BillingUsageResponse,
   Category,
+  Resolution,
   Snapshot,
-  UsageResponse,
 } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
 import { dateFormat, dateRange } from "@/lib/utils";
@@ -25,13 +35,10 @@ import {
   Toggle,
   ToggleItem,
 } from "@tremor/react";
-import axios from "axios";
 import { format, parse } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import usageDay1 from "../../fixtures/openai/usage-day-1.json";
-import usageRange from "../../fixtures/openai/usage-range.json";
 import LoadingChart from "./LoadingChart";
 
 const dataFormatter = (number: number) => {
@@ -45,11 +52,13 @@ const MonthlyChart = ({
   endDate,
   categories,
   defaultLoading,
+  demo,
 }: {
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   categories: Category[];
   defaultLoading?: boolean;
+  demo?: boolean;
 }) => {
   const [cumulativeData, setCumulativeData] = useState<any[]>([]);
   const [data, setData] = useState<any[]>([]);
@@ -58,12 +67,14 @@ const MonthlyChart = ({
     BillingUsageResponse["daily_costs"]
   >([]);
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const [totalUsage, setTotalUsage] = useState(0);
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
   const [selection, setSelection] = useLocalStorage<Select>(
     SELECTION_KEY,
     "day"
   );
+
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -88,40 +99,16 @@ const MonthlyChart = ({
 
       setLoading(true);
 
-      let query: {
-        start_date: string;
-        end_date: string;
-      } = {
-        start_date: format(startDate, "yyyy-MM-dd"),
-        end_date: format(endDate, "yyyy-MM-dd"),
-      };
-
-      if (!session?.user) {
-        addMock(
-          `https://api.openai.com/dashboard/billing/usage?start_date=${format(
-            startDate,
-            "yyyy-MM-dd"
-          )}&end_date=${format(endDate, "yyyy-MM-dd")}`,
-          { data: usageRange, status: 200 }
-        );
-        enableMocking(true);
+      let response;
+      if (demo) {
+        response = usageRange;
       } else {
-        enableMocking(false);
+        openai.setKey(key);
+        response = await openai.getBillingUsage(startDate, endDate);
       }
 
-      const response = await axios.get<BillingUsageResponse>(
-        `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
-          query
-        )}`,
-        {
-          headers: {
-            Authorization: `Bearer ${key}`,
-          },
-        }
-      );
-
       // console.log(response);
-      const daily_costs = response.data.daily_costs;
+      const daily_costs = response.daily_costs;
       setDailyCosts(daily_costs);
       // setTotalUsage(response.data.total_usage);
 
@@ -210,54 +197,79 @@ const MonthlyChart = ({
 
   const [data2, setData2] = useState<{ time: string; cost: number }[]>([]);
 
+  // useEffect(() => {
+  //   (async () => {
+  //     if (!startDate || !endDate) {
+  //       return;
+  //     }
+
+  //     const dates = dateRange(startDate, endDate);
+
+  //     if (!session?.user || loading || loading2) {
+  //       for (const date of dates) {
+  //         const d = format(date, "yyyy-MM-dd");
+  //         addMock(`https://api.openai.com/v1/usage?date=${d}`, {
+  //           data: usageDay1,
+  //           status: 200,
+  //         });
+  //       }
+  //       // enableMocking(true);
+  //     } else {
+  //       enableMocking(false);
+  //     }
+  //   })();
+  // }, [startDate, endDate, session, loading, loading2, selection]);
+
+  // const dates = dateRange(sub(new Date(), { days: 100 }), new Date());
+
+  // const urls = dates.map((date) => {
+  //   const d = format(date, "yyyy-MM-dd");
+  //   return `https://api.openai.com/v1/usage?date=${d}`;
+  // });
+
+  // const { usageData } = useSWR([urls], multiFetcher);
+
   useEffect(() => {
     (async () => {
       if (!startDate || !endDate) {
         return;
       }
 
-      setLoading(true);
+      setLoading2(true);
+
+      console.log("DATES", startDate, endDate);
 
       const dates = dateRange(startDate, endDate);
 
-      if (!session?.user) {
-        for (const date of dates) {
-          const d = format(date, "yyyy-MM-dd");
-          addMock(`https://api.openai.com/v1/usage?date=${d}`, {
-            data: usageDay1,
-            status: 200,
-          });
-        }
-        enableMocking(true);
-      } else {
-        enableMocking(false);
-      }
+      // if (!session?.user) {
+      //   for (const date of dates) {
+      //     const d = format(date, "yyyy-MM-dd");
+      //     addMock(`https://api.openai.com/v1/usage?date=${d}`, {
+      //       data: usageDay1,
+      //       status: 200,
+      //     });
+      //   }
+      //   enableMocking(true);
+      // } else {
+      //   enableMocking(false);
+      // }
+
+      openai.setKey(key);
 
       let data2;
       try {
-        data2 = await Promise.all(
-          dates.map(async (date) => {
-            const query = {
-              // ...query,
-              date: format(date, "yyyy-MM-dd"),
-            };
-
-            const res = await axios.get<UsageResponse>(
-              `https://api.openai.com/v1/usage?${new URLSearchParams(query)}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${key}`,
-                },
-              }
-            );
-
-            return res.data;
-          })
-        );
+        console.log("DEMOOOO", demo);
+        if (demo) {
+          data2 = usageDay1;
+        } else {
+          data2 = await Promise.all(dates.map((date) => openai.getUsage(date)));
+        }
       } catch (e) {
         console.error(e);
         return;
       }
+
+      console.log("DONEEEE");
 
       // Group data by aggregation_timestamp and calculate costs
       const groupedData = data2
@@ -285,15 +297,65 @@ const MonthlyChart = ({
           return acc;
         }, {} as { [key: string]: any });
 
+      const groupedDalleData = data2
+        .flatMap((day) => day.dalle_api_data)
+        .reduce((acc, cur) => {
+          const date = format(
+            new Date(cur.timestamp * 1000),
+            "MMMM d, yyyy h:mm a"
+          );
+
+          if (!acc[date]) {
+            acc[date] = {};
+          }
+
+          const cost =
+            IMAGE_MODEL_COST[cur.image_size as Resolution] * cur.num_images;
+
+          if (!acc[date][cur.image_size]) {
+            acc[date][cur.image_size] = cost;
+          } else {
+            acc[date][cur.image_size] += cost;
+          }
+
+          return acc;
+        }, {} as { [key: string]: any });
+
+      console.log("groupedDalleData", groupedDalleData);
+
+      // const mergedGroupedData = Object.entries(groupedData).map(
+      //   ([date, snapshotCosts]) => {
+      //     return {
+      //       date,
+      //       ...snapshotCosts,
+      //       ...groupedDalleData[date]
+      //     };
+      //   }
+      // );
+
       // Transform the grouped data into chartData format
-      const chartData = Object.entries(groupedData).map(
-        ([date, snapshotCosts]) => {
+      // const chartData = Object.entries(groupedData).map(
+      //   ([date, snapshotCosts]) => {
+      //     return {
+      //       date,
+      //       ...snapshotCosts,
+      //     };
+      //   }
+      // );
+
+      const chartData = [
+        ...Object.entries(groupedData),
+        ...Object.entries(groupedDalleData),
+      ]
+        .map(([date, snapshotCosts]) => {
           return {
             date,
             ...snapshotCosts,
           };
-        }
-      );
+        })
+        .sort((a, b) => {
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
 
       setData2(chartData);
 
@@ -308,19 +370,57 @@ const MonthlyChart = ({
           return acc;
         }, {} as { [key: string]: any });
 
-      // @ts-ignore
-      setSnapshots(Object.keys(groupedData1));
-      // @ts-ignore
-      setSelectedSnapshots(Object.keys(groupedData1));
+      const groupedDalleData1 = data2
+        .flatMap((day) => day.dalle_api_data)
+        .reduce((acc, cur) => {
+          const snapshotId = cur.image_size;
+          if (!acc[snapshotId]) {
+            acc[snapshotId] = [];
+          }
+          return acc;
+        }, {} as { [key: string]: any });
 
-      setLoading(false);
+      const snapshots = [
+        ...Object.keys(groupedData1),
+        ...Object.keys(groupedDalleData1),
+      ];
+
+      // @ts-ignore
+      setSnapshots(snapshots);
+      // @ts-ignore
+
+      const selectedSnapshots = categories.flatMap((category) => {
+        switch (category) {
+          case "Audio models":
+            return AUDIO_MODELS;
+          case "Chat models":
+            return CHAT_GPT3_MODELS;
+          case "Embedding models":
+            return EMBEDDING_MODELS;
+          case "Fine-tuned models":
+            return FINE_TUNED_MODELS;
+          case "GPT-4":
+            return CHAT_GPT4_MODELS;
+          case "Image models":
+            return RESOLUTIONS;
+          case "Instruct models":
+            return COMPLETION_MODELS;
+          default:
+            return [];
+        }
+      });
+
+      setSelectedSnapshots(selectedSnapshots);
+
+      setLoading2(false);
     })();
-  }, [startDate, endDate, key, session, selection]);
+  }, [startDate, endDate, key, session, selection, categories, demo]);
 
   const [snapshots, setSnapshots] = useState<Snapshot[]>([]);
   const [selectedSnapshots, setSelectedSnapshots] = useState<Snapshot[]>([]);
 
-  if (defaultLoading || loading) {
+  console.log("loading", loading, loading2);
+  if (defaultLoading || loading || loading2) {
     return (
       <motion.div
         initial="hidden"

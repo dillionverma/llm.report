@@ -4,6 +4,7 @@ import MonthlyChart from "@/components/dashboard/MonthlyChart";
 import Requests from "@/components/dashboard/Requests";
 import { default as Tokens } from "@/components/dashboard/Tokens";
 import { CATEGORIES, LOCAL_STORAGE_KEY } from "@/lib/constants";
+import openai from "@/lib/services/openai";
 import { Category } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
 import {
@@ -18,7 +19,6 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import axios from "axios";
 import { add, startOfMonth, sub } from "date-fns";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -65,66 +65,10 @@ export default function Dashboard() {
   // }, [data?.user]);
 
   useEffect(() => {
-    const ping = async (): Promise<boolean> => {
-      try {
-        const res = await axios.get(
-          "https://api.openai.com/dashboard/billing/subscription",
-          {
-            headers: {
-              Authorization: `Bearer ${key}`,
-            },
-          }
-        );
-        setValidKey(true);
-        return true;
-      } catch (e) {
-        setValidKey(false);
-        return false;
-      }
-    };
-
-    (async () => {
-      await ping();
-    })();
+    (async () => setValidKey(await openai.isValidKey(key)))();
   }, [key]);
 
-  useEffect(() => {
-    if (!value[0] || !value[1]) return;
-
-    // // // Only enable mocking if no user is logged in.
-    // if (!data?.user) {
-    //   addMock(
-    //     `https://api.openai.com/dashboard/billing/usage?start_date=${format(
-    //       value[0],
-    //       "yyyy-MM-dd"
-    //     )}&end_date=${format(value[1], "yyyy-MM-dd")}`,
-    //     { data: usageRange, status: 200 }
-    //   );
-
-    //   for (let i = 0; i < 300; i++) {
-    //     const date = format(sub(value[1], { days: i }), "yyyy-MM-dd");
-    //     addMock(`https://api.openai.com/v1/usage?date=${date}`, {
-    //       data: usageDay1,
-    //       status: 200,
-    //     });
-    //   }
-
-    //   addMock("https://api.openai.com/dashboard/billing/subscription", {
-    //     data: subscription,
-    //     status: 200,
-    //   });
-
-    //   console.log("enabling mocking");
-
-    //   enableMocking(true);
-    // } else {
-    //   enableMocking(false);
-    // }
-  }, [data?.user, value]);
-
-  const [categories, setCategories] = useState<Category[]>(
-    CATEGORIES.filter((c) => c !== "Total Cost ($)")
-  );
+  const [categories, setCategories] = useState<Category[]>(CATEGORIES);
 
   return (
     <div>
@@ -263,7 +207,10 @@ export default function Dashboard() {
           <MultiSelectBox
             // className="w-full"
             value={categories}
-            onValueChange={(a) => setCategories(a as Category[])}
+            onValueChange={(a) => {
+              console.log("VALUE CHANGE", a);
+              setCategories(a as Category[]);
+            }}
           >
             {CATEGORIES.map((category, index) => (
               <MultiSelectBoxItem
@@ -281,6 +228,7 @@ export default function Dashboard() {
           startDate={value[0]}
           endDate={value[1]}
           categories={categories}
+          demo={!data?.user}
           defaultLoading={data?.user && (!subscribed || !validKey || !key)}
         />
       </Card>
@@ -291,6 +239,7 @@ export default function Dashboard() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}
+            demo={!data?.user}
             defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
@@ -299,6 +248,7 @@ export default function Dashboard() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}
+            demo={!data?.user}
             defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
@@ -307,6 +257,7 @@ export default function Dashboard() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories}
+            demo={!data?.user}
             defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>

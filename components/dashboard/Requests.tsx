@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 
+import usageDay1 from "@/fixtures/openai/usage-day-1.json";
 import { LOCAL_STORAGE_KEY, animationVariant } from "@/lib/constants";
-import { addMock, enableMocking } from "@/lib/mock-axios";
-import { Category, UsageResponse } from "@/lib/types";
+import openai from "@/lib/services/openai";
+import { Category } from "@/lib/types";
 import useInterval from "@/lib/use-interval";
 import useLocalStorage from "@/lib/use-local-storage";
 import { ChartBarIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
@@ -17,12 +18,9 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import axios from "axios";
-import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import usageDay1 from "../../fixtures/openai/usage-day-1.json";
 
 const dateRange = (startDate: Date, endDate: Date): Date[] => {
   const dates = [];
@@ -90,11 +88,13 @@ const Requests = ({
   endDate,
   categories,
   defaultLoading,
+  demo,
 }: {
   startDate: Date | null | undefined;
   endDate: Date | null | undefined;
   categories: Category[];
   defaultLoading?: boolean;
+  demo?: boolean;
 }) => {
   const [loading, setLoading] = useState(false);
   const [requestData, setRequestData] = useState<
@@ -113,42 +113,19 @@ const Requests = ({
 
       const dates = dateRange(startDate, endDate);
 
-      if (!session?.user) {
-        for (const date of dates) {
-          const d = format(date, "yyyy-MM-dd");
-          addMock(`https://api.openai.com/v1/usage?date=${d}`, {
-            data: usageDay1,
-            status: 200,
-          });
+      openai.setKey(key);
+
+      let data;
+      try {
+        if (demo) {
+          data = usageDay1;
+        } else {
+          data = await Promise.all(dates.map((date) => openai.getUsage(date)));
         }
-
-        enableMocking(true);
-      } else {
-        enableMocking(false);
+      } catch (e) {
+        console.error(e);
+        return;
       }
-
-      const data = await Promise.all(
-        dates.map(async (date) => {
-          const query = {
-            // ...query,
-            date: format(date, "yyyy-MM-dd"),
-          };
-
-          const res = await axios.get<UsageResponse>(
-            `https://api.openai.com/v1/usage?date=${format(
-              date,
-              "yyyy-MM-dd"
-            )}`,
-            {
-              headers: {
-                Authorization: `Bearer ${key}`,
-              },
-            }
-          );
-
-          return res.data;
-        })
-      );
 
       console.log(data);
 
@@ -199,7 +176,7 @@ const Requests = ({
       );
       setLoading(false);
     })();
-  }, [startDate, endDate, key, session]);
+  }, [startDate, endDate, key, session, demo]);
 
   if (defaultLoading || loading) {
     return <LoadingList />;

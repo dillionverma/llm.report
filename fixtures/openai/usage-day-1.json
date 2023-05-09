@@ -1,2449 +1,2451 @@
-{
-  "object": "list",
-  "data": [
-    {
-      "aggregation_timestamp": 1682295000,
-      "n_requests": 6,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 6,
-      "n_context_tokens_total": 7667,
-      "n_generated": 6,
-      "n_generated_tokens_total": 92
-    },
-    {
-      "aggregation_timestamp": 1682295000,
-      "n_requests": 8,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 11,
-      "n_context_tokens_total": 1173,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682295300,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1220,
-      "n_generated": 1,
-      "n_generated_tokens_total": 9
-    },
-    {
-      "aggregation_timestamp": 1682295300,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 1,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682295600,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 4969,
-      "n_generated": 4,
-      "n_generated_tokens_total": 36
-    },
-    {
-      "aggregation_timestamp": 1682295600,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 4,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682295900,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1224,
-      "n_generated": 1,
-      "n_generated_tokens_total": 22
-    },
-    {
-      "aggregation_timestamp": 1682295900,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 2,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682296200,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 4841,
-      "n_generated": 4,
-      "n_generated_tokens_total": 35
-    },
-    {
-      "aggregation_timestamp": 1682296200,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 18,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682296500,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1372,
-      "n_generated": 1,
-      "n_generated_tokens_total": 7
-    },
-    {
-      "aggregation_timestamp": 1682296500,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 1,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682297100,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 3534,
-      "n_generated": 3,
-      "n_generated_tokens_total": 55
-    },
-    {
-      "aggregation_timestamp": 1682297100,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 10,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682297700,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1155,
-      "n_generated": 1,
-      "n_generated_tokens_total": 13
-    },
-    {
-      "aggregation_timestamp": 1682297700,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 2,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682298000,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1157,
-      "n_generated": 1,
-      "n_generated_tokens_total": 17
-    },
-    {
-      "aggregation_timestamp": 1682298000,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 3,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682298300,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 33,
-      "n_context_tokens_total": 13466,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682300100,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1159,
-      "n_generated": 1,
-      "n_generated_tokens_total": 37
-    },
-    {
-      "aggregation_timestamp": 1682300100,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 4,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682300400,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2373,
-      "n_generated": 2,
-      "n_generated_tokens_total": 73
-    },
-    {
-      "aggregation_timestamp": 1682300400,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 13,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682300700,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 8346,
-      "n_generated": 7,
-      "n_generated_tokens_total": 172
-    },
-    {
-      "aggregation_timestamp": 1682300700,
-      "n_requests": 8,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 8,
-      "n_context_tokens_total": 40,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682301000,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 4949,
-      "n_generated": 4,
-      "n_generated_tokens_total": 158
-    },
-    {
-      "aggregation_timestamp": 1682301000,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 21,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682301900,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1165,
-      "n_generated": 1,
-      "n_generated_tokens_total": 38
-    },
-    {
-      "aggregation_timestamp": 1682301900,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 7,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682303400,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1153,
-      "n_generated": 1,
-      "n_generated_tokens_total": 8
-    },
-    {
-      "aggregation_timestamp": 1682303400,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 1,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682304600,
-      "n_requests": 6,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 6,
-      "n_context_tokens_total": 4532,
-      "n_generated": 6,
-      "n_generated_tokens_total": 161
-    },
-    {
-      "aggregation_timestamp": 1682304600,
-      "n_requests": 8,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 8,
-      "n_context_tokens_total": 174,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682307900,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 3556,
-      "n_generated": 3,
-      "n_generated_tokens_total": 44
-    },
-    {
-      "aggregation_timestamp": 1682307900,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 13,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682308800,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2454,
-      "n_generated": 2,
-      "n_generated_tokens_total": 56
-    },
-    {
-      "aggregation_timestamp": 1682308800,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 6,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682309400,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1200,
-      "n_generated": 1,
-      "n_generated_tokens_total": 40
-    },
-    {
-      "aggregation_timestamp": 1682309400,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 24,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682309700,
-      "n_requests": 6,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 6,
-      "n_context_tokens_total": 4180,
-      "n_generated": 6,
-      "n_generated_tokens_total": 676
-    },
-    {
-      "aggregation_timestamp": 1682309700,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 795,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682310000,
-      "n_requests": 25,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 25,
-      "n_context_tokens_total": 9926,
-      "n_generated": 25,
-      "n_generated_tokens_total": 3195
-    },
-    {
-      "aggregation_timestamp": 1682310000,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 925,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682310300,
-      "n_requests": 16,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 16,
-      "n_context_tokens_total": 4034,
-      "n_generated": 16,
-      "n_generated_tokens_total": 1645
-    },
-    {
-      "aggregation_timestamp": 1682310600,
-      "n_requests": 20,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 20,
-      "n_context_tokens_total": 10345,
-      "n_generated": 20,
-      "n_generated_tokens_total": 1907
-    },
-    {
-      "aggregation_timestamp": 1682310600,
-      "n_requests": 8,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 8,
-      "n_context_tokens_total": 15,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682310900,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 352,
-      "n_generated": 2,
-      "n_generated_tokens_total": 30
-    },
-    {
-      "aggregation_timestamp": 1682310900,
-      "n_requests": 6,
-      "operation": "completion",
-      "snapshot_id": "gpt-4-0314",
-      "n_context": 6,
-      "n_context_tokens_total": 1434,
-      "n_generated": 6,
-      "n_generated_tokens_total": 908
-    },
-    {
-      "aggregation_timestamp": 1682310900,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 2,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682311200,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 3381,
-      "n_generated": 5,
-      "n_generated_tokens_total": 509
-    },
-    {
-      "aggregation_timestamp": 1682311200,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-4-0314",
-      "n_context": 4,
-      "n_context_tokens_total": 1296,
-      "n_generated": 4,
-      "n_generated_tokens_total": 791
-    },
-    {
-      "aggregation_timestamp": 1682311200,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 1783,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682311500,
-      "n_requests": 12,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 12,
-      "n_context_tokens_total": 16589,
-      "n_generated": 12,
-      "n_generated_tokens_total": 841
-    },
-    {
-      "aggregation_timestamp": 1682311500,
-      "n_requests": 13,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 13,
-      "n_context_tokens_total": 1586,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682311800,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 6997,
-      "n_generated": 3,
-      "n_generated_tokens_total": 680
-    },
-    {
-      "aggregation_timestamp": 1682311800,
-      "n_requests": 5,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 5,
-      "n_context_tokens_total": 3394,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682312100,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 5785,
-      "n_generated": 4,
-      "n_generated_tokens_total": 318
-    },
-    {
-      "aggregation_timestamp": 1682312100,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 2680,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682312700,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 574,
-      "n_generated": 1,
-      "n_generated_tokens_total": 32
-    },
-    {
-      "aggregation_timestamp": 1682312700,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 7,
-      "n_context_tokens_total": 750,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682313000,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 4021,
-      "n_generated": 5,
-      "n_generated_tokens_total": 247
-    },
-    {
-      "aggregation_timestamp": 1682313000,
-      "n_requests": 5,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 5,
-      "n_context_tokens_total": 27,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682313300,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 3617,
-      "n_generated": 4,
-      "n_generated_tokens_total": 151
-    },
-    {
-      "aggregation_timestamp": 1682313300,
-      "n_requests": 12,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 260,
-      "n_context_tokens_total": 43720,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682313600,
-      "n_requests": 13,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 13,
-      "n_context_tokens_total": 12075,
-      "n_generated": 13,
-      "n_generated_tokens_total": 491
-    },
-    {
-      "aggregation_timestamp": 1682313600,
-      "n_requests": 13,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 13,
-      "n_context_tokens_total": 82,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682314500,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2398,
-      "n_generated": 2,
-      "n_generated_tokens_total": 62
-    },
-    {
-      "aggregation_timestamp": 1682314500,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 49,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682315100,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1155,
-      "n_generated": 1,
-      "n_generated_tokens_total": 18
-    },
-    {
-      "aggregation_timestamp": 1682315100,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 2,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682321400,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2306,
-      "n_generated": 2,
-      "n_generated_tokens_total": 18
-    },
-    {
-      "aggregation_timestamp": 1682321400,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 2,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682328000,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2330,
-      "n_generated": 2,
-      "n_generated_tokens_total": 42
-    },
-    {
-      "aggregation_timestamp": 1682328000,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 7,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682330100,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 8737,
-      "n_generated": 7,
-      "n_generated_tokens_total": 164
-    },
-    {
-      "aggregation_timestamp": 1682330100,
-      "n_requests": 7,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 7,
-      "n_context_tokens_total": 36,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682330400,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 5100,
-      "n_generated": 4,
-      "n_generated_tokens_total": 193
-    },
-    {
-      "aggregation_timestamp": 1682330400,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 32,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682331300,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2326,
-      "n_generated": 2,
-      "n_generated_tokens_total": 86
-    },
-    {
-      "aggregation_timestamp": 1682331300,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 5,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682331600,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 3928,
-      "n_generated": 3,
-      "n_generated_tokens_total": 170
-    },
-    {
-      "aggregation_timestamp": 1682331600,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 17,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682332200,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2509,
-      "n_generated": 2,
-      "n_generated_tokens_total": 42
-    },
-    {
-      "aggregation_timestamp": 1682332200,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 71,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682332500,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2430,
-      "n_generated": 2,
-      "n_generated_tokens_total": 40
-    },
-    {
-      "aggregation_timestamp": 1682332500,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 41,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682334300,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1161,
-      "n_generated": 1,
-      "n_generated_tokens_total": 22
-    },
-    {
-      "aggregation_timestamp": 1682334300,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 6,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682334600,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 8872,
-      "n_generated": 7,
-      "n_generated_tokens_total": 271
-    },
-    {
-      "aggregation_timestamp": 1682334600,
-      "n_requests": 7,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 7,
-      "n_context_tokens_total": 27,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682336100,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 4729,
-      "n_generated": 4,
-      "n_generated_tokens_total": 89
-    },
-    {
-      "aggregation_timestamp": 1682336100,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 38,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682336400,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1167,
-      "n_generated": 1,
-      "n_generated_tokens_total": 20
-    },
-    {
-      "aggregation_timestamp": 1682336400,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 9,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682336700,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 8553,
-      "n_generated": 7,
-      "n_generated_tokens_total": 302
-    },
-    {
-      "aggregation_timestamp": 1682336700,
-      "n_requests": 7,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 7,
-      "n_context_tokens_total": 74,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682337000,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1385,
-      "n_generated": 1,
-      "n_generated_tokens_total": 31
-    },
-    {
-      "aggregation_timestamp": 1682337000,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 17,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682338200,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 4770,
-      "n_generated": 4,
-      "n_generated_tokens_total": 89
-    },
-    {
-      "aggregation_timestamp": 1682338200,
-      "n_requests": 5,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 5,
-      "n_context_tokens_total": 20,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682338500,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 4071,
-      "n_generated": 3,
-      "n_generated_tokens_total": 717
-    },
-    {
-      "aggregation_timestamp": 1682338500,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 14,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682338800,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 4826,
-      "n_generated": 4,
-      "n_generated_tokens_total": 123
-    },
-    {
-      "aggregation_timestamp": 1682338800,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 62,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682340600,
-      "n_requests": 6,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 6,
-      "n_context_tokens_total": 7402,
-      "n_generated": 6,
-      "n_generated_tokens_total": 160
-    },
-    {
-      "aggregation_timestamp": 1682340600,
-      "n_requests": 6,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 6,
-      "n_context_tokens_total": 63,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682342400,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2336,
-      "n_generated": 2,
-      "n_generated_tokens_total": 64
-    },
-    {
-      "aggregation_timestamp": 1682342400,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 24,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682342700,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2457,
-      "n_generated": 2,
-      "n_generated_tokens_total": 188
-    },
-    {
-      "aggregation_timestamp": 1682342700,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 4,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682343300,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1217,
-      "n_generated": 1,
-      "n_generated_tokens_total": 35
-    },
-    {
-      "aggregation_timestamp": 1682343300,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 33,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682344500,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1173,
-      "n_generated": 1,
-      "n_generated_tokens_total": 26
-    },
-    {
-      "aggregation_timestamp": 1682344500,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 12,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682345100,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1221,
-      "n_generated": 1,
-      "n_generated_tokens_total": 39
-    },
-    {
-      "aggregation_timestamp": 1682345100,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 37,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682345400,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1153,
-      "n_generated": 1,
-      "n_generated_tokens_total": 9
-    },
-    {
-      "aggregation_timestamp": 1682345400,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 1,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682346300,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 7,
-      "n_context_tokens_total": 1532,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682346600,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 1371,
-      "n_generated": 2,
-      "n_generated_tokens_total": 80
-    },
-    {
-      "aggregation_timestamp": 1682346600,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 5,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682346900,
-      "n_requests": 8,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 8,
-      "n_context_tokens_total": 6649,
-      "n_generated": 8,
-      "n_generated_tokens_total": 279
-    },
-    {
-      "aggregation_timestamp": 1682346900,
-      "n_requests": 8,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 8,
-      "n_context_tokens_total": 49,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682347200,
-      "n_requests": 20,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 20,
-      "n_context_tokens_total": 17371,
-      "n_generated": 20,
-      "n_generated_tokens_total": 614
-    },
-    {
-      "aggregation_timestamp": 1682347200,
-      "n_requests": 21,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 21,
-      "n_context_tokens_total": 144,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682347500,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 5048,
-      "n_generated": 5,
-      "n_generated_tokens_total": 277
-    },
-    {
-      "aggregation_timestamp": 1682347500,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 27,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682347800,
-      "n_requests": 11,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 11,
-      "n_context_tokens_total": 8379,
-      "n_generated": 11,
-      "n_generated_tokens_total": 399
-    },
-    {
-      "aggregation_timestamp": 1682347800,
-      "n_requests": 11,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 11,
-      "n_context_tokens_total": 106,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682348100,
-      "n_requests": 14,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 14,
-      "n_context_tokens_total": 12738,
-      "n_generated": 14,
-      "n_generated_tokens_total": 541
-    },
-    {
-      "aggregation_timestamp": 1682348100,
-      "n_requests": 14,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 14,
-      "n_context_tokens_total": 140,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682348400,
-      "n_requests": 8,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 8,
-      "n_context_tokens_total": 8437,
-      "n_generated": 8,
-      "n_generated_tokens_total": 259
-    },
-    {
-      "aggregation_timestamp": 1682348400,
-      "n_requests": 9,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 29,
-      "n_context_tokens_total": 6889,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682348700,
-      "n_requests": 10,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 10,
-      "n_context_tokens_total": 10936,
-      "n_generated": 10,
-      "n_generated_tokens_total": 583
-    },
-    {
-      "aggregation_timestamp": 1682348700,
-      "n_requests": 10,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 10,
-      "n_context_tokens_total": 70,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682349000,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 4323,
-      "n_generated": 3,
-      "n_generated_tokens_total": 274
-    },
-    {
-      "aggregation_timestamp": 1682349000,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 1605,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682349300,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2375,
-      "n_generated": 2,
-      "n_generated_tokens_total": 138
-    },
-    {
-      "aggregation_timestamp": 1682349300,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 1578,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682350500,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 3543,
-      "n_generated": 3,
-      "n_generated_tokens_total": 53
-    },
-    {
-      "aggregation_timestamp": 1682350500,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 8,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682350800,
-      "n_requests": 9,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 9,
-      "n_context_tokens_total": 11804,
-      "n_generated": 9,
-      "n_generated_tokens_total": 407
-    },
-    {
-      "aggregation_timestamp": 1682350800,
-      "n_requests": 9,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 9,
-      "n_context_tokens_total": 78,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682351700,
-      "n_requests": 10,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 10,
-      "n_context_tokens_total": 13343,
-      "n_generated": 10,
-      "n_generated_tokens_total": 411
-    },
-    {
-      "aggregation_timestamp": 1682351700,
-      "n_requests": 10,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 10,
-      "n_context_tokens_total": 155,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682352000,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 9182,
-      "n_generated": 5,
-      "n_generated_tokens_total": 270
-    },
-    {
-      "aggregation_timestamp": 1682352000,
-      "n_requests": 5,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 5,
-      "n_context_tokens_total": 100,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682352600,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 4916,
-      "n_generated": 5,
-      "n_generated_tokens_total": 317
-    },
-    {
-      "aggregation_timestamp": 1682352600,
-      "n_requests": 5,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 5,
-      "n_context_tokens_total": 29,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682352900,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 2394,
-      "n_generated": 3,
-      "n_generated_tokens_total": 114
-    },
-    {
-      "aggregation_timestamp": 1682352900,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 22,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682353800,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2420,
-      "n_generated": 2,
-      "n_generated_tokens_total": 106
-    },
-    {
-      "aggregation_timestamp": 1682353800,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 28,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682355600,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1410,
-      "n_generated": 1,
-      "n_generated_tokens_total": 31
-    },
-    {
-      "aggregation_timestamp": 1682355600,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 3,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682355900,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 943,
-      "n_generated": 1,
-      "n_generated_tokens_total": 55
-    },
-    {
-      "aggregation_timestamp": 1682355900,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 5,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682356800,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 3787,
-      "n_generated": 3,
-      "n_generated_tokens_total": 181
-    },
-    {
-      "aggregation_timestamp": 1682356800,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 48,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682358000,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2566,
-      "n_generated": 2,
-      "n_generated_tokens_total": 126
-    },
-    {
-      "aggregation_timestamp": 1682358000,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 10,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682358300,
-      "n_requests": 8,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 8,
-      "n_context_tokens_total": 9506,
-      "n_generated": 8,
-      "n_generated_tokens_total": 458
-    },
-    {
-      "aggregation_timestamp": 1682358300,
-      "n_requests": 10,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 19,
-      "n_context_tokens_total": 2512,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682358600,
-      "n_requests": 8,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 8,
-      "n_context_tokens_total": 7511,
-      "n_generated": 8,
-      "n_generated_tokens_total": 182
-    },
-    {
-      "aggregation_timestamp": 1682358600,
-      "n_requests": 8,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 8,
-      "n_context_tokens_total": 81,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682359200,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 4119,
-      "n_generated": 3,
-      "n_generated_tokens_total": 250
-    },
-    {
-      "aggregation_timestamp": 1682359200,
-      "n_requests": 6,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 68,
-      "n_context_tokens_total": 20930,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682359500,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2410,
-      "n_generated": 2,
-      "n_generated_tokens_total": 86
-    },
-    {
-      "aggregation_timestamp": 1682359500,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 11,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682359800,
-      "n_requests": 14,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 14,
-      "n_context_tokens_total": 20707,
-      "n_generated": 14,
-      "n_generated_tokens_total": 630
-    },
-    {
-      "aggregation_timestamp": 1682359800,
-      "n_requests": 14,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 14,
-      "n_context_tokens_total": 139,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682360100,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 10786,
-      "n_generated": 7,
-      "n_generated_tokens_total": 529
-    },
-    {
-      "aggregation_timestamp": 1682360100,
-      "n_requests": 7,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 7,
-      "n_context_tokens_total": 76,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682360400,
-      "n_requests": 8,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 8,
-      "n_context_tokens_total": 13457,
-      "n_generated": 8,
-      "n_generated_tokens_total": 327
-    },
-    {
-      "aggregation_timestamp": 1682360400,
-      "n_requests": 8,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 8,
-      "n_context_tokens_total": 70,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682360700,
-      "n_requests": 11,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 11,
-      "n_context_tokens_total": 14478,
-      "n_generated": 11,
-      "n_generated_tokens_total": 405
-    },
-    {
-      "aggregation_timestamp": 1682360700,
-      "n_requests": 11,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 11,
-      "n_context_tokens_total": 112,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682361000,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 4954,
-      "n_generated": 3,
-      "n_generated_tokens_total": 84
-    },
-    {
-      "aggregation_timestamp": 1682361000,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 16,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682361900,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2338,
-      "n_generated": 2,
-      "n_generated_tokens_total": 62
-    },
-    {
-      "aggregation_timestamp": 1682361900,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 8,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682362500,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2331,
-      "n_generated": 2,
-      "n_generated_tokens_total": 48
-    },
-    {
-      "aggregation_timestamp": 1682362500,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 7,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682363700,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2368,
-      "n_generated": 2,
-      "n_generated_tokens_total": 58
-    },
-    {
-      "aggregation_timestamp": 1682363700,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 15,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682364300,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1251,
-      "n_generated": 1,
-      "n_generated_tokens_total": 35
-    },
-    {
-      "aggregation_timestamp": 1682364300,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 52,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682364600,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 923,
-      "n_generated": 1,
-      "n_generated_tokens_total": 211
-    },
-    {
-      "aggregation_timestamp": 1682364900,
-      "n_requests": 13,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 13,
-      "n_context_tokens_total": 20988,
-      "n_generated": 13,
-      "n_generated_tokens_total": 1931
-    },
-    {
-      "aggregation_timestamp": 1682364900,
-      "n_requests": 20,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 35,
-      "n_context_tokens_total": 15182,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682365200,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 16952,
-      "n_generated": 7,
-      "n_generated_tokens_total": 2017
-    },
-    {
-      "aggregation_timestamp": 1682365200,
-      "n_requests": 12,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 12,
-      "n_context_tokens_total": 11056,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682365500,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 14207,
-      "n_generated": 5,
-      "n_generated_tokens_total": 1784
-    },
-    {
-      "aggregation_timestamp": 1682365500,
-      "n_requests": 10,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 10,
-      "n_context_tokens_total": 8005,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682365800,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 6667,
-      "n_generated": 3,
-      "n_generated_tokens_total": 811
-    },
-    {
-      "aggregation_timestamp": 1682365800,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 3245,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682367300,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 6282,
-      "n_generated": 5,
-      "n_generated_tokens_total": 169
-    },
-    {
-      "aggregation_timestamp": 1682367300,
-      "n_requests": 5,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 5,
-      "n_context_tokens_total": 66,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682367900,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 6612,
-      "n_generated": 4,
-      "n_generated_tokens_total": 144
-    },
-    {
-      "aggregation_timestamp": 1682367900,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 37,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682369100,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 9846,
-      "n_generated": 5,
-      "n_generated_tokens_total": 1615
-    },
-    {
-      "aggregation_timestamp": 1682369100,
-      "n_requests": 10,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 10,
-      "n_context_tokens_total": 6883,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682369400,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 15917,
-      "n_generated": 7,
-      "n_generated_tokens_total": 2103
-    },
-    {
-      "aggregation_timestamp": 1682369400,
-      "n_requests": 14,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 14,
-      "n_context_tokens_total": 24164,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682369700,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 4263,
-      "n_generated": 2,
-      "n_generated_tokens_total": 598
-    },
-    {
-      "aggregation_timestamp": 1682369700,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 11032,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682370900,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1157,
-      "n_generated": 1,
-      "n_generated_tokens_total": 56
-    },
-    {
-      "aggregation_timestamp": 1682370900,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 3,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682371500,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 3565,
-      "n_generated": 3,
-      "n_generated_tokens_total": 110
-    },
-    {
-      "aggregation_timestamp": 1682371500,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 14,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682372100,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 2371,
-      "n_generated": 2,
-      "n_generated_tokens_total": 72
-    },
-    {
-      "aggregation_timestamp": 1682372100,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 16,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682373300,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 9596,
-      "n_generated": 7,
-      "n_generated_tokens_total": 204
-    },
-    {
-      "aggregation_timestamp": 1682373300,
-      "n_requests": 10,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 26,
-      "n_context_tokens_total": 4025,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682373600,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 9082,
-      "n_generated": 7,
-      "n_generated_tokens_total": 207
-    },
-    {
-      "aggregation_timestamp": 1682373600,
-      "n_requests": 6,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 6,
-      "n_context_tokens_total": 33,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682374200,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 4888,
-      "n_generated": 4,
-      "n_generated_tokens_total": 90
-    },
-    {
-      "aggregation_timestamp": 1682374200,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 32,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682374800,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 4653,
-      "n_generated": 3,
-      "n_generated_tokens_total": 139
-    },
-    {
-      "aggregation_timestamp": 1682374800,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 10,
-      "n_context_tokens_total": 2741,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682375100,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 5297,
-      "n_generated": 3,
-      "n_generated_tokens_total": 164
-    },
-    {
-      "aggregation_timestamp": 1682375100,
-      "n_requests": 7,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 19,
-      "n_context_tokens_total": 5566,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682375400,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 9275,
-      "n_generated": 5,
-      "n_generated_tokens_total": 212
-    },
-    {
-      "aggregation_timestamp": 1682375700,
-      "n_requests": 1,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 1,
-      "n_context_tokens_total": 1,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682376000,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1153,
-      "n_generated": 1,
-      "n_generated_tokens_total": 17
-    },
-    {
-      "aggregation_timestamp": 1682376000,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 9,
-      "n_context_tokens_total": 2767,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682376300,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 14,
-      "n_context_tokens_total": 5514,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682376600,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1686,
-      "n_generated": 1,
-      "n_generated_tokens_total": 30
-    },
-    {
-      "aggregation_timestamp": 1682376900,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1904,
-      "n_generated": 1,
-      "n_generated_tokens_total": 50
-    },
-    {
-      "aggregation_timestamp": 1682377200,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1157,
-      "n_generated": 1,
-      "n_generated_tokens_total": 20
-    },
-    {
-      "aggregation_timestamp": 1682377200,
-      "n_requests": 2,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 2,
-      "n_context_tokens_total": 12,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682377800,
-      "n_requests": 1,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 1,
-      "n_context_tokens_total": 1197,
-      "n_generated": 1,
-      "n_generated_tokens_total": 23
-    },
-    {
-      "aggregation_timestamp": 1682378400,
-      "n_requests": 3,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 3,
-      "n_context_tokens_total": 4060,
-      "n_generated": 3,
-      "n_generated_tokens_total": 113
-    },
-    {
-      "aggregation_timestamp": 1682378400,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 3,
-      "n_context_tokens_total": 28,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682378700,
-      "n_requests": 6,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 6,
-      "n_context_tokens_total": 9915,
-      "n_generated": 6,
-      "n_generated_tokens_total": 257
-    },
-    {
-      "aggregation_timestamp": 1682378700,
-      "n_requests": 6,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 6,
-      "n_context_tokens_total": 50,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682379300,
-      "n_requests": 2,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 2,
-      "n_context_tokens_total": 1175,
-      "n_generated": 2,
-      "n_generated_tokens_total": 59
-    },
-    {
-      "aggregation_timestamp": 1682379300,
-      "n_requests": 3,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 5,
-      "n_context_tokens_total": 281,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682379600,
-      "n_requests": 5,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 5,
-      "n_context_tokens_total": 4424,
-      "n_generated": 5,
-      "n_generated_tokens_total": 303
-    },
-    {
-      "aggregation_timestamp": 1682379600,
-      "n_requests": 5,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 5,
-      "n_context_tokens_total": 36,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682379900,
-      "n_requests": 7,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 7,
-      "n_context_tokens_total": 9571,
-      "n_generated": 7,
-      "n_generated_tokens_total": 406
-    },
-    {
-      "aggregation_timestamp": 1682379900,
-      "n_requests": 8,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 10,
-      "n_context_tokens_total": 902,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    },
-    {
-      "aggregation_timestamp": 1682380500,
-      "n_requests": 4,
-      "operation": "completion",
-      "snapshot_id": "gpt-3.5-turbo-0301",
-      "n_context": 4,
-      "n_context_tokens_total": 6523,
-      "n_generated": 4,
-      "n_generated_tokens_total": 167
-    },
-    {
-      "aggregation_timestamp": 1682380500,
-      "n_requests": 4,
-      "operation": "embeddings",
-      "snapshot_id": "text-embedding-ada-002-v2",
-      "n_context": 4,
-      "n_context_tokens_total": 8,
-      "n_generated": 0,
-      "n_generated_tokens_total": 0
-    }
-  ],
-  "ft_data": [],
-  "dalle_api_data": [],
-  "whisper_api_data": [],
-  "current_usage_usd": 0.0
-}
+[
+  {
+    "object": "list",
+    "data": [
+      {
+        "aggregation_timestamp": 1682295000,
+        "n_requests": 6,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 6,
+        "n_context_tokens_total": 7667,
+        "n_generated": 6,
+        "n_generated_tokens_total": 92
+      },
+      {
+        "aggregation_timestamp": 1682295000,
+        "n_requests": 8,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 11,
+        "n_context_tokens_total": 1173,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682295300,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1220,
+        "n_generated": 1,
+        "n_generated_tokens_total": 9
+      },
+      {
+        "aggregation_timestamp": 1682295300,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 1,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682295600,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 4969,
+        "n_generated": 4,
+        "n_generated_tokens_total": 36
+      },
+      {
+        "aggregation_timestamp": 1682295600,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 4,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682295900,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1224,
+        "n_generated": 1,
+        "n_generated_tokens_total": 22
+      },
+      {
+        "aggregation_timestamp": 1682295900,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 2,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682296200,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 4841,
+        "n_generated": 4,
+        "n_generated_tokens_total": 35
+      },
+      {
+        "aggregation_timestamp": 1682296200,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 18,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682296500,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1372,
+        "n_generated": 1,
+        "n_generated_tokens_total": 7
+      },
+      {
+        "aggregation_timestamp": 1682296500,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 1,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682297100,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 3534,
+        "n_generated": 3,
+        "n_generated_tokens_total": 55
+      },
+      {
+        "aggregation_timestamp": 1682297100,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 10,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682297700,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1155,
+        "n_generated": 1,
+        "n_generated_tokens_total": 13
+      },
+      {
+        "aggregation_timestamp": 1682297700,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 2,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682298000,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1157,
+        "n_generated": 1,
+        "n_generated_tokens_total": 17
+      },
+      {
+        "aggregation_timestamp": 1682298000,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 3,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682298300,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 33,
+        "n_context_tokens_total": 13466,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682300100,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1159,
+        "n_generated": 1,
+        "n_generated_tokens_total": 37
+      },
+      {
+        "aggregation_timestamp": 1682300100,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 4,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682300400,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2373,
+        "n_generated": 2,
+        "n_generated_tokens_total": 73
+      },
+      {
+        "aggregation_timestamp": 1682300400,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 13,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682300700,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 8346,
+        "n_generated": 7,
+        "n_generated_tokens_total": 172
+      },
+      {
+        "aggregation_timestamp": 1682300700,
+        "n_requests": 8,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 8,
+        "n_context_tokens_total": 40,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682301000,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 4949,
+        "n_generated": 4,
+        "n_generated_tokens_total": 158
+      },
+      {
+        "aggregation_timestamp": 1682301000,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 21,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682301900,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1165,
+        "n_generated": 1,
+        "n_generated_tokens_total": 38
+      },
+      {
+        "aggregation_timestamp": 1682301900,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 7,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682303400,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1153,
+        "n_generated": 1,
+        "n_generated_tokens_total": 8
+      },
+      {
+        "aggregation_timestamp": 1682303400,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 1,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682304600,
+        "n_requests": 6,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 6,
+        "n_context_tokens_total": 4532,
+        "n_generated": 6,
+        "n_generated_tokens_total": 161
+      },
+      {
+        "aggregation_timestamp": 1682304600,
+        "n_requests": 8,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 8,
+        "n_context_tokens_total": 174,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682307900,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 3556,
+        "n_generated": 3,
+        "n_generated_tokens_total": 44
+      },
+      {
+        "aggregation_timestamp": 1682307900,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 13,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682308800,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2454,
+        "n_generated": 2,
+        "n_generated_tokens_total": 56
+      },
+      {
+        "aggregation_timestamp": 1682308800,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 6,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682309400,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1200,
+        "n_generated": 1,
+        "n_generated_tokens_total": 40
+      },
+      {
+        "aggregation_timestamp": 1682309400,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 24,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682309700,
+        "n_requests": 6,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 6,
+        "n_context_tokens_total": 4180,
+        "n_generated": 6,
+        "n_generated_tokens_total": 676
+      },
+      {
+        "aggregation_timestamp": 1682309700,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 795,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682310000,
+        "n_requests": 25,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 25,
+        "n_context_tokens_total": 9926,
+        "n_generated": 25,
+        "n_generated_tokens_total": 3195
+      },
+      {
+        "aggregation_timestamp": 1682310000,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 925,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682310300,
+        "n_requests": 16,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 16,
+        "n_context_tokens_total": 4034,
+        "n_generated": 16,
+        "n_generated_tokens_total": 1645
+      },
+      {
+        "aggregation_timestamp": 1682310600,
+        "n_requests": 20,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 20,
+        "n_context_tokens_total": 10345,
+        "n_generated": 20,
+        "n_generated_tokens_total": 1907
+      },
+      {
+        "aggregation_timestamp": 1682310600,
+        "n_requests": 8,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 8,
+        "n_context_tokens_total": 15,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682310900,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 352,
+        "n_generated": 2,
+        "n_generated_tokens_total": 30
+      },
+      {
+        "aggregation_timestamp": 1682310900,
+        "n_requests": 6,
+        "operation": "completion",
+        "snapshot_id": "gpt-4-0314",
+        "n_context": 6,
+        "n_context_tokens_total": 1434,
+        "n_generated": 6,
+        "n_generated_tokens_total": 908
+      },
+      {
+        "aggregation_timestamp": 1682310900,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 2,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682311200,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 3381,
+        "n_generated": 5,
+        "n_generated_tokens_total": 509
+      },
+      {
+        "aggregation_timestamp": 1682311200,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-4-0314",
+        "n_context": 4,
+        "n_context_tokens_total": 1296,
+        "n_generated": 4,
+        "n_generated_tokens_total": 791
+      },
+      {
+        "aggregation_timestamp": 1682311200,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 1783,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682311500,
+        "n_requests": 12,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 12,
+        "n_context_tokens_total": 16589,
+        "n_generated": 12,
+        "n_generated_tokens_total": 841
+      },
+      {
+        "aggregation_timestamp": 1682311500,
+        "n_requests": 13,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 13,
+        "n_context_tokens_total": 1586,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682311800,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 6997,
+        "n_generated": 3,
+        "n_generated_tokens_total": 680
+      },
+      {
+        "aggregation_timestamp": 1682311800,
+        "n_requests": 5,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 5,
+        "n_context_tokens_total": 3394,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682312100,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 5785,
+        "n_generated": 4,
+        "n_generated_tokens_total": 318
+      },
+      {
+        "aggregation_timestamp": 1682312100,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 2680,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682312700,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 574,
+        "n_generated": 1,
+        "n_generated_tokens_total": 32
+      },
+      {
+        "aggregation_timestamp": 1682312700,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 7,
+        "n_context_tokens_total": 750,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682313000,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 4021,
+        "n_generated": 5,
+        "n_generated_tokens_total": 247
+      },
+      {
+        "aggregation_timestamp": 1682313000,
+        "n_requests": 5,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 5,
+        "n_context_tokens_total": 27,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682313300,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 3617,
+        "n_generated": 4,
+        "n_generated_tokens_total": 151
+      },
+      {
+        "aggregation_timestamp": 1682313300,
+        "n_requests": 12,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 260,
+        "n_context_tokens_total": 43720,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682313600,
+        "n_requests": 13,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 13,
+        "n_context_tokens_total": 12075,
+        "n_generated": 13,
+        "n_generated_tokens_total": 491
+      },
+      {
+        "aggregation_timestamp": 1682313600,
+        "n_requests": 13,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 13,
+        "n_context_tokens_total": 82,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682314500,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2398,
+        "n_generated": 2,
+        "n_generated_tokens_total": 62
+      },
+      {
+        "aggregation_timestamp": 1682314500,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 49,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682315100,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1155,
+        "n_generated": 1,
+        "n_generated_tokens_total": 18
+      },
+      {
+        "aggregation_timestamp": 1682315100,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 2,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682321400,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2306,
+        "n_generated": 2,
+        "n_generated_tokens_total": 18
+      },
+      {
+        "aggregation_timestamp": 1682321400,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 2,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682328000,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2330,
+        "n_generated": 2,
+        "n_generated_tokens_total": 42
+      },
+      {
+        "aggregation_timestamp": 1682328000,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 7,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682330100,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 8737,
+        "n_generated": 7,
+        "n_generated_tokens_total": 164
+      },
+      {
+        "aggregation_timestamp": 1682330100,
+        "n_requests": 7,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 7,
+        "n_context_tokens_total": 36,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682330400,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 5100,
+        "n_generated": 4,
+        "n_generated_tokens_total": 193
+      },
+      {
+        "aggregation_timestamp": 1682330400,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 32,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682331300,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2326,
+        "n_generated": 2,
+        "n_generated_tokens_total": 86
+      },
+      {
+        "aggregation_timestamp": 1682331300,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 5,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682331600,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 3928,
+        "n_generated": 3,
+        "n_generated_tokens_total": 170
+      },
+      {
+        "aggregation_timestamp": 1682331600,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 17,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682332200,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2509,
+        "n_generated": 2,
+        "n_generated_tokens_total": 42
+      },
+      {
+        "aggregation_timestamp": 1682332200,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 71,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682332500,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2430,
+        "n_generated": 2,
+        "n_generated_tokens_total": 40
+      },
+      {
+        "aggregation_timestamp": 1682332500,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 41,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682334300,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1161,
+        "n_generated": 1,
+        "n_generated_tokens_total": 22
+      },
+      {
+        "aggregation_timestamp": 1682334300,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 6,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682334600,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 8872,
+        "n_generated": 7,
+        "n_generated_tokens_total": 271
+      },
+      {
+        "aggregation_timestamp": 1682334600,
+        "n_requests": 7,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 7,
+        "n_context_tokens_total": 27,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682336100,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 4729,
+        "n_generated": 4,
+        "n_generated_tokens_total": 89
+      },
+      {
+        "aggregation_timestamp": 1682336100,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 38,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682336400,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1167,
+        "n_generated": 1,
+        "n_generated_tokens_total": 20
+      },
+      {
+        "aggregation_timestamp": 1682336400,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 9,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682336700,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 8553,
+        "n_generated": 7,
+        "n_generated_tokens_total": 302
+      },
+      {
+        "aggregation_timestamp": 1682336700,
+        "n_requests": 7,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 7,
+        "n_context_tokens_total": 74,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682337000,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1385,
+        "n_generated": 1,
+        "n_generated_tokens_total": 31
+      },
+      {
+        "aggregation_timestamp": 1682337000,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 17,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682338200,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 4770,
+        "n_generated": 4,
+        "n_generated_tokens_total": 89
+      },
+      {
+        "aggregation_timestamp": 1682338200,
+        "n_requests": 5,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 5,
+        "n_context_tokens_total": 20,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682338500,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 4071,
+        "n_generated": 3,
+        "n_generated_tokens_total": 717
+      },
+      {
+        "aggregation_timestamp": 1682338500,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 14,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682338800,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 4826,
+        "n_generated": 4,
+        "n_generated_tokens_total": 123
+      },
+      {
+        "aggregation_timestamp": 1682338800,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 62,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682340600,
+        "n_requests": 6,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 6,
+        "n_context_tokens_total": 7402,
+        "n_generated": 6,
+        "n_generated_tokens_total": 160
+      },
+      {
+        "aggregation_timestamp": 1682340600,
+        "n_requests": 6,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 6,
+        "n_context_tokens_total": 63,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682342400,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2336,
+        "n_generated": 2,
+        "n_generated_tokens_total": 64
+      },
+      {
+        "aggregation_timestamp": 1682342400,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 24,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682342700,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2457,
+        "n_generated": 2,
+        "n_generated_tokens_total": 188
+      },
+      {
+        "aggregation_timestamp": 1682342700,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 4,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682343300,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1217,
+        "n_generated": 1,
+        "n_generated_tokens_total": 35
+      },
+      {
+        "aggregation_timestamp": 1682343300,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 33,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682344500,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1173,
+        "n_generated": 1,
+        "n_generated_tokens_total": 26
+      },
+      {
+        "aggregation_timestamp": 1682344500,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 12,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682345100,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1221,
+        "n_generated": 1,
+        "n_generated_tokens_total": 39
+      },
+      {
+        "aggregation_timestamp": 1682345100,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 37,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682345400,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1153,
+        "n_generated": 1,
+        "n_generated_tokens_total": 9
+      },
+      {
+        "aggregation_timestamp": 1682345400,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 1,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682346300,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 7,
+        "n_context_tokens_total": 1532,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682346600,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 1371,
+        "n_generated": 2,
+        "n_generated_tokens_total": 80
+      },
+      {
+        "aggregation_timestamp": 1682346600,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 5,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682346900,
+        "n_requests": 8,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 8,
+        "n_context_tokens_total": 6649,
+        "n_generated": 8,
+        "n_generated_tokens_total": 279
+      },
+      {
+        "aggregation_timestamp": 1682346900,
+        "n_requests": 8,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 8,
+        "n_context_tokens_total": 49,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682347200,
+        "n_requests": 20,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 20,
+        "n_context_tokens_total": 17371,
+        "n_generated": 20,
+        "n_generated_tokens_total": 614
+      },
+      {
+        "aggregation_timestamp": 1682347200,
+        "n_requests": 21,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 21,
+        "n_context_tokens_total": 144,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682347500,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 5048,
+        "n_generated": 5,
+        "n_generated_tokens_total": 277
+      },
+      {
+        "aggregation_timestamp": 1682347500,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 27,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682347800,
+        "n_requests": 11,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 11,
+        "n_context_tokens_total": 8379,
+        "n_generated": 11,
+        "n_generated_tokens_total": 399
+      },
+      {
+        "aggregation_timestamp": 1682347800,
+        "n_requests": 11,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 11,
+        "n_context_tokens_total": 106,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682348100,
+        "n_requests": 14,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 14,
+        "n_context_tokens_total": 12738,
+        "n_generated": 14,
+        "n_generated_tokens_total": 541
+      },
+      {
+        "aggregation_timestamp": 1682348100,
+        "n_requests": 14,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 14,
+        "n_context_tokens_total": 140,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682348400,
+        "n_requests": 8,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 8,
+        "n_context_tokens_total": 8437,
+        "n_generated": 8,
+        "n_generated_tokens_total": 259
+      },
+      {
+        "aggregation_timestamp": 1682348400,
+        "n_requests": 9,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 29,
+        "n_context_tokens_total": 6889,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682348700,
+        "n_requests": 10,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 10,
+        "n_context_tokens_total": 10936,
+        "n_generated": 10,
+        "n_generated_tokens_total": 583
+      },
+      {
+        "aggregation_timestamp": 1682348700,
+        "n_requests": 10,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 10,
+        "n_context_tokens_total": 70,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682349000,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 4323,
+        "n_generated": 3,
+        "n_generated_tokens_total": 274
+      },
+      {
+        "aggregation_timestamp": 1682349000,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 1605,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682349300,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2375,
+        "n_generated": 2,
+        "n_generated_tokens_total": 138
+      },
+      {
+        "aggregation_timestamp": 1682349300,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 1578,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682350500,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 3543,
+        "n_generated": 3,
+        "n_generated_tokens_total": 53
+      },
+      {
+        "aggregation_timestamp": 1682350500,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 8,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682350800,
+        "n_requests": 9,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 9,
+        "n_context_tokens_total": 11804,
+        "n_generated": 9,
+        "n_generated_tokens_total": 407
+      },
+      {
+        "aggregation_timestamp": 1682350800,
+        "n_requests": 9,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 9,
+        "n_context_tokens_total": 78,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682351700,
+        "n_requests": 10,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 10,
+        "n_context_tokens_total": 13343,
+        "n_generated": 10,
+        "n_generated_tokens_total": 411
+      },
+      {
+        "aggregation_timestamp": 1682351700,
+        "n_requests": 10,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 10,
+        "n_context_tokens_total": 155,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682352000,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 9182,
+        "n_generated": 5,
+        "n_generated_tokens_total": 270
+      },
+      {
+        "aggregation_timestamp": 1682352000,
+        "n_requests": 5,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 5,
+        "n_context_tokens_total": 100,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682352600,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 4916,
+        "n_generated": 5,
+        "n_generated_tokens_total": 317
+      },
+      {
+        "aggregation_timestamp": 1682352600,
+        "n_requests": 5,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 5,
+        "n_context_tokens_total": 29,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682352900,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 2394,
+        "n_generated": 3,
+        "n_generated_tokens_total": 114
+      },
+      {
+        "aggregation_timestamp": 1682352900,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 22,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682353800,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2420,
+        "n_generated": 2,
+        "n_generated_tokens_total": 106
+      },
+      {
+        "aggregation_timestamp": 1682353800,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 28,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682355600,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1410,
+        "n_generated": 1,
+        "n_generated_tokens_total": 31
+      },
+      {
+        "aggregation_timestamp": 1682355600,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 3,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682355900,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 943,
+        "n_generated": 1,
+        "n_generated_tokens_total": 55
+      },
+      {
+        "aggregation_timestamp": 1682355900,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 5,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682356800,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 3787,
+        "n_generated": 3,
+        "n_generated_tokens_total": 181
+      },
+      {
+        "aggregation_timestamp": 1682356800,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 48,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682358000,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2566,
+        "n_generated": 2,
+        "n_generated_tokens_total": 126
+      },
+      {
+        "aggregation_timestamp": 1682358000,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 10,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682358300,
+        "n_requests": 8,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 8,
+        "n_context_tokens_total": 9506,
+        "n_generated": 8,
+        "n_generated_tokens_total": 458
+      },
+      {
+        "aggregation_timestamp": 1682358300,
+        "n_requests": 10,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 19,
+        "n_context_tokens_total": 2512,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682358600,
+        "n_requests": 8,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 8,
+        "n_context_tokens_total": 7511,
+        "n_generated": 8,
+        "n_generated_tokens_total": 182
+      },
+      {
+        "aggregation_timestamp": 1682358600,
+        "n_requests": 8,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 8,
+        "n_context_tokens_total": 81,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682359200,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 4119,
+        "n_generated": 3,
+        "n_generated_tokens_total": 250
+      },
+      {
+        "aggregation_timestamp": 1682359200,
+        "n_requests": 6,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 68,
+        "n_context_tokens_total": 20930,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682359500,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2410,
+        "n_generated": 2,
+        "n_generated_tokens_total": 86
+      },
+      {
+        "aggregation_timestamp": 1682359500,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 11,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682359800,
+        "n_requests": 14,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 14,
+        "n_context_tokens_total": 20707,
+        "n_generated": 14,
+        "n_generated_tokens_total": 630
+      },
+      {
+        "aggregation_timestamp": 1682359800,
+        "n_requests": 14,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 14,
+        "n_context_tokens_total": 139,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682360100,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 10786,
+        "n_generated": 7,
+        "n_generated_tokens_total": 529
+      },
+      {
+        "aggregation_timestamp": 1682360100,
+        "n_requests": 7,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 7,
+        "n_context_tokens_total": 76,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682360400,
+        "n_requests": 8,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 8,
+        "n_context_tokens_total": 13457,
+        "n_generated": 8,
+        "n_generated_tokens_total": 327
+      },
+      {
+        "aggregation_timestamp": 1682360400,
+        "n_requests": 8,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 8,
+        "n_context_tokens_total": 70,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682360700,
+        "n_requests": 11,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 11,
+        "n_context_tokens_total": 14478,
+        "n_generated": 11,
+        "n_generated_tokens_total": 405
+      },
+      {
+        "aggregation_timestamp": 1682360700,
+        "n_requests": 11,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 11,
+        "n_context_tokens_total": 112,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682361000,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 4954,
+        "n_generated": 3,
+        "n_generated_tokens_total": 84
+      },
+      {
+        "aggregation_timestamp": 1682361000,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 16,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682361900,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2338,
+        "n_generated": 2,
+        "n_generated_tokens_total": 62
+      },
+      {
+        "aggregation_timestamp": 1682361900,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 8,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682362500,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2331,
+        "n_generated": 2,
+        "n_generated_tokens_total": 48
+      },
+      {
+        "aggregation_timestamp": 1682362500,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 7,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682363700,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2368,
+        "n_generated": 2,
+        "n_generated_tokens_total": 58
+      },
+      {
+        "aggregation_timestamp": 1682363700,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 15,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682364300,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1251,
+        "n_generated": 1,
+        "n_generated_tokens_total": 35
+      },
+      {
+        "aggregation_timestamp": 1682364300,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 52,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682364600,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 923,
+        "n_generated": 1,
+        "n_generated_tokens_total": 211
+      },
+      {
+        "aggregation_timestamp": 1682364900,
+        "n_requests": 13,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 13,
+        "n_context_tokens_total": 20988,
+        "n_generated": 13,
+        "n_generated_tokens_total": 1931
+      },
+      {
+        "aggregation_timestamp": 1682364900,
+        "n_requests": 20,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 35,
+        "n_context_tokens_total": 15182,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682365200,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 16952,
+        "n_generated": 7,
+        "n_generated_tokens_total": 2017
+      },
+      {
+        "aggregation_timestamp": 1682365200,
+        "n_requests": 12,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 12,
+        "n_context_tokens_total": 11056,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682365500,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 14207,
+        "n_generated": 5,
+        "n_generated_tokens_total": 1784
+      },
+      {
+        "aggregation_timestamp": 1682365500,
+        "n_requests": 10,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 10,
+        "n_context_tokens_total": 8005,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682365800,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 6667,
+        "n_generated": 3,
+        "n_generated_tokens_total": 811
+      },
+      {
+        "aggregation_timestamp": 1682365800,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 3245,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682367300,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 6282,
+        "n_generated": 5,
+        "n_generated_tokens_total": 169
+      },
+      {
+        "aggregation_timestamp": 1682367300,
+        "n_requests": 5,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 5,
+        "n_context_tokens_total": 66,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682367900,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 6612,
+        "n_generated": 4,
+        "n_generated_tokens_total": 144
+      },
+      {
+        "aggregation_timestamp": 1682367900,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 37,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682369100,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 9846,
+        "n_generated": 5,
+        "n_generated_tokens_total": 1615
+      },
+      {
+        "aggregation_timestamp": 1682369100,
+        "n_requests": 10,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 10,
+        "n_context_tokens_total": 6883,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682369400,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 15917,
+        "n_generated": 7,
+        "n_generated_tokens_total": 2103
+      },
+      {
+        "aggregation_timestamp": 1682369400,
+        "n_requests": 14,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 14,
+        "n_context_tokens_total": 24164,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682369700,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 4263,
+        "n_generated": 2,
+        "n_generated_tokens_total": 598
+      },
+      {
+        "aggregation_timestamp": 1682369700,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 11032,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682370900,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1157,
+        "n_generated": 1,
+        "n_generated_tokens_total": 56
+      },
+      {
+        "aggregation_timestamp": 1682370900,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 3,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682371500,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 3565,
+        "n_generated": 3,
+        "n_generated_tokens_total": 110
+      },
+      {
+        "aggregation_timestamp": 1682371500,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 14,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682372100,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 2371,
+        "n_generated": 2,
+        "n_generated_tokens_total": 72
+      },
+      {
+        "aggregation_timestamp": 1682372100,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 16,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682373300,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 9596,
+        "n_generated": 7,
+        "n_generated_tokens_total": 204
+      },
+      {
+        "aggregation_timestamp": 1682373300,
+        "n_requests": 10,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 26,
+        "n_context_tokens_total": 4025,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682373600,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 9082,
+        "n_generated": 7,
+        "n_generated_tokens_total": 207
+      },
+      {
+        "aggregation_timestamp": 1682373600,
+        "n_requests": 6,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 6,
+        "n_context_tokens_total": 33,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682374200,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 4888,
+        "n_generated": 4,
+        "n_generated_tokens_total": 90
+      },
+      {
+        "aggregation_timestamp": 1682374200,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 32,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682374800,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 4653,
+        "n_generated": 3,
+        "n_generated_tokens_total": 139
+      },
+      {
+        "aggregation_timestamp": 1682374800,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 10,
+        "n_context_tokens_total": 2741,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682375100,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 5297,
+        "n_generated": 3,
+        "n_generated_tokens_total": 164
+      },
+      {
+        "aggregation_timestamp": 1682375100,
+        "n_requests": 7,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 19,
+        "n_context_tokens_total": 5566,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682375400,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 9275,
+        "n_generated": 5,
+        "n_generated_tokens_total": 212
+      },
+      {
+        "aggregation_timestamp": 1682375700,
+        "n_requests": 1,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 1,
+        "n_context_tokens_total": 1,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682376000,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1153,
+        "n_generated": 1,
+        "n_generated_tokens_total": 17
+      },
+      {
+        "aggregation_timestamp": 1682376000,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 9,
+        "n_context_tokens_total": 2767,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682376300,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 14,
+        "n_context_tokens_total": 5514,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682376600,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1686,
+        "n_generated": 1,
+        "n_generated_tokens_total": 30
+      },
+      {
+        "aggregation_timestamp": 1682376900,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1904,
+        "n_generated": 1,
+        "n_generated_tokens_total": 50
+      },
+      {
+        "aggregation_timestamp": 1682377200,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1157,
+        "n_generated": 1,
+        "n_generated_tokens_total": 20
+      },
+      {
+        "aggregation_timestamp": 1682377200,
+        "n_requests": 2,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 2,
+        "n_context_tokens_total": 12,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682377800,
+        "n_requests": 1,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 1,
+        "n_context_tokens_total": 1197,
+        "n_generated": 1,
+        "n_generated_tokens_total": 23
+      },
+      {
+        "aggregation_timestamp": 1682378400,
+        "n_requests": 3,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 3,
+        "n_context_tokens_total": 4060,
+        "n_generated": 3,
+        "n_generated_tokens_total": 113
+      },
+      {
+        "aggregation_timestamp": 1682378400,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 3,
+        "n_context_tokens_total": 28,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682378700,
+        "n_requests": 6,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 6,
+        "n_context_tokens_total": 9915,
+        "n_generated": 6,
+        "n_generated_tokens_total": 257
+      },
+      {
+        "aggregation_timestamp": 1682378700,
+        "n_requests": 6,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 6,
+        "n_context_tokens_total": 50,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682379300,
+        "n_requests": 2,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 2,
+        "n_context_tokens_total": 1175,
+        "n_generated": 2,
+        "n_generated_tokens_total": 59
+      },
+      {
+        "aggregation_timestamp": 1682379300,
+        "n_requests": 3,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 5,
+        "n_context_tokens_total": 281,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682379600,
+        "n_requests": 5,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 5,
+        "n_context_tokens_total": 4424,
+        "n_generated": 5,
+        "n_generated_tokens_total": 303
+      },
+      {
+        "aggregation_timestamp": 1682379600,
+        "n_requests": 5,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 5,
+        "n_context_tokens_total": 36,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682379900,
+        "n_requests": 7,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 7,
+        "n_context_tokens_total": 9571,
+        "n_generated": 7,
+        "n_generated_tokens_total": 406
+      },
+      {
+        "aggregation_timestamp": 1682379900,
+        "n_requests": 8,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 10,
+        "n_context_tokens_total": 902,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      },
+      {
+        "aggregation_timestamp": 1682380500,
+        "n_requests": 4,
+        "operation": "completion",
+        "snapshot_id": "gpt-3.5-turbo-0301",
+        "n_context": 4,
+        "n_context_tokens_total": 6523,
+        "n_generated": 4,
+        "n_generated_tokens_total": 167
+      },
+      {
+        "aggregation_timestamp": 1682380500,
+        "n_requests": 4,
+        "operation": "embeddings",
+        "snapshot_id": "text-embedding-ada-002-v2",
+        "n_context": 4,
+        "n_context_tokens_total": 8,
+        "n_generated": 0,
+        "n_generated_tokens_total": 0
+      }
+    ],
+    "ft_data": [],
+    "dalle_api_data": [],
+    "whisper_api_data": [],
+    "current_usage_usd": 0.0
+  }
+]

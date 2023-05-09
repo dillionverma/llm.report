@@ -59,9 +59,9 @@ export interface UsageResponse {
   current_usage_usd: number;
 }
 
-export type Category = Model | "Total Cost ($)";
+export type Category = Models;
 
-export type Model =
+export type Models =
   | "DALL-E API"
   | "Audio models"
   | "Chat models"
@@ -71,8 +71,44 @@ export type Model =
   | "Image models"
   | "Instruct models";
 
-export type Snapshot =
-  | "gpt-3.5-turbo-0301"
+export type ChatCompletionModels =
+  | "gpt-4"
+  | "gpt-4-0314"
+  | "gpt-4-32k"
+  | "gpt-4-32k-0314"
+  | "gpt-3.5-turbo"
+  | "gpt-3.5-turbo-0301";
+
+export type CompletionModels =
+  | "text-ada-001"
+  | "text-babbage-001"
+  | "text-curie-001"
+  | "text-davinci-002"
+  | "text-davinci-003";
+
+export type EditModels = "text-davinci-edit-001" | "code-davinci-edit-001";
+
+export type FineTunedModels =
+  | "text-davinci-003"
+  | "text-davinci-002"
+  | "text-curie-001"
+  | "text-babbage-001"
+  | "text-ada-001";
+
+export type AudioModels = "whisper-1" | "whisper-2";
+
+export type EmbeddingModels =
+  | "text-embedding-ada-002"
   | "text-embedding-ada-002-v2"
-  | "text-davinci:003"
-  | "gpt-4-0314";
+  | "text-search-ada-doc-001";
+
+export type Resolution = "256x256" | "512x512" | "1024x1024";
+
+export type Snapshot =
+  | ChatCompletionModels
+  | CompletionModels
+  | EditModels
+  | FineTunedModels
+  | AudioModels
+  | EmbeddingModels
+  | Resolution;
