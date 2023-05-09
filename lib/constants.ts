@@ -212,7 +212,7 @@ export const FIRST_VISIT_AFTER_LOGIN = "first-visit-after-login";
 export const SELECTION_KEY = "selection";
 
 // https://openai.com/pricing
-export const MODEL_COST: { [key in Snapshot]: number } = {
+export const MODEL_COST: { [key in Snapshot]?: number } = {
   // Chat models per token (GPT-4)
   // TODO: GPT-4 Output is different
   // {

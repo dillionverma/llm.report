@@ -101,7 +101,7 @@ const MonthlyChart = ({
 
       let response;
       if (demo) {
-        response = usageRange;
+        response = usageRange as BillingUsageResponse;
       } else {
         openai.setKey(key);
         response = await openai.getBillingUsage(startDate, endDate);
@@ -285,7 +285,7 @@ const MonthlyChart = ({
           }
 
           const cost =
-            MODEL_COST[cur.snapshot_id as Snapshot] *
+            MODEL_COST[cur.snapshot_id as Snapshot]! *
             (cur.n_generated_tokens_total + cur.n_context_tokens_total);
 
           if (!acc[date][cur.snapshot_id]) {

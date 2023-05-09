@@ -34,7 +34,7 @@ export interface BillingUsageResponse {
   daily_costs: {
     timestamp: number;
     line_items: {
-      name: Model;
+      name: Models;
       cost: number;
     }[];
   }[];
@@ -84,7 +84,8 @@ export type CompletionModels =
   | "text-babbage-001"
   | "text-curie-001"
   | "text-davinci-002"
-  | "text-davinci-003";
+  | "text-davinci-003"
+  | "text-davinci:003";
 
 export type EditModels = "text-davinci-edit-001" | "code-davinci-edit-001";
 
