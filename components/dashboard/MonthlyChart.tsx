@@ -39,6 +39,7 @@ import { format, parse } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import LoadingChart from "./LoadingChart";
 
 const dataFormatter = (number: number) => {
@@ -75,6 +76,11 @@ const MonthlyChart = ({
     "day"
   );
 
+  const [firstLoad, setFirstLoad] = useLocalStorage<boolean>(
+    "first-load",
+    true
+  );
+
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -103,6 +109,16 @@ const MonthlyChart = ({
       if (demo) {
         response = usageRange as BillingUsageResponse;
       } else {
+        if (firstLoad) {
+          toast.loading(
+            "Fetching data from OpenAI... (this may take up to 30 seconds)",
+            {
+              duration: 10000,
+            }
+          );
+          setFirstLoad(false);
+        }
+
         openai.setKey(key);
         response = await openai.getBillingUsage(startDate, endDate);
       }
