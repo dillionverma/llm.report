@@ -124,7 +124,7 @@ export function useDialog() {
 }
 
 const Feedback = () => {
-  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 const useLocalStorage = <T>(
   key: string,
-  initialValue?: T
+  initialValue?: T,
+  poll: boolean = false
 ): [T | null, (value: T) => void] => {
   const [value, setValue] = useState<T | null>(() => {
     if (typeof window !== "undefined") {
@@ -32,6 +33,7 @@ const useLocalStorage = <T>(
 
   // Listen to storage change events (changes from current tab)
   useEffect(() => {
+    if (!poll) return;
     let prevValue = value;
     const intervalId = setInterval(() => {
       const storedValue = localStorage.getItem(key);

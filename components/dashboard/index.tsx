@@ -3,7 +3,7 @@ import Cost from "@/components/dashboard/Cost";
 import MonthlyChart from "@/components/dashboard/MonthlyChart";
 import Requests from "@/components/dashboard/Requests";
 import { default as Tokens } from "@/components/dashboard/Tokens";
-import { CATEGORIES, LOCAL_STORAGE_KEY } from "@/lib/constants";
+import { CATEGORIES, CATEGORIES_KEY, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import openai from "@/lib/services/openai";
 import { Category } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
@@ -42,7 +42,7 @@ export default function Dashboard() {
   };
 
   const [subscribed, setSubscribed] = useState(true);
-  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "");
+  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
   const [validKey, setValidKey] = useState(false);
   const { openDialog } = useDialog();
   const { data } = useSession();
@@ -68,7 +68,11 @@ export default function Dashboard() {
     (async () => setValidKey(await openai.isValidKey(key)))();
   }, [key]);
 
-  const [categories, setCategories] = useState<Category[]>(CATEGORIES);
+  // const [categories, setCategories] = useState<Category[]>(CATEGORIES);
+  const [categories, setCategories] = useLocalStorage<Category[]>(
+    CATEGORIES_KEY,
+    CATEGORIES
+  );
 
   return (
     <div>
