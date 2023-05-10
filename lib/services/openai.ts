@@ -1,5 +1,6 @@
 import axios from "axios";
 import { format } from "date-fns";
+import { get, set } from "idb-keyval";
 import {
   BillingSubscriptionResponse,
   BillingUsageResponse,
@@ -22,11 +23,11 @@ import {
 // }
 
 class OpenAI {
-  private cache: Map<string, any>;
+  // private cache: Map<string, any>;
   private key: string | null = null;
 
   constructor() {
-    this.cache = new Map<string, any>();
+    // this.cache = new Map<string, any>();
   }
 
   setKey(key: string | null) {
@@ -46,8 +47,10 @@ class OpenAI {
       date: format(date, "yyyy-MM-dd"),
     };
 
-    if (this.cache.has(query.date) && date.getTime() !== new Date().getTime()) {
-      return this.cache.get(query.date);
+    const cached = await get<UsageResponse>(query.date);
+
+    if (cached && date.getTime() !== new Date().getTime()) {
+      return cached;
     }
 
     const res = await axios.get<UsageResponse>(
@@ -59,7 +62,7 @@ class OpenAI {
       }
     );
 
-    this.cache.set(query.date, res.data);
+    await set(query.date, res.data);
 
     return res.data;
   }
@@ -89,10 +92,9 @@ class OpenAI {
     };
 
     const cacheKey = `${query.start_date}-${query.end_date}`;
+    const cached = await get<BillingUsageResponse>(cacheKey);
 
-    if (this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey);
-    }
+    if (cached) return cached;
 
     const res = await axios.get<BillingUsageResponse>(
       `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
@@ -105,7 +107,7 @@ class OpenAI {
       }
     );
 
-    this.cache.set(cacheKey, res.data);
+    await set(cacheKey, res.data);
 
     return res.data;
   }
