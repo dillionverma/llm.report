@@ -22,6 +22,10 @@ import {
 import { add, startOfMonth, sub } from "date-fns";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import ContextTokenChart from "./ContextTokenChart";
+import CostChart from "./CostChart";
+import GeneratedTokenChart from "./GeneratedTokenChart";
+import RequestChart from "./RequestChart";
 
 export default function Dashboard() {
   const [value, setValue] = useState<DateRangePickerValue>([
@@ -226,6 +230,50 @@ export default function Dashboard() {
           </MultiSelectBox>
         </div>
       </Flex>
+
+      <Grid
+        numCols={1}
+        numColsMd={2}
+        numColsLg={4}
+        className="gap-6 mt-4 w-full"
+      >
+        <Card className="shadow-none">
+          <CostChart
+            startDate={new Date()}
+            endDate={new Date()}
+            categories={categories!}
+            demo={!data?.user}
+            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+          />
+        </Card>
+        <Card className="shadow-none">
+          <RequestChart
+            startDate={new Date()}
+            endDate={new Date()}
+            categories={categories!}
+            demo={!data?.user}
+            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+          />
+        </Card>
+        <Card className="shadow-none">
+          <ContextTokenChart
+            startDate={new Date()}
+            endDate={new Date()}
+            categories={categories!}
+            demo={!data?.user}
+            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+          />
+        </Card>
+        <Card className="shadow-none">
+          <GeneratedTokenChart
+            startDate={new Date()}
+            endDate={new Date()}
+            categories={categories!}
+            demo={!data?.user}
+            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+          />
+        </Card>
+      </Grid>
 
       <Card className="mt-4 shadow-none">
         <MonthlyChart

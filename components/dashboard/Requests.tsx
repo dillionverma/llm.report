@@ -164,7 +164,7 @@ const Requests = ({
         { total: 0, requests: {}, contextTokens: {}, generatedTokens: {} }
       );
 
-      console.log(cumulativeUsage);
+      console.log("CUMUL", cumulativeUsage);
 
       setRequestData(
         Object.entries(cumulativeUsage.requests)
