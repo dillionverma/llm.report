@@ -210,7 +210,7 @@ export default function Dashboard() {
 
           <MultiSelectBox
             // className="w-full"
-            value={categories}
+            value={categories!}
             onValueChange={(a) => {
               console.log("VALUE CHANGE", a);
               setCategories(a as Category[]);
@@ -231,7 +231,7 @@ export default function Dashboard() {
         <MonthlyChart
           startDate={value[0]}
           endDate={value[1]}
-          categories={categories}
+          categories={categories!}
           demo={!data?.user}
           defaultLoading={data?.user && (!subscribed || !validKey || !key)}
         />
@@ -242,7 +242,7 @@ export default function Dashboard() {
           <Cost
             startDate={value[0]}
             endDate={value[1]}
-            categories={categories}
+            categories={categories!}
             demo={!data?.user}
             defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
@@ -251,7 +251,7 @@ export default function Dashboard() {
           <Requests
             startDate={value[0]}
             endDate={value[1]}
-            categories={categories}
+            categories={categories!}
             demo={!data?.user}
             defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
@@ -260,7 +260,7 @@ export default function Dashboard() {
           <Tokens
             startDate={value[0]}
             endDate={value[1]}
-            categories={categories}
+            categories={categories!}
             demo={!data?.user}
             defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
