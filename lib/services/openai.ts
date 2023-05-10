@@ -7,28 +7,10 @@ import {
   UsageResponse,
 } from "../types";
 
-// class LocalStorageCache {
-//   get(key: string): any {
-//     const value = localStorage.getItem(key);
-//     return value ? JSON.parse(value) : null;
-//   }
-
-//   has(key: string): boolean {
-//     return !!localStorage.getItem(key);
-//   }
-
-//   set(key: string, value: any): void {
-//     localStorage.setItem(key, JSON.stringify(value));
-//   }
-// }
-
 class OpenAI {
-  // private cache: Map<string, any>;
   private key: string | null = null;
 
-  constructor() {
-    // this.cache = new Map<string, any>();
-  }
+  constructor() {}
 
   setKey(key: string | null) {
     this.key = key;
@@ -49,7 +31,7 @@ class OpenAI {
 
     const cached = await get<UsageResponse>(query.date);
 
-    if (cached && date.getTime() !== new Date().getTime()) {
+    if (cached && query.date !== format(new Date(), "yyyy-MM-dd")) {
       return cached;
     }
 
@@ -94,7 +76,9 @@ class OpenAI {
     const cacheKey = `${query.start_date}-${query.end_date}`;
     const cached = await get<BillingUsageResponse>(cacheKey);
 
-    if (cached) return cached;
+    if (cached && query.end_date !== format(new Date(), "yyyy-MM-dd")) {
+      return cached;
+    }
 
     const res = await axios.get<BillingUsageResponse>(
       `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(
