@@ -17,7 +17,7 @@ const CTA = () => {
         show: {
           transition: {
             staggerChildren: 0.1,
-            delayChildren: 0.5,
+            // delayChildren: 0.5,
           },
         },
       }}
@@ -100,6 +100,22 @@ const CTA = () => {
         </div>
 
         <div className="flex-1 mt-5 mx-auto sm:w-9/12 lg:mt-0 lg:w-auto">
+          <motion.div
+            className="rounded-lg p-4 border"
+            variants={{
+              hidden: { opacity: 0, y: -10 },
+              show: { opacity: 1, y: 0, transition: { type: "spring" } },
+            }}
+          >
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full rounded-lg shadow-lg"
+              src="/demo.mp4"
+            ></video>
+          </motion.div>
           {/* <img
             src="https://i.postimg.cc/kgd4WhyS/container.png"
             alt=""
