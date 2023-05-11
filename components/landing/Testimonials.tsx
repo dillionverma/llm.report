@@ -13,18 +13,23 @@ export default function Testimonials() {
 
   return (
     <section>
-      <Cobe />
       <div className="py-14">
+        <Cobe />
         <div className="mx-auto max-w-md text-center sm:max-w-2xl">
           <h2 className="font-display text-4xl font-extrabold leading-tight text-black sm:text-5xl sm:leading-tight">
             Loved by{" "}
             <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
               1,500+ users
             </span>{" "}
+            and{" "}
+            <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
+              companies
+            </span>{" "}
+            worldwide
           </h2>
+
           <p className="mt-5 text-gray-600 sm:text-lg">
-            Don&apos;t take it from us - here&apos;s what our users have to say
-            about LLM Report
+            Here&apos;s what our users have to say
           </p>
         </div>
 
