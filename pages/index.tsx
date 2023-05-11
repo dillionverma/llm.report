@@ -1,3 +1,4 @@
+import CTA from "@/components/landing/CTA";
 import Testimonials from "@/components/landing/Testimonials";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -11,25 +12,16 @@ export default function Home() {
         <Dashboard />
       ) : (
         <>
-          <motion.section
-            initial="hidden"
-            whileInView="show"
-            animate="show"
-            variants={{
-              hidden: { opacity: 0, y: 100 },
-              show: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.5,
-                  duration: 1,
-                },
-              },
-            }}
+          <CTA />
+          {/* <TrustedBy /> */}
+          <motion.div
+            className="rounded-lg p-4 border"
+            // initial={{ opacity: 0, y: 100 }}
+            // animate={{ opacity: 1, y: 0 }}
+            // transition={{ duration: 1, delay: 0.5 }}
           >
             <Dashboard />
-          </motion.section>
-          {/* <TrustedBy /> */}
+          </motion.div>
           <Testimonials />
         </>
       )}

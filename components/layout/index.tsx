@@ -1,7 +1,7 @@
 import { UserDropdownMenu } from "@/components/Dropdown";
 import { useDialog } from "@/components/SettingsModal";
 import { cn } from "@/lib/utils";
-import { Badge, Button } from "@tremor/react";
+import { Badge } from "@tremor/react";
 import {
   ArrowUpDown,
   HomeIcon,
@@ -33,7 +33,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               height={32}
               className="rounded-full"
             />
-            <h1 className="text-xl font-bold text-slate-800">LLM Report</h1>
+            <h1 className="text-gray-800 font-semibold text-xl">LLM Report</h1>
           </Link>
           <div className="flex-1" />
 
@@ -56,7 +56,8 @@ export default function Layout({ children }: { children: ReactNode }) {
               <UserDropdownMenu />
             </div>
           ) : (
-            <Button onClick={openDialog}>Get Started</Button>
+            <></>
+            // <Button onClick={openDialog}>Get Started</Button>
           )}
         </nav>
       </header>

@@ -323,8 +323,8 @@ const Login = () => {
         />
         <defs>
           <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
-            <stop stopColor="#00ff9b" />
-            <stop offset={1} stopColor="#00ff9b" />
+            <stop stopColor="#d97706" />
+            <stop offset={1} stopColor="#dc2626" />
           </radialGradient>
         </defs>
       </svg>
