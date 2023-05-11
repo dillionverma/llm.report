@@ -12,7 +12,7 @@ const ChartFeature = () => {
           {
             Image: Cobe,
             imageClassName: "-z-10 top-[20%] w-[100%] mx-auto",
-            title: "Backed by Cloudflare Workers",
+            title: "Built on Cloudflare Workers",
             text: "< 20ms response times anywhere in the world, built-in caching, and 99.99% uptime SLA.",
           },
           {
@@ -40,7 +40,7 @@ const ChartFeature = () => {
                       lineHeight: 1,
                     }}
                   >
-                    stop guessing your costs.
+                    stop guessing your cost per API key.
                   </h1>
                 </div>
               </>

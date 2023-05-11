@@ -45,9 +45,19 @@ const CTA = () => {
               show: { opacity: 1, y: 0, transition: { type: "spring" } },
             }}
           >
-            Know exactly what&apos;s happening in your AI app with realtime
-            dashboards, usage reports, and alerts.
+            {/* Know exactly what&apos;s happening in your AI app with realtime
+            dashboards, usage reports, and alerts. */}
+            Just enter your OpenAI API key, and we fetch your data from the
+            OpenAI API directly. No need to install anything.
           </motion.p>
+          <motion.p
+            className="text-gray-500 leading-relaxed mt-3 text-sm"
+            variants={{
+              hidden: { opacity: 0, y: -10 },
+              show: { opacity: 1, y: 0, transition: { type: "spring" } },
+            }}
+          ></motion.p>
+
           <motion.div
             className="flex flex-col items-center justify-center space-x-4 mt-4"
             variants={{
@@ -63,7 +73,9 @@ const CTA = () => {
               <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 filter group-active:opacity-0 rounded-full opacity-50 bg-gradient-to-r from-red-600 to-amber-600"></span>
               <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-full shadow-xl filter group-active:opacity-0 group-hover:blur-sm bg-gradient-to-r from-red-600 to-amber-600"></span>
               <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-full bg-gradient-to-r from-red-600 to-amber-600"></span>
-              <span className="relative">Get started</span>
+              <span className="relative">
+                Get your dashboard for free in &lt; 1min
+              </span>
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +92,8 @@ const CTA = () => {
                 />
               </svg>
             </button>
-            <div className="mt-4">
+
+            <div className="mt-6">
               <JoinUsers />
             </div>
           </motion.div>
