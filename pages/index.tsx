@@ -1,4 +1,5 @@
 import CTA from "@/components/landing/CTA";
+import ChartFeature from "@/components/landing/ChartFeature";
 import Testimonials from "@/components/landing/Testimonials";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -22,6 +23,7 @@ export default function Home() {
           >
             <Dashboard />
           </motion.div>
+          <ChartFeature />
           <Testimonials />
         </>
       )}

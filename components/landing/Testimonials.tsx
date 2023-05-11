@@ -1,5 +1,4 @@
 import TweetEmbed from "react-tweet-embed";
-import { Cobe } from "./Cobe";
 
 export default function Testimonials() {
   const tweetIds = [
@@ -14,9 +13,8 @@ export default function Testimonials() {
   return (
     <section>
       <div className="py-14">
-        <Cobe />
         <div className="mx-auto max-w-md text-center sm:max-w-2xl">
-          <h2 className="font-display text-4xl font-extrabold leading-tight text-black sm:text-5xl sm:leading-tight">
+          <h2 className="font-display text-4xl font-bold leading-tight text-black sm:text-5xl sm:leading-tight">
             Loved by{" "}
             <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
               1,500+ users
