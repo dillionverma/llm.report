@@ -500,7 +500,7 @@ const SettingsModal = () => {
 
       setFirstVisit(false);
       openDialog();
-    }, 5000);
+    }, 9000);
   }, [firstVisit, session?.user]);
 
   // useEffect(() => {
