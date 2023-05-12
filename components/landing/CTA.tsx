@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useDialog } from "../SettingsModal";
 import JoinUsers from "./JoinUsers";
 
@@ -93,6 +94,32 @@ const CTA = () => {
                 />
               </svg>
             </button>
+
+            <Link
+              className="mt-4 group px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600  text-white font-medium bg-indigo-50 rounded-full inline-flex items-center relative"
+              href="/demo"
+            >
+              <span className="absolute top-0 left-0 w-full h-full rounded-full opacity-50 filter  bg-gradient-to-r from-blue-600 to-cyan-600"></span>
+              <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 filter group-active:opacity-0 rounded-full opacity-50 bg-gradient-to-r from-blue-600 to-cyan-600"></span>
+              <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-full shadow-xl filter group-active:opacity-0 group-hover:blur-sm bg-gradient-to-r from-blue-600 to-cyan-600"></span>
+              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-full bg-gradient-to-r from-blue-600 to-cyan-600"></span>
+              <span className="relative">See Live Demo</span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 ml-1 duration-150 ease-in-out transform group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </Link>
 
             <div className="mt-6">
               <JoinUsers />

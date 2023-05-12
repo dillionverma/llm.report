@@ -15,10 +15,13 @@ function Stars(props: any) {
     ref.current!.rotation.y -= delta / 8;
   });
 
-  const [color, setColor] = useState("#E5E7EB");
+  const color1 = "#ff4433";
+  const color2 = "#E5E7EB";
 
-  gl.domElement.addEventListener("mouseover", () => setColor("#f38020")); // change to red on hover
-  gl.domElement.addEventListener("mouseout", () => setColor("#E5E7EB")); // reset color when not hovering
+  const [color, setColor] = useState(color1);
+
+  gl.domElement.addEventListener("mouseover", () => setColor(color2)); // change to red on hover
+  gl.domElement.addEventListener("mouseout", () => setColor(color1)); // reset color when not hovering
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
@@ -32,7 +35,7 @@ function Stars(props: any) {
         <PointMaterial
           transparent
           color={color}
-          size={0.007}
+          size={0.008}
           sizeAttenuation={true}
           depthWrite={false}
         />
