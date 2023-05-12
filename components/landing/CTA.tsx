@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { useDialog } from "../SettingsModal";
+import Dashboard from "../dashboard";
 import JoinUsers from "./JoinUsers";
 
 const CTA = () => {
@@ -68,7 +68,7 @@ const CTA = () => {
             }}
           >
             <button
-              className="group px-4 py-2 bg-gradient-to-r from-red-600 to-amber-600  text-white font-medium bg-indigo-50 rounded-full inline-flex items-center relative"
+              className="group px-4 py-2 bg-gradient-to-r from-red-600 to-amber-600  text-sm md:text-lg text-white font-medium bg-indigo-50 rounded-full inline-flex items-center relative"
               onClick={() => openDialog()}
             >
               <span className="absolute top-0 left-0 w-full h-full rounded-full opacity-50 filter  bg-gradient-to-r from-red-600 to-amber-600"></span>
@@ -95,7 +95,7 @@ const CTA = () => {
               </svg>
             </button>
 
-            <Link
+            {/* <Link
               className="mt-4 group px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600  text-white font-medium bg-indigo-50 rounded-full inline-flex items-center relative"
               href="/demo"
             >
@@ -119,7 +119,7 @@ const CTA = () => {
                   d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </svg>
-            </Link>
+            </Link> */}
 
             <div className="mt-6">
               <JoinUsers />
@@ -127,7 +127,7 @@ const CTA = () => {
           </motion.div>
         </div>
 
-        <div className="flex-1 mt-5 mx-auto sm:w-9/12 lg:mt-0 lg:w-auto">
+        <div className="flex-1 mt-5 mx-auto sm:w-11/12 lg:mt-14 lg:w-auto">
           <motion.div
             className="rounded-lg p-4 border"
             variants={{
@@ -135,14 +135,7 @@ const CTA = () => {
               show: { opacity: 1, y: 0, transition: { type: "spring" } },
             }}
           >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full rounded-lg shadow-lg"
-              src="/demo.mp4"
-            ></video>
+            <Dashboard />
           </motion.div>
           {/* <img
             src="https://i.postimg.cc/kgd4WhyS/container.png"

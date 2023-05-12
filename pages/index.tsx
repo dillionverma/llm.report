@@ -13,6 +13,7 @@ export default function Home() {
       ) : (
         <>
           <CTA />
+          {/* <Dashboard /> */}
           {/* <TrustedBy /> */}
           <ChartFeature />
           <Testimonials />

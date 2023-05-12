@@ -170,7 +170,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           </aside>
         )}
         <div
-          className={cn("space-y-4 p-8 pt-6", {
+          className={cn("space-y-4 md:p-8 p-4 pt-6", {
             "lg:ml-64": session?.user,
             "max-w-[1280px] mx-auto": !session?.user,
           })}

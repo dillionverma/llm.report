@@ -537,7 +537,7 @@ const SettingsModal = () => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex flex-col h-screen  min-w-screen items-center justify-center p-4 text-center">
+            <div className="flex flex-col h-screen  min-w-screen items-center justify-center p-8 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-500"

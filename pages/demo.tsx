@@ -1,11 +1,17 @@
 import { useSession } from "next-auth/react";
-import Dashboard from "../components/dashboard";
 
 export default function Home() {
   const { data: session } = useSession();
   return (
     <>
-      <Dashboard />
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full rounded-lg shadow-lg"
+        src="/demo.mp4"
+      ></video>
     </>
   );
 }
