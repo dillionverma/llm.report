@@ -59,6 +59,64 @@ export interface UsageResponse {
   current_usage_usd: number;
 }
 
+export interface LoginResponse {
+  object: "login";
+  user: {
+    object: "user";
+    id: string;
+    email: string;
+    name: string;
+    picture: string;
+    created: number;
+    groups: string[];
+    session: {
+      sensitive_id: string;
+      object: "api_key";
+      name: null | string;
+      created: number;
+      last_use: number;
+      publishable: boolean;
+    };
+    orgs: {
+      object: "list";
+      data: {
+        object: "organization";
+        id: string;
+        created: number;
+        title: string;
+        name: string;
+        description: string;
+        personal: boolean;
+        is_default: boolean;
+        role: string;
+        groups: string[];
+      }[];
+    };
+    intercom_hash: string;
+  };
+  invites: any[]; // Replace 'any' with the actual type if known
+}
+
+export interface OrganizationUsers {
+  members: {
+    object: "list";
+    data: {
+      object: "organization_user";
+      role: string;
+      created: number;
+      user: {
+        object: "user";
+        id: string;
+        name: string;
+        email: string;
+        picture: string;
+      };
+    }[];
+  };
+  invited: any[]; // Replace 'any' with the actual type if known
+  can_invite: boolean;
+}
+
 export type Category = Models;
 
 export type Models =

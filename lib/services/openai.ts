@@ -4,16 +4,22 @@ import { get, set } from "idb-keyval";
 import {
   BillingSubscriptionResponse,
   BillingUsageResponse,
+  OrganizationUsers,
   UsageResponse,
 } from "../types";
 
 class OpenAI {
   private key: string | null = null;
+  private orgId: string | null = null;
 
   constructor() {}
 
   setKey(key: string | null) {
     this.key = key;
+  }
+
+  setOrgId(orgId: string) {
+    this.orgId = orgId;
   }
 
   async getUsage(date: Date | string): Promise<UsageResponse> {
@@ -103,6 +109,19 @@ class OpenAI {
 
     const response = await axios.get<BillingSubscriptionResponse>(
       `https://api.openai.com/dashboard/billing/subscription`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.key}`,
+        },
+      }
+    );
+
+    return response.data;
+  }
+
+  async getUsers(): Promise<OrganizationUsers> {
+    const response = await axios.get<OrganizationUsers>(
+      `https://api.openai.com/v1/organizations/${this.orgId}/users`,
       {
         headers: {
           Authorization: `Bearer ${this.key}`,

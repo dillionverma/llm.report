@@ -3,9 +3,14 @@ import Cost from "@/components/dashboard/Cost";
 import MonthlyChart from "@/components/dashboard/MonthlyChart";
 import Requests from "@/components/dashboard/Requests";
 import { default as Tokens } from "@/components/dashboard/Tokens";
-import { CATEGORIES, CATEGORIES_KEY, LOCAL_STORAGE_KEY } from "@/lib/constants";
+import {
+  CATEGORIES,
+  CATEGORIES_KEY,
+  LOCAL_STORAGE_KEY,
+  LOCAL_STORAGE_ORG_ID,
+} from "@/lib/constants";
 import openai from "@/lib/services/openai";
-import { Category } from "@/lib/types";
+import { Category, OrganizationUsers } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
 import {
   Badge,
@@ -77,6 +82,18 @@ export default function Dashboard() {
     CATEGORIES_KEY,
     CATEGORIES
   );
+
+  const [users, setUsers] = useState<OrganizationUsers>();
+  const [orgId, setOrgId] = useLocalStorage<string>(LOCAL_STORAGE_ORG_ID, "");
+
+  useEffect(() => {
+    (async () => {
+      if (!key || !orgId) return;
+      openai.setOrgId(orgId);
+      const u = await openai.getUsers();
+      setUsers(u);
+    })();
+  }, [key, orgId]);
 
   return (
     <div>
@@ -169,7 +186,7 @@ export default function Dashboard() {
           <Text>Let&apos;s see how we&apos;re doing today</Text>
         </div>
 
-        <div className="w-full max-w-2xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col">
+        <div className="w-full max-w-3xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col">
           <DateRangePicker
             value={value}
             onValueChange={setDates}
@@ -214,6 +231,7 @@ export default function Dashboard() {
 
           <MultiSelectBox
             // className="w-full"
+            placeholder="Select Models"
             value={categories!}
             onValueChange={(a) => {
               console.log("VALUE CHANGE", a);
@@ -228,6 +246,30 @@ export default function Dashboard() {
               />
             ))}
           </MultiSelectBox>
+          {/* 
+          {users && (
+            <Dropdown
+              onValueChange={(value) =>
+                console.log("The selected value is", value)
+              }
+              placeholder="Select User"
+            >
+              {users.members.data.map(({ user }, idx) => (
+                <DropdownItem
+                  key={idx}
+                  value={user.id}
+                  text={user.name}
+                  icon={() => (
+                    <img
+                      alt={user.name}
+                      src={user.picture}
+                      className="w-7 h-7 mr-3 rounded-full"
+                    />
+                  )}
+                />
+              ))}
+            </Dropdown>
+          )} */}
         </div>
       </Flex>
 
