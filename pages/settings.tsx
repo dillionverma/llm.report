@@ -1,5 +1,5 @@
 import { useDialog } from "@/components/SettingsModal";
-import { LOCAL_STORAGE_KEY } from "@/lib/constants";
+import { LOCAL_STORAGE_KEY, LOCAL_STORAGE_ORG_ID } from "@/lib/constants";
 import openai from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Badge, Card, Flex, Text, Title } from "@tremor/react";
@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 
 const Settings = () => {
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+  const [orgId, setOrgId] = useLocalStorage<string>(LOCAL_STORAGE_ORG_ID);
+
   const [validKey, setValidKey] = useState(false);
   const { openDialog } = useDialog();
   const { data: session } = useSession();
@@ -17,7 +19,14 @@ const Settings = () => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     // save to local storage
-    setKey(value);
+    if (name === LOCAL_STORAGE_ORG_ID) {
+      setOrgId(value);
+      openai.setOrgId(value);
+    }
+    if (name === LOCAL_STORAGE_KEY) {
+      setKey(value);
+      openai.setKey(value);
+    }
   };
 
   useEffect(() => {
@@ -125,12 +134,36 @@ const Settings = () => {
                 here.
               </Link>
             </p>
-            <p className="text-sm text-gray-500 mt-1">
-              Note: The initial load may take up to 30 seconds.
-            </p>
-            <p className="text-sm text-gray-500 mt-1">
-              Note: We use your API key to generate the dashboard. API key is
-              stored locally.
+          </div>
+        </form>
+
+        <form onSubmit={(e) => e.preventDefault()} className="mt-8">
+          <div>
+            <div className="flex flex-row">
+              <label className="font-medium text-gray-500">
+                OpenAI Organization ID
+              </label>
+            </div>
+            <input
+              type="text"
+              name={LOCAL_STORAGE_ORG_ID}
+              onChange={onChange}
+              required
+              value={orgId as string}
+              className="w-full my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
+              placeholder="org-ZM..."
+            />
+
+            <p className="text-sm text-gray-500  mt-1 inline-block">
+              Find Org ID{" "}
+              <Link
+                href="https://platform.openai.com/account/org-settings"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline"
+              >
+                here.
+              </Link>
             </p>
           </div>
         </form>
