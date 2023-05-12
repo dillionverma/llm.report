@@ -3,7 +3,7 @@ import { useDialog } from "../SettingsModal";
 import Dashboard from "../dashboard";
 import JoinUsers from "./JoinUsers";
 
-const CTA = () => {
+const Hero = () => {
   const { isOpen, openDialog, closeDialog } = useDialog();
 
   return (
@@ -148,4 +148,4 @@ const CTA = () => {
   );
 };
 
-export default CTA;
+export default Hero;

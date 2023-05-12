@@ -1,5 +1,5 @@
-import CTA from "@/components/landing/CTA";
-import ChartFeature from "@/components/landing/ChartFeature";
+import FeatureGrid from "@/components/landing/FeatureGrid";
+import Hero from "@/components/landing/Hero";
 import Testimonials from "@/components/landing/Testimonials";
 import { useSession } from "next-auth/react";
 import Dashboard from "../components/dashboard";
@@ -12,10 +12,10 @@ export default function Home() {
         <Dashboard />
       ) : (
         <>
-          <CTA />
+          <Hero />
           {/* <Dashboard /> */}
           {/* <TrustedBy /> */}
-          <ChartFeature />
+          <FeatureGrid />
           <Testimonials />
         </>
       )}

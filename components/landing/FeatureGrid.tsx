@@ -4,7 +4,7 @@ import { Cobe } from "./Cobe";
 import { Features } from "./Features";
 import WordStar from "./Stars";
 
-const ChartFeature = () => {
+const FeatureGrid = () => {
   return (
     <div className="py-14">
       <Features.Cards
@@ -55,4 +55,4 @@ const ChartFeature = () => {
   );
 };
 
-export default ChartFeature;
+export default FeatureGrid;
