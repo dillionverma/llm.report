@@ -48,7 +48,8 @@ const CTA = () => {
             {/* Know exactly what&apos;s happening in your AI app with realtime
             dashboards, usage reports, and alerts. */}
             Just enter your OpenAI API key, and we fetch your data from the
-            OpenAI API directly. No need to install anything.
+            OpenAI API directly to create a dashboard. No need to install
+            anything.
           </motion.p>
           <motion.p
             className="text-gray-500 leading-relaxed mt-3 text-sm"
