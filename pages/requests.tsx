@@ -9,7 +9,6 @@ export default function Requests() {
   return (
     <>
       <Callout
-        className="mt-4"
         title="This feature is currently in alpha"
         icon={FlaskConical}
         color="blue"
