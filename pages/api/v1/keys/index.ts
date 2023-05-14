@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { randomBytes, subtle } from "crypto";
+import { createHash, randomBytes } from "crypto";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]";
@@ -10,19 +10,9 @@ const generateKey = (size: number = 32, format: BufferEncoding = "hex") => {
 };
 
 async function sha256(message: string) {
-  // encode as UTF-8
-  const msgBuffer = new TextEncoder().encode(message);
-
-  // hash the message
-  const hashBuffer = await subtle.digest("SHA-256", msgBuffer);
-
-  // convert ArrayBuffer to Array
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-
-  // convert bytes to hex string
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  const hash = createHash("sha256"); // Use createHash to create a hash object
+  hash.update(message, "utf8"); // Update the hash with the message
+  const hashHex = hash.digest("hex"); // Get the hash digest in hex format
   return hashHex;
 }
 
