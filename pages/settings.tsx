@@ -3,6 +3,7 @@ import { LOCAL_STORAGE_KEY, LOCAL_STORAGE_ORG_ID } from "@/lib/constants";
 import openai from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Badge, Callout, Card, Flex, Text, Title } from "@tremor/react";
+import { LockIcon } from "lucide-react";
 import { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -50,7 +51,7 @@ const Settings = () => {
         className="h-12 my-4"
         title="API key is stored in your browser's local storage only. It is
               not sent to any server."
-        // icon={ExclamationIcon}
+        icon={LockIcon}
         color="blue"
       />
 

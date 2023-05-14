@@ -67,6 +67,7 @@ model User {
     sessions      Session[]
     keys          ApiKey[]
     payments      Payment[]
+    Request       Request[]
 
     @@index([id])
 }
@@ -134,4 +135,50 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Request {
+    id String @id @unique @default(uuid())
+
+    user   User?   @relation(fields: [userId], references: [id])
+    userId String?
+
+    openai_id String
+    metadata  Metadata[]
+
+    ip       String
+    url      String
+    method   String
+    status   Int
+    cached   Boolean @default(false)
+    streamed Boolean @default(false)
+
+    request_headers  Json
+    request_body     Json
+    response_headers Json
+
+    response_body          Json?
+    streamed_response_body String? @db.Text
+
+    completion String? @db.Text
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([userId])
+}
+
+model Metadata {
+    id String @id @unique @default(uuid())
+
+    key   String
+    value String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    Request   Request? @relation(fields: [requestId], references: [id])
+    requestId String?
+
+    @@index([requestId])
 }

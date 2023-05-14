@@ -5,6 +5,7 @@ import { Badge } from "@tremor/react";
 import {
   ArrowUpDown,
   HomeIcon,
+  Key,
   MessageSquarePlus,
   Settings,
 } from "lucide-react";
@@ -100,14 +101,6 @@ export default function Layout({ children }: { children: ReactNode }) {
                           Coming Soon
                         </Badge>
                       </Link> */}
-
-                      {/* <Link
-                        href="/api-keys"
-                        className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
-                      >
-                        <Key className="mr-2 h-4 w-4" />
-                        Api Keys
-                      </Link> */}
                     </div>
                   </div>
                   <div className="px-4 py-2">
@@ -155,6 +148,14 @@ export default function Layout({ children }: { children: ReactNode }) {
                       <CreditCardIcon className="mr-2 h-4 w-4" />
                       Billing
                     </Link> */}
+
+                    <Link
+                      href="/api-keys"
+                      className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
+                    >
+                      <Key className="mr-2 h-4 w-4" />
+                      API Keys
+                    </Link>
 
                     <Link
                       href="/settings"

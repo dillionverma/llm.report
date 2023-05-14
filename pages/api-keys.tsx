@@ -1,12 +1,12 @@
 import { fetcher } from "@/lib/utils";
 import { Dialog, Transition } from "@headlessui/react";
-import { Button, Card, Flex, Text, Title } from "@tremor/react";
+import { Button, Callout, Card, Flex, Text, Title } from "@tremor/react";
 import { format } from "date-fns";
 import { getSession, useSession } from "next-auth/react";
 import { useState } from "react";
 import useSWR, { mutate } from "swr";
 
-import { TrashIcon } from "lucide-react";
+import { FlaskConical, TrashIcon } from "lucide-react";
 import { NextPageContext } from "next";
 import { Fragment } from "react";
 import { toast } from "react-hot-toast";
@@ -308,6 +308,15 @@ const ApiKeys = () => {
           </Text>
         </div>
       </Flex>
+      <Callout
+        className="my-4"
+        title="This feature is currently in alpha"
+        icon={FlaskConical}
+        color="blue"
+      >
+        API keys are used to authenticate your requests to the LLM Report proxy
+        API.
+      </Callout>
       <Card className="shadow-none">
         <div className="overflow-scroll p-2">
           {data?.user && !isLoading && keys?.keys && keys.keys.length > 0 && (
