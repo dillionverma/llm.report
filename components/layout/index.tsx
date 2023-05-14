@@ -87,7 +87,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                         <ArrowUpDown className="mr-2 h-4 w-4" />
                         Requests
                         <Badge className="ml-2 px-2 cursor-pointer">
-                          Coming Soon
+                          Alpha Release
                         </Badge>
                       </Link>
 
