@@ -2,7 +2,7 @@ import { useDialog } from "@/components/SettingsModal";
 import { LOCAL_STORAGE_KEY, LOCAL_STORAGE_ORG_ID } from "@/lib/constants";
 import openai from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
-import { Badge, Card, Flex, Text, Title } from "@tremor/react";
+import { Badge, Callout, Card, Flex, Text, Title } from "@tremor/react";
 import { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -45,6 +45,14 @@ const Settings = () => {
           </Text>
         </div>
       </Flex>
+
+      <Callout
+        className="h-12 my-4"
+        title="API key is stored in your browser's local storage only. It is
+              not sent to any server."
+        // icon={ExclamationIcon}
+        color="blue"
+      />
 
       <Card className="shadow-none">
         {/* <div className="flex flex-col">
@@ -123,7 +131,7 @@ const Settings = () => {
               placeholder="sk-5q293fh..."
             />
 
-            <p className="text-sm text-gray-500  mt-1 inline-block">
+            <p className="text-sm text-gray-500 mt-1 inline-block">
               Find API Key{" "}
               <Link
                 href="https://beta.openai.com/account/api-keys"
