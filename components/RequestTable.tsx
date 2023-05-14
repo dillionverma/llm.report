@@ -35,7 +35,12 @@ import {
 } from "@tanstack/react-table";
 import { Tab, TabList } from "@tremor/react";
 import { format } from "date-fns";
-import { CurlyBraces, MoreHorizontal } from "lucide-react";
+import {
+  CurlyBraces,
+  LucideMessageCircle,
+  MoreHorizontal,
+  X,
+} from "lucide-react";
 import { Fragment, useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -577,6 +582,19 @@ const columns: ColumnDef<Request>[] = [
 //   data: TData[];
 // }
 
+export const endpoints = [
+  {
+    label: "/chat/completions",
+    value: "/chat/completions",
+    icon: LucideMessageCircle,
+  },
+  {
+    label: "/completions",
+    value: "/completions",
+    icon: LucideMessageCircle,
+  },
+];
+
 export function RequestTable() {
   const [selectedRequest, setSelectedRequest] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -672,15 +690,37 @@ export function RequestTable() {
       });
   }, [debouncedSearch, pageIndex, pageSize, sorting]);
 
+  const isFiltered =
+    table.getPreFilteredRowModel().rows.length >
+    table.getFilteredRowModel().rows.length;
+
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 space-x-2">
         <Input
           placeholder="Search prompts or completions..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
         />
+
+        {/* {table.getColumn("url") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("url")}
+            title="API"
+            options={endpoints}
+          />
+        )} */}
+        {isFiltered && (
+          <Button
+            variant="ghost"
+            onClick={() => table.resetColumnFilters()}
+            className="h-8 px-2 lg:px-3"
+          >
+            Reset
+            <X className="ml-2 h-4 w-4" />
+          </Button>
+        )}
         {/* <DataTableViewOptions table={table} /> */}
       </div>
 
