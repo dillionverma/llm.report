@@ -296,7 +296,7 @@ const RequestDialog = ({
                               </h3>
                               <pre className="overflow-auto whitespace-pre-wrap text-sm bg-gray-100 rounded-lg p-4">
                                 <code>
-                                  {request.streamed === 0 && (
+                                  {!request.streamed && (
                                     <>
                                       {JSON.stringify(
                                         request.response_body,
@@ -306,7 +306,7 @@ const RequestDialog = ({
                                     </>
                                   )}
 
-                                  {request.streamed === 1 && (
+                                  {request.streamed && (
                                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                       {request.streamed_response_body}
                                     </ReactMarkdown>
