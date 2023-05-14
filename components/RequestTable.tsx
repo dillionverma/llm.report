@@ -258,7 +258,7 @@ const RequestDialog = ({
                                 )}
                                 {new URL(request.url).pathname ===
                                   "/v1/chat/completions" &&
-                                  request.streamed === 0 && (
+                                  !request.streamed && (
                                     <RenderMarkdown>
                                       {
                                         request.response_body.choices[0].message
@@ -268,7 +268,7 @@ const RequestDialog = ({
                                   )}
                                 {new URL(request.url).pathname ===
                                   "/v1/chat/completions" &&
-                                  request.streamed === 1 && (
+                                  request.streamed && (
                                     <RenderMarkdown>
                                       {request.completion}
                                     </RenderMarkdown>
@@ -382,7 +382,7 @@ const columns: ColumnDef<Request>[] = [
     accessorKey: "cached",
     header: "Cached",
     cell: ({ row }) => {
-      const value = (row.getValue("cached") === 0 ? "❌" : "✅") as string;
+      const value = (row.getValue("cached") ? "✅" : "❌") as string;
       return <div>{value}</div>;
     },
   },
@@ -390,7 +390,7 @@ const columns: ColumnDef<Request>[] = [
     accessorKey: "streamed",
     header: "Streamed",
     cell: ({ row }) => {
-      const value = (row.getValue("streamed") === 0 ? "❌" : "✅") as string;
+      const value = (row.getValue("streamed") ? "✅" : "❌") as string;
       return <div>{value}</div>;
     },
   },
