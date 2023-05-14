@@ -237,10 +237,12 @@ const RequestDialog = ({
                               <h3 className="text-lg font-medium leading-6 text-gray-900">
                                 Prompt
                               </h3>
-                              <div className="text-sm border border-gray-200 bg-gray-50 rounded-lg p-4">
+                              <div className="text-sm border border-gray-200 bg-gray-50 rounded-lg p-4 whitespace-pre-wrap">
                                 {new URL(request.url).pathname ===
                                   "/v1/completions" && (
-                                  <>{request.request_body.prompt}</>
+                                  <RenderMarkdown>
+                                    {request.request_body.prompt}
+                                  </RenderMarkdown>
                                 )}
                                 {new URL(request.url).pathname ===
                                   "/v1/chat/completions" && (
