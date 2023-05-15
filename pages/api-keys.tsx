@@ -6,10 +6,21 @@ import { getSession, useSession } from "next-auth/react";
 import { useState } from "react";
 import useSWR, { mutate } from "swr";
 
+import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
+import { Col, Grid, Tab, TabList } from "@tremor/react";
 import { FlaskConical, TrashIcon } from "lucide-react";
+import MarkdownIt from "markdown-it";
 import { NextPageContext } from "next";
+import Link from "next/link";
 import { Fragment } from "react";
 import { toast } from "react-hot-toast";
+import {
+  createDiffProcessor,
+  createFocusProcessor,
+  createHighlightProcessor,
+  getHighlighter,
+} from "shiki-processor";
 
 const DeleteDialog = ({ id, hashed }: { id: string; hashed: string }) => {
   function closeModal() {
@@ -288,11 +299,20 @@ const KeyDialog = () => {
   );
 };
 
-const ApiKeys = () => {
+const ApiKeys = ({
+  curl,
+  js,
+  jsx,
+  python,
+}: {
+  curl: string;
+  js: string;
+  jsx: string;
+  python: string;
+}) => {
   const { data: keys, error, isLoading } = useSWR("/api/v1/keys", fetcher);
-
   const { data } = useSession();
-
+  const [value, setValue] = useState("js");
   let [isKeyDialogOpen, setKeyDialogOpen] = useState(false);
 
   return (
@@ -303,8 +323,8 @@ const ApiKeys = () => {
             <Title>API Keys</Title>
           </div>
           <Text>
-            API Keys are used to authenticate your requests to the API. You can
-            create as many keys as you want, and delete them at any time.
+            LLM Report uses API keys to authenticate your requests to the LLM
+            Report proxy API.
           </Text>
         </div>
       </Flex>
@@ -316,6 +336,19 @@ const ApiKeys = () => {
       >
         API keys are used to authenticate your requests to the LLM Report proxy
         API.
+      </Callout>
+      <Callout
+        className="my-4"
+        title="Don't put your OpenAI API key here. "
+        icon={ExclamationCircleIcon}
+        color="red"
+      >
+        This is for the LLM Report API. If you want to enter your OpenAI API
+        key, you can do so{" "}
+        <Link href="/settings" className="underline">
+          here
+        </Link>
+        .
       </Callout>
       <Card className="shadow-none">
         <div className="overflow-scroll p-2">
@@ -355,12 +388,154 @@ const ApiKeys = () => {
           <KeyDialog />
         </div>
       </Card>
+
+      <Grid numCols={1} numColsLg={1} className="gap-6 mt-4 w-full">
+        <Col numColSpan={1}>
+          <TabList value={value} onValueChange={setValue}>
+            <Tab value="curl" text={"curl"} />
+            <Tab value="js" text={"javascript"} />
+            <Tab value="jsx" text={"node.js"} />
+            <Tab value="python" text={"python"} />
+          </TabList>
+
+          <div className="mt-2 space-y-2">
+            <Title>Installation</Title>
+            <Text>
+              1. Just swap out `api.openai.com` with `api.cachemyai.com` in your
+              API requests.
+            </Text>
+            <Text>
+              2. Add your LLM Report API key to the `X-Api-Key` header. You can
+              find your key{" "}
+              <Link href="/api-keys" className="underline">
+                here
+              </Link>
+            </Text>
+
+            {value === "curl" && (
+              <div className="md" dangerouslySetInnerHTML={{ __html: curl }} />
+            )}
+            {value === "js" && (
+              <div className="md" dangerouslySetInnerHTML={{ __html: js }} />
+            )}
+            {value === "jsx" && (
+              <div className="md" dangerouslySetInnerHTML={{ __html: jsx }} />
+            )}
+            {value === "python" && (
+              <div
+                className="md"
+                dangerouslySetInnerHTML={{ __html: python }}
+              />
+            )}
+          </div>
+        </Col>
+      </Grid>
     </div>
   );
 };
 
+const Curl = `
+\`\`\`bash
+curl https://api.cachemyai.com/v1/chat/completions // [!code focus] \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer $OPENAI_API_KEY" \\
+  -H "X-Api-Key: Bearer $LLM_REPORT_API_KEY" // [!code focus] \\
+  -d '{
+    "model": "gpt-3.5-turbo",
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+`;
+
+const JS = `
+
+\`\`\`js
+fetch("https://api.cachemyai.com/v1/chat/completions", { // [!code focus]
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: \`Bearer \${process.env.OPENAI_API_KEY}\`,
+    "X-Api-Key": \`Bearer \${process.env.LLM_REPORT_API_KEY}\`, // [!code focus]
+  },
+  body: JSON.stringify({
+  model: "gpt-3.5-turbo",
+  messages: [{ role: "user", content: "Hello world" }],
+  }),
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+\`\`\`
+`;
+
+const JSX = `
+
+\`\`\`js
+import { Configuration, OpenAIApi } from "openai";
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY, 
+  basePath: "https://api.cachemyai.com/v1",  // [!code focus]
+  baseOptions: { 
+    headers: {
+      "X-Api-Key": \`Bearer \${process.env.LLM_REPORT_API_KEY}\`, // [!code focus]
+    },
+  }
+});
+
+const openai = new OpenAIApi(configuration);
+\`\`\`
+`;
+
+const Python = `
+\`\`\`python
+import os
+import openai
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_base = "https://api.cachemyai.com/v1"  // [!code focus]
+
+completion = openai.ChatCompletion.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {"role": "user", "content": "Hello!"}
+  ],
+  headers={
+    "X-Api-Key": "Bearer " + os.getenv("OPENAI_API_KEY"), // [!code focus]
+  }
+)
+
+print(completion.choices[0].message)
+\`\`\`
+`;
+
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
+
+  const highlighter = await getHighlighter({
+    theme: "material-theme-palenight",
+    processors: [
+      createDiffProcessor(),
+      createHighlightProcessor(),
+      createFocusProcessor(),
+    ],
+  });
+
+  // https://github.com/vuejs/vitepress/pull/1534/files
+  const renderer = new MarkdownIt({
+    html: true,
+    linkify: true,
+    typographer: true,
+    highlight: (code, lang) => {
+      return highlighter.codeToHtml(code, {
+        lang,
+        // theme: "material-theme-palenight",
+      });
+    },
+  }).use(preWrapperPlugin);
+
+  const curl = renderer.render(Curl);
+  const js = renderer.render(JS);
+  const jsx = renderer.render(JSX);
+  const python = renderer.render(Python);
 
   if (!session) {
     return {
@@ -370,7 +545,14 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   }
-  return { props: {} };
+  return {
+    props: {
+      curl,
+      js,
+      jsx,
+      python,
+    },
+  };
 }
 
 export default ApiKeys;

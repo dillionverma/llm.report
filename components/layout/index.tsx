@@ -12,11 +12,24 @@ import {
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { useRouter } from "next/router";
+import { ReactNode, useEffect, useState } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { data: session } = useSession();
+
+  const [activeTab, setActiveTab] = useState("");
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const pathname = router.pathname;
+    // Extract the active tab from the pathname
+    const activeTabName = pathname.replace("/", "");
+
+    setActiveTab(activeTabName);
+  }, [router.pathname]);
 
   return (
     <>
@@ -75,14 +88,24 @@ export default function Layout({ children }: { children: ReactNode }) {
                     <div className="space-y-2">
                       <Link
                         href="/"
-                        className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
+                        className={cn(
+                          "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
+                          {
+                            "bg-slate-50": activeTab === "",
+                          }
+                        )}
                       >
                         <HomeIcon className="mr-2 h-4 w-4" />
                         Dashboard
                       </Link>
                       <Link
                         href="/requests"
-                        className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
+                        className={cn(
+                          "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
+                          {
+                            "bg-slate-50": activeTab === "requests",
+                          }
+                        )}
                       >
                         <ArrowUpDown className="mr-2 h-4 w-4" />
                         Requests
@@ -110,7 +133,12 @@ export default function Layout({ children }: { children: ReactNode }) {
                     <div className="space-y-2">
                       <Link
                         href="/feature-request"
-                        className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
+                        className={cn(
+                          "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
+                          {
+                            "bg-slate-50": activeTab === "feature-request",
+                          }
+                        )}
                       >
                         <MessageSquarePlus className="mr-2 h-4 w-4" />
                         Feature Request
@@ -118,7 +146,12 @@ export default function Layout({ children }: { children: ReactNode }) {
                       <Link
                         href="https://discord.gg/eVtDPmRWXm"
                         target="_blank"
-                        className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
+                        className={cn(
+                          "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
+                          {
+                            "bg-slate-50": activeTab === "discord",
+                          }
+                        )}
                       >
                         <svg
                           role="img"
@@ -151,7 +184,12 @@ export default function Layout({ children }: { children: ReactNode }) {
 
                     <Link
                       href="/api-keys"
-                      className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
+                      className={cn(
+                        "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
+                        {
+                          "bg-slate-50": activeTab === "api-keys",
+                        }
+                      )}
                     >
                       <Key className="mr-2 h-4 w-4" />
                       API Keys
@@ -159,7 +197,12 @@ export default function Layout({ children }: { children: ReactNode }) {
 
                     <Link
                       href="/settings"
-                      className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
+                      className={cn(
+                        "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
+                        {
+                          "bg-slate-50": activeTab === "settings",
+                        }
+                      )}
                     >
                       <Settings className="mr-2 h-4 w-4" />
                       Settings

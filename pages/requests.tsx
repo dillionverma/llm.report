@@ -13,7 +13,7 @@ export default function Requests() {
         icon={FlaskConical}
         color="blue"
       >
-        Get your API key{" "}
+        If you want to use it, follow instructions{" "}
         <Link href="/api-keys" className="underline">
           here
         </Link>
@@ -48,5 +48,7 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   }
-  return { props: {} };
+  return {
+    props: {},
+  };
 }

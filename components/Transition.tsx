@@ -5,17 +5,19 @@ import { ReactNode } from "react";
 const variants = {
   in: {
     opacity: 1,
-    x: 0,
+    scale: 1,
     transition: {
       duration: 0.2,
+      // type: "ease",
       // type: "ease",
     },
   },
   out: {
     opacity: 0,
-    x: 5,
+    scale: 0.99,
     transition: {
       duration: 0.2,
+      // type: "ease",
       // type: "ease",
     },
   },
