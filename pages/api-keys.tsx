@@ -405,11 +405,7 @@ const ApiKeys = ({
               API requests.
             </Text>
             <Text>
-              2. Add your LLM Report API key to the `X-Api-Key` header. You can
-              find your key{" "}
-              <Link href="/api-keys" className="underline">
-                here
-              </Link>
+              2. Add your LLM Report API key to the `X-Api-Key` header.
             </Text>
 
             {value === "curl" && (
