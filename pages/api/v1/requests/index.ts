@@ -78,6 +78,7 @@ export default async function handler(
 
     const requests = await prisma.request.findMany({
       where: {
+        userId: session.user.id,
         ...where,
         ...searchFilter,
       },
@@ -93,6 +94,7 @@ export default async function handler(
 
     const totalCount = await prisma.request.count({
       where: {
+        userId: session.user.id,
         ...where,
         ...searchFilter,
       },
