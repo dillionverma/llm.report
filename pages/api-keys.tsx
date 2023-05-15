@@ -7,12 +7,11 @@ import { useState } from "react";
 import useSWR, { mutate } from "swr";
 
 import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { Col, Grid, Tab, TabList } from "@tremor/react";
+import { motion } from "framer-motion";
 import { FlaskConical, TrashIcon } from "lucide-react";
 import MarkdownIt from "markdown-it";
 import { NextPageContext } from "next";
-import Link from "next/link";
 import { Fragment } from "react";
 import { toast } from "react-hot-toast";
 import {
@@ -299,6 +298,23 @@ const KeyDialog = () => {
   );
 };
 
+const variants = {
+  in: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1,
+    },
+  },
+  out: {
+    opacity: 0.5,
+    scale: 0.98,
+    transition: {
+      duration: 1,
+    },
+  },
+};
+
 const ApiKeys = ({
   curl,
   js,
@@ -337,7 +353,7 @@ const ApiKeys = ({
         API keys are used to authenticate your requests to the LLM Report proxy
         API.
       </Callout>
-      <Callout
+      {/* <Callout
         className="my-4"
         title="Don't put your OpenAI API key here. "
         icon={ExclamationCircleIcon}
@@ -349,7 +365,7 @@ const ApiKeys = ({
           here
         </Link>
         .
-      </Callout>
+      </Callout> */}
       <Card className="shadow-none">
         <div className="overflow-scroll p-2">
           {data?.user && !isLoading && keys?.keys && keys.keys.length > 0 && (
@@ -389,43 +405,46 @@ const ApiKeys = ({
         </div>
       </Card>
 
-      <Grid numCols={1} numColsLg={1} className="gap-6 mt-4 w-full">
-        <Col numColSpan={1}>
-          <TabList value={value} onValueChange={setValue}>
-            <Tab value="curl" text={"curl"} />
-            <Tab value="js" text={"javascript"} />
-            <Tab value="jsx" text={"node.js"} />
-            <Tab value="python" text={"python"} />
-          </TabList>
+      <Card>
+        <Title>Installation</Title>
+        <Text>
+          1. Just swap out `api.openai.com` with `api.cachemyai.com` in your API
+          requests.
+        </Text>
+        <Text>2. Add your LLM Report API key to the `X-Api-Key` header.</Text>
+        <Grid numCols={1} numColsLg={1} className="gap-6 mt-4 w-full">
+          <Col numColSpan={1}>
+            <TabList value={value} onValueChange={setValue}>
+              <Tab value="curl" text={"curl"} />
+              <Tab value="js" text={"javascript"} />
+              <Tab value="jsx" text={"node.js"} />
+              <Tab value="python" text={"python"} />
+            </TabList>
 
-          <div className="mt-2 space-y-2">
-            <Title>Installation</Title>
-            <Text>
-              1. Just swap out `api.openai.com` with `api.cachemyai.com` in your
-              API requests.
-            </Text>
-            <Text>
-              2. Add your LLM Report API key to the `X-Api-Key` header.
-            </Text>
-
-            {value === "curl" && (
-              <div className="md" dangerouslySetInnerHTML={{ __html: curl }} />
-            )}
-            {value === "js" && (
-              <div className="md" dangerouslySetInnerHTML={{ __html: js }} />
-            )}
-            {value === "jsx" && (
-              <div className="md" dangerouslySetInnerHTML={{ __html: jsx }} />
-            )}
-            {value === "python" && (
-              <div
+            <div className="mt-2 space-y-2">
+              <motion.div
                 className="md"
-                dangerouslySetInnerHTML={{ __html: python }}
+                // layoutId={value} // Add a layoutId for shared layout animations
+                // initial={{ opacity: 0 }}
+                // animate={{ opacity: 1 }}
+                // exit={{ opacity: 0 }}
+                dangerouslySetInnerHTML={{
+                  __html:
+                    value === "curl"
+                      ? curl
+                      : value === "js"
+                      ? js
+                      : value === "jsx"
+                      ? jsx
+                      : value === "python"
+                      ? python
+                      : "",
+                }}
               />
-            )}
-          </div>
-        </Col>
-      </Grid>
+            </div>
+          </Col>
+        </Grid>
+      </Card>
     </div>
   );
 };
