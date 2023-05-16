@@ -39,7 +39,7 @@ export function UserDropdownMenu() {
                 {session?.user?.name}
               </span> */}
               <span className="ml-2 text-sm">
-                {truncate(session?.user?.email, 18)}
+                {truncate(session?.user?.email!, 18)}
               </span>
             </div>
             <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
