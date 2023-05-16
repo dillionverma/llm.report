@@ -4,6 +4,7 @@ import { FlaskConical } from "lucide-react";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Requests() {
   return (
@@ -23,7 +24,9 @@ export default function Requests() {
         <Col numColSpan={1}>
           <Card className="shadow-none">
             <Title>OpenAI Requests</Title>
-            <RequestTable />
+            <Suspense fallback={<></>}>
+              <RequestTable />
+            </Suspense>
           </Card>
         </Col>
         {/* <Col>

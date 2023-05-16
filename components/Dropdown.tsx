@@ -1,4 +1,4 @@
-import { LifeBuoy, LogOut, Settings } from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { truncate } from "@/lib/utils";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,17 +22,29 @@ export function UserDropdownMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-gray-300 hover:border-gray-400 focus:outline-none hover:border-1">
-          <Image
-            alt={session?.user?.email || "User"}
-            src={
-              session?.user.image ||
-              `https://avatars.dicebear.com/api/initials/${session?.user.email}.svg`
-            }
-            width={40}
-            height={40}
-          />
-        </button>
+        <div className="px-4 py-2">
+          <button className="flex items-center w-full justify-start hover:bg-slate-50 transition-all px-2 py-1 rounded-lg">
+            <Image
+              className="rounded-full cursor-pointer w-8 h-8"
+              alt={session?.user?.email || "User"}
+              src={
+                session?.user.image ||
+                `https://avatars.dicebear.com/api/initials/${session?.user.email}.svg`
+              }
+              width={40}
+              height={40}
+            />
+            <div className="flex flex-col items-start">
+              {/* <span className="ml-2 text-sm font-semibold tracking-tight">
+                {session?.user?.name}
+              </span> */}
+              <span className="ml-2 text-sm">
+                {truncate(session?.user?.email, 18)}
+              </span>
+            </div>
+            <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+          </button>
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -43,13 +56,13 @@ export function UserDropdownMenu() {
           </DropdownMenuItem> */}
 
           <Link href="/settings">
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <Settings className="mr-2 h-4 w-4" />
               <span>Settings</span>
               {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
             </DropdownMenuItem>
           </Link>
-          <Link href="/feature-request">
+          {/* <Link href="/feature-request">
             <DropdownMenuItem
               onClick={() =>
                 window.open("https://llmreport.featurebase.app/", "_blank")
@@ -58,10 +71,10 @@ export function UserDropdownMenu() {
               <LifeBuoy className="mr-2 h-4 w-4" />
               <span>Feedback</span>
             </DropdownMenuItem>
-          </Link>
+          </Link> */}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()}>
+        <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
           {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}

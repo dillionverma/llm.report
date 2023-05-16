@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Button, Callout, Card, Flex, Text, Title } from "@tremor/react";
 import { format } from "date-fns";
 import { getSession, useSession } from "next-auth/react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import useSWR, { mutate } from "swr";
 
 import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
@@ -366,85 +366,89 @@ const ApiKeys = ({
         </Link>
         .
       </Callout> */}
-      <Card className="shadow-none">
-        <div className="overflow-scroll p-2">
-          {data?.user && !isLoading && keys?.keys && keys.keys.length > 0 && (
-            <table className="w-full table-auto text-sm text-left">
-              <thead className=" text-gray-600 font-medium border-b">
-                <tr>
-                  <th className="py-3 px-6">Name</th>
-                  <th className="py-3 px-6">Key</th>
-                  <th className="py-3 px-6">Created</th>
-                  <th className="py-3 px-6"></th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-600 divide-y">
-                {!isLoading &&
-                  keys.keys &&
-                  keys.keys.map((key: any, idx: number) => (
-                    <tr key={idx}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {key.name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {key.sensitive_id}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {format(new Date(key.createdAt), "MMM dd, yyyy")}
-                      </td>
+      <Suspense fallback={<></>}>
+        <Card className="shadow-none">
+          <div className="overflow-scroll p-2">
+            {data?.user && !isLoading && keys?.keys && keys.keys.length > 0 && (
+              <table className="w-full table-auto text-sm text-left">
+                <thead className=" text-gray-600 font-medium border-b">
+                  <tr>
+                    <th className="py-3 px-6">Name</th>
+                    <th className="py-3 px-6">Key</th>
+                    <th className="py-3 px-6">Created</th>
+                    <th className="py-3 px-6"></th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-600 divide-y">
+                  {!isLoading &&
+                    keys.keys &&
+                    keys.keys.map((key: any, idx: number) => (
+                      <tr key={idx}>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {key.name}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {key.sensitive_id}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {format(new Date(key.createdAt), "MMM dd, yyyy")}
+                        </td>
 
-                      <td className="text-right px-6 whitespace-nowrap">
-                        <DeleteDialog id={key.id} hashed={key.sensitive_id} />
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
-          <KeyDialog />
-        </div>
-      </Card>
+                        <td className="text-right px-6 whitespace-nowrap">
+                          <DeleteDialog id={key.id} hashed={key.sensitive_id} />
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            )}
+            <KeyDialog />
+          </div>
+        </Card>
+      </Suspense>
 
-      <Card>
-        <Title>Installation</Title>
-        <Text>
-          1. Just swap out `api.openai.com` with `api.cachemyai.com` in your API
-          requests.
-        </Text>
-        <Text>2. Add your LLM Report API key to the `X-Api-Key` header.</Text>
-        <Grid numCols={1} numColsLg={1} className="gap-6 mt-4 w-full">
-          <Col numColSpan={1}>
-            <TabList value={value} onValueChange={setValue}>
-              <Tab value="curl" text={"curl"} />
-              <Tab value="js" text={"javascript"} />
-              <Tab value="jsx" text={"node.js"} />
-              <Tab value="python" text={"python"} />
-            </TabList>
+      <Suspense fallback={<></>}>
+        <Card className="shadow-none">
+          <Title>Installation</Title>
+          <Text>
+            1. Just swap out `api.openai.com` with `api.cachemyai.com` in your
+            API requests.
+          </Text>
+          <Text>2. Add your LLM Report API key to the `X-Api-Key` header.</Text>
+          <Grid numCols={1} numColsLg={1} className="gap-6 mt-4 w-full">
+            <Col numColSpan={1}>
+              <TabList value={value} onValueChange={setValue}>
+                <Tab value="curl" text={"curl"} />
+                <Tab value="js" text={"javascript"} />
+                <Tab value="jsx" text={"node.js"} />
+                <Tab value="python" text={"python"} />
+              </TabList>
 
-            <div className="mt-2 space-y-2">
-              <motion.div
-                className="md"
-                // layoutId={value} // Add a layoutId for shared layout animations
-                // initial={{ opacity: 0 }}
-                // animate={{ opacity: 1 }}
-                // exit={{ opacity: 0 }}
-                dangerouslySetInnerHTML={{
-                  __html:
-                    value === "curl"
-                      ? curl
-                      : value === "js"
-                      ? js
-                      : value === "jsx"
-                      ? jsx
-                      : value === "python"
-                      ? python
-                      : "",
-                }}
-              />
-            </div>
-          </Col>
-        </Grid>
-      </Card>
+              <div className="mt-2 space-y-2">
+                <motion.div
+                  className="md"
+                  // layoutId={value} // Add a layoutId for shared layout animations
+                  // initial={{ opacity: 0 }}
+                  // animate={{ opacity: 1 }}
+                  // exit={{ opacity: 0 }}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      value === "curl"
+                        ? curl
+                        : value === "js"
+                        ? js
+                        : value === "jsx"
+                        ? jsx
+                        : value === "python"
+                        ? python
+                        : "",
+                  }}
+                />
+              </div>
+            </Col>
+          </Grid>
+        </Card>
+      </Suspense>
     </div>
   );
 };

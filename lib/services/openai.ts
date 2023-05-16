@@ -1,5 +1,5 @@
 import axios from "axios";
-import { format } from "date-fns";
+import { differenceInMinutes, format } from "date-fns";
 import { get, set } from "idb-keyval";
 import {
   BillingSubscriptionResponse,
@@ -11,6 +11,7 @@ import {
 class OpenAI {
   private key: string | null = null;
   private orgId: string | null = null;
+  private pendingGetUsagePromise: Promise<UsageResponse> | null = null;
 
   constructor() {}
 
@@ -35,24 +36,50 @@ class OpenAI {
       date: format(date, "yyyy-MM-dd"),
     };
 
-    const cached = await get<UsageResponse>(query.date);
-
-    if (cached && query.date !== format(new Date(), "yyyy-MM-dd")) {
-      return cached;
-    }
-
-    const res = await axios.get<UsageResponse>(
-      `https://api.openai.com/v1/usage?${new URLSearchParams(query)}`,
-      {
-        headers: {
-          Authorization: `Bearer ${this.key}`,
-        },
-      }
+    const cached = await get<{ data: UsageResponse; timestamp: Date }>(
+      query.date
     );
 
-    await set(query.date, res.data);
+    const isToday = query.date === format(new Date(), "yyyy-MM-dd");
 
-    return res.data;
+    // If cached data exists and (it's not today or (it's today and it's been less than 10 minutes since cached))
+    if (
+      cached &&
+      (!isToday ||
+        (isToday && differenceInMinutes(new Date(), cached.timestamp) < 10))
+    ) {
+      return cached.data;
+    }
+
+    // If there's no pending request, make a new one and store the promise
+    if (!this.pendingGetUsagePromise) {
+      this.pendingGetUsagePromise = this.fetchAndCacheUsage(query);
+      this.pendingGetUsagePromise.finally(() => {
+        this.pendingGetUsagePromise = null; // Reset the pending promise when the request completes or fails
+      });
+    }
+
+    // Return the pending promise
+    return this.pendingGetUsagePromise;
+  }
+
+  private async fetchAndCacheUsage(query: any) {
+    try {
+      const res = await axios.get(
+        `https://api.openai.com/v1/usage?${new URLSearchParams(query)}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.key}`,
+          },
+        }
+      );
+
+      await set(query.date, { data: res.data, timestamp: new Date() });
+
+      return res.data;
+    } catch (err) {
+      throw err; // Re-throw the error to reject the Promise
+    }
   }
 
   async getBillingUsage(
@@ -80,10 +107,16 @@ class OpenAI {
     };
 
     const cacheKey = `${query.start_date}-${query.end_date}`;
-    const cached = await get<BillingUsageResponse>(cacheKey);
+    const cached = await get<{ data: BillingUsageResponse; timestamp: Date }>(
+      cacheKey
+    );
 
-    if (cached && query.end_date !== format(new Date(), "yyyy-MM-dd")) {
-      return cached;
+    if (
+      cached &&
+      (query.start_date !== format(new Date(), "yyyy-MM-dd") ||
+        differenceInMinutes(new Date(), cached.timestamp) < 10)
+    ) {
+      return cached.data;
     }
 
     const res = await axios.get<BillingUsageResponse>(
@@ -97,7 +130,7 @@ class OpenAI {
       }
     );
 
-    await set(cacheKey, res.data);
+    await set(cacheKey, { data: res.data, timestamp: new Date() });
 
     return res.data;
   }
