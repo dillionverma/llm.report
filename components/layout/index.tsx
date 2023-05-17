@@ -67,19 +67,17 @@ export default function Layout({ children }: { children: ReactNode }) {
                     Dashboard
                   </Link>
                   <Link
-                    href="/requests"
+                    href="/logs"
                     className={cn(
                       "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
                       {
-                        "bg-slate-50": activeTab === "requests",
+                        "bg-slate-50": activeTab === "logs",
                       }
                     )}
                   >
                     <ArrowUpDown className="mr-2 h-4 w-4" />
-                    Requests
-                    <Badge className="ml-2 px-2 cursor-pointer">
-                      Alpha Release
-                    </Badge>
+                    Logs
+                    <Badge className="ml-2 px-2 cursor-pointer">New ✨</Badge>
                   </Link>
 
                   {/* <Link
@@ -108,31 +106,33 @@ export default function Layout({ children }: { children: ReactNode }) {
                       Billing
                     </Link> */}
 
-                <Link
-                  href="/api-keys"
-                  className={cn(
-                    "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
-                    {
-                      "bg-slate-50": activeTab === "api-keys",
-                    }
-                  )}
-                >
-                  <Key className="mr-2 h-4 w-4" />
-                  API Keys
-                </Link>
+                <div className="space-y-2">
+                  <Link
+                    href="/api-keys"
+                    className={cn(
+                      "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
+                      {
+                        "bg-slate-50": activeTab === "api-keys",
+                      }
+                    )}
+                  >
+                    <Key className="mr-2 h-4 w-4" />
+                    API Keys
+                  </Link>
 
-                <Link
-                  href="/settings"
-                  className={cn(
-                    "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
-                    {
-                      "bg-slate-50": activeTab === "settings",
-                    }
-                  )}
-                >
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
-                </Link>
+                  <Link
+                    href="/settings"
+                    className={cn(
+                      "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1",
+                      {
+                        "bg-slate-50": activeTab === "settings",
+                      }
+                    )}
+                  >
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Link>
+                </div>
               </div>
               <div className="px-4 py-2">
                 <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
@@ -213,14 +213,11 @@ export default function Layout({ children }: { children: ReactNode }) {
           </header>
 
           <div
-            className={cn(
-              "w-full space-y-4 md:p-8 p-4 pt-6 overflow-auto h-screen",
-              {
-                "h-[calc(100vh-4rem)]": false,
-                // "lg:ml-64": session?.user,
-                "max-w-[1280px] mx-auto": !session?.user,
-              }
-            )}
+            className={cn("w-full space-y-4 md:p-8 p-4 pt-6 h-screen", {
+              "h-[calc(100vh-4rem)]": false,
+              "overflow-auto": session?.user,
+              "max-w-[1280px] mx-auto": !session?.user,
+            })}
           >
             {children}
           </div>

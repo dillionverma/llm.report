@@ -2,6 +2,7 @@ import Meta from "@/components/Meta";
 import SettingsModal, { DialogProvider } from "@/components/SettingsModal";
 import { Transition } from "@/components/Transition";
 import Layout from "@/components/layout";
+import { useCopyCode } from "@/lib/copyCode";
 import "@/styles/globals.css";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
@@ -13,6 +14,8 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
+  useCopyCode();
+
   return (
     <SessionProvider session={session}>
       {/* <!-- Google tag (gtag.js) --> */}

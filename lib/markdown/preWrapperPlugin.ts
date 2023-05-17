@@ -16,7 +16,7 @@ export function preWrapperPlugin(md: MarkdownIt, options: Options) {
     const rawCode = fence(...args);
     return `<div class="language-${lang}${getAdaptiveThemeMarker(options)}${
       / active( |$)/.test(token.info) ? " active" : ""
-    }"><span class="lang">${lang}</span>${rawCode}</div>`;
+    }"><button title="Copy Code" class="copy"></button><span class="lang">${lang}</span>${rawCode}</div>`;
   };
 }
 

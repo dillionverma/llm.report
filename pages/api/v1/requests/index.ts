@@ -61,17 +61,24 @@ export default async function handler(
               },
             },
             {
-              response_body: {
-                path: "$.choices[*].message.content",
-                array_contains: `${search}`,
+              completion: {
+                contains: `${search}`,
+                mode: "insensitive",
               },
             },
-            {
-              response_body: {
-                path: "$.choices[*].text",
-                array_contains: `${search}`,
-              },
-            },
+
+            // {
+            //   response_body: {
+            //     path: "$.choices[*].message.content",
+            //     array_contains: `${search}`,
+            //   },
+            // },
+            // {
+            //   response_body: {
+            //     path: "$.choices[*].text",
+            //     array_contains: `${search}`,
+            //   },
+            // },
           ],
         }
       : {};

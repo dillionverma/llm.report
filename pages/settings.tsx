@@ -35,7 +35,7 @@ const Settings = () => {
   }, [key]);
 
   return (
-    <div className="max-w-[800px] space-y-4">
+    <div className="max-w-4xl space-y-4">
       <Flex className="xl:flex-row flex-col items-start xl:items-center space-y-4">
         <div className="space-y-2">
           <div className="flex flex-row space-x-3">
@@ -48,12 +48,14 @@ const Settings = () => {
       </Flex>
 
       <Callout
-        className="h-12 my-4"
-        title="API key is stored in your browser's local storage only. It is
-              not sent to any server."
+        className="my-4"
+        title="Advanced Security"
         icon={LockIcon}
         color="blue"
-      />
+      >
+        API key is stored in your browser&apos;s local storage only. It is not
+        sent to any server.
+      </Callout>
 
       <Card className="shadow-none">
         {/* <div className="flex flex-col">

@@ -59,25 +59,6 @@ const RenderMarkdown = ({ children }: { children: string }) => {
   );
 };
 
-const getCompletionFromStream = (stream: string) => {
-  if (!stream) return "";
-  const events = stream
-    .split("\n")
-    .filter((e) => e.length > 0)
-    .slice(0, -1); // cut off the last one
-
-  let completion = "";
-
-  for (const event of events) {
-    const json = event.replace("data: ", "");
-    const parsed = JSON.parse(json);
-
-    completion += parsed.choices[0].delta.content || "";
-  }
-
-  return completion;
-};
-
 interface TableRowProps {
   label: string;
   value: string;
@@ -114,91 +95,95 @@ const RequestDialog = ({
 }) => {
   type TabState = "pretty" | "raw";
   const [tab, setTab] = useState<TabState>("pretty");
-  if (!request) return null;
 
   return (
     <>
       <Transition.Root show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-in-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in-out duration-300"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-          </Transition.Child>
+          {request && (
+            <>
+              <Transition.Child
+                as={Fragment}
+                enter="ease-in-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in-out duration-300"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              </Transition.Child>
 
-          <div className="fixed inset-0 overflow-hidden">
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-                <Transition.Child
-                  as={Fragment}
-                  enter="transform transition ease-in-out duration-300 sm:duration-500"
-                  enterFrom="translate-x-full"
-                  enterTo="translate-x-0"
-                  leave="transform transition ease-in-out duration-300 sm:duration-500"
-                  leaveFrom="translate-x-0"
-                  leaveTo="translate-x-full"
-                >
-                  <Dialog.Panel className="pointer-events-auto relative w-screen max-w-xl">
+              <div className="fixed inset-0 overflow-hidden">
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
                     <Transition.Child
                       as={Fragment}
-                      enter="ease-in-out duration-300"
-                      enterFrom="opacity-0"
-                      enterTo="opacity-100"
-                      leave="ease-in-out duration-300"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
+                      enter="transform transition ease-in-out duration-300 sm:duration-500"
+                      enterFrom="translate-x-full"
+                      enterTo="translate-x-0"
+                      leave="transform transition ease-in-out duration-300 sm:duration-500"
+                      leaveFrom="translate-x-0"
+                      leaveTo="translate-x-full"
                     >
-                      <div className="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
-                        <button
-                          type="button"
-                          className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white
-                          "
-                          onClick={closeModal}
+                      <Dialog.Panel className="pointer-events-auto relative w-screen max-w-xl">
+                        <Transition.Child
+                          as={Fragment}
+                          enter="ease-in-out duration-300"
+                          enterFrom="opacity-0"
+                          enterTo="opacity-100"
+                          leave="ease-in-out duration-300"
+                          leaveFrom="opacity-100"
+                          leaveTo="opacity-0"
                         >
-                          <span className="sr-only">Close panel</span>
-                          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
-                      </div>
-                    </Transition.Child>
-                    <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                      <div className="px-4 sm:px-6">
-                        <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
-                          Request
-                        </Dialog.Title>
-                      </div>
-                      {/* <pre>
+                          <div className="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
+                            <button
+                              type="button"
+                              className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white
+                          "
+                              onClick={closeModal}
+                            >
+                              <span className="sr-only">Close panel</span>
+                              <XMarkIcon
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                              />
+                            </button>
+                          </div>
+                        </Transition.Child>
+                        <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                          <div className="px-4 sm:px-6">
+                            <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
+                              Request
+                            </Dialog.Title>
+                          </div>
+                          {/* <pre>
                         <code>{JSON.stringify(request, null, 2)}</code>
                       </pre> */}
-                      <div className="mt-6 flex-1 px-4 sm:px-6">
-                        <table className="min-w-full divide-y divide-gray-200">
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            <TR
-                              label="created at"
-                              value={new Date(
-                                request.createdAt
-                              ).toLocaleString()}
-                            />
-                            <TR label="id" value={request.openai_id} />
-                            <TR label="url" value={request.url} />
-                            <TR label="ip" value={request.ip} />
-                            <TR label="method" value={request.method} />
-                            <TR label="status" value={request.status} />
-                            <TR
-                              label="cached"
-                              value={request.cached ? "true" : "false"}
-                            />
-                            <TR
-                              label="streamed"
-                              value={request.streamed ? "true" : "false"}
-                            />
+                          <div className="mt-6 flex-1 px-4 sm:px-6">
+                            <table className="min-w-full divide-y divide-gray-200">
+                              <tbody className="bg-white divide-y divide-gray-200">
+                                <TR
+                                  label="created at"
+                                  value={new Date(
+                                    request.createdAt
+                                  ).toLocaleString()}
+                                />
+                                <TR label="id" value={request.openai_id} />
+                                <TR label="url" value={request.url} />
+                                <TR label="ip" value={request.ip} />
+                                <TR label="method" value={request.method} />
+                                <TR label="status" value={request.status} />
+                                <TR
+                                  label="cached"
+                                  value={request.cached ? "true" : "false"}
+                                />
+                                <TR
+                                  label="streamed"
+                                  value={request.streamed ? "true" : "false"}
+                                />
 
-                            {/* <TableRow
+                                {/* <TableRow
                               label="Request"
                               value={JSON.stringify(
                                 request.request_body,
@@ -216,120 +201,129 @@ const RequestDialog = ({
                               )}
                               preformatted
                             /> */}
-                          </tbody>
-                        </table>
-                        <TabList
-                          defaultValue="pretty"
-                          onValueChange={(value) => setTab(value as TabState)}
-                          className="mt-6"
-                        >
-                          <Tab
-                            value="pretty"
-                            text="Pretty"
-                            icon={SparklesIcon}
-                          />
-                          <Tab value="raw" text="Raw" icon={CurlyBraces} />
-                        </TabList>
+                              </tbody>
+                            </table>
+                            <TabList
+                              defaultValue="pretty"
+                              onValueChange={(value) =>
+                                setTab(value as TabState)
+                              }
+                              className="mt-6"
+                            >
+                              <Tab
+                                value="pretty"
+                                text="Pretty"
+                                icon={SparklesIcon}
+                              />
+                              <Tab value="raw" text="Raw" icon={CurlyBraces} />
+                            </TabList>
 
-                        <div className="mt-4">
-                          {tab === "pretty" && (
-                            <div className="space-y-4">
-                              <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                Prompt
-                              </h3>
-                              <div className="text-sm border border-gray-200 bg-gray-50 rounded-lg p-4 whitespace-pre-wrap">
-                                {new URL(request.url).pathname ===
-                                  "/v1/completions" && (
-                                  <RenderMarkdown>
-                                    {request.request_body.prompt}
-                                  </RenderMarkdown>
-                                )}
-                                {new URL(request.url).pathname ===
-                                  "/v1/chat/completions" && (
-                                  <RenderMarkdown>
-                                    {request.request_body.messages
-                                      .map(
-                                        (message: any) => `${message.content}`
-                                      )
-                                      .join("\n")}
-                                  </RenderMarkdown>
-                                )}
-                              </div>
-                              <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                Completion
-                              </h3>
-                              <div className="text-sm border border-gray-200 bg-gray-50 rounded-lg p-4">
-                                {new URL(request.url).pathname ===
-                                  "/v1/completions" && (
-                                  <>{request.response_body.choices[0].text}</>
-                                )}
-                                {new URL(request.url).pathname ===
-                                  "/v1/chat/completions" &&
-                                  !request.streamed && (
-                                    <RenderMarkdown>
-                                      {
-                                        request.response_body.choices[0].message
-                                          .content
-                                      }
-                                    </RenderMarkdown>
-                                  )}
-                                {new URL(request.url).pathname ===
-                                  "/v1/chat/completions" &&
-                                  request.streamed && (
-                                    <RenderMarkdown>
-                                      {request.completion}
-                                    </RenderMarkdown>
-                                  )}
-                              </div>
-                            </div>
-                          )}
+                            <div className="mt-4">
+                              {tab === "pretty" && (
+                                <div className="space-y-4">
+                                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                                    Prompt
+                                  </h3>
+                                  <div className="text-sm border border-gray-200 bg-gray-50 rounded-lg p-4 whitespace-pre-wrap">
+                                    {new URL(request.url).pathname ===
+                                      "/v1/completions" && (
+                                      <RenderMarkdown>
+                                        {request.request_body.prompt}
+                                      </RenderMarkdown>
+                                    )}
+                                    {new URL(request.url).pathname ===
+                                      "/v1/chat/completions" && (
+                                      <RenderMarkdown>
+                                        {request.request_body.messages
+                                          .map(
+                                            (message: any) =>
+                                              `${message.content}`
+                                          )
+                                          .join("\n")}
+                                      </RenderMarkdown>
+                                    )}
+                                  </div>
+                                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                                    Completion
+                                  </h3>
+                                  <div className="text-sm border border-gray-200 bg-gray-50 rounded-lg p-4">
+                                    {new URL(request.url).pathname ===
+                                      "/v1/completions" && (
+                                      <>
+                                        {request.response_body.choices[0].text}
+                                      </>
+                                    )}
+                                    {new URL(request.url).pathname ===
+                                      "/v1/chat/completions" &&
+                                      !request.streamed && (
+                                        <RenderMarkdown>
+                                          {
+                                            request.response_body.choices[0]
+                                              .message.content
+                                          }
+                                        </RenderMarkdown>
+                                      )}
+                                    {new URL(request.url).pathname ===
+                                      "/v1/chat/completions" &&
+                                      request.streamed && (
+                                        <RenderMarkdown>
+                                          {request.completion}
+                                        </RenderMarkdown>
+                                      )}
+                                  </div>
+                                </div>
+                              )}
 
-                          {tab === "raw" && (
-                            <div className="space-y-4">
-                              <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                Request
-                              </h3>
-                              <pre className="overflow-auto whitespace-pre-wrap text-sm bg-gray-100 rounded-lg p-4">
-                                <code>
-                                  {JSON.stringify(
-                                    request.request_body,
-                                    null,
-                                    2
-                                  )}
-                                </code>
-                              </pre>
-                              <h3 className="text-lg font-medium leading-6 text-gray-900">
-                                Response
-                              </h3>
-                              <pre className="overflow-auto whitespace-pre-wrap text-sm bg-gray-100 rounded-lg p-4">
-                                <code>
-                                  {!request.streamed && (
-                                    <>
+                              {tab === "raw" && (
+                                <div className="space-y-4">
+                                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                                    Request
+                                  </h3>
+                                  <pre className="overflow-auto whitespace-pre-wrap text-sm bg-gray-100 rounded-lg p-4">
+                                    <code>
                                       {JSON.stringify(
-                                        request.response_body,
+                                        request.request_body,
                                         null,
                                         2
                                       )}
-                                    </>
-                                  )}
+                                    </code>
+                                  </pre>
+                                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                                    Response
+                                  </h3>
+                                  <pre className="overflow-auto whitespace-pre-wrap text-sm bg-gray-100 rounded-lg p-4">
+                                    <code>
+                                      {!request.streamed && (
+                                        <>
+                                          {JSON.stringify(
+                                            request.response_body,
+                                            null,
+                                            2
+                                          )}
+                                        </>
+                                      )}
 
-                                  {request.streamed && (
-                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                      {request.streamed_response_body}
-                                    </ReactMarkdown>
-                                  )}
-                                </code>
-                              </pre>
+                                      {request.streamed && (
+                                        <ReactMarkdown
+                                          remarkPlugins={[remarkGfm]}
+                                        >
+                                          {request.streamed_response_body}
+                                        </ReactMarkdown>
+                                      )}
+                                    </code>
+                                  </pre>
+                                </div>
+                              )}
                             </div>
-                          )}
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </Dialog.Panel>
-                </Transition.Child>
+                      </Dialog.Panel>
+                    </Transition.Child>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </Dialog>
       </Transition.Root>
     </>

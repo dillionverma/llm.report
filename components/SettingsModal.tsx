@@ -521,13 +521,13 @@ const SettingsModal = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (session?.user && !key) {
-      // openDialog();
-      toast("Enter your API key", { icon: "🔑", duration: 5000 });
-      // router.push("/settings");
-    }
-  }, [session?.user, key]);
+  // useEffect(() => {
+  //   if (session?.user && !key) {
+  //     // openDialog();
+  //     toast("Enter your API key", { icon: "🔑", duration: 5000 });
+  //     // router.push("/settings");
+  //   }
+  // }, [session?.user, key]);
 
   return (
     <>

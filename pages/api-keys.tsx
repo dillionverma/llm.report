@@ -1,25 +1,24 @@
+import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
 import { fetcher } from "@/lib/utils";
 import { Dialog, Transition } from "@headlessui/react";
 import { Button, Callout, Card, Flex, Text, Title } from "@tremor/react";
 import { format } from "date-fns";
-import { getSession, useSession } from "next-auth/react";
-import { Suspense, useState } from "react";
-import useSWR, { mutate } from "swr";
-
-import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
-import { Col, Grid, Tab, TabList } from "@tremor/react";
 import { motion } from "framer-motion";
 import { FlaskConical, TrashIcon } from "lucide-react";
 import MarkdownIt from "markdown-it";
 import { NextPageContext } from "next";
-import { Fragment } from "react";
+import { getSession, useSession } from "next-auth/react";
+import { Fragment, Suspense, useState } from "react";
 import { toast } from "react-hot-toast";
 import {
   createDiffProcessor,
   createFocusProcessor,
   createHighlightProcessor,
+  createRangeProcessor,
+  defineProcessor,
   getHighlighter,
 } from "shiki-processor";
+import useSWR, { mutate } from "swr";
 
 const DeleteDialog = ({ id, hashed }: { id: string; hashed: string }) => {
   function closeModal() {
@@ -316,23 +315,33 @@ const variants = {
 };
 
 const ApiKeys = ({
-  curl,
-  js,
-  jsx,
-  python,
+  code,
 }: {
-  curl: string;
-  js: string;
-  jsx: string;
-  python: string;
+  code: {
+    curl: string;
+    js: string;
+    nodejs: string;
+    python: string;
+  };
 }) => {
   const { data: keys, error, isLoading } = useSWR("/api/v1/keys", fetcher);
   const { data } = useSession();
   const [value, setValue] = useState("js");
   let [isKeyDialogOpen, setKeyDialogOpen] = useState(false);
 
+  let tabs = [
+    { id: "curl", label: "curl" },
+    { id: "js", label: "javascript" },
+    { id: "nodejs", label: "node.js" },
+    { id: "python", label: "python" },
+  ];
+
+  const [step, setStep] = useState(1);
+  const [key, setKey] = useState<string>();
+  let [activeTab, setActiveTab] = useState(tabs[0].id);
+
   return (
-    <div className="max-w-[800px] space-y-4">
+    <div className="max-w-4xl space-y-4">
       <Flex className="xl:flex-row flex-col items-start xl:items-center space-y-4">
         <div className="space-y-2">
           <div className="flex flex-row space-x-3">
@@ -408,57 +417,85 @@ const ApiKeys = ({
       </Suspense>
 
       <Suspense fallback={<></>}>
-        <Card className="shadow-none">
-          <Title>Installation</Title>
-          <Text>
-            1. Just swap out `api.openai.com` with `api.cachemyai.com` in your
-            API requests.
-          </Text>
-          <Text>2. Add your LLM Report API key to the `X-Api-Key` header.</Text>
-          <Grid numCols={1} numColsLg={1} className="gap-6 mt-4 w-full">
-            <Col numColSpan={1}>
-              <TabList value={value} onValueChange={setValue}>
-                <Tab value="curl" text={"curl"} />
-                <Tab value="js" text={"javascript"} />
-                <Tab value="jsx" text={"node.js"} />
-                <Tab value="python" text={"python"} />
-              </TabList>
+        <Card>
+          <Flex justifyContent="start" className="gap-4 mb-2">
+            {/* <Step step={1} currentStep={step} /> */}
+            <Title>Log your first request</Title>
+          </Flex>
 
-              <div className="mt-2 space-y-2">
-                <motion.div
-                  className="md"
-                  // layoutId={value} // Add a layoutId for shared layout animations
-                  // initial={{ opacity: 0 }}
-                  // animate={{ opacity: 1 }}
-                  // exit={{ opacity: 0 }}
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      value === "curl"
-                        ? curl
-                        : value === "js"
-                        ? js
-                        : value === "jsx"
-                        ? jsx
-                        : value === "python"
-                        ? python
-                        : "",
-                  }}
-                />
-              </div>
-            </Col>
-          </Grid>
+          <Text>
+            Update your code using the examples below, or just press the button!
+          </Text>
+
+          <div className="mt-2">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`${
+                  activeTab === tab.id ? "" : "hover:text-black/60"
+                } relative rounded-full px-3 py-1.5 text-sm font-medium text-black outline-sky-400 transition focus-visible:outline-2`}
+                style={{
+                  WebkitTapHighlightColor: "transparent",
+                }}
+              >
+                {activeTab === tab.id && (
+                  <motion.span
+                    layoutId="bubble"
+                    className="absolute inset-0 z-10 bg-white mix-blend-difference"
+                    style={{ borderRadius: 9999 }}
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <div className="mt-2 space-y-2">
+            <motion.div
+              className="md"
+              // layoutId={"bubble"} // Add a layoutId for shared layout animations
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              dangerouslySetInnerHTML={{
+                __html:
+                  activeTab === "curl"
+                    ? code.curl.replace(
+                        "$LLM_REPORT_API_KEY",
+                        key || "$LLM_REPORT_API_KEY"
+                      )
+                    : activeTab === "js"
+                    ? code.js.replace(
+                        "${process.env.LLM_REPORT_API_KEY}",
+                        key || "process.e"
+                      )
+                    : activeTab === "nodejs"
+                    ? code.nodejs.replace(
+                        "${process.env.LLM_REPORT_API_KEY}",
+                        key || "process.e"
+                      )
+                    : activeTab === "python"
+                    ? code.python.replace(
+                        'os.getenv("OPENAI_API_KEY")',
+                        key || 'os.getenv("OPENAI_API_KEY")'
+                      )
+                    : "",
+              }}
+            />
+          </div>
         </Card>
       </Suspense>
     </div>
   );
 };
-
 const Curl = `
 \`\`\`bash
-curl https://api.cachemyai.com/v1/chat/completions // [!code focus] \\
+curl https://api.openai.com/v1/chat/completions // [!code --] \\
+curl https://api.openai.withlogging.com/v1/chat/completions // [!code ++] \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer $OPENAI_API_KEY" \\
-  -H "X-Api-Key: Bearer $LLM_REPORT_API_KEY" // [!code focus] \\
+  -H "X-Api-Key: Bearer $LLM_REPORT_API_KEY" // [!code ++] \\
   -d '{
     "model": "gpt-3.5-turbo",
     "messages": [{"role": "user", "content": "Hello!"}]
@@ -468,34 +505,34 @@ curl https://api.cachemyai.com/v1/chat/completions // [!code focus] \\
 const JS = `
 
 \`\`\`js
-fetch("https://api.cachemyai.com/v1/chat/completions", { // [!code focus]
+fetch("https://api.openai.com/v1/chat/completions", { // [!code --]
+fetch("https://api.openai.withlogging.com/v1/chat/completions", { // [!code ++]
   method: "POST",
   headers: {
     "Content-Type": "application/json",
     Authorization: \`Bearer \${process.env.OPENAI_API_KEY}\`,
-    "X-Api-Key": \`Bearer \${process.env.LLM_REPORT_API_KEY}\`, // [!code focus]
+    "X-Api-Key": \`Bearer \${process.env.LLM_REPORT_API_KEY}\`, // [!code ++]
   },
   body: JSON.stringify({
-  model: "gpt-3.5-turbo",
-  messages: [{ role: "user", content: "Hello world" }],
+    model: "gpt-3.5-turbo",
+    messages: [{ role: "user", content: "Hello world" }],
   }),
 })
-  .then((response) => response.json())
-  .then((data) => console.log(data));
 \`\`\`
 `;
 
-const JSX = `
+const Nodejs = `
 
 \`\`\`js
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY, 
-  basePath: "https://api.cachemyai.com/v1",  // [!code focus]
-  baseOptions: { 
+  basePath: "https://api.openai.com/v1",  // [!code --]
+  basePath: "https://api.openai.withlogging.com/v1",  // [!code ++]
+  baseOptions: { // [!code ++:5]
     headers: {
-      "X-Api-Key": \`Bearer \${process.env.LLM_REPORT_API_KEY}\`, // [!code focus]
+      "X-Api-Key": \`Bearer \${process.env.LLM_REPORT_API_KEY}\`, 
     },
   }
 });
@@ -510,7 +547,8 @@ import os
 import openai
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_base = "https://api.cachemyai.com/v1"  // [!code focus]
+openai.api_base = "https://api.openai.com/v1"  // [!code --]
+openai.api_base = "https://api.openai.withlogging.com/v1"  // [!code ++]
 
 completion = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",
@@ -518,7 +556,7 @@ completion = openai.ChatCompletion.create(
     {"role": "user", "content": "Hello!"}
   ],
   headers={
-    "X-Api-Key": "Bearer " + os.getenv("OPENAI_API_KEY"), // [!code focus]
+    "X-Api-Key": "Bearer " + os.getenv("LLM_REPORT_API_KEY"), // [!code ++]
   }
 )
 
@@ -535,6 +573,23 @@ export async function getServerSideProps(context: NextPageContext) {
       createDiffProcessor(),
       createHighlightProcessor(),
       createFocusProcessor(),
+      defineProcessor({
+        name: "line",
+        handler: createRangeProcessor({
+          error: ["highlighted", "error"],
+          warning: ["highlighted", "warning"],
+        }),
+        postProcess: ({ code }) => {
+          const modifiedCode = code.replace(
+            /(.withlogging)/g,
+            '<span class="highlight-word">$1</span>'
+          );
+
+          // console.log("code", modifiedCode);
+
+          return modifiedCode;
+        },
+      }),
     ],
   });
 
@@ -553,7 +608,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
   const curl = renderer.render(Curl);
   const js = renderer.render(JS);
-  const jsx = renderer.render(JSX);
+  const nodejs = renderer.render(Nodejs);
   const python = renderer.render(Python);
 
   if (!session) {
@@ -566,10 +621,12 @@ export async function getServerSideProps(context: NextPageContext) {
   }
   return {
     props: {
-      curl,
-      js,
-      jsx,
-      python,
+      code: {
+        curl,
+        js,
+        nodejs,
+        python,
+      },
     },
   };
 }

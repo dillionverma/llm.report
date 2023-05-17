@@ -97,7 +97,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <Flex className="xl:flex-row flex-col items-start xl:items-center space-y-4">
+      <Flex className="2xl:flex-row flex-col items-start 2xl:items-center space-y-4">
         <div className="space-y-2">
           <div className="flex flex-row space-x-3">
             <Title>OpenAI Analytics</Title>
