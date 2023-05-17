@@ -4,7 +4,7 @@ import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
 import { Card, Col, Grid, Title } from "@tremor/react";
 import MarkdownIt from "markdown-it";
 import { NextPageContext } from "next";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { Suspense, useEffect, useState } from "react";
 import {
   createDiffProcessor,
@@ -33,17 +33,20 @@ export const Logs = ({
 
   const [totalCount, setTotalCount] = useState(1); // set default to 1 for now
 
+  const { data: session, status } = useSession();
   useEffect(() => {
-    const apiUrl = `/api/v1/requests`;
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        setTotalCount(data.totalCount);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    if (status === "authenticated") {
+      const apiUrl = `/api/v1/requests`;
+      fetch(apiUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          setTotalCount(data.totalCount);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
   }, [refreshKey]);
 
   return (
