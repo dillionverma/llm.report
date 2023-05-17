@@ -7,9 +7,10 @@ import openai from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
 import { useSession } from "next-auth/react";
 import { Suspense, useEffect, useState } from "react";
+import { getTweet, type Tweet } from "react-tweet/api";
 import Dashboard from "../components/dashboard";
 
-export default function Home() {
+export default function Home({ tweets }: { tweets: Tweet[] }) {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
   const [validKey, setValidKey] = useState(true);
@@ -39,10 +40,35 @@ export default function Home() {
             {/* <Dashboard /> */}
             {/* <TrustedBy /> */}
             <FeatureGrid />
-            <Testimonials />
+            <Testimonials tweets={tweets} />
           </>
         )}
       </>
     </Suspense>
   );
+}
+
+const tweetIds = [
+  "1654372865222021120",
+  "1653919932516818945",
+  "1655703926979825665",
+  "1655596207924826117",
+  "1654243063651266562",
+  "1657165411048210432",
+  "1657097533041041424",
+  "1654551137201328128",
+];
+
+export async function getStaticProps() {
+  try {
+    const tweets = await Promise.all(
+      tweetIds.map(async (tweetId) => {
+        const tweet = await getTweet(tweetId);
+        return tweet;
+      })
+    );
+    return { props: { tweets } };
+  } catch (error) {
+    return { props: { tweets: [] } };
+  }
 }

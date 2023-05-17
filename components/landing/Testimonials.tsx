@@ -1,16 +1,9 @@
-import TweetEmbed from "react-tweet-embed";
+import { useRouter } from "next/router";
+import { EmbeddedTweet, TweetSkeleton } from "react-tweet";
+import { type Tweet } from "react-tweet/api";
 
-export default function Testimonials() {
-  const tweetIds = [
-    "1654372865222021120",
-    "1653919932516818945",
-    "1655703926979825665",
-    "1655596207924826117",
-    "1654243063651266562",
-    "1657165411048210432",
-    "1657097533041041424",
-    "1654551137201328128",
-  ];
+export default function Testimonials({ tweets }: { tweets: Tweet[] }) {
+  const { isFallback } = useRouter();
 
   return (
     <section>
@@ -34,9 +27,15 @@ export default function Testimonials() {
         </div>
 
         <div className="space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
-          {tweetIds.map((id) => (
-            <TweetEmbed key={id} tweetId={id} />
-          ))}
+          {tweets.map((t) =>
+            isFallback ? (
+              <TweetSkeleton key={t.id_str} />
+            ) : (
+              <div key={t.id_str} className="light">
+                <EmbeddedTweet tweet={t} />
+              </div>
+            )
+          )}
         </div>
       </div>
     </section>
