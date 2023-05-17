@@ -47,7 +47,7 @@ export const Logs = ({
           console.error("Error fetching data:", error);
         });
     }
-  }, [refreshKey]);
+  }, [refreshKey, status]);
 
   return (
     <>
