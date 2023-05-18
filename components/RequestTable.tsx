@@ -604,22 +604,16 @@ export function RequestTable() {
   }
 
   const [search, setSearch] = useState("");
-  const debouncedSearch = useDebounce(search, 500); // Debounce the
+  const debouncedSearch = useDebounce(search, 500); // Debounce the search
   const [requests, setRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  // const [pageNumber, setPageNumber] = useState(1);
-  // const [pageSize, setPageSize] = useState(30);
-  const [totalCount, setTotalCount] = useState(0);
-
-  // const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
+  const [totalCount, setTotalCount] = useState(0);
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 20,
   });
-
-  const [sorting, setSorting] = useState<SortingState>([]);
 
   const pagination = useMemo(
     () => ({
@@ -633,7 +627,6 @@ export function RequestTable() {
     data: requests,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    // getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
@@ -675,8 +668,6 @@ export function RequestTable() {
       .then((res) => res.json())
       .then((data) => {
         setRequests(data.requests);
-
-        console.log(data.requests);
         setTotalCount(data.totalCount);
         setIsLoading(false);
       })
