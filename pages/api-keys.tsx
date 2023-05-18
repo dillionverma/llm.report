@@ -1,10 +1,10 @@
 import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
 import { fetcher } from "@/lib/utils";
 import { Dialog, Transition } from "@headlessui/react";
-import { Button, Callout, Card, Flex, Text, Title } from "@tremor/react";
+import { Button, Card, Flex, Text, Title } from "@tremor/react";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
-import { FlaskConical, TrashIcon } from "lucide-react";
+import { TrashIcon } from "lucide-react";
 import MarkdownIt from "markdown-it";
 import { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -353,7 +353,7 @@ const ApiKeys = ({
           </Text>
         </div>
       </Flex>
-      <Callout
+      {/* <Callout
         className="my-4"
         title="This feature is currently in alpha"
         icon={FlaskConical}
@@ -361,7 +361,7 @@ const ApiKeys = ({
       >
         API keys are used to authenticate your requests to the LLM Report proxy
         API.
-      </Callout>
+      </Callout> */}
       {/* <Callout
         className="my-4"
         title="Don't put your OpenAI API key here. "

@@ -4116,11 +4116,6 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-tweet-embed@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/react-tweet-embed/-/react-tweet-embed-2.0.0.tgz"
-  integrity sha512-g2kfPjSRTOKeJtaQF5EMuSTmp/q8I0qdDs/pZ2qLXZjCWExDT/JgjxSlyM65NyNzsz8072PDpvlO/sIXwwVpdQ==
-
 react-tweet@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-tweet/-/react-tweet-2.0.1.tgz#c26bef8fde4907c99791ca7aa412184c8b61b6ea"
