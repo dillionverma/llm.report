@@ -7,7 +7,8 @@ import { motion } from "framer-motion";
 import { TrashIcon } from "lucide-react";
 import MarkdownIt from "markdown-it";
 import { NextPageContext } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { Fragment, Suspense, useState } from "react";
 import { toast } from "react-hot-toast";
 import {
@@ -324,8 +325,13 @@ const ApiKeys = ({
     python: string;
   };
 }) => {
+  const router = useRouter();
+  const { data, status } = useSession();
+  if (status === "unauthenticated") {
+    router.push("/");
+  }
+
   const { data: keys, error, isLoading } = useSWR("/api/v1/keys", fetcher);
-  const { data } = useSession();
   const [value, setValue] = useState("js");
   let [isKeyDialogOpen, setKeyDialogOpen] = useState(false);
 
@@ -564,9 +570,7 @@ print(completion.choices[0].message)
 \`\`\`
 `;
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
-
+export async function getStaticProps(context: NextPageContext) {
   const highlighter = await getHighlighter({
     theme: "material-theme-palenight",
     processors: [
@@ -611,14 +615,6 @@ export async function getServerSideProps(context: NextPageContext) {
   const nodejs = renderer.render(Nodejs);
   const python = renderer.render(Python);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
   return {
     props: {
       code: {

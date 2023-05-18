@@ -75,11 +75,10 @@ const Hero = () => {
               <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 filter group-active:opacity-0 rounded-full opacity-50 bg-gradient-to-r from-red-600 to-amber-600"></span>
               <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-full shadow-xl filter group-active:opacity-0 group-hover:blur-sm bg-gradient-to-r from-red-600 to-amber-600"></span>
               <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-full bg-gradient-to-r from-red-600 to-amber-600"></span>
-              <span className="relative">
-                Get your dashboard for free in &lt; 1min
-              </span>
+              <span className="relative">Get started</span>
+              {/* your dashboard for free in &lt; 1min */}
 
-              <svg
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 ml-1 duration-150 ease-in-out transform group-hover:translate-x-1"
                 fill="none"
@@ -92,7 +91,7 @@ const Hero = () => {
                   strokeWidth={2}
                   d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
-              </svg>
+              </svg> */}
             </button>
 
             {/* <Link

@@ -4,7 +4,8 @@ import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
 import { Card, Col, Grid, Title } from "@tremor/react";
 import MarkdownIt from "markdown-it";
 import { NextPageContext } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { Suspense, useEffect, useState } from "react";
 import {
   createDiffProcessor,
@@ -34,6 +35,13 @@ export const Logs = ({
   const [totalCount, setTotalCount] = useState(1); // set default to 1 for now
 
   const { data: session, status } = useSession();
+
+  const router = useRouter();
+
+  if (status === "unauthenticated") {
+    router.push("/");
+  }
+
   useEffect(() => {
     if (status === "authenticated") {
       const apiUrl = `/api/v1/requests`;
@@ -151,9 +159,7 @@ print(completion.choices[0].message)
 \`\`\`
 `;
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
-
+export async function getStaticProps(context: NextPageContext) {
   const highlighter = await getHighlighter({
     theme: "material-theme-palenight",
     processors: [
@@ -171,9 +177,7 @@ export async function getServerSideProps(context: NextPageContext) {
             /(.withlogging)/g,
             '<span class="highlight-word">$1</span>'
           );
-
           // console.log("code", modifiedCode);
-
           return modifiedCode;
         },
       }),
@@ -198,14 +202,6 @@ export async function getServerSideProps(context: NextPageContext) {
   const nodejs = renderer.render(Nodejs);
   const python = renderer.render(Python);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
   return {
     props: {
       code: {
