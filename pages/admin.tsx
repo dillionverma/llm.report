@@ -12,10 +12,19 @@ const data = [
   { date: "2023-05-06", users: 1072 },
   { date: "2023-05-07", users: 1144 },
   { date: "2023-05-08", users: 1255 },
-  { date: "2023-05-09", users: 1321 },
+  { date: "2023-05-09", users: 1367 },
+  { date: "2023-05-10", users: 1427 },
+  { date: "2023-05-11", users: 1528 },
+  { date: "2023-05-12", users: 1567 },
+  { date: "2023-05-13", users: 1586 },
+  { date: "2023-05-14", users: 1610 },
+  { date: "2023-05-15", users: 1640 },
+  { date: "2023-05-16", users: 1664 },
+  { date: "2023-05-17", users: 1691 },
+  { date: "2023-05-18", users: 1802 },
 ].map((d) => ({
   ...d,
-  date: format(new Date("2023-05-01"), "MMMM d, yyyy"),
+  date: format(new Date(d.date), "MMMM d, yyyy"),
 }));
 
 const Admin = () => {
