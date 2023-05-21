@@ -279,7 +279,7 @@ export default function Dashboard() {
         numColsLg={4}
         className="gap-6 mt-4 w-full"
       >
-        <Card className="shadow-none">
+        <Card className="shadow-none z-10">
           <CostChart
             startDate={new Date()}
             endDate={new Date()}
