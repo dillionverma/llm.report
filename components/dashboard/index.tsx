@@ -186,7 +186,7 @@ export default function Dashboard() {
           <Text>Let&apos;s see how we&apos;re doing today</Text>
         </div>
 
-        <div className="w-full max-w-3xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col">
+        <div className="w-full max-w-3xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col z-20">
           <DateRangePicker
             value={value}
             onValueChange={setDates}
