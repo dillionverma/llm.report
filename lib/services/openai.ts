@@ -52,15 +52,16 @@ class OpenAI {
     }
 
     // If there's no pending request, make a new one and store the promise
-    if (!this.pendingGetUsagePromise) {
-      this.pendingGetUsagePromise = this.fetchAndCacheUsage(query);
-      this.pendingGetUsagePromise.finally(() => {
-        this.pendingGetUsagePromise = null; // Reset the pending promise when the request completes or fails
-      });
-    }
+    // if (!this.pendingGetUsagePromise) {
+    //   this.pendingGetUsagePromise = this.fetchAndCacheUsage(query);
+    //   this.pendingGetUsagePromise.finally(() => {
+    //     this.pendingGetUsagePromise = null; // Reset the pending promise when the request completes or fails
+    //   });
+    // }
 
-    // Return the pending promise
-    return this.pendingGetUsagePromise;
+    // // Return the pending promise
+    // return this.pendingGetUsagePromise;
+    return this.fetchAndCacheUsage(query);
   }
 
   private async fetchAndCacheUsage(query: any) {
