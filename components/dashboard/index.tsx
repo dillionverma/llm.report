@@ -73,8 +73,25 @@ export default function Dashboard() {
   //   })();
   // }, [data?.user]);
 
+  // useEffect(() => {
+  //   (async () => setValidKey(await openai.isValidKey(key)))();
+  // }, [key]);
+
+  const [isDown, setIsDown] = useState(false);
+
   useEffect(() => {
-    (async () => setValidKey(await openai.isValidKey(key)))();
+    (async () => {
+      try {
+        const valid = await openai.isValidKey(key);
+        setValidKey(valid);
+        if (!valid) return;
+        const res = await openai.getUsage(new Date());
+        setIsDown(false);
+      } catch (e) {
+        setIsDown(true);
+        console.log("EE", e);
+      }
+    })();
   }, [key]);
 
   // const [categories, setCategories] = useState<Category[]>(CATEGORIES);
@@ -150,7 +167,7 @@ export default function Dashboard() {
               </Badge>
             )}
 
-            {data?.user && key && validKey && (
+            {data?.user && key && validKey && !isDown && (
               <Badge
                 className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
                 // onClick={() => openDialog()}
@@ -163,6 +180,22 @@ export default function Dashboard() {
                 )}
               >
                 live
+              </Badge>
+            )}
+
+            {data?.user && key && validKey && isDown && (
+              <Badge
+                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                // onClick={() => openDialog()}
+                color="red"
+                icon={() => (
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                  </span>
+                )}
+              >
+                OpenAI API Down
               </Badge>
             )}
 
