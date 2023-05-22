@@ -1,6 +1,6 @@
 import axios from "axios";
 import { differenceInMinutes, format } from "date-fns";
-import { get, set } from "idb-keyval";
+import { clear, get, set } from "idb-keyval";
 import {
   BillingSubscriptionResponse,
   BillingUsageResponse,
@@ -16,6 +16,7 @@ class OpenAI {
   constructor() {}
 
   setKey(key: string | null) {
+    clear(); // clear cache when setting key
     this.key = key;
   }
 
