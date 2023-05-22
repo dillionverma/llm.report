@@ -37,11 +37,12 @@ import { Tab, TabList } from "@tremor/react";
 import { format } from "date-fns";
 import {
   CurlyBraces,
+  Download,
   LucideMessageCircle,
   MoreHorizontal,
-  X,
 } from "lucide-react";
 import { Fragment, useEffect, useMemo, useState } from "react";
+import { CSVLink } from "react-csv";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
@@ -683,7 +684,7 @@ export function RequestTable() {
 
   return (
     <div>
-      <div className="flex items-center py-4 space-x-2">
+      <div className="flex items-center justify-between py-4 space-x-2">
         <Input
           placeholder="Search prompts or completions..."
           value={search}
@@ -698,7 +699,7 @@ export function RequestTable() {
             options={endpoints}
           />
         )} */}
-        {isFiltered && (
+        {/* {isFiltered && (
           <Button
             variant="ghost"
             onClick={() => table.resetColumnFilters()}
@@ -707,8 +708,37 @@ export function RequestTable() {
             Reset
             <X className="ml-2 h-4 w-4" />
           </Button>
-        )}
-        {/* <DataTableViewOptions table={table} /> */}
+        )} */}
+        <div className="flex flex-row space-x-2">
+          {/* <DataTableViewOptions table={table} /> */}
+          <CSVLink
+            filename={`logs-${new Date().getTime()}.csv`}
+            data={requests.map((log: any) => {
+              return {
+                createdAt: log.createdAt,
+                id: log.id,
+                ip: log.ip,
+                url: log.url,
+                method: log.method,
+                status: log.status,
+                cached: log.cached,
+                streamed: log.streamed,
+                prompt:
+                  new URL(log.url).pathname === "/v1/completions"
+                    ? log.prompt
+                    : log.request_body.messages.map(
+                        (m: any) => `${m.role}:\n ${m.content}\n `
+                      ),
+                completion: log.completion,
+              };
+            })}
+          >
+            <Button variant="outline" size="sm">
+              Export
+              <Download className="ml-2 h-4 w-4" />
+            </Button>
+          </CSVLink>
+        </div>
       </div>
 
       <div className="rounded-md border">
