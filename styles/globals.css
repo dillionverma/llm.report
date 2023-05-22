@@ -92,7 +92,7 @@
 
   --vp-code-block-color: var(--vp-c-text-dark-1);
   --vp-code-block-bg: #292b30;
-  --vp-code-block-bg-light: #373e47;
+  --vp-code-block-bg-light: #e3e3e3;
   --vp-code-block-divider-color: #000000;
 
   --vp-code-line-highlight-color: rgba(0, 0, 0, 0.5);
