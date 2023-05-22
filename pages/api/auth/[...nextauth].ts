@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         id: user.id,
         // @ts-ignore
-        isAdmin: user.isAdmin,
+        isAdmin: user.role === "ADMIN",
       };
       return Promise.resolve(session);
     },
