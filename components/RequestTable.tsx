@@ -35,8 +35,14 @@ import {
 } from "@tanstack/react-table";
 import { Tab, TabList } from "@tremor/react";
 import { format } from "date-fns";
-import { CurlyBraces, LucideMessageCircle, MoreHorizontal } from "lucide-react";
+import {
+  CurlyBraces,
+  Download,
+  LucideMessageCircle,
+  MoreHorizontal,
+} from "lucide-react";
 import { Fragment, useEffect, useMemo, useState } from "react";
+import { CSVLink } from "react-csv";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
@@ -705,8 +711,9 @@ export function RequestTable() {
         )} */}
         <div className="flex flex-row space-x-2">
           {/* <DataTableViewOptions table={table} /> */}
-          {/* <CSVLink
+          <CSVLink
             filename={`logs-${new Date().getTime()}.csv`}
+            enclosingCharacter={`"`}
             data={requests.map((log: any) => {
               return {
                 createdAt: log.createdAt,
@@ -719,10 +726,10 @@ export function RequestTable() {
                 streamed: log.streamed,
                 prompt:
                   new URL(log.url).pathname === "/v1/completions"
-                    ? log.prompt
-                    : log.request_body.messages.map(
+                    ? `"${log.prompt}"`
+                    : `"${log.request_body.messages.map(
                         (m: any) => `${m.role}:\n ${m.content}\n `
-                      ),
+                      )}"`,
                 completion: log.completion,
               };
             })}
@@ -731,7 +738,7 @@ export function RequestTable() {
               Export
               <Download className="ml-2 h-4 w-4" />
             </Button>
-          </CSVLink> */}
+          </CSVLink>
         </div>
       </div>
 
