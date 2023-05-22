@@ -35,14 +35,8 @@ import {
 } from "@tanstack/react-table";
 import { Tab, TabList } from "@tremor/react";
 import { format } from "date-fns";
-import {
-  CurlyBraces,
-  Download,
-  LucideMessageCircle,
-  MoreHorizontal,
-} from "lucide-react";
+import { CurlyBraces, LucideMessageCircle, MoreHorizontal } from "lucide-react";
 import { Fragment, useEffect, useMemo, useState } from "react";
-import { CSVLink } from "react-csv";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
@@ -711,7 +705,7 @@ export function RequestTable() {
         )} */}
         <div className="flex flex-row space-x-2">
           {/* <DataTableViewOptions table={table} /> */}
-          <CSVLink
+          {/* <CSVLink
             filename={`logs-${new Date().getTime()}.csv`}
             data={requests.map((log: any) => {
               return {
@@ -737,7 +731,7 @@ export function RequestTable() {
               Export
               <Download className="ml-2 h-4 w-4" />
             </Button>
-          </CSVLink>
+          </CSVLink> */}
         </div>
       </div>
 
