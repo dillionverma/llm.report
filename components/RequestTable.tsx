@@ -725,10 +725,10 @@ export function RequestTable() {
                 streamed: log.streamed,
                 prompt:
                   new URL(log.url).pathname === "/v1/completions"
-                    ? log.prompt
-                    : log.request_body.messages.map(
+                    ? `"${log.prompt}"`
+                    : `"${log.request_body.messages.map(
                         (m: any) => `${m.role}:\n ${m.content}\n `
-                      ),
+                      )}"`,
                 completion: log.completion,
               };
             })}
