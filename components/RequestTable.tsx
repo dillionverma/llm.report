@@ -713,7 +713,7 @@ export function RequestTable() {
           {/* <DataTableViewOptions table={table} /> */}
           <CSVLink
             filename={`logs-${new Date().getTime()}.csv`}
-            enclosingCharacter={`"`}
+            // enclosingCharacter={`"`}
             data={requests.map((log: any) => {
               return {
                 createdAt: log.createdAt,
@@ -729,7 +729,7 @@ export function RequestTable() {
                     ? `"${log.prompt}"`
                     : `"${log.request_body.messages.map(
                         (m: any) => `${m.role}:\n ${m.content}\n `
-                      )}"`,
+                      )}"`.replace(/"/g, '""'),
                 completion: log.completion,
               };
             })}
