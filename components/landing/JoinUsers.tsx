@@ -21,7 +21,7 @@ const JoinUsers = () => (
       className="w-10 h-10 rounded-full border-2 border-white"
     />
     <p className="text-sm text-gray-500 font-medium translate-x-5">
-      Join 1,500+ users
+      Join 2,000+ users
     </p>
   </div>
 );

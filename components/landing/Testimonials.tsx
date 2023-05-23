@@ -12,7 +12,7 @@ export default function Testimonials({ tweets }: { tweets: Tweet[] }) {
           <h2 className="font-display text-4xl font-bold leading-tight text-black sm:text-5xl sm:leading-tight">
             Loved by{" "}
             <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
-              1,500+ users
+              2,000+ users
             </span>{" "}
             and{" "}
             <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
