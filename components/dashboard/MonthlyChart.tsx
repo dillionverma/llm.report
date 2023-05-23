@@ -437,7 +437,7 @@ const MonthlyChart = ({
   const [selectedSnapshots, setSelectedSnapshots] = useState<Snapshot[]>([]);
 
   console.log("loading", loading, loading2);
-  if (defaultLoading || loading || loading2) {
+  if (defaultLoading || loading) {
     return (
       <motion.div
         initial="hidden"

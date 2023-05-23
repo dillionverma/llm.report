@@ -195,7 +195,7 @@ export default function Dashboard() {
                   </span>
                 )}
               >
-                OpenAI API Down
+                OpenAI cost API is down
               </Badge>
             )}
 
