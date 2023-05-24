@@ -52,7 +52,7 @@ import { Input } from "./ui/input";
 const RenderMarkdown = ({ children }: { children: string }) => {
   return (
     <ReactMarkdown
-      className="prose max-w-none text-sm text-black overflow-x-auto"
+      className="prose max-w-none text-sm text-black overflow-x-auto whitespace-normal"
       remarkPlugins={[remarkGfm]}
     >
       {children}
@@ -305,11 +305,9 @@ const RequestDialog = ({
                                       )}
 
                                       {request.streamed && (
-                                        <ReactMarkdown
-                                          remarkPlugins={[remarkGfm]}
-                                        >
+                                        <RenderMarkdown>
                                           {request.streamed_response_body}
-                                        </ReactMarkdown>
+                                        </RenderMarkdown>
                                       )}
                                     </code>
                                   </pre>
