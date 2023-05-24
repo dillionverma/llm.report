@@ -37,7 +37,7 @@ const Meta = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
-      <meta name="_foundr" content="84f42f8f020f23ca413cedc02d36cd30" />
+      <meta name="_foundr" content="0a9c9f88dcac2be6939832aace1e467a" />
 
       <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
     </Head>
