@@ -508,7 +508,7 @@ const SettingsModal = () => {
       // if (subscribed) return;
 
       setFirstVisit(false);
-      openDialog();
+      // openDialog();
     }, 9000);
   }, [firstVisit, session?.user]);
 
