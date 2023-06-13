@@ -188,7 +188,7 @@ const MonthlyUsage = ({
         <Text className="truncate">{`${(percentage / 100).toFixed(
           2
         )}% of hard limit`}</Text>
-        <Text>$ {(subscription.hard_limit / 10000).toFixed(2)}</Text>
+        <Text>$ {subscription.hard_limit_usd.toFixed(2)}</Text>
       </Flex>
       <ProgressBar percentageValue={percentage / 100} className="mt-2" />
     </>
