@@ -113,7 +113,7 @@ const MonthlyUsage = ({
       setPercentage(
         subscriptionResponse
           ? (usageResponse.total_usage / 100) *
-              (subscriptionResponse.hard_limit / 10000)
+              subscriptionResponse.hard_limit_usd
           : 0
       );
       setLoading(false);
