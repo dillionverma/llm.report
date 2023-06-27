@@ -31,6 +31,7 @@ import {
   Flex,
   Legend,
   Metric,
+  Text,
   Title,
   Toggle,
   ToggleItem,
@@ -473,11 +474,14 @@ const MonthlyChart = ({
         <div>
           <Title>Cost</Title>
           <Metric>$ {(totalUsage / 100).toFixed(2)}</Metric>
-          {/* <Text>
-            {selection === "day" && "day interval"}
-            {selection === "minute" && "minute interval"}
-            {selection === "cumulative" && "cumulative so far"}
-          </Text> */}
+          <Text>
+            {startDate &&
+              endDate &&
+              `from a ${format(startDate, "MMM d")} to ${format(
+                endDate,
+                "MMM d"
+              )}`}
+          </Text>
         </div>
         <Toggle
           className="max-w-fit mt-2 mb-2 md:mt-0"
