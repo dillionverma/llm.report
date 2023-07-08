@@ -1,5 +1,3 @@
-import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { truncate } from "@/lib/utils";
+import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";

@@ -23,6 +23,7 @@ export const Logs = ({
     curl: string;
     js: string;
     nodejs: string;
+    nodejslangchain: string;
     python: string;
   };
 }) => {
@@ -136,6 +137,28 @@ const openai = new OpenAIApi(configuration);
 \`\`\`
 `;
 
+const NodejsLangchain = `
+
+\`\`\`js
+import { ChatOpenAI } from "langchain/chat_models/openai";
+
+
+const model = new ChatOpenAI(
+  {},
+  { // [!code ++]
+    basePath: "https://api.openai.withlogging.com/v1", // [!code ++]
+    baseOptions: { // [!code ++]
+      headers: { // [!code ++]
+        "X-Api-Key": \`Bearer \${process.env.LLM_REPORT_API_KEY}\`,  // [!code ++]
+      }, // [!code ++]
+    }, // [!code ++]
+  } // [!code ++]
+);
+
+const out = await model.call("Hi!");
+\`\`\`
+`;
+
 const Python = `
 \`\`\`python
 import os
@@ -200,6 +223,7 @@ export async function getStaticProps(context: NextPageContext) {
   const curl = renderer.render(Curl);
   const js = renderer.render(JS);
   const nodejs = renderer.render(Nodejs);
+  const nodejslangchain = renderer.render(NodejsLangchain);
   const python = renderer.render(Python);
 
   return {
@@ -208,6 +232,7 @@ export async function getStaticProps(context: NextPageContext) {
         curl,
         js,
         nodejs,
+        nodejslangchain,
         python,
       },
     },

@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]";
 
-type QueryParameters = {
+export type QueryParameters = {
   search?: string;
   sortBy?: keyof typeof sortingFields;
   sortOrder?: "asc" | "desc";
@@ -12,7 +12,7 @@ type QueryParameters = {
   filter?: string;
 };
 
-const sortingFields = {
+export const sortingFields = {
   id: "id",
   createdAt: "createdAt",
   updatedAt: "updatedAt",

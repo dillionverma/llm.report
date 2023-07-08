@@ -11,6 +11,7 @@ let tabs = [
   { id: "curl", label: "curl" },
   { id: "js", label: "javascript" },
   { id: "nodejs", label: "node.js" },
+  { id: "nodejslangchain", label: "node.js (langchain)" },
   { id: "python", label: "python" },
 ];
 
@@ -24,6 +25,7 @@ const Onboarding = ({
     curl: string;
     js: string;
     nodejs: string;
+    nodejslangchain: string;
     python: string;
   };
   onRefresh: () => void;
@@ -189,12 +191,17 @@ const Onboarding = ({
                     : activeTab === "js"
                     ? code.js.replace(
                         "${process.env.LLM_REPORT_API_KEY}",
-                        key || "process.e"
+                        key || "${process.env.LLM_REPORT_API_KEY}"
                       )
                     : activeTab === "nodejs"
                     ? code.nodejs.replace(
                         "${process.env.LLM_REPORT_API_KEY}",
-                        key || "process.e"
+                        key || "${process.env.LLM_REPORT_API_KEY}"
+                      )
+                    : activeTab === "nodejslangchain"
+                    ? code.nodejslangchain.replace(
+                        "${process.env.LLM_REPORT_API_KEY}",
+                        key || "${process.env.LLM_REPORT_API_KEY}"
                       )
                     : activeTab === "python"
                     ? code.python.replace(

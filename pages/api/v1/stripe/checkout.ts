@@ -52,7 +52,13 @@ export const createOrRetrieveCustomer = async ({
 
 const CreateCheckoutSession: NextApiHandler = async (req, res) => {
   if (req.method === "POST") {
-    const { priceId, quantity = 1, metadata = {} } = req.body;
+    const {
+      priceId,
+      quantity = 1,
+      metadata = {},
+      successUrl,
+      cancelUrl,
+    } = req.body;
 
     try {
       const session = await getServerSession(req, res, authOptions);
@@ -82,8 +88,8 @@ const CreateCheckoutSession: NextApiHandler = async (req, res) => {
           trial_from_plan: true,
           metadata,
         },
-        success_url: `${getURL()}/`,
-        cancel_url: `${getURL()}/`,
+        success_url: successUrl || `${getURL()}/`,
+        cancel_url: cancelUrl || `${getURL()}/`,
       });
 
       return res.status(200).json({ sessionId: stripeSession.id });
