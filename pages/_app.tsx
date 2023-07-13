@@ -2,6 +2,7 @@ import Meta from "@/components/Meta";
 import SettingsModal, { DialogProvider } from "@/components/SettingsModal";
 import { Transition } from "@/components/Transition";
 import Layout from "@/components/layout";
+import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
 import { useCopyCode } from "@/lib/copyCode";
 import "@/styles/globals.css";
 import { Session } from "next-auth";
@@ -12,8 +13,11 @@ import { Toaster } from "react-hot-toast";
 
 export default function App({
   Component,
-  pageProps: { session, ...pageProps },
-}: AppProps<{ session: Session }>) {
+  pageProps: { session, dehydratedState, ...pageProps },
+}: AppProps<{
+  session: Session;
+  dehydratedState: Record<string, unknown>;
+}>) {
   useCopyCode();
 
   return (
@@ -40,24 +44,26 @@ export default function App({
         `}
       </Script>
 
-      <DialogProvider>
-        <Meta />
-        <Layout>
-          <Transition>
-            <Component {...pageProps} />
-          </Transition>
-        </Layout>
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-          toastOptions={{
-            style: {
-              maxWidth: 500,
-            },
-          }}
-        />
-        <SettingsModal />
-      </DialogProvider>
+      <ReactQueryProvider state={dehydratedState}>
+        <DialogProvider>
+          <Meta />
+          <Layout>
+            <Transition>
+              <Component {...pageProps} />
+            </Transition>
+          </Layout>
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            toastOptions={{
+              style: {
+                maxWidth: 500,
+              },
+            }}
+          />
+          <SettingsModal />
+        </DialogProvider>
+      </ReactQueryProvider>
     </SessionProvider>
   );
 }

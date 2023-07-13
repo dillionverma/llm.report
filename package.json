@@ -34,6 +34,9 @@
     "@react-three/drei": "^9.68.0",
     "@react-three/fiber": "^8.13.0",
     "@stripe/stripe-js": "^1.52.1",
+    "@tanstack/react-query": "^4.29.19",
+    "@tanstack/query-sync-storage-persister": "^4.29.19",
+    "@tanstack/react-query-persist-client": "^4.29.19",
     "@tanstack/react-table": "^8.9.1",
     "@tremor/react": "^2.4.1",
     "@types/node": "18.16.0",
@@ -76,6 +79,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
+    "@tanstack/eslint-plugin-query": "^4.29.9",
     "@types/markdown-it": "^12.2.3",
     "@types/react-csv": "^1.1.3",
     "@types/react-table": "^7.7.14",

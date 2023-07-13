@@ -1,11 +1,8 @@
 /* eslint-disable max-len */
 
-import usageDay1 from "@/fixtures/openai/usage-day-1.json";
-import { LOCAL_STORAGE_KEY, animationVariant } from "@/lib/constants";
-import openai from "@/lib/services/openai";
-import { Category } from "@/lib/types";
+import { animationVariant } from "@/lib/constants";
+import { useUsageDataCumulative } from "@/lib/hooks/api/useUsageDataCumulative";
 import useInterval from "@/lib/use-interval";
-import useLocalStorage from "@/lib/use-local-storage";
 import { ChartBarIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import {
   BarList,
@@ -19,20 +16,7 @@ import {
   Title,
 } from "@tremor/react";
 import { motion } from "framer-motion";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-
-const dateRange = (startDate: Date, endDate: Date): Date[] => {
-  const dates = [];
-  let currentDate = new Date(startDate);
-
-  while (currentDate <= endDate) {
-    dates.push(new Date(currentDate));
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-
-  return dates;
-};
+import { useState } from "react";
 
 const LoadingList = () => {
   const loadingBarHeights = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
@@ -86,99 +70,100 @@ const LoadingList = () => {
 const Requests = ({
   startDate,
   endDate,
-  categories,
-  defaultLoading,
-  demo,
-}: {
-  startDate: Date | null | undefined;
-  endDate: Date | null | undefined;
-  categories: Category[];
-  defaultLoading?: boolean;
-  demo?: boolean;
+}: // categories,
+// defaultLoading,
+// demo,
+{
+  startDate: Date;
+  endDate: Date;
+  // categories: Category[];
+  // defaultLoading?: boolean;
+  // demo?: boolean;
 }) => {
-  const [loading, setLoading] = useState(false);
-  const [requestData, setRequestData] = useState<
-    { name: string; value: number }[]
-  >([]);
-  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
-  const { data: session } = useSession();
+  const { requestData, loading } = useUsageDataCumulative(startDate, endDate);
+  // const [loading, setLoading] = useState(false);
+  // const [requestData, setRequestData] = useState<
+  //   { name: string; value: number }[]
+  // >([]);
+  // const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
+  // const { data: session } = useSession();
 
-  useEffect(() => {
-    (async () => {
-      if (!startDate || !endDate) {
-        return;
-      }
+  // useEffect(() => {
+  //   (async () => {
+  //     if (!startDate || !endDate) {
+  //       return;
+  //     }
 
-      setLoading(true);
+  //     setLoading(true);
 
-      const dates = dateRange(startDate, endDate);
+  //     const dates = dateRange(startDate, endDate);
 
-      openai.setKey(key);
+  //     openai.setKey(key);
 
-      let data;
-      try {
-        if (demo) {
-          data = usageDay1;
-        } else {
-          data = await Promise.all(dates.map((date) => openai.getUsage(date)));
-        }
-      } catch (e) {
-        console.error(e);
-        return;
-      }
+  //     let data;
+  //     try {
+  //       if (demo) {
+  //         data = usageDay1;
+  //       } else {
+  //         data = await Promise.all(dates.map((date) => openai.getUsage(date)));
+  //       }
+  //     } catch (e) {
+  //       console.error(e);
+  //       return;
+  //     }
 
-      console.log(data);
+  //     console.log(data);
 
-      const cumulativeUsage = data.reduce(
-        (acc, cv) => {
-          return {
-            ...acc,
-            total:
-              acc.total + cv.data.reduce((acc, cv) => acc + cv.n_requests, 0),
-            requests: cv.data.reduce((acc, cv) => {
-              return {
-                ...acc,
-                // @ts-ignore
-                [cv.snapshot_id]: (acc[cv.snapshot_id] || 0) + cv.n_requests,
-              };
-            }, acc.requests),
+  //     const cumulativeUsage = data.reduce(
+  //       (acc, cv) => {
+  //         return {
+  //           ...acc,
+  //           total:
+  //             acc.total + cv.data.reduce((acc, cv) => acc + cv.n_requests, 0),
+  //           requests: cv.data.reduce((acc, cv) => {
+  //             return {
+  //               ...acc,
+  //               // @ts-ignore
+  //               [cv.snapshot_id]: (acc[cv.snapshot_id] || 0) + cv.n_requests,
+  //             };
+  //           }, acc.requests),
 
-            contextTokens: cv.data.reduce((acc, cv) => {
-              return {
-                ...acc,
-                [cv.snapshot_id]:
-                  // @ts-ignore
-                  (acc[cv.snapshot_id] || 0) + cv.n_context_tokens_total,
-              };
-            }, acc.contextTokens),
-            generatedTokens: cv.data.reduce((acc, cv) => {
-              return {
-                ...acc,
-                [cv.snapshot_id]:
-                  // @ts-ignore
-                  (acc[cv.snapshot_id] || 0) + cv.n_generated_tokens_total,
-              };
-            }, acc.generatedTokens),
-          };
-        },
-        { total: 0, requests: {}, contextTokens: {}, generatedTokens: {} }
-      );
+  //           contextTokens: cv.data.reduce((acc, cv) => {
+  //             return {
+  //               ...acc,
+  //               [cv.snapshot_id]:
+  //                 // @ts-ignore
+  //                 (acc[cv.snapshot_id] || 0) + cv.n_context_tokens_total,
+  //             };
+  //           }, acc.contextTokens),
+  //           generatedTokens: cv.data.reduce((acc, cv) => {
+  //             return {
+  //               ...acc,
+  //               [cv.snapshot_id]:
+  //                 // @ts-ignore
+  //                 (acc[cv.snapshot_id] || 0) + cv.n_generated_tokens_total,
+  //             };
+  //           }, acc.generatedTokens),
+  //         };
+  //       },
+  //       { total: 0, requests: {}, contextTokens: {}, generatedTokens: {} }
+  //     );
 
-      console.log("CUMUL", cumulativeUsage);
+  //     console.log("CUMUL", cumulativeUsage);
 
-      setRequestData(
-        Object.entries(cumulativeUsage.requests)
-          .map(([name, value]): { name: string; value: number } => ({
-            name,
-            value: value as number,
-          }))
-          .sort((a, b) => b.value - a.value)
-      );
-      setLoading(false);
-    })();
-  }, [startDate, endDate, key, session, demo]);
+  //     setRequestData(
+  //       Object.entries(cumulativeUsage.requests)
+  //         .map(([name, value]): { name: string; value: number } => ({
+  //           name,
+  //           value: value as number,
+  //         }))
+  //         .sort((a, b) => b.value - a.value)
+  //     );
+  //     setLoading(false);
+  //   })();
+  // }, [startDate, endDate, key, session, demo]);
 
-  if (defaultLoading || loading) {
+  if (loading) {
     return <LoadingList />;
   }
 

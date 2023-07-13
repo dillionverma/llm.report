@@ -1,8 +1,11 @@
 import { useDialog } from "@/components/SettingsModal";
 import Cost from "@/components/dashboard/Cost";
+import CostChart from "@/components/dashboard/CostChart";
+import GeneratedTokenChart from "@/components/dashboard/GeneratedTokenChart";
 import MonthlyChart from "@/components/dashboard/MonthlyChart";
+import RequestChart from "@/components/dashboard/RequestChart";
 import Requests from "@/components/dashboard/Requests";
-import { default as Tokens } from "@/components/dashboard/Tokens";
+import Tokens from "@/components/dashboard/Tokens";
 import {
   CATEGORIES,
   CATEGORIES_KEY,
@@ -28,9 +31,6 @@ import { add, startOfMonth, sub } from "date-fns";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ContextTokenChart from "./ContextTokenChart";
-import CostChart from "./CostChart";
-import GeneratedTokenChart from "./GeneratedTokenChart";
-import RequestChart from "./RequestChart";
 
 export default function Dashboard() {
   const [value, setValue] = useState<DateRangePickerValue>([
@@ -85,7 +85,7 @@ export default function Dashboard() {
         const valid = await openai.isValidKey(key);
         setValidKey(valid);
         if (!valid) return;
-        const res = await openai.getUsage(new Date());
+        const res = await openai.getSubscription();
         setIsDown(false);
       } catch (e) {
         setIsDown(true);
@@ -103,14 +103,14 @@ export default function Dashboard() {
   const [users, setUsers] = useState<OrganizationUsers>();
   const [orgId, setOrgId] = useLocalStorage<string>(LOCAL_STORAGE_ORG_ID, "");
 
-  useEffect(() => {
-    (async () => {
-      if (!key || !orgId) return;
-      openai.setOrgId(orgId);
-      const u = await openai.getUsers();
-      setUsers(u);
-    })();
-  }, [key, orgId]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (!key || !orgId) return;
+  //     openai.setOrgId(orgId);
+  //     const u = await openai.getUsers();
+  //     setUsers(u);
+  //   })();
+  // }, [key, orgId]);
 
   return (
     <div>
@@ -228,7 +228,7 @@ export default function Dashboard() {
               {
                 value: "tdy",
                 text: "Today",
-                startDate: new Date(),
+                startDate: sub(new Date(), { days: 1 }),
               },
               {
                 value: "3d",
@@ -317,35 +317,35 @@ export default function Dashboard() {
             startDate={new Date()}
             endDate={new Date()}
             categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+            // demo={!data?.user}
+            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card className="shadow-none">
           <RequestChart
             startDate={new Date()}
             endDate={new Date()}
-            categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+            // categories={categories!}
+            // demo={!data?.user}
+            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card className="shadow-none">
           <ContextTokenChart
             startDate={new Date()}
             endDate={new Date()}
-            categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+            // categories={categories!}
+            // demo={!data?.user}
+            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card className="shadow-none">
           <GeneratedTokenChart
             startDate={new Date()}
             endDate={new Date()}
-            categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+            // categories={categories!}
+            // demo={!data?.user}
+            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
       </Grid>
@@ -355,8 +355,6 @@ export default function Dashboard() {
           startDate={value[0]}
           endDate={value[1]}
           categories={categories!}
-          demo={!data?.user}
-          defaultLoading={data?.user && (!subscribed || !validKey || !key)}
         />
       </Card>
 
@@ -366,26 +364,26 @@ export default function Dashboard() {
             startDate={value[0]}
             endDate={value[1]}
             categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+            // demo={!data?.user}
+            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card className="shadow-none">
           <Requests
             startDate={value[0]}
             endDate={value[1]}
-            categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+            // categories={categories!}
+            // demo={!data?.user}
+            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card className="shadow-none">
           <Tokens
             startDate={value[0]}
             endDate={value[1]}
-            categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
+            // categories={categories!}
+            // demo={!data?.user}
+            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
       </Grid>

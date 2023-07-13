@@ -1,6 +1,7 @@
+import { LOCAL_STORAGE_KEY } from "@/lib/constants";
 import axios from "axios";
 import { differenceInMinutes, format } from "date-fns";
-import { clear, get, set } from "idb-keyval";
+import { get, set } from "idb-keyval";
 import {
   BillingSubscriptionResponse,
   BillingUsageResponse,
@@ -9,15 +10,14 @@ import {
 } from "../types";
 
 class OpenAI {
-  private key: string | null = null;
+  private static key: string | null = null;
   private orgId: string | null = null;
   private pendingGetUsagePromise: Promise<UsageResponse> | null = null;
 
   constructor() {}
 
-  setKey(key: string | null) {
-    clear(); // clear cache when setting key
-    this.key = key;
+  static setKey(key: string | null) {
+    OpenAI.key = key;
   }
 
   setOrgId(orgId: string) {
@@ -25,9 +25,12 @@ class OpenAI {
   }
 
   async getUsage(date: Date | string): Promise<UsageResponse> {
-    if (!this.key) {
-      // throw new Error("OpenAI key not set");
+    const key = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!key) {
+      throw new Error("OpenAI key not set");
     }
+
+    OpenAI.setKey(key.replaceAll('"', ""));
 
     if (typeof date === "string") {
       date = new Date(date);
@@ -37,20 +40,20 @@ class OpenAI {
       date: format(date, "yyyy-MM-dd"),
     };
 
-    const cached = await get<{ data: UsageResponse; timestamp: Date }>(
-      query.date
-    );
+    // const cached = await get<{ data: UsageResponse; timestamp: Date }>(
+    //   query.date
+    // );
 
-    const isToday = query.date === format(new Date(), "yyyy-MM-dd");
+    // const isToday = query.date === format(new Date(), "yyyy-MM-dd");
 
     // If cached data exists and (it's not today or (it's today and it's been less than 10 minutes since cached))
-    if (
-      cached &&
-      (!isToday ||
-        (isToday && differenceInMinutes(new Date(), cached.timestamp) < 10))
-    ) {
-      return cached.data;
-    }
+    // if (
+    //   cached &&
+    //   (!isToday ||
+    //     (isToday && differenceInMinutes(new Date(), cached.timestamp) < 10))
+    // ) {
+    //   return cached.data;
+    // }
 
     // If there's no pending request, make a new one and store the promise
     // if (!this.pendingGetUsagePromise) {
@@ -66,12 +69,16 @@ class OpenAI {
   }
 
   private async fetchAndCacheUsage(query: any) {
+    if (!OpenAI.key) {
+      throw new Error("OpenAI key not set");
+    }
+
     try {
       const res = await axios.get(
         `https://api.openai.com/v1/usage?${new URLSearchParams(query)}`,
         {
           headers: {
-            Authorization: `Bearer ${this.key}`,
+            Authorization: `Bearer ${OpenAI.key}`,
           },
         }
       );
@@ -88,9 +95,12 @@ class OpenAI {
     startDate: Date | string,
     endDate: Date | string
   ): Promise<BillingUsageResponse> {
-    if (!this.key) {
-      // throw new Error("OpenAI key not set");
+    const key = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!key) {
+      throw new Error("OpenAI key not set");
     }
+
+    OpenAI.setKey(key.replaceAll('"', ""));
 
     if (typeof startDate === "string") {
       startDate = new Date(startDate);
@@ -127,7 +137,7 @@ class OpenAI {
       )}`,
       {
         headers: {
-          Authorization: `Bearer ${this.key}`,
+          Authorization: `Bearer ${OpenAI.key}`,
         },
       }
     );
@@ -138,15 +148,20 @@ class OpenAI {
   }
 
   async getSubscription(): Promise<BillingSubscriptionResponse> {
-    if (!this.key) {
-      // throw new Error("OpenAI key not set");
+    const key = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+    console.log("KEY", key);
+    if (!key) {
+      throw new Error("OpenAI key not set");
     }
+
+    OpenAI.setKey(key.replaceAll('"', ""));
 
     const response = await axios.get<BillingSubscriptionResponse>(
       `https://api.openai.com/dashboard/billing/subscription`,
       {
         headers: {
-          Authorization: `Bearer ${this.key}`,
+          Authorization: `Bearer ${OpenAI.key}`,
         },
       }
     );
@@ -159,7 +174,7 @@ class OpenAI {
       `https://api.openai.com/v1/organizations/${this.orgId}/users`,
       {
         headers: {
-          Authorization: `Bearer ${this.key}`,
+          Authorization: `Bearer ${OpenAI.key}`,
         },
       }
     );

@@ -18,8 +18,6 @@ const Billing = () => {
 
   const { data, isLoading } = useSWR("/api/v1/me", fetcher);
 
-  console.log(data);
-
   return (
     <div className="max-w-[800px] space-y-4">
       <Flex className="xl:flex-row flex-col items-start xl:items-center space-y-4">
