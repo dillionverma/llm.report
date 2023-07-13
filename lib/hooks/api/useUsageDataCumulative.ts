@@ -10,8 +10,6 @@ export const useUsageDataCumulative = (startDate: Date, endDate: Date) => {
     queries: dates.map((date) => ({
       queryKey: ["usage", format(date, "yyyy-MM-dd")],
       queryFn: () => openai.getUsage(date),
-      // cacheTime: 1000 * 60 * 60 * 24, // 24 hours
-      // staleTime: 1000 * 60 * 5, // 5 minutes
     })),
   });
 

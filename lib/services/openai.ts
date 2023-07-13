@@ -1,7 +1,7 @@
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
 import axios from "axios";
 import { differenceInMinutes, format } from "date-fns";
-import { get, set } from "idb-keyval";
+import { get } from "idb-keyval";
 import {
   BillingSubscriptionResponse,
   BillingUsageResponse,
@@ -9,7 +9,7 @@ import {
   UsageResponse,
 } from "../types";
 
-class OpenAI {
+export class OpenAI {
   private static key: string | null = null;
   private orgId: string | null = null;
   private pendingGetUsagePromise: Promise<UsageResponse> | null = null;
@@ -83,7 +83,7 @@ class OpenAI {
         }
       );
 
-      await set(query.date, { data: res.data, timestamp: new Date() });
+      // await set(query.date, { data: res.data, timestamp: new Date() });
 
       return res.data;
     } catch (err) {
@@ -142,7 +142,7 @@ class OpenAI {
       }
     );
 
-    await set(cacheKey, { data: res.data, timestamp: new Date() });
+    // await set(cacheKey, { data: res.data, timestamp: new Date() });
 
     return res.data;
   }

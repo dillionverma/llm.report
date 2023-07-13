@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
-import openai from "@/lib/services/openai";
+import openai, { OpenAI } from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
 import { cn } from "@/lib/utils";
 import { Card, Flex, Grid, Text, Title } from "@tremor/react";
@@ -32,7 +32,7 @@ const OnboardingDashboard = ({
 
     if (name === LOCAL_STORAGE_KEY) {
       setKey(value);
-      openai.setKey(value);
+      OpenAI.setKey(value);
     }
   };
 

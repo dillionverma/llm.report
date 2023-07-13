@@ -484,14 +484,6 @@ const SettingsModal = () => {
     true
   );
 
-  // const [isClear, setIsClear] = useLocalStorage<boolean>("clear-cache", false);
-
-  // useEffect(() => {
-  //   if (!isClear) {
-  //     clear();
-  //   }
-  // }, [isClear]);
-
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
 
   useEffect(() => {

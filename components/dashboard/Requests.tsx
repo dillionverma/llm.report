@@ -67,105 +67,15 @@ const LoadingList = () => {
   );
 };
 
-const Requests = ({
-  startDate,
-  endDate,
-}: // categories,
-// defaultLoading,
-// demo,
-{
+interface RequestsProps {
   startDate: Date;
   endDate: Date;
-  // categories: Category[];
-  // defaultLoading?: boolean;
-  // demo?: boolean;
-}) => {
+}
+
+const Requests = ({ startDate, endDate }: RequestsProps) => {
   const { requestData, loading } = useUsageDataCumulative(startDate, endDate);
-  // const [loading, setLoading] = useState(false);
-  // const [requestData, setRequestData] = useState<
-  //   { name: string; value: number }[]
-  // >([]);
-  // const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
-  // const { data: session } = useSession();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (!startDate || !endDate) {
-  //       return;
-  //     }
-
-  //     setLoading(true);
-
-  //     const dates = dateRange(startDate, endDate);
-
-  //     openai.setKey(key);
-
-  //     let data;
-  //     try {
-  //       if (demo) {
-  //         data = usageDay1;
-  //       } else {
-  //         data = await Promise.all(dates.map((date) => openai.getUsage(date)));
-  //       }
-  //     } catch (e) {
-  //       console.error(e);
-  //       return;
-  //     }
-
-  //     console.log(data);
-
-  //     const cumulativeUsage = data.reduce(
-  //       (acc, cv) => {
-  //         return {
-  //           ...acc,
-  //           total:
-  //             acc.total + cv.data.reduce((acc, cv) => acc + cv.n_requests, 0),
-  //           requests: cv.data.reduce((acc, cv) => {
-  //             return {
-  //               ...acc,
-  //               // @ts-ignore
-  //               [cv.snapshot_id]: (acc[cv.snapshot_id] || 0) + cv.n_requests,
-  //             };
-  //           }, acc.requests),
-
-  //           contextTokens: cv.data.reduce((acc, cv) => {
-  //             return {
-  //               ...acc,
-  //               [cv.snapshot_id]:
-  //                 // @ts-ignore
-  //                 (acc[cv.snapshot_id] || 0) + cv.n_context_tokens_total,
-  //             };
-  //           }, acc.contextTokens),
-  //           generatedTokens: cv.data.reduce((acc, cv) => {
-  //             return {
-  //               ...acc,
-  //               [cv.snapshot_id]:
-  //                 // @ts-ignore
-  //                 (acc[cv.snapshot_id] || 0) + cv.n_generated_tokens_total,
-  //             };
-  //           }, acc.generatedTokens),
-  //         };
-  //       },
-  //       { total: 0, requests: {}, contextTokens: {}, generatedTokens: {} }
-  //     );
-
-  //     console.log("CUMUL", cumulativeUsage);
-
-  //     setRequestData(
-  //       Object.entries(cumulativeUsage.requests)
-  //         .map(([name, value]): { name: string; value: number } => ({
-  //           name,
-  //           value: value as number,
-  //         }))
-  //         .sort((a, b) => b.value - a.value)
-  //     );
-  //     setLoading(false);
-  //   })();
-  // }, [startDate, endDate, key, session, demo]);
-
-  if (loading) {
-    return <LoadingList />;
-  }
+  if (loading) return <LoadingList />;
 
   return (
     <motion.div
