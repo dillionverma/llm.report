@@ -352,8 +352,8 @@ export default function Dashboard() {
 
       <Card className="mt-4 shadow-none">
         <MonthlyChart
-          startDate={value[0]}
-          endDate={value[1]}
+          startDate={value[0]!}
+          endDate={value[1]!}
           categories={categories!}
         />
       </Card>
@@ -361,8 +361,8 @@ export default function Dashboard() {
       <Grid numColsMd={1} numColsLg={3} className="gap-6 mt-4">
         <Card className="shadow-none">
           <Cost
-            startDate={value[0]}
-            endDate={value[1]}
+            startDate={value[0]!}
+            endDate={value[1]!}
             categories={categories!}
             // demo={!data?.user}
             // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
@@ -370,8 +370,8 @@ export default function Dashboard() {
         </Card>
         <Card className="shadow-none">
           <Requests
-            startDate={value[0]}
-            endDate={value[1]}
+            startDate={value[0]!}
+            endDate={value[1]!}
             // categories={categories!}
             // demo={!data?.user}
             // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
@@ -379,9 +379,9 @@ export default function Dashboard() {
         </Card>
         <Card className="shadow-none">
           <Tokens
-            startDate={value[0]}
-            endDate={value[1]}
-            // categories={categories!}
+            startDate={value[0]!}
+            endDate={value[1]!}
+            categories={categories!}
             // demo={!data?.user}
             // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
