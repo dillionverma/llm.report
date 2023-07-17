@@ -28,11 +28,7 @@ const MonthlyCostChart = ({
     categories
   );
 
-  if (!subscription || !chartData || !billing) return null;
-
-  const getPercentage = () => billing.total_usage / subscription.hard_limit_usd;
-
-  if (isLoading) {
+  if (!subscription || !chartData || !billing)
     return (
       <motion.div
         initial="hidden"
@@ -54,7 +50,8 @@ const MonthlyCostChart = ({
         <div className="mt-3 bg-gray-200 rounded-full w-full h-4 mb-2.5 "></div>
       </motion.div>
     );
-  }
+
+  const getPercentage = () => billing.total_usage / subscription.hard_limit_usd;
 
   return (
     <>
