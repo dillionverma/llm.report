@@ -6,6 +6,23 @@ import MonthlyChart from "@/components/dashboard/MonthlyChart";
 import RequestChart from "@/components/dashboard/RequestChart";
 import Requests from "@/components/dashboard/Requests";
 import Tokens from "@/components/dashboard/Tokens";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   CATEGORIES,
   CATEGORIES_KEY,
@@ -15,6 +32,8 @@ import {
 import openai from "@/lib/services/openai";
 import { Category, OrganizationUsers } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
+import { dateRange } from "@/lib/utils";
+import { PersistedClient } from "@tanstack/react-query-persist-client";
 import {
   Badge,
   Card,
@@ -28,9 +47,49 @@ import {
   Title,
 } from "@tremor/react";
 import { add, startOfMonth, sub } from "date-fns";
+import { get } from "idb-keyval";
+import { ArrowUpDown } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ContextTokenChart from "./ContextTokenChart";
+
+const CacheData = () => {
+  const dates = dateRange(sub(new Date(), { days: 10 }), new Date());
+  const [queryCache, setQueryCache] = useState<PersistedClient>();
+
+  useEffect(() => {
+    (async () => {
+      const persistedClient = await get<PersistedClient>("reactQuery");
+      if (!persistedClient) return;
+      setQueryCache(persistedClient);
+      console.log(persistedClient);
+    })();
+  }, []);
+
+  return (
+    <Table>
+      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">Date</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead className="text-right">Fetch</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {queryCache?.clientState.queries?.map((query, i) => (
+          <TableRow key={i}>
+            <TableCell className="font-medium">{query.queryHash}</TableCell>
+            <TableCell>
+              <Badge color="green">Success</Badge>
+            </TableCell>
+            <TableCell className="text-right">$250.00</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+};
 
 export default function Dashboard() {
   const [value, setValue] = useState<DateRangePickerValue>([
@@ -42,6 +101,8 @@ export default function Dashboard() {
   ]);
 
   const setDates = (v: DateRangePickerValue) => {
+    // if (!v[0] || !v[1]) return;
+
     // Edge case due to OpenAI API. They don't accept start_date === end_date.
     if (v[0] && v[1] && v[0].getTime() === v[1].getTime()) {
       return setValue([v[0], add(v[1], { days: 1 }), v[2]]);
@@ -115,108 +176,123 @@ export default function Dashboard() {
   return (
     <div>
       <Flex className="2xl:flex-row flex-col items-start 2xl:items-center space-y-4">
-        <div className="space-y-2">
-          <div className="flex flex-row space-x-3">
-            <Title>OpenAI Analytics</Title>
+        <div className="flex w-full flex-row gap-4">
+          <div className="flex flex-col items-center gap-2 justify-center">
+            <div className="flex flex-row gap-2">
+              <Title>OpenAI Analytics</Title>
 
-            {!data?.user && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="blue"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                  </span>
-                )}
-              >
-                demo
-              </Badge>
-            )}
+              {!data?.user && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="blue"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                    </span>
+                  )}
+                >
+                  demo
+                </Badge>
+              )}
 
-            {data?.user && !key && subscribed && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="red"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                  </span>
-                )}
-              >
-                waiting for key
-              </Badge>
-            )}
+              {data?.user && !key && subscribed && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="red"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                  )}
+                >
+                  waiting for key
+                </Badge>
+              )}
 
-            {data?.user && !subscribed && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="red"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                  </span>
-                )}
-              >
-                waiting for subscription
-              </Badge>
-            )}
+              {data?.user && !subscribed && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="red"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                  )}
+                >
+                  waiting for subscription
+                </Badge>
+              )}
 
-            {data?.user && key && validKey && !isDown && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="green"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                  </span>
-                )}
-              >
-                live
-              </Badge>
-            )}
+              {data?.user && key && validKey && !isDown && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="green"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                  )}
+                >
+                  live
+                </Badge>
+              )}
 
-            {data?.user && key && validKey && isDown && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="red"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                  </span>
-                )}
-              >
-                OpenAI cost API is down
-              </Badge>
-            )}
+              {data?.user && key && validKey && isDown && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="red"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                  )}
+                >
+                  OpenAI cost API is down
+                </Badge>
+              )}
 
-            {data?.user && key && !validKey && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="red"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                  </span>
-                )}
-              >
-                invalid key
-              </Badge>
-            )}
+              {data?.user && key && !validKey && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="red"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                  )}
+                >
+                  invalid key
+                </Badge>
+              )}
+            </div>
+            <Text>Let&apos;s see how we&apos;re doing today</Text>
           </div>
-
-          <Text>Let&apos;s see how we&apos;re doing today</Text>
+          <Sheet>
+            <SheetTrigger>
+              <ArrowUpDown className="w-8 h-8 rounded-full bg-slate-200 p-2" />
+            </SheetTrigger>
+            <SheetContent>
+              <ScrollArea>
+                <SheetHeader>
+                  <SheetTitle>OpenAI Data</SheetTitle>
+                  <CacheData />
+                  {/* <SheetDescription></SheetDescription> */}
+                </SheetHeader>
+              </ScrollArea>
+            </SheetContent>
+          </Sheet>
         </div>
 
         <div className="w-full max-w-3xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col z-20">
@@ -352,8 +428,8 @@ export default function Dashboard() {
 
       <Card className="mt-4 shadow-none">
         <MonthlyChart
-          startDate={value[0]!}
-          endDate={value[1]!}
+          startDate={value[0]}
+          endDate={value[1]}
           categories={categories!}
         />
       </Card>
@@ -361,8 +437,8 @@ export default function Dashboard() {
       <Grid numColsMd={1} numColsLg={3} className="gap-6 mt-4">
         <Card className="shadow-none">
           <Cost
-            startDate={value[0]!}
-            endDate={value[1]!}
+            startDate={value[0]}
+            endDate={value[1]}
             categories={categories!}
             // demo={!data?.user}
             // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
@@ -370,8 +446,8 @@ export default function Dashboard() {
         </Card>
         <Card className="shadow-none">
           <Requests
-            startDate={value[0]!}
-            endDate={value[1]!}
+            startDate={value[0]}
+            endDate={value[1]}
             // categories={categories!}
             // demo={!data?.user}
             // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
@@ -379,8 +455,8 @@ export default function Dashboard() {
         </Card>
         <Card className="shadow-none">
           <Tokens
-            startDate={value[0]!}
-            endDate={value[1]!}
+            startDate={value[0]}
+            endDate={value[1]}
             categories={categories!}
             // demo={!data?.user}
             // defaultLoading={data?.user && (!subscribed || !validKey || !key)}

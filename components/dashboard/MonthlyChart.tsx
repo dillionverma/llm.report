@@ -86,17 +86,15 @@ const MonthlyChart = ({
 
   const dailyCosts = billingData.daily_costs;
 
-  const totalUsage = dailyCosts
-    .filter((day) => day.timestamp > startDate.getTime() / 1000)
-    .reduce((acc, cv) => {
-      return (
-        acc +
-        cv.line_items.reduce(
-          (acc, cv) => acc + (new Set(categories).has(cv.name) ? cv.cost : 0),
-          0
-        )
-      );
-    }, 0);
+  const totalUsage = dailyCosts.reduce((acc, cv) => {
+    return (
+      acc +
+      cv.line_items.reduce(
+        (acc, cv) => acc + (new Set(categories).has(cv.name) ? cv.cost : 0),
+        0
+      )
+    );
+  }, 0);
 
   const data = dailyCosts
     .map((day) => {
@@ -113,7 +111,7 @@ const MonthlyChart = ({
         ).toFixed(2),
       };
     })
-    .filter((day) => parse(day.date, "MMM d", new Date()) > startDate);
+    .filter((day) => parse(day.date, "MMM d", new Date()) >= startDate);
 
   const cumulativeData = dailyCosts
     .map((day, index) => {
@@ -158,7 +156,7 @@ const MonthlyChart = ({
         ).toFixed(2),
       };
     })
-    .filter((day) => parse(day.date, "MMM d", new Date()) > startDate);
+    .filter((day) => parse(day.date, "MMM d", new Date()) >= startDate);
 
   return (
     <>

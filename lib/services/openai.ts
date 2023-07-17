@@ -1,7 +1,6 @@
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
 import axios from "axios";
-import { differenceInMinutes, format } from "date-fns";
-import { get } from "idb-keyval";
+import { format } from "date-fns";
 import {
   BillingSubscriptionResponse,
   BillingUsageResponse,
@@ -65,14 +64,7 @@ export class OpenAI {
 
     // // Return the pending promise
     // return this.pendingGetUsagePromise;
-    return this.fetchAndCacheUsage(query);
-  }
-
-  private async fetchAndCacheUsage(query: any) {
-    if (!OpenAI.key) {
-      throw new Error("OpenAI key not set");
-    }
-
+    // return this.fetchAndCacheUsage(query);
     try {
       const res = await axios.get(
         `https://api.openai.com/v1/usage?${new URLSearchParams(query)}`,
@@ -100,6 +92,7 @@ export class OpenAI {
       throw new Error("OpenAI key not set");
     }
 
+    console.log("start", startDate, "end", endDate);
     OpenAI.setKey(key.replaceAll('"', ""));
 
     if (typeof startDate === "string") {
@@ -118,18 +111,18 @@ export class OpenAI {
       end_date: format(endDate, "yyyy-MM-dd"),
     };
 
-    const cacheKey = `${query.start_date}-${query.end_date}`;
-    const cached = await get<{ data: BillingUsageResponse; timestamp: Date }>(
-      cacheKey
-    );
+    // const cacheKey = `${query.start_date}-${query.end_date}`;
+    // const cached = await get<{ data: BillingUsageResponse; timestamp: Date }>(
+    //   cacheKey
+    // );
 
-    if (
-      cached &&
-      (query.start_date !== format(new Date(), "yyyy-MM-dd") ||
-        differenceInMinutes(new Date(), cached.timestamp) < 10)
-    ) {
-      return cached.data;
-    }
+    // if (
+    //   cached &&
+    //   (query.start_date !== format(new Date(), "yyyy-MM-dd") ||
+    //     differenceInMinutes(new Date(), cached.timestamp) < 10)
+    // ) {
+    //   return cached.data;
+    // }
 
     const res = await axios.get<BillingUsageResponse>(
       `https://api.openai.com/dashboard/billing/usage?${new URLSearchParams(

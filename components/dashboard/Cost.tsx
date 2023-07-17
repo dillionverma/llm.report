@@ -16,6 +16,7 @@ interface MonthlyCostChartProps {
   endDate: Date;
   categories: Category[];
 }
+
 const MonthlyCostChart = ({
   startDate,
   endDate,
@@ -54,14 +55,14 @@ const MonthlyCostChart = ({
   const getPercentage = () => billing.total_usage / subscription.hard_limit_usd;
 
   return (
-    <>
+    <div className="flex flex-col h-full">
       <Flex alignItems="start">
         <Title>Cost</Title>
         {/* <BadgeDelta deltaType="moderateIncrease">23.1%</BadgeDelta> */}
       </Flex>
 
       <Metric>
-        {chartData.reduce((acc, { cost }) => acc + cost, 0).toFixed(2)}
+        $ {chartData.reduce((acc, { cost }) => acc + cost, 0).toFixed(2)}
       </Metric>
       <motion.div
         initial="hidden"
@@ -84,6 +85,7 @@ const MonthlyCostChart = ({
           colors={chartData.map(({ color }) => color)}
         />
       </motion.div>
+      <div className="flex flex-1" />
       <Flex className="mt-4">
         <Text className="truncate">{`${getPercentage().toFixed(
           2
@@ -91,7 +93,7 @@ const MonthlyCostChart = ({
         <Text>$ {subscription.hard_limit_usd.toFixed(2)}</Text>
       </Flex>
       <ProgressBar percentageValue={getPercentage()} className="mt-2" />
-    </>
+    </div>
   );
 };
 

@@ -3,34 +3,48 @@ import { useBillingData } from "@/lib/hooks/api/useBillingData";
 import { useCostChartData } from "@/lib/hooks/charts/useCostChartData";
 import { Category } from "@/lib/types";
 import { BarChart, Flex, Metric, Text, Title } from "@tremor/react";
+import { add } from "date-fns";
 
 const dataFormatter = (number: number) => {
   return "$ " + Intl.NumberFormat("us").format(number).toString();
 };
 
-type Select = "minute" | "day" | "cumulative";
-
-const CostChart = ({
-  startDate,
-  endDate,
-  categories,
-  defaultLoading,
-  demo,
-}: {
+interface CostChartProps {
   startDate: Date;
   endDate: Date;
   categories: Category[];
-  defaultLoading?: boolean;
-  demo?: boolean;
-}) => {
-  const { data: BillingData } = useBillingData(startDate, endDate);
+}
+
+const CostChart = ({ startDate, endDate, categories }: CostChartProps) => {
+  // need to add a day here since this only needs billing data for current day
+  const { data: BillingData } = useBillingData(
+    startDate,
+    add(endDate, { days: 1 })
+  );
   const { snapshots, selectedSnapshots, data, loading } = useCostChartData(
     startDate,
     endDate,
     categories
   );
 
-  if (!BillingData || !snapshots || !selectedSnapshots || !data) return null;
+  if (!BillingData || !snapshots || !selectedSnapshots || !data)
+    return (
+      <div className="flex flex-col h-56">
+        <div className="flex flex-row justify-between items-center">
+          <div>
+            <div className="mt-3 bg-gray-200 rounded-full w-[7rem] h-3 mb-2.5 "></div>
+            <div className="mt-3 bg-gray-200 rounded-full w-[8rem] h-8 mb-2.5 "></div>
+          </div>
+          <div className="bg-gray-200 rounded-full w-[10rem] h-8 mb-2.5"></div>
+        </div>
+        {/* <div className="flex flex-col items-end">
+        <div className="bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5"></div>
+      </div> */}
+        {/* <LoadingChart /> */}
+        <div className="flex flex-1" />
+        <div className="flex mt-3 bg-gray-200 rounded-full w-full h-4 mb-2.5 "></div>
+      </div>
+    );
 
   const dailyCosts = BillingData.daily_costs;
 
@@ -38,26 +52,6 @@ const CostChart = ({
     (acc, cv) => acc + (new Set(categories).has(cv.name) ? cv.cost : 0),
     0
   );
-
-  if (loading) {
-    return (
-      <div className="flex flex-col h-56">
-        <div className="flex flex-row justify-between items-center">
-          <div>
-            <div className="mt-3 bg-gray-200 rounded-full  w-[7rem] h-3 mb-2.5 "></div>
-            <div className="mt-3 bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5 "></div>
-          </div>
-          <div className="bg-gray-200 rounded-full  w-[10rem] h-8 mb-2.5"></div>
-        </div>
-        {/* <div className="flex flex-col items-end">
-          <div className="bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5"></div>
-        </div> */}
-        {/* <LoadingChart /> */}
-        <div className="flex flex-1" />
-        <div className="flex mt-3 bg-gray-200 rounded-full  w-full h-4 mb-2.5 "></div>
-      </div>
-    );
-  }
 
   return (
     <>
