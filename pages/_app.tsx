@@ -2,6 +2,7 @@ import Meta from "@/components/Meta";
 import SettingsModal, { DialogProvider } from "@/components/SettingsModal";
 import { Transition } from "@/components/Transition";
 import Layout from "@/components/layout";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
 import { useCopyCode } from "@/lib/copyCode";
 import "@/styles/globals.css";
@@ -46,22 +47,24 @@ export default function App({
 
       <ReactQueryProvider state={dehydratedState}>
         <DialogProvider>
-          <Meta />
-          <Layout>
-            <Transition>
-              <Component {...pageProps} />
-            </Transition>
-          </Layout>
-          <Toaster
-            position="top-center"
-            reverseOrder={false}
-            toastOptions={{
-              style: {
-                maxWidth: 500,
-              },
-            }}
-          />
-          <SettingsModal />
+          <TooltipProvider>
+            <Meta />
+            <Layout>
+              <Transition>
+                <Component {...pageProps} />
+              </Transition>
+            </Layout>
+            <Toaster
+              position="top-center"
+              reverseOrder={false}
+              toastOptions={{
+                style: {
+                  maxWidth: 500,
+                },
+              }}
+            />
+            <SettingsModal />
+          </TooltipProvider>
         </DialogProvider>
       </ReactQueryProvider>
     </SessionProvider>

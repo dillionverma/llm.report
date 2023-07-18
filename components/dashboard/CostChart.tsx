@@ -3,7 +3,6 @@ import { useBillingData } from "@/lib/hooks/api/useBillingData";
 import { useCostChartData } from "@/lib/hooks/charts/useCostChartData";
 import { Category } from "@/lib/types";
 import { BarChart, Flex, Metric, Text, Title } from "@tremor/react";
-import { add } from "date-fns";
 
 const dataFormatter = (number: number) => {
   return "$ " + Intl.NumberFormat("us").format(number).toString();
@@ -17,10 +16,7 @@ interface CostChartProps {
 
 const CostChart = ({ startDate, endDate, categories }: CostChartProps) => {
   // need to add a day here since this only needs billing data for current day
-  const { data: BillingData } = useBillingData(
-    startDate,
-    add(endDate, { days: 1 })
-  );
+  const { data: BillingData } = useBillingData(startDate, endDate);
   const { snapshots, selectedSnapshots, data, loading } = useCostChartData(
     startDate,
     endDate,

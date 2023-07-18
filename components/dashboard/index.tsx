@@ -6,23 +6,6 @@ import MonthlyChart from "@/components/dashboard/MonthlyChart";
 import RequestChart from "@/components/dashboard/RequestChart";
 import Requests from "@/components/dashboard/Requests";
 import Tokens from "@/components/dashboard/Tokens";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   CATEGORIES,
   CATEGORIES_KEY,
@@ -32,82 +15,85 @@ import {
 import openai from "@/lib/services/openai";
 import { Category, OrganizationUsers } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
-import { dateRange } from "@/lib/utils";
-import { PersistedClient } from "@tanstack/react-query-persist-client";
 import {
   Badge,
   Card,
   DateRangePicker,
+  DateRangePickerItem,
   DateRangePickerValue,
   Flex,
   Grid,
-  MultiSelectBox,
-  MultiSelectBoxItem,
+  MultiSelect,
+  MultiSelectItem,
   Text,
   Title,
 } from "@tremor/react";
 import { add, startOfMonth, sub } from "date-fns";
-import { get } from "idb-keyval";
-import { ArrowUpDown } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ContextTokenChart from "./ContextTokenChart";
 
-const CacheData = () => {
-  const dates = dateRange(sub(new Date(), { days: 10 }), new Date());
-  const [queryCache, setQueryCache] = useState<PersistedClient>();
-
-  useEffect(() => {
-    (async () => {
-      const persistedClient = await get<PersistedClient>("reactQuery");
-      if (!persistedClient) return;
-      setQueryCache(persistedClient);
-      console.log(persistedClient);
-    })();
-  }, []);
-
-  return (
-    <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Date</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead className="text-right">Fetch</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {queryCache?.clientState.queries?.map((query, i) => (
-          <TableRow key={i}>
-            <TableCell className="font-medium">{query.queryHash}</TableCell>
-            <TableCell>
-              <Badge color="green">Success</Badge>
-            </TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
-};
+const dateSelectOptions = [
+  {
+    value: "tdy",
+    text: "Today",
+    from: sub(new Date(), { days: 1 }),
+  },
+  {
+    value: "3d",
+    text: "Last 3 days",
+    from: sub(new Date(), { days: 3 }),
+  },
+  {
+    value: "w",
+    text: "Last 7 days",
+    from: sub(new Date(), { days: 7 }),
+  },
+  {
+    value: "mtd",
+    text: "Month to date",
+    from: startOfMonth(new Date()),
+  },
+  {
+    value: "m",
+    text: "Last 30 days",
+    from: sub(new Date(), { days: 30 }),
+    // utc end date
+    to: new Date(),
+  },
+  {
+    value: "100d",
+    text: "Last 100 days (Max)",
+    from: sub(new Date(), { days: 100 }),
+  },
+];
 
 export default function Dashboard() {
-  const [value, setValue] = useState<DateRangePickerValue>([
-    startOfMonth(new Date()),
-    startOfMonth(new Date()) === new Date()
-      ? new Date()
-      : add(new Date(), { days: 1 }),
-    "mtd",
-  ]);
+  const [value, setValue] = useState<DateRangePickerValue>({
+    from: startOfMonth(new Date()),
+    to:
+      startOfMonth(new Date()) === new Date()
+        ? new Date()
+        : add(new Date(), { days: 1 }),
+    selectValue: "mtd",
+  });
 
   const setDates = (v: DateRangePickerValue) => {
     // if (!v[0] || !v[1]) return;
 
     // Edge case due to OpenAI API. They don't accept start_date === end_date.
-    if (v[0] && v[1] && v[0].getTime() === v[1].getTime()) {
-      return setValue([v[0], add(v[1], { days: 1 }), v[2]]);
+    if (v.from && v.to && v.from.getTime() === v.to.getTime()) {
+      return setValue({
+        from: v.from,
+        to: add(v.to, { days: 1 }),
+        selectValue: v.selectValue,
+      });
     } else {
-      setValue(v);
+      setValue({
+        from: v.from || new Date(),
+        to: v.to || new Date(),
+        selectValue: v.selectValue,
+      });
     }
   };
 
@@ -279,82 +265,35 @@ export default function Dashboard() {
             </div>
             <Text>Let&apos;s see how we&apos;re doing today</Text>
           </div>
-          <Sheet>
-            <SheetTrigger>
-              <ArrowUpDown className="w-8 h-8 rounded-full bg-slate-200 p-2" />
-            </SheetTrigger>
-            <SheetContent>
-              <ScrollArea>
-                <SheetHeader>
-                  <SheetTitle>OpenAI Data</SheetTitle>
-                  <CacheData />
-                  {/* <SheetDescription></SheetDescription> */}
-                </SheetHeader>
-              </ScrollArea>
-            </SheetContent>
-          </Sheet>
         </div>
 
         <div className="w-full max-w-3xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col z-20">
           <DateRangePicker
             value={value}
             onValueChange={setDates}
-            dropdownPlaceholder="Select"
-            options={[
-              {
-                value: "tdy",
-                text: "Today",
-                startDate: sub(new Date(), { days: 1 }),
-              },
-              {
-                value: "3d",
-                text: "Last 3 days",
-                startDate: sub(new Date(), { days: 3 }),
-              },
-              {
-                value: "w",
-                text: "Last 7 days",
-                startDate: sub(new Date(), { days: 7 }),
-              },
-              {
-                value: "mtd",
-                text: "Month to date",
-                startDate: startOfMonth(new Date()),
-              },
-              {
-                value: "m",
-                text: "Last 30 days",
-                startDate: sub(new Date(), { days: 30 }),
-                // utc end date
-                endDate: new Date(),
-              },
-              {
-                value: "100d",
-                text: "Last 100 days (Max)",
-                startDate: sub(new Date(), { days: 100 }),
-              },
-            ]}
-            // minDate={sub(new Date(), { days: 100 })}
-            // maxDate={new Date()}
-          />
+            selectPlaceholder="Select"
+          >
+            {dateSelectOptions.map((option, index) => (
+              <DateRangePickerItem key={index} {...option}>
+                {option.text}
+              </DateRangePickerItem>
+            ))}
+          </DateRangePicker>
 
-          <MultiSelectBox
-            // className="w-full"
+          <MultiSelect
             placeholder="Select Models"
             value={categories!}
-            onValueChange={(a) => {
+            onValueChange={(a: any) => {
               console.log("VALUE CHANGE", a);
               setCategories(a as Category[]);
             }}
           >
             {CATEGORIES.map((category, index) => (
-              <MultiSelectBoxItem
-                key={index}
-                value={category}
-                text={category}
-              />
+              <MultiSelectItem key={index} value={category}>
+                {category}
+              </MultiSelectItem>
             ))}
-          </MultiSelectBox>
+          </MultiSelect>
           {/* 
           {users && (
             <Dropdown
@@ -383,9 +322,9 @@ export default function Dashboard() {
       </Flex>
 
       <Grid
-        numCols={1}
-        numColsMd={2}
-        numColsLg={4}
+        numItems={1}
+        numItemsMd={2}
+        numItemsLg={4}
         className="gap-6 mt-4 w-full"
       >
         <Card className="shadow-none z-10">
@@ -428,17 +367,17 @@ export default function Dashboard() {
 
       <Card className="mt-4 shadow-none">
         <MonthlyChart
-          startDate={value[0]}
-          endDate={value[1]}
+          startDate={value.from}
+          endDate={value.to}
           categories={categories!}
         />
       </Card>
 
-      <Grid numColsMd={1} numColsLg={3} className="gap-6 mt-4">
+      <Grid numItemsMd={1} numItemsLg={3} className="gap-6 mt-4">
         <Card className="shadow-none">
           <Cost
-            startDate={value[0]}
-            endDate={value[1]}
+            startDate={value.from}
+            endDate={value.to}
             categories={categories!}
             // demo={!data?.user}
             // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
@@ -446,8 +385,8 @@ export default function Dashboard() {
         </Card>
         <Card className="shadow-none">
           <Requests
-            startDate={value[0]}
-            endDate={value[1]}
+            startDate={value.from}
+            endDate={value.to}
             // categories={categories!}
             // demo={!data?.user}
             // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
@@ -455,8 +394,8 @@ export default function Dashboard() {
         </Card>
         <Card className="shadow-none">
           <Tokens
-            startDate={value[0]}
-            endDate={value[1]}
+            startDate={value.from}
+            endDate={value.to}
             categories={categories!}
             // demo={!data?.user}
             // defaultLoading={data?.user && (!subscribed || !validKey || !key)}

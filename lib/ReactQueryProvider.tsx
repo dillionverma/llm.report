@@ -6,7 +6,16 @@ import {
   Persister,
 } from "@tanstack/react-query-persist-client";
 import { del, get, set } from "idb-keyval";
+import { useSession } from "next-auth/react";
 import { PropsWithChildren, useState } from "react";
+
+export function blankIDBPersister() {
+  return {
+    persistClient: async (client: PersistedClient) => {},
+    restoreClient: async () => {},
+    removeClient: async () => {},
+  } as Persister;
+}
 
 export function createIDBPersister(idbValidKey: IDBValidKey = "reactQuery") {
   return {
@@ -31,24 +40,23 @@ export function createIDBPersister(idbValidKey: IDBValidKey = "reactQuery") {
   } as Persister;
 }
 
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: true,
+    },
+  },
+});
 export const ReactQueryProvider = ({
   children,
   state,
 }: PropsWithChildren<{ state: unknown }>) => {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: Infinity,
-            cacheTime: Infinity,
-            refetchOnWindowFocus: false,
-            refetchOnReconnect: false,
-            retry: false,
-          },
-        },
-      })
-  );
+  const { status } = useSession();
+  const [client] = useState(queryClient);
 
   const [persister] = useState(() => {
     if (typeof window === "undefined") return;
@@ -65,8 +73,10 @@ export const ReactQueryProvider = ({
 
   return (
     <PersistQueryClientProvider
-      client={queryClient}
-      persistOptions={{ persister: persister! }}
+      client={client}
+      persistOptions={{
+        persister: persister!,
+      }}
     >
       <Hydrate state={state}>{children}</Hydrate>
     </PersistQueryClientProvider>

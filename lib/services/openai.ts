@@ -19,6 +19,14 @@ export class OpenAI {
     OpenAI.key = key;
   }
 
+  static getKey() {
+    return OpenAI.key;
+  }
+
+  static hasKey() {
+    return !!OpenAI.key;
+  }
+
   setOrgId(orgId: string) {
     this.orgId = orgId;
   }
@@ -39,32 +47,6 @@ export class OpenAI {
       date: format(date, "yyyy-MM-dd"),
     };
 
-    // const cached = await get<{ data: UsageResponse; timestamp: Date }>(
-    //   query.date
-    // );
-
-    // const isToday = query.date === format(new Date(), "yyyy-MM-dd");
-
-    // If cached data exists and (it's not today or (it's today and it's been less than 10 minutes since cached))
-    // if (
-    //   cached &&
-    //   (!isToday ||
-    //     (isToday && differenceInMinutes(new Date(), cached.timestamp) < 10))
-    // ) {
-    //   return cached.data;
-    // }
-
-    // If there's no pending request, make a new one and store the promise
-    // if (!this.pendingGetUsagePromise) {
-    //   this.pendingGetUsagePromise = this.fetchAndCacheUsage(query);
-    //   this.pendingGetUsagePromise.finally(() => {
-    //     this.pendingGetUsagePromise = null; // Reset the pending promise when the request completes or fails
-    //   });
-    // }
-
-    // // Return the pending promise
-    // return this.pendingGetUsagePromise;
-    // return this.fetchAndCacheUsage(query);
     try {
       const res = await axios.get(
         `https://api.openai.com/v1/usage?${new URLSearchParams(query)}`,
@@ -74,8 +56,6 @@ export class OpenAI {
           },
         }
       );
-
-      // await set(query.date, { data: res.data, timestamp: new Date() });
 
       return res.data;
     } catch (err) {

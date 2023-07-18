@@ -33,7 +33,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Tab, TabList } from "@tremor/react";
+import { Tab, TabGroup, TabList } from "@tremor/react";
 import { format } from "date-fns";
 import {
   CurlyBraces,
@@ -204,20 +204,25 @@ const RequestDialog = ({
                             /> */}
                               </tbody>
                             </table>
-                            <TabList
-                              defaultValue="pretty"
-                              onValueChange={(value) =>
+                            <TabGroup
+                              defaultIndex="pretty"
+                              onIndexChange={(value) =>
                                 setTab(value as TabState)
                               }
-                              className="mt-6"
                             >
-                              <Tab
-                                value="pretty"
-                                text="Pretty"
-                                icon={SparklesIcon}
-                              />
-                              <Tab value="raw" text="Raw" icon={CurlyBraces} />
-                            </TabList>
+                              <TabList className="mt-6">
+                                <Tab
+                                  value="pretty"
+                                  text="Pretty"
+                                  icon={SparklesIcon}
+                                />
+                                <Tab
+                                  value="raw"
+                                  text="Raw"
+                                  icon={CurlyBraces}
+                                />
+                              </TabList>
+                            </TabGroup>
 
                             <div className="mt-4">
                               {tab === "pretty" && (

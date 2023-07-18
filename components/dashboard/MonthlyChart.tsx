@@ -15,12 +15,13 @@ import {
   Flex,
   Legend,
   Metric,
+  Tab,
+  TabGroup,
+  TabList,
   Text,
   Title,
-  Toggle,
-  ToggleItem,
 } from "@tremor/react";
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
 import { motion } from "framer-motion";
 import LoadingChart from "./LoadingChart";
 
@@ -29,6 +30,8 @@ const dataFormatter = (number: number) => {
 };
 
 type Select = "minute" | "day" | "cumulative";
+
+const selectionTabs: Select[] = ["minute", "day", "cumulative"];
 
 const Loading = () => (
   <motion.div
@@ -96,67 +99,67 @@ const MonthlyChart = ({
     );
   }, 0);
 
-  const data = dailyCosts
-    .map((day) => {
-      return {
-        date: dateFormat(day.timestamp),
-        ...day.line_items.reduce((acc, cv) => {
-          return {
-            ...acc,
-            [cv.name]: (cv.cost / 100).toFixed(2),
-          };
-        }, {}),
-        "Total Cost ($)": (
-          day.line_items.reduce((acc, cv) => acc + cv.cost, 0) / 100
-        ).toFixed(2),
-      };
-    })
-    .filter((day) => parse(day.date, "MMM d", new Date()) >= startDate);
+  const data = dailyCosts.map((day) => {
+    return {
+      date: dateFormat(day.timestamp),
+      ...day.line_items.reduce((acc, cv) => {
+        return {
+          ...acc,
+          [cv.name]: (cv.cost / 100).toFixed(2),
+        };
+      }, {}),
+      "Total Cost ($)": (
+        day.line_items.reduce((acc, cv) => acc + cv.cost, 0) / 100
+      ).toFixed(2),
+    };
+  });
+  // .filter((day) => parse(day.date, "MMM d", new Date()) >= startDate);
 
-  const cumulativeData = dailyCosts
-    .map((day, index) => {
-      return {
-        date: dateFormat(day.timestamp),
-        ...day.line_items.reduce((acc, cv) => {
-          return {
-            ...acc,
-            [cv.name]: (cv.cost / 100).toFixed(2),
-          };
-        }, {}),
-        ...CATEGORIES.map((category) => {
-          return {
-            [category]: (
-              dailyCosts
-                .slice(0, index + 1)
-                .reduce(
-                  (acc, cv) =>
-                    acc +
-                    cv.line_items.reduce(
-                      (acc, cv) => acc + (cv.name === category ? cv.cost : 0),
-                      0
-                    ),
-                  0
-                ) / 100
-            ).toFixed(2),
-          };
-        }).reduce((acc, value) => {
-          return {
-            ...acc,
-            ...value,
-          };
-        }, {}),
-        "Total Cost ($)": (
-          dailyCosts
-            .slice(0, index + 1)
-            .reduce(
-              (acc, cv) =>
-                acc + cv.line_items.reduce((acc, cv) => acc + cv.cost, 0),
-              0
-            ) / 100
-        ).toFixed(2),
-      };
-    })
-    .filter((day) => parse(day.date, "MMM d", new Date()) >= startDate);
+  console.log("daily costs", data);
+
+  const cumulativeData = dailyCosts.map((day, index) => {
+    return {
+      date: dateFormat(day.timestamp),
+      ...day.line_items.reduce((acc, cv) => {
+        return {
+          ...acc,
+          [cv.name]: (cv.cost / 100).toFixed(2),
+        };
+      }, {}),
+      ...CATEGORIES.map((category) => {
+        return {
+          [category]: (
+            dailyCosts
+              .slice(0, index + 1)
+              .reduce(
+                (acc, cv) =>
+                  acc +
+                  cv.line_items.reduce(
+                    (acc, cv) => acc + (cv.name === category ? cv.cost : 0),
+                    0
+                  ),
+                0
+              ) / 100
+          ).toFixed(2),
+        };
+      }).reduce((acc, value) => {
+        return {
+          ...acc,
+          ...value,
+        };
+      }, {}),
+      "Total Cost ($)": (
+        dailyCosts
+          .slice(0, index + 1)
+          .reduce(
+            (acc, cv) =>
+              acc + cv.line_items.reduce((acc, cv) => acc + cv.cost, 0),
+            0
+          ) / 100
+      ).toFixed(2),
+    };
+  });
+  // .filter((day) => parse(day.date, "MMM d", new Date()) >= startDate);
 
   return (
     <>
@@ -167,13 +170,25 @@ const MonthlyChart = ({
           <Text>
             {startDate &&
               endDate &&
-              `from a ${format(startDate, "MMM d")} to ${format(
+              `from ${format(startDate, "MMM d")} to ${format(
                 endDate,
                 "MMM d"
               )}`}
           </Text>
         </div>
-        <Toggle
+        <TabGroup
+          className="max-w-fit mt-2 mb-2 md:mt-0"
+          color="zinc"
+          defaultIndex={selectionTabs.indexOf(selection!)}
+          onIndexChange={(value) => setSelection(selectionTabs[value])}
+        >
+          <TabList variant="solid" className="mt-8">
+            {selectionTabs.map((tab) => (
+              <Tab key={tab}>{tab}</Tab>
+            ))}
+          </TabList>
+        </TabGroup>
+        {/* <Toggle
           className="max-w-fit mt-2 mb-2 md:mt-0"
           color="zinc"
           defaultValue={selection!}
@@ -182,7 +197,7 @@ const MonthlyChart = ({
           <ToggleItem value="minute" text="Minute" />
           <ToggleItem value="day" text="Day" />
           <ToggleItem value="cumulative" text="Cumulative" />
-        </Toggle>
+        </Toggle> */}
       </Flex>
 
       {selection === "minute" && data.length > 0 && (

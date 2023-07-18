@@ -1,17 +1,7 @@
-import openai from "@/lib/services/openai";
-import { dateRange } from "@/lib/utils";
-import { useQueries } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { useUsageData } from "@/lib/hooks/api/useUsageData";
 
 export const useUsageDataCumulative = (startDate: Date, endDate: Date) => {
-  const dates = dateRange(startDate, endDate);
-
-  const query = useQueries({
-    queries: dates.map((date) => ({
-      queryKey: ["usage", format(date, "yyyy-MM-dd")],
-      queryFn: () => openai.getUsage(date),
-    })),
-  });
+  const query = useUsageData(startDate, endDate);
 
   if (query.some((result) => result.isLoading || result.isError)) {
     return {

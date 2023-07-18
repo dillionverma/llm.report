@@ -92,7 +92,7 @@ const MonthlyCostChart = ({
         )}% of hard limit`}</Text>
         <Text>$ {subscription.hard_limit_usd.toFixed(2)}</Text>
       </Flex>
-      <ProgressBar percentageValue={getPercentage()} className="mt-2" />
+      <ProgressBar value={getPercentage()} className="mt-2" />
     </div>
   );
 };

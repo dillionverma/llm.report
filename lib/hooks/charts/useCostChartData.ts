@@ -139,6 +139,5 @@ export const useCostChartData = (
     data: chartData,
     snapshots,
     selectedSnapshots,
-    loading: false,
   };
 };

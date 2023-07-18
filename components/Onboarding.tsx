@@ -99,7 +99,7 @@ const Onboarding = ({
 
   return (
     <div className={cn("flex flex-col w-full max-w-xl space-y-4", className)}>
-      <Grid numCols={1} className="gap-4 w-full">
+      <Grid numItems={1} className="gap-4 w-full">
         <Card>
           <Flex justifyContent="start" className="gap-4 mb-2">
             <Step step={1} currentStep={step} />

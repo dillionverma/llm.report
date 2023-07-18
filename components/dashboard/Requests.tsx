@@ -11,6 +11,7 @@ import {
   Icon,
   Metric,
   Tab,
+  TabGroup,
   TabList,
   Text,
   Title,
@@ -109,13 +110,17 @@ const Requests = ({ startDate, endDate }: RequestsProps) => {
         </Metric>
         <Text>Total Requests</Text>
       </Flex>
-      <TabList
-        // onValueChange={(value) => setSelectedCategory(value)}
-        defaultValue={"Total"}
-        className="mt-6"
-      >
-        <Tab key={"Total"} value={"Total"} icon={ChartBarIcon} text={"Total"} />
-      </TabList>
+      <TabGroup>
+        <TabList
+          // onValueChange={(value) => setSelectedCategory(value)}
+          defaultValue={"Total"}
+          className="mt-6"
+        >
+          <Tab key={"Total"} value={"Total"} icon={ChartBarIcon}>
+            Total
+          </Tab>
+        </TabList>
+      </TabGroup>
       <Flex className="mt-4">
         <Text>
           <Bold>Model</Bold>

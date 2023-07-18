@@ -17,6 +17,7 @@ import {
   Icon,
   Metric,
   Tab,
+  TabGroup,
   TabList,
   Text,
   Title,
@@ -74,6 +75,12 @@ const LoadingList = () => {
 };
 
 type SelectedCategory = "total" | "context" | "generated";
+
+const selectedCategories: SelectedCategory[] = [
+  "total",
+  "context",
+  "generated",
+];
 
 const Tokens = ({
   startDate,
@@ -151,22 +158,21 @@ const Tokens = ({
         </Metric>
         <Text>Total Tokens</Text>
       </Flex>
-      <TabList
-        onValueChange={(value) =>
-          setSelectedCategory(value as SelectedCategory)
+      <TabGroup
+        className="mt-6"
+        onIndexChange={(value) =>
+          setSelectedCategory(selectedCategories[value as number])
         }
         defaultValue={selectedCategory}
-        className="mt-6"
       >
-        {tabcategories.map((category) => (
-          <Tab
-            key={category.key}
-            value={category.key}
-            icon={category.icon}
-            text={category.name}
-          />
-        ))}
-      </TabList>
+        <TabList>
+          {tabcategories.map((category) => (
+            <Tab key={category.key} value={category.key} icon={category.icon}>
+              {category.name}
+            </Tab>
+          ))}
+        </TabList>
+      </TabGroup>
       <Flex className="mt-4">
         <Text>
           <Bold>Model</Bold>
