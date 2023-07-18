@@ -34,7 +34,7 @@ export interface BillingUsageResponse {
   daily_costs: {
     timestamp: number;
     line_items: {
-      name: Models;
+      name: Model;
       cost: number;
     }[];
   }[];
@@ -117,9 +117,9 @@ export interface OrganizationUsers {
   can_invite: boolean;
 }
 
-export type Category = Models;
+export type Category = Model;
 
-export type Models =
+export type Model =
   | "DALL-E API"
   | "Audio models"
   | "Chat models"

@@ -85,6 +85,9 @@ const TR: React.FC<TableRowProps> = ({ label, value, preformatted }) => {
   );
 };
 
+type TabState = "pretty" | "raw";
+const TabStates: TabState[] = ["pretty", "raw"];
+
 const RequestDialog = ({
   request,
   isOpen,
@@ -94,7 +97,6 @@ const RequestDialog = ({
   isOpen: boolean;
   closeModal: () => void;
 }) => {
-  type TabState = "pretty" | "raw";
   const [tab, setTab] = useState<TabState>("pretty");
 
   return (
@@ -205,22 +207,18 @@ const RequestDialog = ({
                               </tbody>
                             </table>
                             <TabGroup
-                              defaultIndex="pretty"
+                              defaultIndex={0}
                               onIndexChange={(value) =>
-                                setTab(value as TabState)
+                                setTab(TabStates[value])
                               }
                             >
                               <TabList className="mt-6">
-                                <Tab
-                                  value="pretty"
-                                  text="Pretty"
-                                  icon={SparklesIcon}
-                                />
-                                <Tab
-                                  value="raw"
-                                  text="Raw"
-                                  icon={CurlyBraces}
-                                />
+                                <Tab value="pretty" icon={SparklesIcon}>
+                                  Pretty
+                                </Tab>
+                                <Tab value="raw" icon={CurlyBraces}>
+                                  Raw
+                                </Tab>
                               </TabList>
                             </TabGroup>
 

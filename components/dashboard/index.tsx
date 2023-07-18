@@ -332,43 +332,23 @@ export default function Dashboard() {
             startDate={new Date()}
             endDate={new Date()}
             categories={categories!}
-            // demo={!data?.user}
-            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card className="shadow-none">
-          <RequestChart
-            startDate={new Date()}
-            endDate={new Date()}
-            // categories={categories!}
-            // demo={!data?.user}
-            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
-          />
+          <RequestChart startDate={new Date()} endDate={new Date()} />
         </Card>
         <Card className="shadow-none">
-          <ContextTokenChart
-            startDate={new Date()}
-            endDate={new Date()}
-            // categories={categories!}
-            // demo={!data?.user}
-            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
-          />
+          <ContextTokenChart startDate={new Date()} endDate={new Date()} />
         </Card>
         <Card className="shadow-none">
-          <GeneratedTokenChart
-            startDate={new Date()}
-            endDate={new Date()}
-            // categories={categories!}
-            // demo={!data?.user}
-            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
-          />
+          <GeneratedTokenChart startDate={new Date()} endDate={new Date()} />
         </Card>
       </Grid>
 
       <Card className="mt-4 shadow-none">
         <MonthlyChart
-          startDate={value.from}
-          endDate={value.to}
+          startDate={value.from!}
+          endDate={value.to!}
           categories={categories!}
         />
       </Card>
@@ -376,29 +356,19 @@ export default function Dashboard() {
       <Grid numItemsMd={1} numItemsLg={3} className="gap-6 mt-4">
         <Card className="shadow-none">
           <Cost
-            startDate={value.from}
-            endDate={value.to}
+            startDate={value.from!}
+            endDate={value.to!}
             categories={categories!}
-            // demo={!data?.user}
-            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card className="shadow-none">
-          <Requests
-            startDate={value.from}
-            endDate={value.to}
-            // categories={categories!}
-            // demo={!data?.user}
-            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
-          />
+          <Requests startDate={value.from!} endDate={value.to!} />
         </Card>
         <Card className="shadow-none">
           <Tokens
-            startDate={value.from}
-            endDate={value.to}
+            startDate={value.from!}
+            endDate={value.to!}
             categories={categories!}
-            // demo={!data?.user}
-            // defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
       </Grid>

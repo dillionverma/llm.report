@@ -62,7 +62,8 @@ const MonthlyCostChart = ({
       </Flex>
 
       <Metric>
-        $ {chartData.reduce((acc, { cost }) => acc + cost, 0).toFixed(2)}
+        {/* @ts-ignore */}${" "}
+        {chartData.reduce((acc, { cost }) => acc + cost, 0).toFixed(2)}
       </Metric>
       <motion.div
         initial="hidden"

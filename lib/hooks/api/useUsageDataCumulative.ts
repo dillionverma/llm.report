@@ -1,4 +1,5 @@
 import { useUsageData } from "@/lib/hooks/api/useUsageData";
+import { UsageResponse } from "@/lib/types";
 
 export const useUsageDataCumulative = (startDate: Date, endDate: Date) => {
   const query = useUsageData(startDate, endDate);
@@ -13,7 +14,7 @@ export const useUsageDataCumulative = (startDate: Date, endDate: Date) => {
     };
   }
 
-  const data = query.map((result) => result.data);
+  const data = query.map((result) => result.data as UsageResponse);
 
   const undefined = data.some((result) => typeof result === "undefined");
 

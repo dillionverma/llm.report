@@ -1,6 +1,6 @@
 import { useDialog } from "@/components/SettingsModal";
 import { LOCAL_STORAGE_KEY, LOCAL_STORAGE_ORG_ID } from "@/lib/constants";
-import openai from "@/lib/services/openai";
+import openai, { OpenAI } from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Badge, Callout, Card, Flex, Text, Title } from "@tremor/react";
 import { LockIcon } from "lucide-react";
@@ -26,7 +26,7 @@ const Settings = () => {
     }
     if (name === LOCAL_STORAGE_KEY) {
       setKey(value);
-      openai.setKey(value);
+      OpenAI.setKey(value);
     }
   };
 

@@ -1,7 +1,7 @@
 import { MODEL_TO_COLOR } from "@/lib/constants";
 import { useBillingData } from "@/lib/hooks/api/useBillingData";
 import { useCostChartData } from "@/lib/hooks/charts/useCostChartData";
-import { Category } from "@/lib/types";
+import { Category, Model } from "@/lib/types";
 import { BarChart, Flex, Metric, Text, Title } from "@tremor/react";
 
 const dataFormatter = (number: number) => {
@@ -45,7 +45,8 @@ const CostChart = ({ startDate, endDate, categories }: CostChartProps) => {
   const dailyCosts = BillingData.daily_costs;
 
   const totalUsage = dailyCosts[dailyCosts.length - 1].line_items.reduce(
-    (acc, cv) => acc + (new Set(categories).has(cv.name) ? cv.cost : 0),
+    (acc, cv) =>
+      acc + (new Set(categories).has(cv.name as Model) ? cv.cost : 0),
     0
   );
 
