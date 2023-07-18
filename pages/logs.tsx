@@ -63,7 +63,7 @@ export const Logs = ({
         <Onboarding code={code} onRefresh={handleRefresh} />
       )}
       {!loading && totalCount > 0 && (
-        <Grid numCols={1} numColsLg={1} className="gap-6 w-full">
+        <Grid numItems={1} numItemsLg={1} className="gap-6 w-full">
           <Col numColSpan={1}>
             <Card className="shadow-none">
               <Title>OpenAI Logs</Title>

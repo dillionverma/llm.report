@@ -2,7 +2,6 @@ import { FIRST_VISIT_KEY, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Dialog, Transition } from "@headlessui/react";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
-import { clear } from "idb-keyval";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -484,14 +483,6 @@ const SettingsModal = () => {
     FIRST_VISIT_KEY,
     true
   );
-
-  const [isClear, setIsClear] = useLocalStorage<boolean>("clear-cache", false);
-
-  useEffect(() => {
-    if (!isClear) {
-      clear();
-    }
-  }, [isClear]);
 
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
 

@@ -15,11 +15,12 @@ export default function Home({ tweets }: { tweets: Tweet[] }) {
   const [loading, setLoading] = useState(true);
   const [validKey, setValidKey] = useState(true);
 
-  useEffect(() => {
-    if (status !== "loading") {
-      setLoading(false);
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (status !== "loading") {
+  //     setLoading(false);
+  //   }
+  // }, [session]);
+
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
   useEffect(() => {
     (async () => setValidKey(await openai.isValidKey(key)))();
@@ -28,7 +29,7 @@ export default function Home({ tweets }: { tweets: Tweet[] }) {
   return (
     <Suspense fallback={<></>}>
       <>
-        {status === "authenticated" && session?.user && (
+        {status === "authenticated" && (
           <>
             {(!key || !validKey) && <OnboardingDashboard />}
             {key && validKey && <Dashboard key={key} />}

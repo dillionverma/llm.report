@@ -33,7 +33,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Tab, TabList } from "@tremor/react";
+import { Tab, TabGroup, TabList } from "@tremor/react";
 import { format } from "date-fns";
 import {
   CurlyBraces,
@@ -85,6 +85,9 @@ const TR: React.FC<TableRowProps> = ({ label, value, preformatted }) => {
   );
 };
 
+type TabState = "pretty" | "raw";
+const TabStates: TabState[] = ["pretty", "raw"];
+
 const RequestDialog = ({
   request,
   isOpen,
@@ -94,7 +97,6 @@ const RequestDialog = ({
   isOpen: boolean;
   closeModal: () => void;
 }) => {
-  type TabState = "pretty" | "raw";
   const [tab, setTab] = useState<TabState>("pretty");
 
   return (
@@ -204,20 +206,21 @@ const RequestDialog = ({
                             /> */}
                               </tbody>
                             </table>
-                            <TabList
-                              defaultValue="pretty"
-                              onValueChange={(value) =>
-                                setTab(value as TabState)
+                            <TabGroup
+                              defaultIndex={0}
+                              onIndexChange={(value) =>
+                                setTab(TabStates[value])
                               }
-                              className="mt-6"
                             >
-                              <Tab
-                                value="pretty"
-                                text="Pretty"
-                                icon={SparklesIcon}
-                              />
-                              <Tab value="raw" text="Raw" icon={CurlyBraces} />
-                            </TabList>
+                              <TabList className="mt-6">
+                                <Tab value="pretty" icon={SparklesIcon}>
+                                  Pretty
+                                </Tab>
+                                <Tab value="raw" icon={CurlyBraces}>
+                                  Raw
+                                </Tab>
+                              </TabList>
+                            </TabGroup>
 
                             <div className="mt-4">
                               {tab === "pretty" && (

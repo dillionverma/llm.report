@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
-import openai from "@/lib/services/openai";
+import openai, { OpenAI } from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
 import { cn } from "@/lib/utils";
 import { Card, Flex, Grid, Text, Title } from "@tremor/react";
@@ -32,7 +32,7 @@ const OnboardingDashboard = ({
 
     if (name === LOCAL_STORAGE_KEY) {
       setKey(value);
-      openai.setKey(value);
+      OpenAI.setKey(value);
     }
   };
 
@@ -49,7 +49,7 @@ const OnboardingDashboard = ({
 
   return (
     <div className={cn("flex flex-col w-full max-w-xl space-y-4", className)}>
-      <Grid numCols={1} className="gap-4 w-full">
+      <Grid numItems={1} className="gap-4 w-full">
         <Card>
           <Flex justifyContent="start" className="gap-4 mb-2">
             <Step step={1} currentStep={step} />

@@ -34,7 +34,7 @@ export interface BillingUsageResponse {
   daily_costs: {
     timestamp: number;
     line_items: {
-      name: Models;
+      name: Model;
       cost: number;
     }[];
   }[];
@@ -117,9 +117,9 @@ export interface OrganizationUsers {
   can_invite: boolean;
 }
 
-export type Category = Models;
+export type Category = Model;
 
-export type Models =
+export type Model =
   | "DALL-E API"
   | "Audio models"
   | "Chat models"
@@ -132,10 +132,13 @@ export type Models =
 export type ChatCompletionModels =
   | "gpt-4"
   | "gpt-4-0314"
+  | "gpt-4-0613"
   | "gpt-4-32k"
   | "gpt-4-32k-0314"
   | "gpt-3.5-turbo"
-  | "gpt-3.5-turbo-0301";
+  | "gpt-3.5-turbo-0301"
+  | "gpt-3.5-turbo-0613"
+  | "gpt-3.5-turbo-16k-0613";
 
 export type CompletionModels =
   | "text-ada-001"

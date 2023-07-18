@@ -1,8 +1,11 @@
 import { useDialog } from "@/components/SettingsModal";
 import Cost from "@/components/dashboard/Cost";
+import CostChart from "@/components/dashboard/CostChart";
+import GeneratedTokenChart from "@/components/dashboard/GeneratedTokenChart";
 import MonthlyChart from "@/components/dashboard/MonthlyChart";
+import RequestChart from "@/components/dashboard/RequestChart";
 import Requests from "@/components/dashboard/Requests";
-import { default as Tokens } from "@/components/dashboard/Tokens";
+import Tokens from "@/components/dashboard/Tokens";
 import {
   CATEGORIES,
   CATEGORIES_KEY,
@@ -16,11 +19,12 @@ import {
   Badge,
   Card,
   DateRangePicker,
+  DateRangePickerItem,
   DateRangePickerValue,
   Flex,
   Grid,
-  MultiSelectBox,
-  MultiSelectBoxItem,
+  MultiSelect,
+  MultiSelectItem,
   Text,
   Title,
 } from "@tremor/react";
@@ -28,25 +32,68 @@ import { add, startOfMonth, sub } from "date-fns";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ContextTokenChart from "./ContextTokenChart";
-import CostChart from "./CostChart";
-import GeneratedTokenChart from "./GeneratedTokenChart";
-import RequestChart from "./RequestChart";
+
+const dateSelectOptions = [
+  {
+    value: "tdy",
+    text: "Today",
+    from: sub(new Date(), { days: 1 }),
+  },
+  {
+    value: "3d",
+    text: "Last 3 days",
+    from: sub(new Date(), { days: 3 }),
+  },
+  {
+    value: "w",
+    text: "Last 7 days",
+    from: sub(new Date(), { days: 7 }),
+  },
+  {
+    value: "mtd",
+    text: "Month to date",
+    from: startOfMonth(new Date()),
+  },
+  {
+    value: "m",
+    text: "Last 30 days",
+    from: sub(new Date(), { days: 30 }),
+    // utc end date
+    to: new Date(),
+  },
+  {
+    value: "100d",
+    text: "Last 100 days (Max)",
+    from: sub(new Date(), { days: 100 }),
+  },
+];
 
 export default function Dashboard() {
-  const [value, setValue] = useState<DateRangePickerValue>([
-    startOfMonth(new Date()),
-    startOfMonth(new Date()) === new Date()
-      ? new Date()
-      : add(new Date(), { days: 1 }),
-    "mtd",
-  ]);
+  const [value, setValue] = useState<DateRangePickerValue>({
+    from: startOfMonth(new Date()),
+    to:
+      startOfMonth(new Date()) === new Date()
+        ? new Date()
+        : add(new Date(), { days: 1 }),
+    selectValue: "mtd",
+  });
 
   const setDates = (v: DateRangePickerValue) => {
+    // if (!v[0] || !v[1]) return;
+
     // Edge case due to OpenAI API. They don't accept start_date === end_date.
-    if (v[0] && v[1] && v[0].getTime() === v[1].getTime()) {
-      return setValue([v[0], add(v[1], { days: 1 }), v[2]]);
+    if (v.from && v.to && v.from.getTime() === v.to.getTime()) {
+      return setValue({
+        from: v.from,
+        to: add(v.to, { days: 1 }),
+        selectValue: v.selectValue,
+      });
     } else {
-      setValue(v);
+      setValue({
+        from: v.from || new Date(),
+        to: v.to || new Date(),
+        selectValue: v.selectValue,
+      });
     }
   };
 
@@ -85,7 +132,7 @@ export default function Dashboard() {
         const valid = await openai.isValidKey(key);
         setValidKey(valid);
         if (!valid) return;
-        const res = await openai.getUsage(new Date());
+        const res = await openai.getSubscription();
         setIsDown(false);
       } catch (e) {
         setIsDown(true);
@@ -103,182 +150,150 @@ export default function Dashboard() {
   const [users, setUsers] = useState<OrganizationUsers>();
   const [orgId, setOrgId] = useLocalStorage<string>(LOCAL_STORAGE_ORG_ID, "");
 
-  useEffect(() => {
-    (async () => {
-      if (!key || !orgId) return;
-      openai.setOrgId(orgId);
-      const u = await openai.getUsers();
-      setUsers(u);
-    })();
-  }, [key, orgId]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (!key || !orgId) return;
+  //     openai.setOrgId(orgId);
+  //     const u = await openai.getUsers();
+  //     setUsers(u);
+  //   })();
+  // }, [key, orgId]);
 
   return (
     <div>
       <Flex className="2xl:flex-row flex-col items-start 2xl:items-center space-y-4">
-        <div className="space-y-2">
-          <div className="flex flex-row space-x-3">
-            <Title>OpenAI Analytics</Title>
+        <div className="flex w-full flex-row gap-4">
+          <div className="flex flex-col items-center gap-2 justify-center">
+            <div className="flex flex-row gap-2">
+              <Title>OpenAI Analytics</Title>
 
-            {!data?.user && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="blue"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                  </span>
-                )}
-              >
-                demo
-              </Badge>
-            )}
+              {!data?.user && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="blue"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                    </span>
+                  )}
+                >
+                  demo
+                </Badge>
+              )}
 
-            {data?.user && !key && subscribed && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="red"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                  </span>
-                )}
-              >
-                waiting for key
-              </Badge>
-            )}
+              {data?.user && !key && subscribed && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="red"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                  )}
+                >
+                  waiting for key
+                </Badge>
+              )}
 
-            {data?.user && !subscribed && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="red"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                  </span>
-                )}
-              >
-                waiting for subscription
-              </Badge>
-            )}
+              {data?.user && !subscribed && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="red"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                  )}
+                >
+                  waiting for subscription
+                </Badge>
+              )}
 
-            {data?.user && key && validKey && !isDown && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="green"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                  </span>
-                )}
-              >
-                live
-              </Badge>
-            )}
+              {data?.user && key && validKey && !isDown && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="green"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                  )}
+                >
+                  live
+                </Badge>
+              )}
 
-            {data?.user && key && validKey && isDown && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="red"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                  </span>
-                )}
-              >
-                OpenAI cost API is down
-              </Badge>
-            )}
+              {data?.user && key && validKey && isDown && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="red"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                  )}
+                >
+                  OpenAI cost API is down
+                </Badge>
+              )}
 
-            {data?.user && key && !validKey && (
-              <Badge
-                className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
-                // onClick={() => openDialog()}
-                color="red"
-                icon={() => (
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                  </span>
-                )}
-              >
-                invalid key
-              </Badge>
-            )}
+              {data?.user && key && !validKey && (
+                <Badge
+                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  // onClick={() => openDialog()}
+                  color="red"
+                  icon={() => (
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    </span>
+                  )}
+                >
+                  invalid key
+                </Badge>
+              )}
+            </div>
+            <Text>Let&apos;s see how we&apos;re doing today</Text>
           </div>
-
-          <Text>Let&apos;s see how we&apos;re doing today</Text>
         </div>
 
         <div className="w-full max-w-3xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col z-20">
           <DateRangePicker
             value={value}
             onValueChange={setDates}
-            dropdownPlaceholder="Select"
-            options={[
-              {
-                value: "tdy",
-                text: "Today",
-                startDate: new Date(),
-              },
-              {
-                value: "3d",
-                text: "Last 3 days",
-                startDate: sub(new Date(), { days: 3 }),
-              },
-              {
-                value: "w",
-                text: "Last 7 days",
-                startDate: sub(new Date(), { days: 7 }),
-              },
-              {
-                value: "mtd",
-                text: "Month to date",
-                startDate: startOfMonth(new Date()),
-              },
-              {
-                value: "m",
-                text: "Last 30 days",
-                startDate: sub(new Date(), { days: 30 }),
-                // utc end date
-                endDate: new Date(),
-              },
-              {
-                value: "100d",
-                text: "Last 100 days (Max)",
-                startDate: sub(new Date(), { days: 100 }),
-              },
-            ]}
-            // minDate={sub(new Date(), { days: 100 })}
-            // maxDate={new Date()}
-          />
+            selectPlaceholder="Select"
+          >
+            {dateSelectOptions.map((option, index) => (
+              <DateRangePickerItem key={index} {...option}>
+                {option.text}
+              </DateRangePickerItem>
+            ))}
+          </DateRangePicker>
 
-          <MultiSelectBox
-            // className="w-full"
+          <MultiSelect
             placeholder="Select Models"
             value={categories!}
-            onValueChange={(a) => {
+            onValueChange={(a: any) => {
               console.log("VALUE CHANGE", a);
               setCategories(a as Category[]);
             }}
           >
             {CATEGORIES.map((category, index) => (
-              <MultiSelectBoxItem
-                key={index}
-                value={category}
-                text={category}
-              />
+              <MultiSelectItem key={index} value={category}>
+                {category}
+              </MultiSelectItem>
             ))}
-          </MultiSelectBox>
+          </MultiSelect>
           {/* 
           {users && (
             <Dropdown
@@ -307,9 +322,9 @@ export default function Dashboard() {
       </Flex>
 
       <Grid
-        numCols={1}
-        numColsMd={2}
-        numColsLg={4}
+        numItems={1}
+        numItemsMd={2}
+        numItemsLg={4}
         className="gap-6 mt-4 w-full"
       >
         <Card className="shadow-none z-10">
@@ -317,75 +332,43 @@ export default function Dashboard() {
             startDate={new Date()}
             endDate={new Date()}
             categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card className="shadow-none">
-          <RequestChart
-            startDate={new Date()}
-            endDate={new Date()}
-            categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
-          />
+          <RequestChart startDate={new Date()} endDate={new Date()} />
         </Card>
         <Card className="shadow-none">
-          <ContextTokenChart
-            startDate={new Date()}
-            endDate={new Date()}
-            categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
-          />
+          <ContextTokenChart startDate={new Date()} endDate={new Date()} />
         </Card>
         <Card className="shadow-none">
-          <GeneratedTokenChart
-            startDate={new Date()}
-            endDate={new Date()}
-            categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
-          />
+          <GeneratedTokenChart startDate={new Date()} endDate={new Date()} />
         </Card>
       </Grid>
 
       <Card className="mt-4 shadow-none">
         <MonthlyChart
-          startDate={value[0]}
-          endDate={value[1]}
+          startDate={value.from!}
+          endDate={value.to!}
           categories={categories!}
-          demo={!data?.user}
-          defaultLoading={data?.user && (!subscribed || !validKey || !key)}
         />
       </Card>
 
-      <Grid numColsMd={1} numColsLg={3} className="gap-6 mt-4">
+      <Grid numItemsMd={1} numItemsLg={3} className="gap-6 mt-4">
         <Card className="shadow-none">
           <Cost
-            startDate={value[0]}
-            endDate={value[1]}
+            startDate={value.from!}
+            endDate={value.to!}
             categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
         <Card className="shadow-none">
-          <Requests
-            startDate={value[0]}
-            endDate={value[1]}
-            categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
-          />
+          <Requests startDate={value.from!} endDate={value.to!} />
         </Card>
         <Card className="shadow-none">
           <Tokens
-            startDate={value[0]}
-            endDate={value[1]}
+            startDate={value.from!}
+            endDate={value.to!}
             categories={categories!}
-            demo={!data?.user}
-            defaultLoading={data?.user && (!subscribed || !validKey || !key)}
           />
         </Card>
       </Grid>
