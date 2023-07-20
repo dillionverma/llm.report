@@ -5,6 +5,8 @@ import Testimonials from "@/components/landing/Testimonials";
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
 import openai from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
+import { Callout } from "@tremor/react";
 import { useSession } from "next-auth/react";
 import { Suspense, useEffect, useState } from "react";
 import { getTweet, type Tweet } from "react-tweet/api";
@@ -31,6 +33,16 @@ export default function Home({ tweets }: { tweets: Tweet[] }) {
       <>
         {status === "authenticated" && (
           <>
+            <Callout
+              title="OpenAI API changes"
+              icon={ExclamationCircleIcon}
+              color="yellow"
+            >
+              OpenAI has changed their API this morning (July 20, 2023). They no
+              longer allow third party apps to access their /api/usage endpoint
+              which we use to display this dashboard. We are currently
+              investigating workarounds. Sorry for the inconvenience.
+            </Callout>
             {(!key || !validKey) && <OnboardingDashboard />}
             {key && validKey && <Dashboard key={key} />}
           </>
