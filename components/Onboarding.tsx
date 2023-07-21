@@ -5,7 +5,7 @@ import { Key, Send } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { mutate } from "swr";
-import { Step } from "./onboarding/Step";
+import { OnboardingStep } from "./onboarding/Step";
 
 let tabs = [
   { id: "curl", label: "curl" },
@@ -102,7 +102,7 @@ const Onboarding = ({
       <Grid numItems={1} className="gap-4 w-full">
         <Card>
           <Flex justifyContent="start" className="gap-4 mb-2">
-            <Step step={1} currentStep={step} />
+            <OnboardingStep step={1} currentStep={step} />
             <Title>Create an LLM Report API Key</Title>
           </Flex>
           <Text>
@@ -140,7 +140,7 @@ const Onboarding = ({
           })}
         >
           <Flex justifyContent="start" className="gap-4 mb-2">
-            <Step step={2} currentStep={step} />
+            <OnboardingStep step={2} currentStep={step} />
             <Title>Log your first request</Title>
           </Flex>
 
