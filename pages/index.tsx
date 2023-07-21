@@ -36,12 +36,14 @@ export default function Home({ tweets }: { tweets: Tweet[] }) {
             <Callout
               title="OpenAI API changes"
               icon={ExclamationCircleIcon}
-              color="yellow"
+              color="blue"
+              className="my-4"
             >
-              OpenAI has changed their API this morning (July 20, 2023). They no
-              longer allow third party apps to access their /api/usage endpoint
-              which we use to display this dashboard. We are currently
-              investigating workarounds. Sorry for the inconvenience.
+              OpenAI introduced a new change to their API this morning (July 20,
+              2023). They no longer allow third party apps to access their
+              /api/usage endpoint which we use to display this dashboard. We
+              have introduced a new workaround to get around this issue. It
+              requires you to enter your session token from the OpenAI website.
             </Callout>
             {(!key || !validKey) && <OnboardingDashboard />}
             {key && validKey && <Dashboard key={key} />}

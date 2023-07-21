@@ -486,6 +486,18 @@ const SettingsModal = () => {
 
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
 
+  // This is a hack to delete old keys
+  const [deleteOldKeys, setDeleteOldKeys] = useLocalStorage<boolean>(
+    "deleteOldKeys",
+    true
+  );
+
+  useEffect(() => {
+    if (!deleteOldKeys) return;
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    setDeleteOldKeys(false);
+  }, [deleteOldKeys]);
+
   useEffect(() => {
     if (firstVisit) {
       toast("Hi there!", { icon: "👋", duration: 5000 });

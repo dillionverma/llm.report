@@ -117,7 +117,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                     )}
                   >
                     <Key className="mr-2 h-4 w-4" />
-                    API Keys
+                    LLM Report API Keys
                   </Link>
 
                   <Link

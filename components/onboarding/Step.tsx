@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ComponentProps } from "react";
 
-export function Step({
+export function OnboardingStep({
   step,
   currentStep,
 }: {

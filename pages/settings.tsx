@@ -1,3 +1,4 @@
+import { InstallSteps } from "@/components/OnboardingDashboard";
 import { useDialog } from "@/components/SettingsModal";
 import { LOCAL_STORAGE_KEY, LOCAL_STORAGE_ORG_ID } from "@/lib/constants";
 import openai, { OpenAI } from "@/lib/services/openai";
@@ -6,7 +7,6 @@ import { Badge, Callout, Card, Flex, Text, Title } from "@tremor/react";
 import { LockIcon } from "lucide-react";
 import { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Settings = () => {
@@ -71,7 +71,7 @@ const Settings = () => {
           <div>
             <div className="flex flex-row">
               <label className="font-medium text-gray-500">
-                OpenAI API Key
+                OpenAI Session Token
               </label>
 
               <div className="ml-2">
@@ -124,6 +124,8 @@ const Settings = () => {
                 )}
               </div>
             </div>
+
+            <InstallSteps />
             <input
               type="text"
               name={LOCAL_STORAGE_KEY}
@@ -131,10 +133,10 @@ const Settings = () => {
               required
               value={key as string}
               className="w-full my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
-              placeholder="sk-5q293fh..."
+              placeholder="sess-5q293fh..."
             />
 
-            <p className="text-sm text-gray-500 mt-1 inline-block">
+            {/* <p className="text-sm text-gray-500 mt-1 inline-block">
               Find API Key{" "}
               <Link
                 href="https://beta.openai.com/account/api-keys"
@@ -144,11 +146,11 @@ const Settings = () => {
               >
                 here.
               </Link>
-            </p>
+            </p> */}
           </div>
         </form>
 
-        <form onSubmit={(e) => e.preventDefault()} className="mt-8">
+        {/* <form onSubmit={(e) => e.preventDefault()} className="mt-8">
           <div>
             <div className="flex flex-row">
               <label className="font-medium text-gray-500">
@@ -177,7 +179,7 @@ const Settings = () => {
               </Link>
             </p>
           </div>
-        </form>
+        </form> */}
       </Card>
     </div>
   );
