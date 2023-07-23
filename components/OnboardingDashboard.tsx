@@ -63,7 +63,8 @@ export const InstallSteps = () => {
           Bearer sess-rYyW10fURtEce3rYSS6QGRMnLziKwrRdZeDt
         </code>
       </pre>
-      <Step>Paste session token below</Step>
+      <Step>Paste the session token below</Step>
+      <p>Only paste the token itself, remove the `Bearer` prefix</p>
     </Steps>
   );
 };

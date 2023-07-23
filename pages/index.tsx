@@ -41,9 +41,12 @@ export default function Home({ tweets }: { tweets: Tweet[] }) {
             >
               OpenAI introduced a new change to their API this morning (July 20,
               2023). They no longer allow third party apps to access their
-              /api/usage endpoint which we use to display this dashboard. We
-              have introduced a new workaround to get around this issue. It
-              requires you to enter your session token from the OpenAI website.
+              /api/usage endpoint which we use to display this dashboard.{" "}
+              <strong>
+                We have introduced a new workaround to get around this issue. It
+                requires you to enter your session token from the OpenAI
+                website.
+              </strong>
             </Callout>
             {(!key || !validKey) && <OnboardingDashboard />}
             {key && validKey && <Dashboard key={key} />}
