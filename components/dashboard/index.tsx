@@ -12,7 +12,7 @@ import {
   LOCAL_STORAGE_KEY,
   LOCAL_STORAGE_ORG_ID,
 } from "@/lib/constants";
-import openai from "@/lib/services/openai";
+import openai, { OpenAI } from "@/lib/services/openai";
 import { Category, OrganizationUsers } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
 import {
@@ -155,7 +155,7 @@ export default function Dashboard() {
   useEffect(() => {
     (async () => {
       if (!key || !orgId) return;
-      openai.setOrgId(orgId);
+      OpenAI.setOrg(orgId);
       const u = await openai.getUsers();
       setUsers(u);
     })();

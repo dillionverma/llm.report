@@ -23,7 +23,7 @@ const Settings = () => {
     // save to local storage
     if (name === LOCAL_STORAGE_ORG_ID) {
       setOrgId(value);
-      openai.setOrgId(value);
+      OpenAI.setOrg(orgId);
     }
     if (name === LOCAL_STORAGE_KEY) {
       setKey(value);
