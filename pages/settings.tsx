@@ -7,6 +7,7 @@ import { Badge, Callout, Card, Flex, Text, Title } from "@tremor/react";
 import { LockIcon } from "lucide-react";
 import { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Settings = () => {
@@ -150,7 +151,7 @@ const Settings = () => {
           </div>
         </form>
 
-        {/* <form onSubmit={(e) => e.preventDefault()} className="mt-8">
+        <form onSubmit={(e) => e.preventDefault()} className="mt-8">
           <div>
             <div className="flex flex-row">
               <label className="font-medium text-gray-500">
@@ -179,7 +180,7 @@ const Settings = () => {
               </Link>
             </p>
           </div>
-        </form> */}
+        </form>
       </Card>
     </div>
   );

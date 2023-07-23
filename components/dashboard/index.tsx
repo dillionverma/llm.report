@@ -25,6 +25,8 @@ import {
   Grid,
   MultiSelect,
   MultiSelectItem,
+  Select,
+  SelectItem,
   Text,
   Title,
 } from "@tremor/react";
@@ -150,14 +152,14 @@ export default function Dashboard() {
   const [users, setUsers] = useState<OrganizationUsers>();
   const [orgId, setOrgId] = useLocalStorage<string>(LOCAL_STORAGE_ORG_ID, "");
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (!key || !orgId) return;
-  //     openai.setOrgId(orgId);
-  //     const u = await openai.getUsers();
-  //     setUsers(u);
-  //   })();
-  // }, [key, orgId]);
+  useEffect(() => {
+    (async () => {
+      if (!key || !orgId) return;
+      openai.setOrgId(orgId);
+      const u = await openai.getUsers();
+      setUsers(u);
+    })();
+  }, [key, orgId]);
 
   return (
     <div>
@@ -294,19 +296,18 @@ export default function Dashboard() {
               </MultiSelectItem>
             ))}
           </MultiSelect>
-          {/* 
+
           {users && (
-            <Dropdown
+            <Select
               onValueChange={(value) =>
                 console.log("The selected value is", value)
               }
               placeholder="Select User"
             >
               {users.members.data.map(({ user }, idx) => (
-                <DropdownItem
+                <SelectItem
                   key={idx}
                   value={user.id}
-                  text={user.name}
                   icon={() => (
                     <img
                       alt={user.name}
@@ -314,10 +315,12 @@ export default function Dashboard() {
                       className="w-7 h-7 mr-3 rounded-full"
                     />
                   )}
-                />
+                >
+                  {user.name}
+                </SelectItem>
               ))}
-            </Dropdown>
-          )} */}
+            </Select>
+          )}
         </div>
       </Flex>
 
