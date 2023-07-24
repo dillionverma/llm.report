@@ -185,6 +185,7 @@ const RequestDialog = ({
                                   label="streamed"
                                   value={request.streamed ? "true" : "false"}
                                 />
+                                <TR label="user id" value={request.user_id} />
 
                                 {/* <TableRow
                               label="Request"
