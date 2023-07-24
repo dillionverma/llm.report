@@ -152,6 +152,7 @@ model Request {
     status   Int
     cached   Boolean @default(false)
     streamed Boolean @default(false)
+    user_id  String? // ID of the user passed in through header
 
     request_headers  Json
     request_body     Json

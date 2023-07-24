@@ -81,15 +81,15 @@ export default function Layout({ children }: { children: ReactNode }) {
                   </Link>
 
                   {/* <Link
-                        href="/users"
-                        className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
-                      >
-                        <User className="mr-2 h-4 w-4" />
-                        Users
-                        <Badge className="ml-2 px-2 cursor-pointer">
-                          Coming Soon
-                        </Badge>
-                      </Link> */}
+                    href="/users"
+                    className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    Users
+                    <Badge className="ml-2 px-2 cursor-pointer">
+                      Coming Soon
+                    </Badge>
+                  </Link> */}
                 </div>
               </div>
 
