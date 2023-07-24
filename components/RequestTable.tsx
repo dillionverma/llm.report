@@ -178,6 +178,10 @@ const RequestDialog = ({
                                 <TR label="method" value={request.method} />
                                 <TR label="status" value={request.status} />
                                 <TR
+                                  label="model"
+                                  value={request.request_body.model}
+                                />
+                                <TR
                                   label="cached"
                                   value={request.cached ? "true" : "false"}
                                 />
