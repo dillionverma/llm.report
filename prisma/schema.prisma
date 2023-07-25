@@ -5,7 +5,8 @@ datasource db {
 }
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["fullTextSearch"]
 }
 
 model Account {
@@ -153,6 +154,10 @@ model Request {
     cached   Boolean @default(false)
     streamed Boolean @default(false)
     user_id  String? // ID of the user passed in through header
+
+    model             String?
+    prompt_tokens     Int?
+    completion_tokens Int?
 
     request_headers  Json
     request_body     Json

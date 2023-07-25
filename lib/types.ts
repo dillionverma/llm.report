@@ -129,18 +129,22 @@ export type Model =
   | "Image models"
   | "Instruct models";
 
-export type ChatCompletionModels =
+export type GPT4Model =
   | "gpt-4"
   | "gpt-4-0314"
   | "gpt-4-0613"
   | "gpt-4-32k"
-  | "gpt-4-32k-0314"
+  | "gpt-4-32k-0314";
+
+export type GPT3Model =
   | "gpt-3.5-turbo"
   | "gpt-3.5-turbo-0301"
   | "gpt-3.5-turbo-0613"
   | "gpt-3.5-turbo-16k-0613";
 
-export type CompletionModels =
+export type ChatCompletionModel = GPT3Model | GPT4Model;
+
+export type CompletionModel =
   | "text-ada-001"
   | "text-babbage-001"
   | "text-curie-001"
@@ -148,29 +152,29 @@ export type CompletionModels =
   | "text-davinci-003"
   | "text-davinci:003";
 
-export type EditModels = "text-davinci-edit-001" | "code-davinci-edit-001";
+export type EditModel = "text-davinci-edit-001" | "code-davinci-edit-001";
 
-export type FineTunedModels =
+export type FineTunedModel =
   | "text-davinci-003"
   | "text-davinci-002"
   | "text-curie-001"
   | "text-babbage-001"
   | "text-ada-001";
 
-export type AudioModels = "whisper-1" | "whisper-2";
+export type AudioModel = "whisper-1" | "whisper-2";
 
-export type EmbeddingModels =
+export type EmbeddingModel =
   | "text-embedding-ada-002"
   | "text-embedding-ada-002-v2"
   | "text-search-ada-doc-001";
 
-export type Resolution = "256x256" | "512x512" | "1024x1024";
+export type ImageResolution = "256x256" | "512x512" | "1024x1024";
 
 export type Snapshot =
-  | ChatCompletionModels
-  | CompletionModels
-  | EditModels
-  | FineTunedModels
-  | AudioModels
-  | EmbeddingModels
-  | Resolution;
+  | ChatCompletionModel
+  | CompletionModel
+  | EditModel
+  | FineTunedModel
+  | AudioModel
+  | EmbeddingModel
+  | ImageResolution;

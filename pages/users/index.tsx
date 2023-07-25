@@ -1,67 +1,10 @@
-import {
-  BarChart,
-  Callout,
-  Card,
-  Col,
-  Grid,
-  Subtitle,
-  Title,
-} from "@tremor/react";
+import UserCostChart from "@/components/users/UserCostChart";
+import UserTable from "@/components/users/UserTable";
+import { Callout, Card, Col, Grid, Subtitle, Title } from "@tremor/react";
 import { ConstructionIcon } from "lucide-react";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import { Suspense } from "react";
-
-const chartdata = [
-  {
-    name: "Amphibians",
-    cost: 2488,
-  },
-  {
-    name: "Birds",
-    cost: 1445,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-];
-
-const dataFormatter = (number: number) => {
-  return `$ ${Intl.NumberFormat("us").format(number).toString()}`;
-};
 
 export default function Users() {
   return (
@@ -75,20 +18,17 @@ export default function Users() {
         <Card className="shadow-none">
           <Title>Cost per user</Title>
           <Subtitle>The total cost of each user in the last 30 days.</Subtitle>
-          <Suspense fallback={<></>}>
-            <BarChart
-              data={chartdata}
-              index="name"
-              categories={["cost"]}
-              colors={["amber"]}
-              valueFormatter={dataFormatter}
-            />
+          <Suspense fallback={<>loading...</>}>
+            <UserCostChart />
           </Suspense>
         </Card>
       </Col>
       <Col numColSpan={1}>
         <Card className="shadow-none">
           <Title>Users</Title>
+          <Suspense fallback={<>loading...</>}>
+            <UserTable />
+          </Suspense>
         </Card>
       </Col>
     </Grid>

@@ -111,60 +111,6 @@ export default async function handler(
       requests,
       totalCount,
     });
-
-    // // https://www.prisma.io/docs/concepts/components/prisma-client/raw-database-access
-    // const requests = await prisma.$queryRawUnsafe(`
-    //     SELECT * FROM "Request"
-
-    //     WHERE
-
-    //       userId = "${session.user.id}" AND
-
-    //       (
-    //         JSON_UNQUOTE(
-    //           JSON_EXTRACT(request_body, "$.prompt")) LIKE "%${search}%"
-
-    //         OR
-
-    //         JSON_UNQUOTE(
-    //           JSON_EXTRACT(request_body, "$.messages[*].content")) LIKE "%${search}%"
-
-    //         OR
-    //           completion LIKE "%${search}%"
-    //       )
-
-    //     ORDER BY ${sortBy} ${sortOrder}
-    //     LIMIT ${pageSize}
-    //     OFFSET ${skip};
-    //     `);
-
-    // const totalCount = await prisma.$queryRawUnsafe(`
-    //     SELECT COUNT(*) FROM "Request"
-
-    //     WHERE
-    //       userId = "${session.user.id}" AND
-
-    //       (
-    //         JSON_UNQUOTE(
-    //           JSON_EXTRACT(request_body, "$.prompt")) LIKE "%${search}%"
-
-    //         OR
-
-    //         JSON_UNQUOTE(
-    //           JSON_EXTRACT(request_body, "$.messages[*].content")) LIKE "%${search}%"
-
-    //         OR
-    //           completion LIKE "%${search}%"
-    //       )
-
-    //     `);
-
-    // console.log(totalCount);
-
-    // return res.status(200).json({
-    //   requests,
-    //   totalCount: new Number((totalCount as any[])[0]["count(*)"]),
-    // });
   } else {
     return res.status(405).json({ error: "Method not allowed" });
   }
