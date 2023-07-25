@@ -1,4 +1,5 @@
 import useDebounce from "@/lib/use-debounce";
+import { currencyFormat } from "@/lib/utils";
 import {
   ColumnFiltersState,
   PaginationState,
@@ -7,53 +8,6 @@ import {
 import { BarChart } from "@tremor/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
-const chartdata = [
-  {
-    name: "Amphibians",
-    cost: 2488,
-  },
-  {
-    name: "Birds",
-    cost: 1445,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-  {
-    name: "Crustaceans",
-    cost: 743,
-  },
-];
 
 const dataFormatter = (number: number) => {
   return `$ ${Intl.NumberFormat("us").format(number).toString()}`;
@@ -109,7 +63,7 @@ const UserCostChart = () => {
       index="user_id"
       categories={["cost"]}
       colors={["amber"]}
-      valueFormatter={dataFormatter}
+      valueFormatter={(value) => currencyFormat(value, "USD", 2)}
     />
   );
 };
