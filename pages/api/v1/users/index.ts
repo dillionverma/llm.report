@@ -136,7 +136,7 @@ export default async function handler(
       );
 
       const sortedUsers = Object.values(users).sort(
-        (a, b) => b.total_cost - a.total_cost
+        (a, b) => a.total_cost - b.total_cost
       );
 
       const totalCount = sortedUsers.length;
