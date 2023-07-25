@@ -61,7 +61,10 @@ export const COST_PER_UNIT: CostPerUnit = {
     prompt: 0.003 / 1000,
     completion: 0.004 / 1000,
   },
-
+  "gpt-3.5-turbo-16k": {
+    prompt: 0.003 / 1000,
+    completion: 0.004 / 1000,
+  },
   // Embedding models per token
   "text-embedding-ada-002": 0.0001 / 1000,
   "text-embedding-ada-002-v2": 0.0001 / 1000,
