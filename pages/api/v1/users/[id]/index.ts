@@ -102,17 +102,9 @@ export default async function handler(
       },
     });
 
-    const totalCount = await prisma.request.count({
-      where: {
-        userId: session.user.id,
-        // ...where,
-        ...searchFilter,
-      },
-    });
-
     return res.status(200).json({
       requests,
-      totalCount,
+      totalCount: requests.length,
     });
   } else {
     return res.status(405).json({ error: "Method not allowed" });
