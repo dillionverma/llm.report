@@ -10,7 +10,7 @@ export type CostPerUnit = {
 };
 
 interface CostReq {
-  model: Snapshot;
+  model: Snapshot | string;
   input?: number;
   output?: number;
 }

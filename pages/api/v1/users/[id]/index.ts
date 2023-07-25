@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]";
+import { authOptions } from "../../../auth/[...nextauth]";
 
 type QueryParameters = {
   user_id?: string;
@@ -68,6 +68,19 @@ export default async function handler(
                 mode: "insensitive",
               },
             },
+
+            // {
+            //   response_body: {
+            //     path: "$.choices[*].message.content",
+            //     array_contains: `${search}`,
+            //   },
+            // },
+            // {
+            //   response_body: {
+            //     path: "$.choices[*].text",
+            //     array_contains: `${search}`,
+            //   },
+            // },
           ] as any[],
         }
       : {};
