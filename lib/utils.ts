@@ -34,6 +34,18 @@ export function nFormatter(num?: number, digits?: number) {
     : "0";
 }
 
+export const numberFormat = (
+  num: number,
+  locale = "en-US",
+  fractionDigits = 0
+) => {
+  const formatter = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
+  });
+  return formatter.format(num);
+};
+
 export const timeAgo = (timestamp: Date): string => {
   if (!timestamp) return "never";
   return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
@@ -77,14 +89,15 @@ export const dateFormat = (timestamp: number) => {
   return formattedDate;
 };
 
-// Create our number formatter.
-const currencyFormat = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  // These options are needed to round to whole numbers if that's what you want.
-  minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-  maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-});
+export const currencyFormat = (num: number, currency = "USD", digits = 2) => {
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency,
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  });
+  return formatter.format(num);
+};
 
 export const fetcher = (...args: Parameters<typeof fetch>) =>
   fetch(...args).then((res) => res.json());

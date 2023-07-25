@@ -1,13 +1,13 @@
 import { Color } from "@tremor/react";
 import {
-  AudioModels,
+  AudioModel,
   Category,
-  ChatCompletionModels,
-  CompletionModels,
-  EditModels,
-  EmbeddingModels,
-  FineTunedModels,
-  Resolution,
+  ChatCompletionModel,
+  CompletionModel,
+  EditModel,
+  EmbeddingModel,
+  FineTunedModel,
+  ImageResolution,
   Snapshot,
 } from "./types";
 
@@ -43,23 +43,32 @@ export const CATEGORIES: Category[] = [
   "DALL-E API",
 ];
 
-export const RESOLUTIONS: Resolution[] = ["256x256", "512x512", "1024x1024"];
+export const IMAGE_RESOLUTIONS: ImageResolution[] = [
+  "256x256",
+  "512x512",
+  "1024x1024",
+];
 
-export const CHAT_GPT4_MODELS: ChatCompletionModels[] = [
+export const CHAT_GPT4_MODELS: ChatCompletionModel[] = [
   "gpt-4",
   "gpt-4-0314",
   "gpt-4-0613",
   "gpt-4-32k",
   "gpt-4-32k-0314",
 ];
-export const CHAT_GPT3_MODELS: ChatCompletionModels[] = [
+export const CHAT_GPT3_MODELS: ChatCompletionModel[] = [
   "gpt-3.5-turbo",
   "gpt-3.5-turbo-0301",
   "gpt-3.5-turbo-0613",
   "gpt-3.5-turbo-16k-0613",
 ];
 
-export const COMPLETION_MODELS: CompletionModels[] = [
+export const CHAT_MODELS: ChatCompletionModel[] = [
+  ...CHAT_GPT3_MODELS,
+  ...CHAT_GPT4_MODELS,
+];
+
+export const COMPLETION_MODELS: CompletionModel[] = [
   "text-ada-001",
   "text-babbage-001",
   "text-curie-001",
@@ -67,12 +76,12 @@ export const COMPLETION_MODELS: CompletionModels[] = [
   "text-davinci-003",
 ];
 
-export const EDIT_MODELS: EditModels[] = [
+export const EDIT_MODELS: EditModel[] = [
   "text-davinci-edit-001",
   "code-davinci-edit-001",
 ];
 
-export const FINE_TUNED_MODELS: FineTunedModels[] = [
+export const FINE_TUNED_MODELS: FineTunedModel[] = [
   "text-davinci-003",
   "text-davinci-002",
   "text-curie-001",
@@ -80,13 +89,13 @@ export const FINE_TUNED_MODELS: FineTunedModels[] = [
   "text-ada-001",
 ];
 
-export const EMBEDDING_MODELS: EmbeddingModels[] = [
+export const EMBEDDING_MODELS: EmbeddingModel[] = [
   "text-embedding-ada-002",
   "text-embedding-ada-002-v2",
   "text-search-ada-doc-001",
 ];
 
-export const AUDIO_MODELS: AudioModels[] = ["whisper-1", "whisper-2"];
+export const AUDIO_MODELS: AudioModel[] = ["whisper-1", "whisper-2"];
 
 export const COLORS: Color[] = [
   // "blue",
@@ -262,8 +271,8 @@ export const MODEL_COST: { [key in Snapshot]?: number } = {
 };
 
 // https://openai.com/pricing
-export const IMAGE_MODEL_COST: { [key in Resolution]: number } = {
-  "256x256": 0.016, // per 1 image
-  "512x512": 0.018, // per 1 image
+export const IMAGE_MODEL_COST: { [key in ImageResolution]: number } = {
   "1024x1024": 0.02, // per 1 image
+  "512x512": 0.018, // per 1 image
+  "256x256": 0.016, // per 1 image
 };

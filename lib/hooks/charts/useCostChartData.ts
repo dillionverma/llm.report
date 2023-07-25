@@ -6,11 +6,11 @@ import {
   EMBEDDING_MODELS,
   FINE_TUNED_MODELS,
   IMAGE_MODEL_COST,
+  IMAGE_RESOLUTIONS,
   MODEL_COST,
-  RESOLUTIONS,
 } from "@/lib/constants";
 import { useUsageData } from "@/lib/hooks/api/useUsageData";
-import { Category, Resolution, Snapshot } from "@/lib/types";
+import { Category, ImageResolution, Snapshot } from "@/lib/types";
 import { format } from "date-fns";
 
 export const useCostChartData = (
@@ -62,7 +62,7 @@ export const useCostChartData = (
       }
 
       const cost =
-        IMAGE_MODEL_COST[cur.image_size as Resolution] * cur.num_images;
+        IMAGE_MODEL_COST[cur.image_size as ImageResolution] * cur.num_images;
 
       if (!acc[date][cur.image_size]) {
         acc[date][cur.image_size] = cost;
@@ -126,7 +126,7 @@ export const useCostChartData = (
       case "GPT-4":
         return CHAT_GPT4_MODELS;
       case "Image models":
-        return RESOLUTIONS;
+        return IMAGE_RESOLUTIONS;
       case "Instruct models":
         return COMPLETION_MODELS;
       default:
