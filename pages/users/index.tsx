@@ -25,7 +25,7 @@ export default function Users() {
       </Col>
       <Col numColSpan={1}>
         <Card className="shadow-none">
-          <Title>Users</Title>
+          <Title>Requests</Title>
           <Suspense fallback={<>loading...</>}>
             <UserTable />
           </Suspense>

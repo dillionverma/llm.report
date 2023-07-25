@@ -1,5 +1,7 @@
 "use client";
 
+import { DataTableColumnHeader } from "@/components/DataTableColumnHeader";
+import { DataTablePagination } from "@/components/DataTablePagination";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -41,13 +44,11 @@ import {
   LucideMessageCircle,
   MoreHorizontal,
 } from "lucide-react";
+import { useRouter } from "next/router";
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { CSVLink } from "react-csv";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { DataTableColumnHeader } from "./DataTableColumnHeader";
-import { DataTablePagination } from "./DataTablePagination";
-import { Input } from "./ui/input";
 
 const RenderMarkdown = ({ children }: { children: string }) => {
   return (
@@ -429,14 +430,6 @@ const columns: ColumnDef<Request>[] = [
       return <div>{truncate(value, 50)}</div>;
     },
   },
-  {
-    accessorKey: "user_id",
-    header: "User ID",
-    cell: ({ row }) => {
-      const value = row.getValue("user_id") as any;
-      return <div>{truncate(value, 50)}</div>;
-    },
-  },
   // {
   //   accessorKey: "response_body",
   //   header: "Completion",
@@ -606,7 +599,8 @@ export const endpoints = [
   },
 ];
 
-export function RequestTable({ userId }: { userId?: string }) {
+export function UserRequestTable() {
+  const router = useRouter();
   const [selectedRequest, setSelectedRequest] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -666,9 +660,6 @@ export function RequestTable({ userId }: { userId?: string }) {
 
   useEffect(() => {
     const params = new URLSearchParams({
-      ...(userId && {
-        user_id: userId,
-      }),
       search: debouncedSearch,
       pageNumber: (pageIndex + 1).toString(),
       pageSize: pageSize.toString(),
@@ -678,7 +669,7 @@ export function RequestTable({ userId }: { userId?: string }) {
       }),
     });
 
-    const apiUrl = `/api/v1/requests?${params.toString()}`;
+    const apiUrl = `/api/v1/users/${router.query.id}?${params.toString()}`;
 
     setIsLoading(true);
 
@@ -693,7 +684,7 @@ export function RequestTable({ userId }: { userId?: string }) {
         console.error("Error fetching data:", error);
         setIsLoading(false);
       });
-  }, [debouncedSearch, pageIndex, pageSize, sorting, userId]);
+  }, [debouncedSearch, pageIndex, pageSize, sorting]);
 
   const isFiltered =
     table.getPreFilteredRowModel().rows.length >
@@ -705,18 +696,9 @@ export function RequestTable({ userId }: { userId?: string }) {
         <Input
           placeholder="Search prompts or completions..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e: any) => setSearch(e.target.value)}
           className="max-w-sm"
         />
-
-        {/* <Input
-          placeholder="Filter user ids"
-          value={(table.getColumn("user_id")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("user_id")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        /> */}
 
         {/* {table.getColumn("url") && (
           <DataTableFacetedFilter
@@ -837,4 +819,4 @@ export function RequestTable({ userId }: { userId?: string }) {
   );
 }
 
-export default RequestTable;
+export default UserRequestTable;
