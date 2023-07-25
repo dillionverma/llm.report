@@ -139,12 +139,7 @@ export default async function handler(
         (a, b) => b.total_cost - a.total_cost
       );
 
-      const totalCount = await prisma.request.count({
-        where: {
-          userId: session.user.id,
-          ...where,
-        },
-      });
+      const totalCount = sortedUsers.length;
 
       return res.status(200).json({
         users: sortedUsers,
