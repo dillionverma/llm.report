@@ -83,12 +83,12 @@ interface CostReq {
 }
 
 interface CostRes {
-  promptCost?: number;
-  completionCost?: number;
-  totalCost: number;
+  // promptCost?: number;
+  // completionCost?: number;
+  cost: number;
 }
 
-export const calculateCost = ({ model, input, output }: CostReq): CostRes => {
+export const calculateCost = ({ model, input, output }: CostReq): number => {
   if (!COST_PER_UNIT[model])
     throw new Error(`Cost for model ${model} not found`);
 
@@ -99,13 +99,8 @@ export const calculateCost = ({ model, input, output }: CostReq): CostRes => {
     const { prompt, completion } = COST_PER_UNIT[model] as CompletionModelCost;
     const promptCost = prompt * input;
     const completionCost = completion * output;
-    const totalCost = promptCost + completionCost;
-
-    return {
-      promptCost,
-      completionCost,
-      totalCost,
-    };
+    const cost = promptCost + completionCost;
+    return cost;
   } else if (
     new Set([...EMBEDDING_MODELS, ...AUDIO_MODELS, ...IMAGE_RESOLUTIONS]).has(
       model as EmbeddingModel | AudioModel | ImageResolution
@@ -113,11 +108,8 @@ export const calculateCost = ({ model, input, output }: CostReq): CostRes => {
   ) {
     if (!input) throw new Error("Input tokens are required");
     const costPerToken = COST_PER_UNIT[model] as number;
-    const totalCost = costPerToken * input;
-
-    return {
-      totalCost,
-    };
+    const cost = costPerToken * input;
+    return cost;
   }
 
   throw new Error(`Cost for model ${model} not found`);

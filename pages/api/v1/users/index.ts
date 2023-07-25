@@ -1,4 +1,4 @@
-import { COST_PER_UNIT, CompletionModelCost } from "@/lib/llm/calculateCost";
+import { calculateCost } from "@/lib/llm/calculateCost";
 import prisma from "@/lib/prisma";
 import { Snapshot } from "@/lib/types";
 import { Request } from "@prisma/client";
@@ -61,34 +61,6 @@ export default async function handler(
           }
         : {};
 
-      // const requests = await prisma.request.groupBy({
-      //   by: ["user_id", "id"],
-      //   where: {
-      //     userId: session.user.id,
-      //     ...where,
-      //     ...searchFilter,
-      //   },
-      //   _count: {
-      //     _all: true,
-      //   },
-      //   _sum: {
-      //     prompt_tokens: true,
-      //     completion_tokens: true,
-      //   },
-      //   orderBy: {
-      //     // [sortBy]: sortOrder,
-      //   },
-      //   take: Number(pageSize),
-      //   skip,
-      // });
-
-      // const users = requests.map((item) => ({
-      //   user_id: item.user_id,
-      //   num_requests: item._count._all,
-      //   total_prompt_tokens: item._sum.prompt_tokens,
-      //   total_completion_tokens: item._sum.completion_tokens,
-      // }));
-
       const requests = await prisma.request.findMany({
         where: {
           userId: session.user.id,
@@ -118,15 +90,13 @@ export default async function handler(
             request.completion_tokens !== null
         )
         .map((request) => {
-          const costPerUnit = COST_PER_UNIT[
-            request.model as Snapshot
-          ] as CompletionModelCost;
-
           return {
             ...request,
-            cost:
-              costPerUnit.prompt * request.prompt_tokens! +
-              costPerUnit.completion * request.completion_tokens!,
+            cost: calculateCost({
+              model: request.model as Snapshot,
+              input: request.prompt_tokens!,
+              output: request.completion_tokens!,
+            }),
           };
         });
 
