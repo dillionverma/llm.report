@@ -4,26 +4,41 @@ import { Snapshot } from "@/lib/types";
 import { Request } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
+import { z } from "zod";
 import { authOptions } from "../../auth/[...nextauth]";
 
-type QueryParameters = {
-  search?: string;
-  sortBy?: keyof typeof sortingFields;
-  sortOrder?: "asc" | "desc";
-  pageSize?: number;
-  pageNumber?: number;
-  filter?: string;
-};
+const dateSchema = z
+  .string()
+  .refine(
+    (value) => {
+      const [year, month, day] = value.split("-");
+      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      return !isNaN(date.getTime());
+    },
+    {
+      message: "Invalid date format, expected 'yyyy-MM-dd'",
+    }
+  )
+  .transform((value) => {
+    const [year, month, day] = value.split("-");
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  });
+
+const QueryParameters = z.object({
+  search: z.string().optional(),
+  sortBy: z.enum(["id", "createdAt", "updatedAt"]).optional(),
+  sortOrder: z.enum(["asc", "desc"]).optional(),
+  pageSize: z.coerce.number().optional(),
+  pageNumber: z.coerce.number().optional(),
+  filter: z.string().optional(),
+  start: dateSchema.optional(),
+  end: dateSchema.optional(),
+});
 
 const sortingFields = {
   id: "id",
   createdAt: "createdAt",
   updatedAt: "updatedAt",
-  // ip: "ip",
-  // url: "url",
-  // method: "method",
-  // status: "status",
-  // cached: "cached",
 };
 
 export default async function handler(
@@ -45,7 +60,9 @@ export default async function handler(
         pageSize = 10,
         pageNumber = 1,
         filter = "{}",
-      }: QueryParameters = req.query as unknown as QueryParameters;
+        start = "",
+        end = "",
+      } = QueryParameters.parse(req.query);
 
       const skip = (Number(pageNumber) - 1) * Number(pageSize);
       const where = JSON.parse(filter);
@@ -61,11 +78,29 @@ export default async function handler(
           }
         : {};
 
+      const dateFilter: Partial<{
+        createdAt?: {
+          gte?: Date;
+          lte?: Date;
+        };
+      }> = {};
+
+      if (start || end) {
+        dateFilter.createdAt = {};
+        if (start) {
+          dateFilter.createdAt.gte = start;
+        }
+        if (end) {
+          dateFilter.createdAt.lte = end;
+        }
+      }
+
       const requests = await prisma.request.findMany({
         where: {
           userId: session.user.id,
           ...where,
           ...searchFilter,
+          ...dateFilter,
         },
         orderBy: {
           [sortBy]: sortOrder,
@@ -136,7 +171,7 @@ export default async function handler(
       );
 
       const sortedUsers = Object.values(users).sort(
-        (a, b) => a.total_cost - b.total_cost
+        (a, b) => b.total_cost - a.total_cost
       );
 
       const totalCount = sortedUsers.length;

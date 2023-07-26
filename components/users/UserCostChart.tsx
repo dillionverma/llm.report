@@ -6,6 +6,7 @@ import {
   SortingState,
 } from "@tanstack/react-table";
 import { BarChart } from "@tremor/react";
+import { format } from "date-fns";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -13,7 +14,12 @@ const dataFormatter = (number: number) => {
   return `$ ${Intl.NumberFormat("us").format(number).toString()}`;
 };
 
-const UserCostChart = () => {
+interface UserCostChartProps {
+  from: Date | undefined;
+  to: Date | undefined;
+}
+
+const UserCostChart = ({ from, to }: UserCostChartProps) => {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500); // Debounce the search
@@ -36,6 +42,8 @@ const UserCostChart = () => {
         sortBy: sorting[0].id,
         sortOrder: sorting[0].desc ? "desc" : "asc",
       }),
+      ...(from && { from: format(from, "yyyy-MM-dd") }),
+      ...(to && { to: format(to, "yyyy-MM-dd") }),
     });
 
     const apiUrl = `/api/v1/users?${params.toString()}`;
@@ -55,7 +63,7 @@ const UserCostChart = () => {
         console.error("Error fetching data:", error);
         setIsLoading(false);
       });
-  }, [debouncedSearch, pageIndex, pageSize, sorting]);
+  }, [debouncedSearch, pageIndex, pageSize, sorting, from, to]);
 
   return (
     <BarChart

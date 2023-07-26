@@ -22,6 +22,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { format } from "date-fns";
 import { LucideMessageCircle } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
@@ -80,7 +81,12 @@ export const endpoints = [
   },
 ];
 
-export function UserTable() {
+interface UserTableProps {
+  from: Date | undefined;
+  to: Date | undefined;
+}
+
+export function UserTable({ from, to }: UserTableProps) {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500); // Debounce the search
@@ -137,6 +143,8 @@ export function UserTable() {
         sortBy: sorting[0].id,
         sortOrder: sorting[0].desc ? "desc" : "asc",
       }),
+      ...(from && { from: format(from, "yyyy-MM-dd") }),
+      ...(to && { to: format(to, "yyyy-MM-dd") }),
     });
 
     const apiUrl = `/api/v1/users?${params.toString()}`;
@@ -155,7 +163,7 @@ export function UserTable() {
         console.error("Error fetching data:", error);
         setIsLoading(false);
       });
-  }, [debouncedSearch, pageIndex, pageSize, sorting]);
+  }, [debouncedSearch, pageIndex, pageSize, sorting, from, to]);
 
   // const isFiltered =
   //   table.getPreFilteredRowModel().rows.length >
