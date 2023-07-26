@@ -738,7 +738,7 @@ export function RequestTable({ userId }: { userId?: string }) {
         <div className="flex flex-row space-x-2">
           {/* <DataTableViewOptions table={table} /> */}
           <CSVLink
-            filename={`logs-${new Date().getTime()}.csv`}
+            filename={`logs.csv`}
             // enclosingCharacter={`"`}
             data={requests.map((log: any) => {
               return {
@@ -771,11 +771,11 @@ export function RequestTable({ userId }: { userId?: string }) {
       <div className="rounded-md border">
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
+            {table.getHeaderGroups().map((headerGroup, idx1) => (
+              <TableRow key={idx1}>
+                {headerGroup.headers.map((header, idx2) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={idx2}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -790,9 +790,9 @@ export function RequestTable({ userId }: { userId?: string }) {
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, idx1) => (
                 <TableRow
-                  key={row.id}
+                  key={idx1}
                   data-state={row.getIsSelected() && "selected"}
                   onClick={() => {
                     setSelectedRequest(row.original);
@@ -800,8 +800,8 @@ export function RequestTable({ userId }: { userId?: string }) {
                   }}
                   className="cursor-pointer hover:bg-gray-100"
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="whitespace-nowrap py-2">
+                  {row.getVisibleCells().map((cell, idx2) => (
+                    <TableCell key={idx2} className="whitespace-nowrap py-2">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

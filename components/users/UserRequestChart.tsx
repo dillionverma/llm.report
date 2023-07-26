@@ -56,24 +56,33 @@ const UserRequestChart = ({ userId }: { userId: string }) => {
         const grouped: Record<
           string,
           { completion_tokens: number; prompt_tokens: number; cost: number }
-        > = data.requests.reduce((acc: any, curr: Request) => {
-          const date = new Date(curr.createdAt).toLocaleDateString();
-          if (!acc[date]) {
-            acc[date] = {
-              completion_tokens: 0,
-              prompt_tokens: 0,
-              cost: 0,
-            };
-          }
-          acc[date].completion_tokens += curr.completion_tokens;
-          acc[date].prompt_tokens += curr.prompt_tokens;
-          acc[date].cost += calculateCost({
-            model: curr.model!,
-            input: curr.completion_tokens!,
-            output: curr.prompt_tokens!,
-          });
-          return acc;
-        }, {} as Record<string, { completion_tokens: number; prompt_tokens: number; cost: number }>);
+        > = data.requests
+          .filter(
+            (request: Request) =>
+              request.user_id !== null &&
+              request.user_id !== "" &&
+              request.model !== null &&
+              request.prompt_tokens !== null &&
+              request.completion_tokens !== null
+          )
+          .reduce((acc: any, curr: Request) => {
+            const date = new Date(curr.createdAt).toLocaleDateString();
+            if (!acc[date]) {
+              acc[date] = {
+                completion_tokens: 0,
+                prompt_tokens: 0,
+                cost: 0,
+              };
+            }
+            acc[date].completion_tokens += curr.completion_tokens;
+            acc[date].prompt_tokens += curr.prompt_tokens;
+            acc[date].cost += calculateCost({
+              model: curr.model!,
+              input: curr.completion_tokens!,
+              output: curr.prompt_tokens!,
+            });
+            return acc;
+          }, {} as Record<string, { completion_tokens: number; prompt_tokens: number; cost: number }>);
 
         const groupedArray = Object.entries(grouped).map(
           ([date, { completion_tokens, prompt_tokens, cost }]) => ({
