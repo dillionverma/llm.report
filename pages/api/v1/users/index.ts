@@ -57,14 +57,14 @@ export default async function handler(
         search = "",
         sortBy = "createdAt",
         sortOrder = "desc",
-        pageSize = 10,
-        pageNumber = 1,
+        // pageSize = 10,
+        // pageNumber = 1,
         filter = "{}",
         start = "",
         end = "",
       } = QueryParameters.parse(req.query);
 
-      const skip = (Number(pageNumber) - 1) * Number(pageSize);
+      // const skip = (Number(pageNumber) - 1) * Number(pageSize);
       const where = JSON.parse(filter);
       const searchFilter = search
         ? {
@@ -105,18 +105,15 @@ export default async function handler(
         orderBy: {
           [sortBy]: sortOrder,
         },
-        take: Number(pageSize),
-        skip,
+        // take: Number(pageSize),
+        // skip,
         select: {
-          // userId: true,
           user_id: true,
           model: true,
           prompt_tokens: true,
           completion_tokens: true,
         },
       });
-
-      console.log("req len", requests.length);
 
       const filteredUsers: (Partial<Request> & { cost: number })[] = requests
         .filter(
@@ -137,8 +134,6 @@ export default async function handler(
             }),
           };
         });
-
-      console.log("fil len", filteredUsers.length);
 
       const users = filteredUsers.reduce(
         (
