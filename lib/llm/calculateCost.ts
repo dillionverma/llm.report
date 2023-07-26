@@ -65,6 +65,7 @@ export const getModelCost = (model: string) => {
 };
 
 export const calculateCost = ({ model, input, output }: CostReq): number => {
+  if (!model) throw new Error("Model is required");
   const cost = getModelCost(model)!;
 
   if (typeof cost === "number") {
