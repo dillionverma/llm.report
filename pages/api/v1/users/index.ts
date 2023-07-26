@@ -116,10 +116,13 @@ export default async function handler(
         },
       });
 
+      console.log("req len", requests.length);
+
       const filteredUsers: (Partial<Request> & { cost: number })[] = requests
         .filter(
           (request) =>
             request.user_id !== null &&
+            request.user_id !== "" &&
             request.model !== null &&
             request.prompt_tokens !== null &&
             request.completion_tokens !== null
@@ -134,6 +137,8 @@ export default async function handler(
             }),
           };
         });
+
+      console.log("fil len", filteredUsers.length);
 
       const users = filteredUsers.reduce(
         (
