@@ -92,6 +92,7 @@ export default async function handler(
     const totalCount = await prisma.request.count({
       where: {
         userId: session.user.id,
+        ...(user_id && { user_id: user_id }),
         // ...where,
         ...searchFilter,
       },
