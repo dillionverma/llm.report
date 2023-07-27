@@ -15,13 +15,18 @@ const dataFormatter = (number: number) => {
   return `$ ${Intl.NumberFormat("us").format(number).toString()}`;
 };
 
-const UserRequestChart = ({ userId }: { userId: string }) => {
+const UserCostPerDayChart = ({ userId }: { userId: string }) => {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500); // Debounce the search
   const [requests, setRequests] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([
+    {
+      id: "createdAt",
+      desc: false,
+    },
+  ]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
@@ -113,4 +118,4 @@ const UserRequestChart = ({ userId }: { userId: string }) => {
   );
 };
 
-export default UserRequestChart;
+export default UserCostPerDayChart;

@@ -1,7 +1,6 @@
 import RequestTable from "@/components/RequestTable";
-import UserRequestChart from "@/components/users/UserRequestChart";
+import UserCostPerDayChart from "@/components/users/UserCostPerDayChart";
 import prisma from "@/lib/prisma";
-import requests from "@/pages/api/v1/requests";
 import { Callout, Card, Col, Grid, Subtitle, Title } from "@tremor/react";
 import { ConstructionIcon } from "lucide-react";
 import { GetServerSidePropsContext } from "next";
@@ -30,7 +29,7 @@ export default function User() {
           <Title>Cost</Title>
           <Subtitle>The total cost for user per day</Subtitle>
           <Suspense fallback={<>loading...</>}>
-            <UserRequestChart userId={id} />
+            <UserCostPerDayChart userId={id} />
           </Suspense>
         </Card>
       </Col>
