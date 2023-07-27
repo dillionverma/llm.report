@@ -177,10 +177,7 @@ const RequestDialog = ({
                                 <TR label="ip" value={request.ip} />
                                 <TR label="method" value={request.method} />
                                 <TR label="status" value={request.status} />
-                                <TR
-                                  label="model"
-                                  value={request.request_body.model}
-                                />
+                                <TR label="model" value={request.model} />
                                 <TR
                                   label="cached"
                                   value={request.cached ? "true" : "false"}
@@ -379,12 +376,8 @@ const columns: ColumnDef<Request>[] = [
     },
   },
   {
-    accessorKey: "request_body",
+    accessorKey: "model",
     header: "Model",
-    cell: ({ row }) => {
-      const model = row.getValue("request_body") as any;
-      return <div>{model.model}</div>;
-    },
   },
   {
     accessorKey: "cached",

@@ -84,8 +84,27 @@ export default async function handler(
       },
       take: Number(pageSize),
       skip,
-      include: {
-        metadata: true,
+      // include: {
+      //   metadata: true,
+      // },
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        ip: true,
+        url: true,
+        method: true,
+        status: true,
+        cached: true,
+        streamed: true,
+        // metadata: true,
+        user_id: true,
+        completion: true,
+        model: true,
+
+        request_body: true,
+        response_body: true,
+        streamed_response_body: true,
       },
     });
 
