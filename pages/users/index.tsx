@@ -11,7 +11,14 @@ import {
   Subtitle,
   Title,
 } from "@tremor/react";
-import { add, startOfMonth, startOfYear, sub } from "date-fns";
+import {
+  add,
+  formatDistance,
+  startOfDay,
+  startOfMonth,
+  startOfYear,
+  sub,
+} from "date-fns";
 import { ConstructionIcon } from "lucide-react";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
@@ -87,7 +94,12 @@ export default function Users() {
       <Col numColSpan={1}>
         <Card className="shadow-none">
           <Title>Cost Per User</Title>
-          <Subtitle>The total cost of each user in the last 30 days.</Subtitle>
+          <Subtitle>
+            The total cost of the top 10 users over the past{" "}
+            {value.from &&
+              value.to &&
+              formatDistance(startOfDay(value.from), value.to)}
+          </Subtitle>
           <Suspense fallback={<>loading...</>}>
             <UserCostChart from={value.from} to={value.to} />
           </Suspense>

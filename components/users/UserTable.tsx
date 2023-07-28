@@ -97,7 +97,7 @@ export function UserTable({ from, to }: UserTableProps) {
   const [totalCount, setTotalCount] = useState(0);
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 20,
+    pageSize: 10,
   });
 
   const pagination = useMemo(

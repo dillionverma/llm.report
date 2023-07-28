@@ -30,7 +30,7 @@ const UserCostChart = ({ from, to }: UserCostChartProps) => {
   const [totalCount, setTotalCount] = useState(0);
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 20,
+    pageSize: 10,
   });
 
   useEffect(() => {
