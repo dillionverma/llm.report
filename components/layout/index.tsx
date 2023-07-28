@@ -8,6 +8,7 @@ import {
   Key,
   MessageSquarePlus,
   Settings,
+  User,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -80,7 +81,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                     <Badge className="ml-2 px-2 cursor-pointer">New ✨</Badge>
                   </Link>
 
-                  {/* <Link
+                  <Link
                     href="/users"
                     className="flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1"
                   >
@@ -89,7 +90,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                     <Badge className="ml-2 px-2 cursor-pointer">
                       Coming Soon
                     </Badge>
-                  </Link> */}
+                  </Link>
                 </div>
               </div>
 

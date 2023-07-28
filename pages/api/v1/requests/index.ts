@@ -103,6 +103,7 @@ export default async function handler(
           user_id: true,
           completion: true,
           model: true,
+          openai_id: true,
 
           prompt_tokens: true,
           completion_tokens: true,

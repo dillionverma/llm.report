@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useDebounce from "@/lib/use-debounce";
-import { truncate } from "@/lib/utils";
+import { cn, currencyFormat, numberFormat, truncate } from "@/lib/utils";
 import { Dialog, Transition } from "@headlessui/react";
 import { SparklesIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Request } from "@prisma/client";
@@ -178,6 +178,21 @@ const RequestDialog = ({
                                 <TR label="method" value={request.method} />
                                 <TR label="status" value={request.status} />
                                 <TR label="model" value={request.model} />
+                                <TR
+                                  label="cost"
+                                  value={currencyFormat(request.cost, "USD", 6)}
+                                />
+                                <TR
+                                  label="prompt_tokens"
+                                  value={numberFormat(request.prompt_tokens)}
+                                />
+                                <TR
+                                  label="completion_tokens"
+                                  value={numberFormat(
+                                    request.completion_tokens
+                                  )}
+                                />
+
                                 <TR
                                   label="cached"
                                   value={request.cached ? "true" : "false"}
@@ -378,6 +393,14 @@ const columns: ColumnDef<Request>[] = [
   {
     accessorKey: "model",
     header: "Model",
+  },
+  {
+    accessorKey: "cost",
+    header: "Cost",
+    cell: ({ row }) => {
+      const value = row.getValue("cost") as number;
+      return <div>{currencyFormat(value, "USD", 4)}</div>;
+    },
   },
   {
     accessorKey: "cached",
@@ -680,17 +703,18 @@ export function RequestTable({ userId }: { userId?: string }) {
       .then((data) => {
         setRequests(data.requests);
         setTotalCount(data.totalCount);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   }, [debouncedSearch, pageIndex, pageSize, sorting, userId]);
 
-  const isFiltered =
-    table.getPreFilteredRowModel().rows.length >
-    table.getFilteredRowModel().rows.length;
+  // const isFiltered =
+  //   table.getPreFilteredRowModel().rows.length >
+  //   table.getFilteredRowModel().rows.length;
 
   return (
     <div>
@@ -781,7 +805,11 @@ export function RequestTable({ userId }: { userId?: string }) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody
+            className={cn({
+              "blur-sm": isLoading,
+            })}
+          >
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, idx1) => (
                 <TableRow

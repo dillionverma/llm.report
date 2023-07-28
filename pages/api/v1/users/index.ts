@@ -57,8 +57,8 @@ export default async function handler(
         search = "",
         sortBy = "createdAt",
         sortOrder = "desc",
-        // pageSize = 10,
-        // pageNumber = 1,
+        pageSize = 10,
+        pageNumber = 1,
         filter = "{}",
         start = "",
         end = "",
@@ -174,10 +174,14 @@ export default async function handler(
         (a, b) => b.total_cost - a.total_cost
       );
 
+      const skip = (Number(pageNumber) - 1) * Number(pageSize);
+      const take = Number(pageSize);
+      const paginatedUsers = sortedUsers.slice(skip, skip + take);
+
       const totalCount = sortedUsers.length;
 
       return res.status(200).json({
-        users: sortedUsers,
+        users: paginatedUsers,
         totalCount,
       });
     } catch (error: any) {

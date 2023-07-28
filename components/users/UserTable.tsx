@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useDebounce from "@/lib/use-debounce";
-import { currencyFormat, numberFormat } from "@/lib/utils";
+import { cn, currencyFormat, numberFormat } from "@/lib/utils";
 import { Request } from "@prisma/client";
 import {
   ColumnDef,
@@ -143,8 +143,8 @@ export function UserTable({ from, to }: UserTableProps) {
         sortBy: sorting[0].id,
         sortOrder: sorting[0].desc ? "desc" : "asc",
       }),
-      ...(from && { from: format(from, "yyyy-MM-dd") }),
-      ...(to && { to: format(to, "yyyy-MM-dd") }),
+      ...(from && { start: format(from, "yyyy-MM-dd") }),
+      ...(to && { end: format(to, "yyyy-MM-dd") }),
     });
 
     const apiUrl = `/api/v1/users?${params.toString()}`;
@@ -157,10 +157,11 @@ export function UserTable({ from, to }: UserTableProps) {
         console.log("Data fetched:", data.users);
         setUsers(data.users);
         setTotalCount(data.totalCount);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   }, [debouncedSearch, pageIndex, pageSize, sorting, from, to]);
@@ -173,7 +174,7 @@ export function UserTable({ from, to }: UserTableProps) {
     <div>
       <div className="flex items-center justify-between py-4 space-x-2">
         <Input
-          placeholder="Search user id"
+          placeholder="Search users"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
@@ -248,7 +249,11 @@ export function UserTable({ from, to }: UserTableProps) {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody
+            className={cn({
+              "blur-sm": isLoading,
+            })}
+          >
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow

@@ -42,8 +42,8 @@ const UserCostChart = ({ from, to }: UserCostChartProps) => {
         sortBy: sorting[0].id,
         sortOrder: sorting[0].desc ? "desc" : "asc",
       }),
-      ...(from && { from: format(from, "yyyy-MM-dd") }),
-      ...(to && { to: format(to, "yyyy-MM-dd") }),
+      ...(from && { start: format(from, "yyyy-MM-dd") }),
+      ...(to && { end: format(to, "yyyy-MM-dd") }),
     });
 
     const apiUrl = `/api/v1/users?${params.toString()}`;
