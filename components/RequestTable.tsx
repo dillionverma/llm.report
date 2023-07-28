@@ -183,11 +183,11 @@ const RequestDialog = ({
                                   value={currencyFormat(request.cost, "USD", 6)}
                                 />
                                 <TR
-                                  label="prompt_tokens"
+                                  label="prompt tokens"
                                   value={numberFormat(request.prompt_tokens)}
                                 />
                                 <TR
-                                  label="completion_tokens"
+                                  label="completion tokens"
                                   value={numberFormat(
                                     request.completion_tokens
                                   )}
