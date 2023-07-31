@@ -16,7 +16,7 @@ services:
       - POSTGRES_USER=${DEFAULT_DATABASE_USER}
       - POSTGRES_PASSWORD=${DEFAULT_DATABASE_PASSWORD}
     env_file:
-      - .env
+      - .env.local
     ports:
       - "${DEFAULT_DATABASE_PORT}:5432"
 
