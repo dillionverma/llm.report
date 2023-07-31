@@ -66,7 +66,7 @@ export default function Users() {
       startOfMonth(new Date()) === new Date()
         ? new Date()
         : add(new Date(), { days: 1 }),
-    selectValue: "mtd",
+    selectValue: "w",
   });
 
   return (
