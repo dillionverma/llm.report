@@ -11,14 +11,7 @@ import {
   Subtitle,
   Title,
 } from "@tremor/react";
-import {
-  add,
-  formatDistance,
-  startOfDay,
-  startOfMonth,
-  startOfYear,
-  sub,
-} from "date-fns";
+import { format, startOfMonth, startOfYear, sub } from "date-fns";
 import { ConstructionIcon } from "lucide-react";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
@@ -51,7 +44,6 @@ const dateSelectOptions = [
     from: sub(startOfMonth(new Date()), { months: 1 }),
     to: startOfMonth(new Date()),
   },
-
   {
     value: "y",
     text: "This year",
@@ -61,14 +53,12 @@ const dateSelectOptions = [
 
 export default function Users() {
   const [value, setValue] = useState<DateRangePickerValue>({
-    from: startOfMonth(new Date()),
-    to:
-      startOfMonth(new Date()) === new Date()
-        ? new Date()
-        : add(new Date(), { days: 1 }),
+    from: sub(new Date(), { days: 7 }),
+    to: new Date(),
     selectValue: "w",
   });
 
+  console.log(value);
   return (
     <Grid numItems={1} numItemsLg={1} className="gap-6 w-full">
       <Col numColSpan={1}>
@@ -95,10 +85,12 @@ export default function Users() {
         <Card className="shadow-none">
           <Title>Cost Per User</Title>
           <Subtitle>
-            The total cost of the top 10 users over the past{" "}
-            {value.from &&
+            The total cost of the top 10 users from{" "}
+            {value.from && format(value.from, "yyyy-MM-dd")} to{" "}
+            {value.to && format(value.to, "yyyy-MM-dd")}
+            {/* {value.from &&
               value.to &&
-              formatDistance(startOfDay(value.from), value.to)}
+              formatDistance(startOfDay(value.from), value.to)} */}
           </Subtitle>
           <Suspense fallback={<>loading...</>}>
             <UserCostChart from={value.from} to={value.to} />
