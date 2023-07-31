@@ -3,6 +3,7 @@ import Cost from "@/components/dashboard/Cost";
 import CostChart from "@/components/dashboard/CostChart";
 import GeneratedTokenChart from "@/components/dashboard/GeneratedTokenChart";
 import MonthlyChart from "@/components/dashboard/MonthlyChart";
+import MonthlyChartByMinute from "@/components/dashboard/MonthlyChartByMinute";
 import RequestChart from "@/components/dashboard/RequestChart";
 import Requests from "@/components/dashboard/Requests";
 import Tokens from "@/components/dashboard/Tokens";
@@ -29,6 +30,11 @@ import {
   SelectItem,
   Text,
   Title,
+  TabList,
+  Tab,
+  TabGroup,
+  TabPanels,
+  TabPanel,
 } from "@tremor/react";
 import { add, startOfMonth, sub } from "date-fns";
 import { useSession } from "next-auth/react";
@@ -163,21 +169,21 @@ export default function Dashboard() {
 
   return (
     <div>
-      <Flex className="2xl:flex-row flex-col items-start 2xl:items-center space-y-4">
-        <div className="flex w-full flex-row gap-4">
-          <div className="flex flex-col items-center gap-2 justify-center">
+      <Flex className="flex-col items-start space-y-4 2xl:flex-row 2xl:items-center">
+        <div className="flex flex-row w-full gap-4">
+          <div className="flex flex-col items-center justify-center gap-2">
             <div className="flex flex-row gap-2">
               <Title>OpenAI Analytics</Title>
 
               {!data?.user && (
                 <Badge
-                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  className="px-3 space-x-2 transition-all duration-200 ease-in-out transform"
                   // onClick={() => openDialog()}
                   color="blue"
                   icon={() => (
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                    <span className="relative flex w-3 h-3">
+                      <span className="absolute inline-flex w-full h-full bg-blue-500 rounded-full opacity-75 animate-ping"></span>
+                      <span className="relative inline-flex w-3 h-3 bg-blue-500 rounded-full"></span>
                     </span>
                   )}
                 >
@@ -187,13 +193,13 @@ export default function Dashboard() {
 
               {data?.user && !key && subscribed && (
                 <Badge
-                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  className="px-3 space-x-2 transition-all duration-200 ease-in-out transform"
                   // onClick={() => openDialog()}
                   color="red"
                   icon={() => (
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    <span className="relative flex w-3 h-3">
+                      <span className="absolute inline-flex w-full h-full bg-red-500 rounded-full opacity-75 animate-ping"></span>
+                      <span className="relative inline-flex w-3 h-3 bg-red-500 rounded-full"></span>
                     </span>
                   )}
                 >
@@ -203,13 +209,13 @@ export default function Dashboard() {
 
               {data?.user && !subscribed && (
                 <Badge
-                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  className="px-3 space-x-2 transition-all duration-200 ease-in-out transform"
                   // onClick={() => openDialog()}
                   color="red"
                   icon={() => (
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    <span className="relative flex w-3 h-3">
+                      <span className="absolute inline-flex w-full h-full bg-red-500 rounded-full opacity-75 animate-ping"></span>
+                      <span className="relative inline-flex w-3 h-3 bg-red-500 rounded-full"></span>
                     </span>
                   )}
                 >
@@ -219,13 +225,13 @@ export default function Dashboard() {
 
               {data?.user && key && validKey && !isDown && (
                 <Badge
-                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  className="px-3 space-x-2 transition-all duration-200 ease-in-out transform"
                   // onClick={() => openDialog()}
                   color="green"
                   icon={() => (
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    <span className="relative flex w-3 h-3">
+                      <span className="absolute inline-flex w-full h-full bg-green-500 rounded-full opacity-75 animate-ping"></span>
+                      <span className="relative inline-flex w-3 h-3 bg-green-500 rounded-full"></span>
                     </span>
                   )}
                 >
@@ -235,13 +241,13 @@ export default function Dashboard() {
 
               {data?.user && key && validKey && isDown && (
                 <Badge
-                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  className="px-3 space-x-2 transition-all duration-200 ease-in-out transform"
                   // onClick={() => openDialog()}
                   color="red"
                   icon={() => (
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    <span className="relative flex w-3 h-3">
+                      <span className="absolute inline-flex w-full h-full bg-red-500 rounded-full opacity-75 animate-ping"></span>
+                      <span className="relative inline-flex w-3 h-3 bg-red-500 rounded-full"></span>
                     </span>
                   )}
                 >
@@ -251,13 +257,13 @@ export default function Dashboard() {
 
               {data?.user && key && !validKey && (
                 <Badge
-                  className="px-3 space-x-2 transition-all transform duration-200 ease-in-out"
+                  className="px-3 space-x-2 transition-all duration-200 ease-in-out transform"
                   // onClick={() => openDialog()}
                   color="red"
                   icon={() => (
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                    <span className="relative flex w-3 h-3">
+                      <span className="absolute inline-flex w-full h-full bg-red-500 rounded-full opacity-75 animate-ping"></span>
+                      <span className="relative inline-flex w-3 h-3 bg-red-500 rounded-full"></span>
                     </span>
                   )}
                 >
@@ -269,7 +275,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="w-full max-w-3xl items-end flex md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4 flex-col z-20">
+        <div className="z-20 flex flex-col items-end w-full max-w-3xl space-x-0 space-y-4 md:flex-row md:space-y-0 md:space-x-4">
           <DateRangePicker
             value={value}
             onValueChange={setDates}
@@ -312,7 +318,7 @@ export default function Dashboard() {
                     <img
                       alt={user.name}
                       src={user.picture}
-                      className="w-7 h-7 mr-3 rounded-full"
+                      className="mr-3 rounded-full w-7 h-7"
                     />
                   )}
                 >
@@ -324,57 +330,84 @@ export default function Dashboard() {
         </div>
       </Flex>
 
-      <Grid
-        numItems={1}
-        numItemsMd={2}
-        numItemsLg={4}
-        className="gap-6 mt-4 w-full"
-      >
-        <Card className="shadow-none z-10">
-          <CostChart
-            startDate={new Date()}
-            endDate={new Date()}
-            categories={categories!}
-          />
-        </Card>
-        <Card className="shadow-none">
-          <RequestChart startDate={new Date()} endDate={new Date()} />
-        </Card>
-        <Card className="shadow-none">
-          <ContextTokenChart startDate={new Date()} endDate={new Date()} />
-        </Card>
-        <Card className="shadow-none">
-          <GeneratedTokenChart startDate={new Date()} endDate={new Date()} />
-        </Card>
-      </Grid>
+      <TabGroup>
+        <TabList className="mt-2">
+          <Tab>Overview</Tab>
+          <Tab>Detailed Analytics</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Grid
+              numItems={1}
+              numItemsMd={2}
+              numItemsLg={4}
+              className="w-full gap-6 mt-4"
+            >
+              <Card className="z-10 shadow-none">
+                <CostChart
+                  startDate={new Date()}
+                  endDate={new Date()}
+                  categories={categories!}
+                />
+              </Card>
+              <Card className="shadow-none">
+                <RequestChart startDate={new Date()} endDate={new Date()} />
+              </Card>
+              <Card className="shadow-none">
+                <ContextTokenChart
+                  startDate={new Date()}
+                  endDate={new Date()}
+                />
+              </Card>
+              <Card className="shadow-none">
+                <GeneratedTokenChart
+                  startDate={new Date()}
+                  endDate={new Date()}
+                />
+              </Card>
+            </Grid>
 
-      <Card className="mt-4 shadow-none">
-        <MonthlyChart
-          startDate={value.from!}
-          endDate={value.to!}
-          categories={categories!}
-        />
-      </Card>
+            <Card className="mt-4 shadow-none">
+              <MonthlyChart
+                startDate={value.from!}
+                endDate={value.to!}
+                categories={categories!}
+              />
+            </Card>
 
-      <Grid numItemsMd={1} numItemsLg={3} className="gap-6 mt-4">
-        <Card className="shadow-none">
-          <Cost
-            startDate={value.from!}
-            endDate={value.to!}
-            categories={categories!}
-          />
-        </Card>
-        <Card className="shadow-none">
-          <Requests startDate={value.from!} endDate={value.to!} />
-        </Card>
-        <Card className="shadow-none">
-          <Tokens
-            startDate={value.from!}
-            endDate={value.to!}
-            categories={categories!}
-          />
-        </Card>
-      </Grid>
+            <Grid numItemsMd={1} numItemsLg={3} className="gap-6 mt-4">
+              <Card className="shadow-none">
+                <Cost
+                  startDate={value.from!}
+                  endDate={value.to!}
+                  categories={categories!}
+                />
+              </Card>
+            </Grid>
+          </TabPanel>
+          <TabPanel>
+            <Card className="mt-4 shadow-none">
+              <MonthlyChartByMinute
+                startDate={value.from!}
+                endDate={value.to!}
+                categories={categories!}
+              />
+            </Card>
+            <Grid numItemsMd={1} numItemsLg={3} className="gap-6 mt-4">
+              <Card className="shadow-none">
+                <Requests startDate={value.from!} endDate={value.to!} />
+              </Card>
+              <Card className="shadow-none">
+                <Tokens
+                  startDate={value.from!}
+                  endDate={value.to!}
+                  categories={categories!}
+                />
+              </Card>
+            </Grid>
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
     </div>
   );
 }

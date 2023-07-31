@@ -21,7 +21,8 @@ const CostChart = ({ startDate, endDate, categories }: CostChartProps) => {
   const { snapshots, selectedSnapshots, data, loading } = useCostChartData(
     startDate,
     endDate,
-    categories
+    categories,
+    false
   );
 
   if (!BillingData || !snapshots || !selectedSnapshots || !data)
@@ -46,7 +47,7 @@ const CostChart = ({ startDate, endDate, categories }: CostChartProps) => {
       </Flex>
       {data.length > 0 && (
         <BarChart
-          className="mt-6 h-32"
+          className="h-32 mt-6"
           data={data}
           stack
           index="date"
