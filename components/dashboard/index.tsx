@@ -333,7 +333,12 @@ export default function Dashboard() {
       <TabGroup>
         <TabList className="mt-2">
           <Tab>Overview</Tab>
-          <Tab>Detailed Analytics</Tab>
+          <Tab>
+            Detailed Analytics
+            <span className="px-2 py-1 ml-2 bg-tremor-brand-muted text-tremor-brand-emphasis rounded-tremor-full">
+              New ✨
+            </span>
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
