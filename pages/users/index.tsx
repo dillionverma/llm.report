@@ -88,9 +88,6 @@ export default function Users() {
             The total cost of the top 10 users from{" "}
             {value.from && format(value.from, "yyyy-MM-dd")} to{" "}
             {value.to && format(value.to, "yyyy-MM-dd")}
-            {/* {value.from &&
-              value.to &&
-              formatDistance(startOfDay(value.from), value.to)} */}
           </Subtitle>
           <Suspense fallback={<>loading...</>}>
             <UserCostChart from={value.from} to={value.to} />
