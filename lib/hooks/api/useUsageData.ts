@@ -6,7 +6,11 @@ import { useQueries } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 
-export const useUsageData = (startDate: Date, endDate: Date) => {
+export const useUsageData = (
+  startDate: Date,
+  endDate: Date,
+  rateLimitingEnabled: Boolean = true
+) => {
   const dates = dateRange(startDate, endDate);
   const { status } = useSession();
 
@@ -16,7 +20,10 @@ export const useUsageData = (startDate: Date, endDate: Date) => {
       queryKey: ["usage", format(date, "yyyy-MM-dd")],
 
       // Rate limit requests to 5 per minute
-      queryFn: () => rateLimitQuery(openai.getUsage, date),
+      queryFn: () =>
+        rateLimitingEnabled
+          ? rateLimitQuery(openai.getUsage, date)
+          : openai.getUsage(date),
 
       // stale time of 5 minutes if day is today, otherwise infinity
       staleTime:

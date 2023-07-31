@@ -23,8 +23,8 @@ export const useBillingData = (startDate: Date, endDate: Date) => {
     queryKey,
 
     // Rate limit requests to 5 per minute
-    queryFn: () => rateLimitQuery(openai.getBillingUsage, startDate, endDate),
-    // queryFn: () => openai.getBillingUsage(startDate, endDate),
+    // queryFn: () => rateLimitQuery(openai.getBillingUsage, startDate, endDate),
+    queryFn: () => openai.getBillingUsage(startDate, endDate),
 
     // stale time of 5 minutes if day is today, otherwise infinity
     staleTime:

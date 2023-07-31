@@ -16,9 +16,10 @@ import { format } from "date-fns";
 export const useCostChartData = (
   startDate: Date,
   endDate: Date,
-  categories: Category[]
+  categories: Category[],
+  rateLimitingEnabled: boolean = true
 ) => {
-  const query = useUsageData(startDate, endDate);
+  const query = useUsageData(startDate, endDate, rateLimitingEnabled);
 
   if (query.some((result) => result.isLoading || result.isError)) {
     return { data: [], loading: true };

@@ -1,11 +1,5 @@
-import {
-  CATEGORIES,
-  CATEGORY_TO_COLOR,
-  MODEL_TO_COLOR,
-  SELECTION_KEY,
-} from "@/lib/constants";
+import { CATEGORIES, CATEGORY_TO_COLOR, SELECTION_KEY } from "@/lib/constants";
 import { useBillingData } from "@/lib/hooks/api/useBillingData";
-import { useCostChartData } from "@/lib/hooks/charts/useCostChartData";
 import { Category, Model } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
 import { dateFormat } from "@/lib/utils";
@@ -31,7 +25,7 @@ const dataFormatter = (number: number) => {
 
 type Select = "minute" | "day" | "cumulative";
 
-const selectionTabs: Select[] = ["minute", "day", "cumulative"];
+const selectionTabs: Select[] = ["day", "cumulative"];
 
 const Loading = () => (
   <motion.div
@@ -45,9 +39,9 @@ const Loading = () => (
         originX: 1,
       },
     }}
-    className="animate-pulse flex flex-col h-full w-full"
+    className="flex flex-col w-full h-full animate-pulse"
   >
-    <div className="flex flex-row justify-between items-center">
+    <div className="flex flex-row items-center justify-between">
       <div>
         <div className="mt-3 bg-gray-200 rounded-full  w-[7rem] h-3 mb-2.5 "></div>
         <div className="mt-3 bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5 "></div>
@@ -62,7 +56,7 @@ const Loading = () => (
   </motion.div>
 );
 
-interface MonthlyChartProps {
+export interface MonthlyChartProps {
   startDate: Date;
   endDate: Date;
   categories: Category[];
@@ -79,13 +73,8 @@ const MonthlyChart = ({
   );
 
   const { data: billingData } = useBillingData(startDate, endDate);
-  const {
-    snapshots,
-    selectedSnapshots,
-    data: costChartData,
-  } = useCostChartData(startDate, endDate, categories);
 
-  if (!billingData || !snapshots || !selectedSnapshots) return <Loading />;
+  if (!billingData) return <Loading />;
 
   const dailyCosts = billingData.daily_costs;
 
@@ -178,7 +167,7 @@ const MonthlyChart = ({
           </Text>
         </div>
         <TabGroup
-          className="max-w-fit mt-2 mb-2 md:mt-0"
+          className="mt-2 mb-2 max-w-fit md:mt-0"
           color="zinc"
           defaultIndex={selectionTabs.indexOf(selection!)}
           onIndexChange={(value) => setSelection(selectionTabs[value])}
@@ -190,7 +179,7 @@ const MonthlyChart = ({
           </TabList>
         </TabGroup>
         {/* <Toggle
-          className="max-w-fit mt-2 mb-2 md:mt-0"
+          className="mt-2 mb-2 max-w-fit md:mt-0"
           color="zinc"
           defaultValue={selection!}
           onValueChange={(value) => setSelection(value as Select)}
@@ -200,38 +189,6 @@ const MonthlyChart = ({
           <ToggleItem value="cumulative" text="Cumulative" />
         </Toggle> */}
       </Flex>
-
-      {selection === "minute" && data.length > 0 && (
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          animate="show"
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-            },
-          }}
-        >
-          <BarChart
-            className="mt-6"
-            data={costChartData}
-            stack
-            index="date"
-            categories={selectedSnapshots}
-            colors={selectedSnapshots.map((s) => MODEL_TO_COLOR[s])}
-            showLegend={false}
-            showAnimation={false}
-            // connectNulls
-            valueFormatter={dataFormatter}
-          />
-          <Legend
-            className="mt-4 mr-2.5"
-            categories={categories}
-            colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
-          />
-        </motion.div>
-      )}
 
       {selection === "day" && data.length > 0 && (
         <motion.div

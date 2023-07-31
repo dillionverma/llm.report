@@ -15,7 +15,7 @@ let totalRequests = 0;
 let successfulRequests = 0;
 
 const LoadingToast = ({ text }: { text: string }) => (
-  <span className="flex flex-row justify-center items-center gap-2">
+  <span className="flex flex-row items-center justify-center gap-2">
     {text}
     <Tooltip>
       <TooltipTrigger>
