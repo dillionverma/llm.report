@@ -36,7 +36,11 @@ const plans: Plan[] = [
     priceIdMonth: "",
     priceIdYear: "",
     isMostPop: false,
-    features: ["1 member only", "Up to 10,000 logs per month"],
+    features: [
+      "Up to 10,000 logs per month",
+      "Track multiple API keys",
+      "1 member only",
+    ],
   },
   {
     name: "Startup",
@@ -46,7 +50,12 @@ const plans: Plan[] = [
     priceIdMonth: "",
     priceIdYear: "",
     isMostPop: true,
-    features: ["User cost analytics", "Up to 5 team members", "Unlimited logs"],
+    features: [
+      "Unlimited logs",
+      "Track multiple API keys",
+      "Detailed User Analytics",
+      "Up to 5 team members",
+    ],
   },
   {
     name: "Enterprise",
@@ -57,9 +66,10 @@ const plans: Plan[] = [
     priceIdYear: "",
     isMostPop: false,
     features: [
-      "User cost analytics",
-      "Unlimited team members",
       "Unlimited logs",
+      "Track multiple API keys",
+      "Detailed User Analytics",
+      "Unlimited team members",
       "Priority Support",
       "Priority Feature Requests",
     ],
