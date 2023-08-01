@@ -1,6 +1,7 @@
 import SettingsModal, { DialogProvider } from "@/components/SettingsModal";
 import { Analytics } from "@/components/analytics";
 import { CrispChat } from "@/components/crisp-chat";
+import MotionProvider from "@/components/motion-provider";
 import SessionProvider from "@/components/session-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/toaster";
@@ -14,7 +15,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "LLM Report",
-  description: "OpenAI API Cost Analytics tool",
+  description: "Get Detailed Insights About Your OpenAI API Costs",
   // image: absoluteUrl("/api/og"),
 };
 
@@ -32,26 +33,28 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <SessionProvider>
-          <ReactQueryProvider>
-            <DialogProvider>
-              <TooltipProvider>
-                <ThemeProvider
-                  attribute="class"
-                  defaultTheme="light"
-                  enableSystem
-                >
-                  {children}
-                  <Analytics />
-                  <CrispChat />
-                  {/* <TailwindIndicator /> */}
-                  <Toaster />
-                  <SettingsModal />
-                </ThemeProvider>
-              </TooltipProvider>
-            </DialogProvider>
-          </ReactQueryProvider>
-        </SessionProvider>
+        <MotionProvider>
+          <SessionProvider>
+            <ReactQueryProvider>
+              <DialogProvider>
+                <TooltipProvider>
+                  <ThemeProvider
+                    attribute="class"
+                    defaultTheme="light"
+                    enableSystem
+                  >
+                    {children}
+                    <Analytics />
+                    <CrispChat />
+                    {/* <TailwindIndicator /> */}
+                    <Toaster />
+                    <SettingsModal />
+                  </ThemeProvider>
+                </TooltipProvider>
+              </DialogProvider>
+            </ReactQueryProvider>
+          </SessionProvider>
+        </MotionProvider>
       </body>
     </html>
   );

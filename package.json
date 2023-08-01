@@ -54,7 +54,7 @@
     "date-fns": "^2.29.3",
     "eslint": "8.39.0",
     "eslint-config-next": "^13.4.12",
-    "framer-motion": "^10.12.4",
+    "framer-motion": "^10.15.0",
     "idb-keyval": "^6.2.1",
     "loader-utils": "^3.2.1",
     "lucide-react": "^0.261.0",
