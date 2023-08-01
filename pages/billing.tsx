@@ -1,8 +1,6 @@
 "use client";
 
 import StripePortalButton from "@/components/StripePortalButton";
-import { LOCAL_STORAGE_KEY } from "@/lib/constants";
-import useLocalStorage from "@/lib/use-local-storage";
 import { fetcher } from "@/lib/utils";
 import { Card, Flex, Text, Title } from "@tremor/react";
 import { NextPageContext } from "next";
@@ -10,14 +8,6 @@ import { getSession } from "next-auth/react";
 import useSWR from "swr";
 
 const Billing = () => {
-  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    // save to local storage
-    setKey(value);
-  };
-
   const { data, isLoading } = useSWR("/api/v1/me", fetcher);
 
   return (
