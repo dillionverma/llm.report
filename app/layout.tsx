@@ -6,7 +6,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
-import { useCopyCode } from "@/lib/copyCode";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
@@ -20,19 +19,10 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  // Component,
   children,
-}: // pageProps: {  ...pageProps },
-{
+}: {
   children: React.ReactNode;
 }) {
-  // AppProps<{
-  //   children: React.ReactNode;
-  //   // session: Session;
-  //   // dehydratedState: Record<string, unknown>;
-  // }>
-  useCopyCode();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head />

@@ -1,7 +1,7 @@
 import DashboardPage from "@/app/(dashboard)/dashboard";
 import LandingPage from "@/app/(marketing)/landingpage";
 import { Suspense } from "react";
-import { getTweet } from "react-tweet/api";
+import { Tweet, getTweet } from "react-tweet/api";
 
 const tweetIds = [
   "1654372865222021120",
@@ -22,13 +22,13 @@ const tweetIds = [
   "1658970955203641344",
 ];
 
-export async function getTweets() {
+async function getTweets() {
   try {
     const tweets = await Promise.all(
       tweetIds.map(async (tweetId) => {
         const tweet = await getTweet(tweetId);
         return tweet;
-      })
+      }) as Promise<Tweet>[]
     );
     return tweets;
   } catch (error) {
@@ -38,7 +38,6 @@ export async function getTweets() {
 
 export default async function Home() {
   const tweets = await getTweets();
-
   return (
     <Suspense fallback={<></>}>
       <DashboardPage />

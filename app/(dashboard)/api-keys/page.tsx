@@ -88,7 +88,7 @@ print(completion.choices[0].message)
 \`\`\`
 `;
 
-export async function getMarkdownCode() {
+async function getMarkdownCode() {
   const highlighter = await getHighlighter({
     theme: "material-theme-palenight",
     processors: [

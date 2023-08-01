@@ -2,12 +2,14 @@
 
 import Drawer from "@/components/Drawer";
 import Transition from "@/components/Transition";
+import { useCopyCode } from "@/lib/copyCode";
 import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { data: session } = useSession();
+  useCopyCode();
 
   return (
     <main className="flex">

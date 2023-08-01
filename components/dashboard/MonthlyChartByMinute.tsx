@@ -25,10 +25,14 @@ const MonthlyChartLoading = () => (
     }}
     className="flex flex-col w-full h-full animate-pulse"
   >
-    <div className="mt-3 bg-gray-200 rounded-full  w-[7rem] h-3 mb-2.5 "></div>
-    <div className="mt-3 bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5 "></div>
-    <LoadingChart />
-    <div className="mt-3 bg-gray-200 rounded-full  w-full h-4 mb-2.5 "></div>
+    <Card className="shadow-none">
+      <CardContent>
+        <div className="mt-3 bg-gray-200 rounded-full  w-[7rem] h-3 mb-2.5 "></div>
+        <div className="mt-3 bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5 "></div>
+        <LoadingChart />
+        <div className="mt-3 bg-gray-200 rounded-full  w-full h-4 mb-2.5 "></div>
+      </CardContent>
+    </Card>
   </motion.div>
 );
 
