@@ -16,7 +16,6 @@ export default function LandingPage({ tweets }: { tweets: Tweet[] }) {
       <Testimonials tweets={tweets} />
       {/* Top Ellipse Gradient */}
       <div className="pointer-events-none absolute inset-0 h-screen dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(120,119,198,0.2),rgba(255,255,255,0))]" />
-
       {/* Grid Pattern */}
       <GridPattern
         width={80}
@@ -29,7 +28,6 @@ export default function LandingPage({ tweets }: { tweets: Tweet[] }) {
           "inset-x-0 -top-[1rem] -z-50 h-[80%] skew-y-12"
         )}
       />
-
       {/* Linear Gradient */}
       {/* <LinearGradient
         className="h-screen w-screen"

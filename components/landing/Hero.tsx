@@ -1,6 +1,7 @@
 "use client";
 
 import { m } from "framer-motion";
+import Link from "next/link";
 import { useDialog } from "../SettingsModal";
 import Dashboard from "../dashboard";
 import JoinUsers from "./JoinUsers";
@@ -124,6 +125,27 @@ const Hero = () => {
 
             <div className="mt-6">
               <JoinUsers />
+            </div>
+
+            <div className="mt-6 flex flex-row gap-4 justify-center items-center">
+              <Link
+                href="https://vercel.com/blog/ai-accelerator-participants"
+                target="_blank"
+              >
+                <img
+                  src="/accelerator-badge-dark.png"
+                  alt="Backed by Vercel AI Accelerator"
+                  className="w-36"
+                />
+              </Link>
+
+              <Link href="https://buildspace.so/sf1" target="_blank">
+                <img
+                  src="/buildspace-badge-dark.png"
+                  alt="Backed by Buildspace"
+                  className="w-36"
+                />
+              </Link>
             </div>
           </m.div>
         </div>
