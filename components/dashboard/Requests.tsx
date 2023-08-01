@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { animationVariant } from "@/lib/constants";
 import { useUsageDataCumulative } from "@/lib/hooks/api/useUsageDataCumulative";
 import useInterval from "@/lib/use-interval";
@@ -90,56 +91,70 @@ const Requests = ({ startDate, endDate }: RequestsProps) => {
         },
       }}
     >
-      <Flex justifyContent="start" className="space-x-1" alignItems="center">
-        <Title>Requests</Title>
-        <Icon
-          icon={InformationCircleIcon}
-          size="sm"
-          color="gray"
-          tooltip="Requests are the number of times you've called the API."
-        />
-      </Flex>
-      <Flex justifyContent="start" alignItems="baseline" className="space-x-2">
-        <Metric>
-          {requestData
-            .reduce((acc, obj) => acc + obj.value, 0)
-            .toLocaleString("en-US", {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            })}
-        </Metric>
-        <Text>Total Requests</Text>
-      </Flex>
-      <TabGroup>
-        <TabList
-          // onValueChange={(value) => setSelectedCategory(value)}
-          defaultValue={"Total"}
-          className="mt-6"
-        >
-          <Tab key={"Total"} value={"Total"} icon={ChartBarIcon}>
-            Total
-          </Tab>
-        </TabList>
-      </TabGroup>
-      <Flex className="mt-4">
-        <Text>
-          <Bold>Model</Bold>
-        </Text>
-        <Text>
-          <Bold>Requests</Bold>
-        </Text>
-      </Flex>
+      <Card className="shadow-none">
+        <CardHeader>
+          <Flex
+            justifyContent="start"
+            className="space-x-1"
+            alignItems="center"
+          >
+            <Title>Requests</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              size="sm"
+              color="gray"
+              tooltip="Requests are the number of times you've called the API."
+            />
+          </Flex>
+          <Flex
+            justifyContent="start"
+            alignItems="baseline"
+            className="space-x-2"
+          >
+            <Metric>
+              {requestData
+                .reduce((acc, obj) => acc + obj.value, 0)
+                .toLocaleString("en-US", {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })}
+            </Metric>
+            <Text>Total Requests</Text>
+          </Flex>
+        </CardHeader>
+        <CardContent>
+          <TabGroup>
+            <TabList
+              // onValueChange={(value) => setSelectedCategory(value)}
+              defaultValue={"Total"}
+              className="mt-6"
+            >
+              <Tab key={"Total"} value={"Total"} icon={ChartBarIcon}>
+                Total
+              </Tab>
+            </TabList>
+          </TabGroup>
+          <Flex className="mt-4">
+            <Text>
+              <Bold>Model</Bold>
+            </Text>
+            <Text>
+              <Bold>Requests</Bold>
+            </Text>
+          </Flex>
 
-      <BarList
-        data={requestData}
-        className="mt-4"
-        valueFormatter={(v) =>
-          v.toLocaleString("en-US", {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          })
-        }
-      />
+          <BarList
+            data={requestData}
+            className="mt-4"
+            valueFormatter={(v) =>
+              v.toLocaleString("en-US", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })
+            }
+          />
+        </CardContent>
+      </Card>
     </motion.div>
   );
 };

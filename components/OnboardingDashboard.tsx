@@ -1,3 +1,5 @@
+"use client";
+
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
 import openai, { OpenAI } from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";

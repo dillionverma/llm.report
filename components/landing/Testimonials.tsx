@@ -1,10 +1,8 @@
-import { useRouter } from "next/router";
+import { Suspense } from "react";
 import { EmbeddedTweet, TweetSkeleton } from "react-tweet";
 import { type Tweet } from "react-tweet/api";
 
 export default function Testimonials({ tweets }: { tweets: Tweet[] }) {
-  const { isFallback } = useRouter();
-
   return (
     <section>
       <div className="py-14">
@@ -34,15 +32,16 @@ export default function Testimonials({ tweets }: { tweets: Tweet[] }) {
             `}
         </style>
         <div className="space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
-          {tweets.map((t) =>
-            isFallback ? (
-              <TweetSkeleton key={t.id_str} />
-            ) : (
-              <div key={t.id_str} className="light">
+          {tweets.map((t) => (
+            <Suspense
+              key={t.id_str}
+              fallback={<TweetSkeleton key={t.id_str} />}
+            >
+              <div className="light">
                 <EmbeddedTweet tweet={t} />
               </div>
-            )
-          )}
+            </Suspense>
+          ))}
         </div>
       </div>
     </section>
