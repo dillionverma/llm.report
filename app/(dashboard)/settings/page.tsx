@@ -1,7 +1,7 @@
-import Billing from "@/app/(dashboard)/settings/billing/page";
+import { redirect } from "next/navigation";
 
 const Settings = () => {
-  return <Billing />;
+  redirect("/settings/billing");
 };
 
 export default Settings;

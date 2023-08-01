@@ -127,25 +127,33 @@ const Hero = () => {
               <JoinUsers />
             </div>
 
-            <div className="mt-6 flex flex-row gap-4 justify-center items-center">
-              <Link
-                href="https://vercel.com/blog/ai-accelerator-participants"
-                target="_blank"
-              >
-                <img
-                  src="/accelerator-badge-dark.png"
-                  alt="Backed by Vercel AI Accelerator"
-                  className="w-36"
-                />
-              </Link>
+            <div className="mt-6 flex flex-col gap-4 justify-center items-center">
+              <div>
+                <h3 className="font-semibold text-sm text-gray-600 text-center">
+                  Backed by the best in the industry
+                </h3>
+              </div>
 
-              <Link href="https://buildspace.so/sf1" target="_blank">
-                <img
-                  src="/buildspace-badge-dark.png"
-                  alt="Backed by Buildspace"
-                  className="w-36"
-                />
-              </Link>
+              <div className="flex flex-row gap-4">
+                <Link
+                  href="https://vercel.com/blog/ai-accelerator-participants"
+                  target="_blank"
+                >
+                  <img
+                    src="/accelerator-badge-dark.png"
+                    alt="Backed by Vercel AI Accelerator"
+                    className="w-36"
+                  />
+                </Link>
+
+                <Link href="https://buildspace.so/sf1" target="_blank">
+                  <img
+                    src="/buildspace-badge-dark.png"
+                    alt="Backed by Buildspace"
+                    className="w-36"
+                  />
+                </Link>
+              </div>
             </div>
           </m.div>
         </div>
