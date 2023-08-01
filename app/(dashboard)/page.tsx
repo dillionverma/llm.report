@@ -1,5 +1,6 @@
 import DashboardPage from "@/app/(dashboard)/dashboard";
 import LandingPage from "@/app/(marketing)/landingpage";
+import { getCurrentUser } from "@/lib/session";
 import { Suspense } from "react";
 import { Tweet, getTweet } from "react-tweet/api";
 
@@ -38,10 +39,12 @@ async function getTweets() {
 
 export default async function Home() {
   const tweets = await getTweets();
+  const user = await getCurrentUser();
+
   return (
     <Suspense fallback={<></>}>
-      <DashboardPage />
-      <LandingPage tweets={tweets} />
+      {user && <DashboardPage />}
+      {!user && <LandingPage tweets={tweets} />}
     </Suspense>
   );
 }

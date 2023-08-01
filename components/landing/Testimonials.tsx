@@ -32,7 +32,7 @@ export default function Testimonials({ tweets }: { tweets: Tweet[] }) {
             `}
         </style>
         <div className="space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
-          {tweets.map((t) => (
+          {tweets?.map((t) => (
             <Suspense
               key={t.id_str}
               fallback={<TweetSkeleton key={t.id_str} />}

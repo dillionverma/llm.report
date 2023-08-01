@@ -1,8 +1,8 @@
+import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { createHash, randomBytes } from "crypto";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]";
 
 const generateKey = (size: number = 32, format: BufferEncoding = "hex") => {
   const buffer = randomBytes(size);

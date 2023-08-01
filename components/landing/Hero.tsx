@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+"use client";
+
+import { m } from "framer-motion";
 import { useDialog } from "../SettingsModal";
 import Dashboard from "../dashboard";
 import JoinUsers from "./JoinUsers";
@@ -7,7 +9,7 @@ const Hero = () => {
   const { isOpen, openDialog, closeDialog } = useDialog();
 
   return (
-    <motion.section
+    <m.section
       className="relative max-w-screen-xl mx-auto py-14 px-4 md:px-8"
       initial="hidden"
       whileInView="show"
@@ -17,7 +19,7 @@ const Hero = () => {
         hidden: {},
         show: {
           transition: {
-            staggerChildren: 0.1,
+            staggerChildren: 0.04,
             // delayChildren: 0.5,
           },
         },
@@ -26,7 +28,7 @@ const Hero = () => {
       {/* <div className="absolute top-0 left-0 w-full h-full opacity-40"></div> */}
       <div className="relative z-10 gap-5 items-center">
         <div className="flex-1 max-w-lg py-5 sm:mx-auto sm:text-center lg:max-w-lg ">
-          <motion.h3
+          <m.h3
             className="text-4xl text-gray-800 font-semibold md:text-5xl"
             variants={{
               hidden: { opacity: 0, y: -10 },
@@ -38,8 +40,8 @@ const Hero = () => {
               {" "}
               OpenAI API usage
             </span>
-          </motion.h3>
-          <motion.p
+          </m.h3>
+          <m.p
             className="text-gray-500 leading-relaxed mt-3"
             variants={{
               hidden: { opacity: 0, y: -10 },
@@ -51,16 +53,16 @@ const Hero = () => {
             Just enter your OpenAI API key, and we fetch your data from the
             OpenAI API directly to create a dashboard. No need to install
             anything.
-          </motion.p>
-          <motion.p
+          </m.p>
+          <m.p
             className="text-gray-500 leading-relaxed mt-3 text-sm"
             variants={{
               hidden: { opacity: 0, y: -10 },
               show: { opacity: 1, y: 0, transition: { type: "spring" } },
             }}
-          ></motion.p>
+          ></m.p>
 
-          <motion.div
+          <m.div
             className="flex flex-col items-center justify-center space-x-4 mt-4"
             variants={{
               hidden: { opacity: 0, y: -10 },
@@ -123,19 +125,12 @@ const Hero = () => {
             <div className="mt-6">
               <JoinUsers />
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="flex-1 mt-5 mx-auto sm:w-11/12 lg:mt-14 lg:w-auto">
-          <motion.div
-            className="rounded-lg p-4 border"
-            variants={{
-              hidden: { opacity: 0, y: -10 },
-              show: { opacity: 1, y: 0, transition: { type: "spring" } },
-            }}
-          >
-            <Dashboard />
-          </motion.div>
+          <Dashboard />
+          {/* </m.div> */}
           {/* <img
             src="https://i.postimg.cc/kgd4WhyS/container.png"
             alt=""
@@ -143,7 +138,7 @@ const Hero = () => {
           /> */}
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };
 

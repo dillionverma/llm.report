@@ -3,10 +3,10 @@ import { NextApiHandler } from "next";
 
 import { stripe } from "@/lib/stripe/stripe";
 // import { createOrRetrieveCustomer } from '@/utils/supabase-admin';
+import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { getURL } from "@/lib/utils";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]";
 
 export const createOrRetrieveCustomer = async ({
   email,

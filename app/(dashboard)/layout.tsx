@@ -42,14 +42,12 @@ export default function Layout({ children }: { children: ReactNode }) {
           </nav>
         </header>
         <div
-          className={cn(
-            "w-full space-y-4 md:p-8 p-4 pt-6 h-screen bg-slate-50 dark:bg-slate-950",
-            {
-              "h-[calc(100vh-4rem)]": false,
-              "overflow-auto": session?.user,
-              "max-w-[1280px] mx-auto": !session?.user,
-            }
-          )}
+          className={cn("w-full space-y-4 md:p-8 p-4 pt-6 h-screen", {
+            "h-[calc(100vh-4rem)]": false,
+            "overflow-auto": session?.user,
+            "max-w-[1280px] mx-auto": !session?.user,
+            "bg-slate-50 dark:bg-slate-950": session?.user,
+          })}
         >
           {children}
         </div>

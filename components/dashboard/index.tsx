@@ -38,6 +38,7 @@ import {
   Title,
 } from "@tremor/react";
 import { add, startOfMonth, sub } from "date-fns";
+import { m } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ContextTokenChart from "./ContextTokenChart";
@@ -169,7 +170,13 @@ export default function Dashboard() {
   }, [key, orgId]);
 
   return (
-    <div>
+    <m.div
+      className="rounded-lg p-4 border bg-background"
+      variants={{
+        hidden: { opacity: 0, y: -10 },
+        show: { opacity: 1, y: 0, transition: { type: "spring" } },
+      }}
+    >
       <Flex className="flex-col items-start space-y-4 2xl:flex-row 2xl:items-center">
         <div className="flex flex-row w-full gap-4">
           <div className="flex flex-col items-center justify-center gap-2">
@@ -407,6 +414,6 @@ export default function Dashboard() {
           </TabPanel>
         </TabPanels>
       </TabGroup>
-    </div>
+    </m.div>
   );
 }

@@ -1,3 +1,4 @@
+import { authOptions } from "@/lib/auth";
 import { calculateCost } from "@/lib/llm/calculateCost";
 import prisma from "@/lib/prisma";
 import { Snapshot } from "@/lib/types";
@@ -5,7 +6,6 @@ import { Request } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
-import { authOptions } from "../../auth/[...nextauth]";
 
 const dateSchema = z
   .string()
