@@ -1,3 +1,5 @@
+"use client";
+
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { Hydrate, QueryClient } from "@tanstack/react-query";
 import {
@@ -6,7 +8,6 @@ import {
   Persister,
 } from "@tanstack/react-query-persist-client";
 import { del, get, set } from "idb-keyval";
-import { useSession } from "next-auth/react";
 import { PropsWithChildren, useState } from "react";
 
 export function blankIDBPersister() {
@@ -55,7 +56,6 @@ export const ReactQueryProvider = ({
   children,
   state,
 }: PropsWithChildren<{ state: unknown }>) => {
-  const { status } = useSession();
   const [client] = useState(queryClient);
 
   const [persister] = useState(() => {

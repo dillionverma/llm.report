@@ -1,20 +1,24 @@
+"use client";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import UserCostChart from "@/components/users/UserCostChart";
 import UserTable from "@/components/users/UserTable";
 import {
   Callout,
-  Card,
   Col,
   DateRangePicker,
   DateRangePickerItem,
   DateRangePickerValue,
   Grid,
-  Subtitle,
-  Title,
 } from "@tremor/react";
 import { format, startOfMonth, startOfYear, sub } from "date-fns";
 import { ConstructionIcon } from "lucide-react";
-import { NextPageContext } from "next";
-import { getSession } from "next-auth/react";
 import { Suspense, useState } from "react";
 
 const dateSelectOptions = [
@@ -83,39 +87,47 @@ export default function Users() {
 
       <Col numColSpan={1}>
         <Card className="shadow-none">
-          <Title>Cost Per User</Title>
-          <Subtitle>
-            The total cost of the top 10 users from{" "}
-            {value.from && format(value.from, "yyyy-MM-dd")} to{" "}
-            {value.to && format(value.to, "yyyy-MM-dd")}
-          </Subtitle>
-          <Suspense fallback={<>loading...</>}>
-            <UserCostChart from={value.from} to={value.to} />
-          </Suspense>
+          <CardHeader>
+            <CardTitle>Cost Per User</CardTitle>
+            <CardDescription>
+              The total cost of the top 10 users from{" "}
+              {value.from && format(value.from, "yyyy-MM-dd")} to{" "}
+              {value.to && format(value.to, "yyyy-MM-dd")}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Suspense fallback={<>loading...</>}>
+              <UserCostChart from={value.from} to={value.to} />
+            </Suspense>
+          </CardContent>
         </Card>
       </Col>
       <Col numColSpan={1}>
         <Card className="shadow-none">
-          <Title>Cost Summary</Title>
-          <Suspense fallback={<>loading...</>}>
-            <UserTable from={value.from} to={value.to} />
-          </Suspense>
+          <CardHeader>
+            <CardTitle>Cost Summary</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Suspense fallback={<>loading...</>}>
+              <UserTable from={value.from} to={value.to} />
+            </Suspense>
+          </CardContent>
         </Card>
       </Col>
     </Grid>
   );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
+// export async function getServerSideProps(context: NextPageContext) {
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  return { props: {} };
-}
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return { props: {} };
+// }

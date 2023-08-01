@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-table";
 import { BarChart } from "@tremor/react";
 import { format } from "date-fns";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const dataFormatter = (number: number) => {

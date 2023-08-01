@@ -1,3 +1,5 @@
+"use client";
+
 import { calculateCost } from "@/lib/llm/calculateCost";
 import useDebounce from "@/lib/use-debounce";
 import { currencyFormat } from "@/lib/utils";
@@ -8,7 +10,7 @@ import {
   SortingState,
 } from "@tanstack/react-table";
 import { BarChart } from "@tremor/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const dataFormatter = (number: number) => {

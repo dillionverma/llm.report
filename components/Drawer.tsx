@@ -15,7 +15,7 @@ import {
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const HOME_LINKS = [
@@ -73,14 +73,14 @@ const Drawer = () => {
 
   const [activeTab, setActiveTab] = useState("");
 
-  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const pathname = router.pathname;
+    if (!pathname) return;
     const activeTabName = pathname.replace("/", "");
 
     setActiveTab(activeTabName);
-  }, [router.pathname]);
+  }, [pathname]);
 
   if (!session?.user) return null;
 

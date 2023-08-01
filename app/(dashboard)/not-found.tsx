@@ -1,7 +1,9 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+"use client";
 
-const ErrorPage = () => {
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+const NotFound = () => {
   const router = useRouter();
 
   return (
@@ -31,4 +33,4 @@ const ErrorPage = () => {
   );
 };
 
-export default ErrorPage;
+export default NotFound;

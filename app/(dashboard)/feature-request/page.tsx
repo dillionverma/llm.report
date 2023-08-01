@@ -1,6 +1,4 @@
 import { Flex, Text, Title } from "@tremor/react";
-import { NextPageContext } from "next";
-import { getSession } from "next-auth/react";
 
 export default function FeatureRequest() {
   return (
@@ -26,16 +24,16 @@ export default function FeatureRequest() {
   );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
+// export async function getServerSideProps(context: NextPageContext) {
+//   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  return { props: {} };
-}
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return { props: {} };
+// }
