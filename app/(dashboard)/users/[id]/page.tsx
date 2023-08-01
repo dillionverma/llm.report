@@ -1,16 +1,10 @@
 import RequestTable from "@/components/RequestTable";
 import UserCostPerDayChart from "@/components/users/UserCostPerDayChart";
-import prisma from "@/lib/prisma";
 import { Callout, Card, Col, Grid, Subtitle, Title } from "@tremor/react";
 import { ConstructionIcon } from "lucide-react";
-import { GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { Suspense } from "react";
 
-export default function User() {
-  const router = useRouter();
-  const id = router.query.id as string;
+export default function User({ params: { id } }: { params: { id: string } }) {
   return (
     <Grid numItems={3} className="gap-4 w-full">
       <Col numColSpan={3}>
@@ -44,36 +38,3 @@ export default function User() {
     </Grid>
   );
 }
-
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const { id } = context.query;
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  const requests = await prisma.request.findMany({
-    where: {
-      userId: session.user.id,
-      user_id: id as string,
-    },
-  });
-
-  if (requests.length === 0) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {},
-  };
-};

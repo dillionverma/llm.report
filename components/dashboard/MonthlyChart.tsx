@@ -1,3 +1,4 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { CATEGORIES, CATEGORY_TO_COLOR, SELECTION_KEY } from "@/lib/constants";
 import { useBillingData } from "@/lib/hooks/api/useBillingData";
 import { Category, Model } from "@/lib/types";
@@ -152,33 +153,31 @@ const MonthlyChart = ({
   // .filter((day) => parse(day.date, "MMM d", new Date()) >= startDate);
 
   return (
-    <>
-      <Flex>
-        <div>
-          <Title>Cost</Title>
-          <Metric>$ {(totalUsage / 100).toFixed(2)}</Metric>
-          <Text>
-            {startDate &&
-              endDate &&
-              `from ${format(startDate, "MMM d")} to ${format(
-                endDate,
-                "MMM d"
-              )}`}
-          </Text>
-        </div>
-        <TabGroup
-          className="mt-2 mb-2 max-w-fit md:mt-0"
-          color="zinc"
-          defaultIndex={selectionTabs.indexOf(selection!)}
-          onIndexChange={(value) => setSelection(selectionTabs[value])}
-        >
-          <TabList variant="solid" className="mt-8">
-            {selectionTabs.map((tab) => (
-              <Tab key={tab}>{tab}</Tab>
-            ))}
-          </TabList>
-        </TabGroup>
-        {/* <Toggle
+    <Card className="shadow-none">
+      <CardHeader>
+        <Title>Cost</Title>
+        <Metric>$ {(totalUsage / 100).toFixed(2)}</Metric>
+        <Text>
+          {startDate &&
+            endDate &&
+            `from ${format(startDate, "MMM d")} to ${format(endDate, "MMM d")}`}
+        </Text>
+      </CardHeader>
+      <CardContent>
+        <Flex>
+          <TabGroup
+            className="mt-2 mb-2 max-w-fit md:mt-0"
+            color="zinc"
+            defaultIndex={selectionTabs.indexOf(selection!)}
+            onIndexChange={(value) => setSelection(selectionTabs[value])}
+          >
+            <TabList variant="solid" className="mt-8">
+              {selectionTabs.map((tab) => (
+                <Tab key={tab}>{tab}</Tab>
+              ))}
+            </TabList>
+          </TabGroup>
+          {/* <Toggle
           className="mt-2 mb-2 max-w-fit md:mt-0"
           color="zinc"
           defaultValue={selection!}
@@ -188,79 +187,80 @@ const MonthlyChart = ({
           <ToggleItem value="day" text="Day" />
           <ToggleItem value="cumulative" text="Cumulative" />
         </Toggle> */}
-      </Flex>
+        </Flex>
 
-      {selection === "day" && data.length > 0 && (
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          animate="show"
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-            },
-          }}
-        >
-          <BarChart
-            className="mt-6"
-            data={data}
-            index="date"
-            categories={categories}
-            colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
-            valueFormatter={dataFormatter}
-            startEndOnly
-            stack
-            showLegend={false}
-            yAxisWidth={48}
-            showYAxis={true}
-            showAnimation={false}
-          />
-          <Legend
-            className="mt-4 mr-2.5"
-            categories={categories}
-            colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
-          />
-        </motion.div>
-      )}
+        {selection === "day" && data.length > 0 && (
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            animate="show"
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+              },
+            }}
+          >
+            <BarChart
+              className="mt-6"
+              data={data}
+              index="date"
+              categories={categories}
+              colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
+              valueFormatter={dataFormatter}
+              startEndOnly
+              stack
+              showLegend={false}
+              yAxisWidth={48}
+              showYAxis={true}
+              showAnimation={false}
+            />
+            <Legend
+              className="mt-4 mr-2.5"
+              categories={categories}
+              colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
+            />
+          </motion.div>
+        )}
 
-      {selection === "cumulative" && cumulativeData.length > 0 && (
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          animate="show"
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-            },
-          }}
-        >
-          <AreaChart
-            className="mt-6"
-            data={cumulativeData}
-            categories={categories}
-            index="date"
-            colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
-            valueFormatter={dataFormatter}
-            startEndOnly
-            // stack={view === "relative"}
-            showLegend={false}
-            showAnimation={false}
-            maxValue={Math.max(
-              ...cumulativeData.map((d: any) =>
-                Math.max(...categories.map((c) => d[c]))
-              )
-            )}
-          />
-          <Legend
-            className="mt-4 mr-2.5"
-            categories={categories}
-            colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
-          />
-        </motion.div>
-      )}
-    </>
+        {selection === "cumulative" && cumulativeData.length > 0 && (
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            animate="show"
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+              },
+            }}
+          >
+            <AreaChart
+              className="mt-6"
+              data={cumulativeData}
+              categories={categories}
+              index="date"
+              colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
+              valueFormatter={dataFormatter}
+              startEndOnly
+              // stack={view === "relative"}
+              showLegend={false}
+              showAnimation={false}
+              maxValue={Math.max(
+                ...cumulativeData.map((d: any) =>
+                  Math.max(...categories.map((c) => d[c]))
+                )
+              )}
+            />
+            <Legend
+              className="mt-4 mr-2.5"
+              categories={categories}
+              colors={categories.map((category) => CATEGORY_TO_COLOR[category])}
+            />
+          </motion.div>
+        )}
+      </CardContent>
+    </Card>
   );
 };
 

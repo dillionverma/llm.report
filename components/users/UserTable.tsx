@@ -24,7 +24,7 @@ import {
 } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { LucideMessageCircle } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { DataTablePagination } from "../DataTablePagination";
 import { Input } from "../ui/input";

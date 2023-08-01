@@ -1,12 +1,9 @@
-import Onboarding from "@/components/Onboarding";
-import RequestTable from "@/components/RequestTable";
+import Docs from "@/app/(dashboard)/api-keys/docs";
+import KeysTable from "@/app/(dashboard)/api-keys/keys-table";
 import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
-import { Card, Col, Grid, Title } from "@tremor/react";
+import { Flex, Text, Title } from "@tremor/react";
 import MarkdownIt from "markdown-it";
-import { NextPageContext } from "next";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import {
   createDiffProcessor,
   createFocusProcessor,
@@ -15,74 +12,6 @@ import {
   defineProcessor,
   getHighlighter,
 } from "shiki-processor";
-
-export const Logs = ({
-  code,
-}: {
-  code: {
-    curl: string;
-    js: string;
-    nodejs: string;
-    python: string;
-  };
-}) => {
-  const [refreshKey, setRefreshKey] = useState(0);
-  const handleRefresh = () => {
-    setRefreshKey((oldKey) => oldKey + 1);
-  };
-  const [loading, setLoading] = useState(true);
-
-  const [totalCount, setTotalCount] = useState(1); // set default to 1 for now
-
-  const { data: session, status } = useSession();
-
-  const router = useRouter();
-
-  if (status === "unauthenticated") {
-    router.push("/");
-  }
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      const apiUrl = `/api/v1/requests`;
-      fetch(apiUrl)
-        .then((res) => res.json())
-        .then((data) => {
-          setTotalCount(data.totalCount);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
-    }
-  }, [refreshKey, status]);
-
-  return (
-    <>
-      {!loading && totalCount < 1 && (
-        <Onboarding code={code} onRefresh={handleRefresh} />
-      )}
-      {!loading && totalCount > 0 && (
-        <Grid numItems={1} numItemsLg={1} className="gap-6 w-full">
-          <Col numColSpan={1}>
-            <Card className="shadow-none">
-              <Title>OpenAI Logs</Title>
-              <Suspense fallback={<></>}>
-                <RequestTable key={refreshKey} />
-              </Suspense>
-            </Card>
-          </Col>
-          {/* <Col>
-        <Card className="shadow-none">
-          <Title>OpenAI Requests Details</Title>
-      
-        </Card>
-      </Col> */}
-        </Grid>
-      )}
-    </>
-  );
-};
 
 const Curl = `
 \`\`\`bash
@@ -159,7 +88,7 @@ print(completion.choices[0].message)
 \`\`\`
 `;
 
-export async function getStaticProps(context: NextPageContext) {
+async function getMarkdownCode() {
   const highlighter = await getHighlighter({
     theme: "material-theme-palenight",
     processors: [
@@ -203,15 +132,37 @@ export async function getStaticProps(context: NextPageContext) {
   const python = renderer.render(Python);
 
   return {
-    props: {
-      code: {
-        curl,
-        js,
-        nodejs,
-        python,
-      },
-    },
+    curl,
+    js,
+    nodejs,
+    python,
   };
 }
 
-export default Logs;
+export default async function LogsPage() {
+  const code = await getMarkdownCode();
+
+  return (
+    <div className="max-w-4xl space-y-4">
+      <Flex className="xl:flex-row flex-col items-start xl:items-center space-y-4">
+        <div className="space-y-2">
+          <div className="flex flex-row space-x-3">
+            <Title>API Keys</Title>
+          </div>
+          <Text>
+            LLM Report uses API keys to authenticate your requests to the LLM
+            Report proxy API.
+          </Text>
+        </div>
+      </Flex>
+
+      <Suspense fallback={<></>}>
+        <KeysTable />
+      </Suspense>
+
+      <Suspense fallback={<></>}>
+        <Docs code={code} />
+      </Suspense>
+    </div>
+  );
+}

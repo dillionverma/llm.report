@@ -1,16 +1,17 @@
+"use client";
+
 import { InstallSteps } from "@/components/OnboardingDashboard";
 import { useDialog } from "@/components/SettingsModal";
 import { LOCAL_STORAGE_KEY, LOCAL_STORAGE_ORG_ID } from "@/lib/constants";
 import openai, { OpenAI } from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
-import { Badge, Callout, Card, Flex, Text, Title } from "@tremor/react";
+import { Badge, Callout, Card } from "@tremor/react";
 import { LockIcon } from "lucide-react";
-import { NextPageContext } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const Settings = () => {
+const OpenAISettings = () => {
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
   const [orgId, setOrgId] = useLocalStorage<string>(LOCAL_STORAGE_ORG_ID);
 
@@ -36,18 +37,7 @@ const Settings = () => {
   }, [key]);
 
   return (
-    <div className="max-w-4xl space-y-4">
-      <Flex className="xl:flex-row flex-col items-start xl:items-center space-y-4">
-        <div className="space-y-2">
-          <div className="flex flex-row space-x-3">
-            <Title>Settings</Title>
-          </div>
-          <Text>
-            Change your settings below. You can also change your API key here.
-          </Text>
-        </div>
-      </Flex>
-
+    <>
       <Callout
         className="my-4"
         title="Advanced Security"
@@ -59,12 +49,6 @@ const Settings = () => {
       </Callout>
 
       <Card className="shadow-none">
-        {/* <div className="flex flex-col">
-          <div className="flex flex-row justify-between">
-            <Text className="text-xl">Open AI Api Key</Text>
-          </div>
-        </div> */}
-
         <form
           onSubmit={(e) => e.preventDefault()}
           // className="space-y-5 mt-12 lg:pb-12 text-left"
@@ -138,16 +122,16 @@ const Settings = () => {
             />
 
             {/* <p className="text-sm text-gray-500 mt-1 inline-block">
-              Find API Key{" "}
-              <Link
-                href="https://beta.openai.com/account/api-keys"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline"
-              >
-                here.
-              </Link>
-            </p> */}
+      Find API Key{" "}
+      <Link
+        href="https://beta.openai.com/account/api-keys"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline"
+      >
+        here.
+      </Link>
+    </p> */}
           </div>
         </form>
 
@@ -182,22 +166,8 @@ const Settings = () => {
           </div>
         </form>
       </Card>
-    </div>
+    </>
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  return { props: {} };
-}
-
-export default Settings;
+export default OpenAISettings;

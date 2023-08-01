@@ -2,8 +2,6 @@
 
 import { Card, Flex, LineChart, Metric, Title } from "@tremor/react";
 import { format } from "date-fns";
-import { NextPageContext } from "next";
-import { getSession } from "next-auth/react";
 
 const data = [
   { date: "2023-04-29", users: 4 },
@@ -53,22 +51,5 @@ const Admin = () => {
     </div>
   );
 };
-
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
-
-  if (!session || !session?.user.isAdmin) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}
 
 export default Admin;

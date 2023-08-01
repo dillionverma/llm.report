@@ -1,3 +1,5 @@
+"use client";
+
 import { useDialog } from "@/components/SettingsModal";
 import Cost from "@/components/dashboard/Cost";
 import CostChart from "@/components/dashboard/CostChart";
@@ -18,7 +20,6 @@ import { Category, OrganizationUsers } from "@/lib/types";
 import useLocalStorage from "@/lib/use-local-storage";
 import {
   Badge,
-  Card,
   DateRangePicker,
   DateRangePickerItem,
   DateRangePickerValue,
@@ -28,13 +29,13 @@ import {
   MultiSelectItem,
   Select,
   SelectItem,
-  Text,
-  Title,
-  TabList,
   Tab,
   TabGroup,
-  TabPanels,
+  TabList,
   TabPanel,
+  TabPanels,
+  Text,
+  Title,
 } from "@tremor/react";
 import { add, startOfMonth, sub } from "date-fns";
 import { useSession } from "next-auth/react";
@@ -342,73 +343,66 @@ export default function Dashboard() {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Grid
-              numItems={1}
-              numItemsMd={2}
-              numItemsLg={4}
-              className="w-full gap-6 mt-4"
-            >
-              <Card className="z-10 shadow-none">
+            <Grid className="gap-4 mt-6">
+              <Grid
+                numItems={1}
+                numItemsMd={2}
+                numItemsLg={4}
+                className="gap-4"
+              >
                 <CostChart
                   startDate={new Date()}
                   endDate={new Date()}
                   categories={categories!}
                 />
-              </Card>
-              <Card className="shadow-none">
+
                 <RequestChart startDate={new Date()} endDate={new Date()} />
-              </Card>
-              <Card className="shadow-none">
+
                 <ContextTokenChart
                   startDate={new Date()}
                   endDate={new Date()}
                 />
-              </Card>
-              <Card className="shadow-none">
+
                 <GeneratedTokenChart
                   startDate={new Date()}
                   endDate={new Date()}
                 />
-              </Card>
-            </Grid>
+              </Grid>
 
-            <Card className="mt-4 shadow-none">
-              <MonthlyChart
-                startDate={value.from!}
-                endDate={value.to!}
-                categories={categories!}
-              />
-            </Card>
+              <Grid numItemsMd={1} className="gap-4">
+                <MonthlyChart
+                  startDate={value.from!}
+                  endDate={value.to!}
+                  categories={categories!}
+                />
+              </Grid>
 
-            <Grid numItemsMd={1} numItemsLg={3} className="gap-6 mt-4">
-              <Card className="shadow-none">
+              <Grid numItemsMd={1} numItemsLg={3} className="gap-4">
                 <Cost
                   startDate={value.from!}
                   endDate={value.to!}
                   categories={categories!}
                 />
-              </Card>
+              </Grid>
             </Grid>
           </TabPanel>
           <TabPanel>
-            <Card className="mt-4 shadow-none">
-              <MonthlyChartByMinute
-                startDate={value.from!}
-                endDate={value.to!}
-                categories={categories!}
-              />
-            </Card>
-            <Grid numItemsMd={1} numItemsLg={3} className="gap-6 mt-4">
-              <Card className="shadow-none">
+            <Grid className="gap-4 mt-6">
+              <Grid numItemsMd={1} className="gap-4">
+                <MonthlyChartByMinute
+                  startDate={value.from!}
+                  endDate={value.to!}
+                  categories={categories!}
+                />
+              </Grid>
+              <Grid numItemsMd={1} numItemsLg={3} className="gap-4">
                 <Requests startDate={value.from!} endDate={value.to!} />
-              </Card>
-              <Card className="shadow-none">
                 <Tokens
                   startDate={value.from!}
                   endDate={value.to!}
                   categories={categories!}
                 />
-              </Card>
+              </Grid>
             </Grid>
           </TabPanel>
         </TabPanels>

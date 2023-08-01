@@ -1,3 +1,5 @@
+"use client";
+
 export function useCopyCode() {
   if (typeof window !== "undefined") {
     const timeoutIdMap: Map<HTMLElement, NodeJS.Timeout> = new Map();

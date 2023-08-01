@@ -1,4 +1,5 @@
 import LoadingCard from "@/components/dashboard/LoadingCard";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { MODEL_TO_COLOR } from "@/lib/constants";
 import { useBillingData } from "@/lib/hooks/api/useBillingData";
 import { useCostChartData } from "@/lib/hooks/charts/useCostChartData";
@@ -37,33 +38,37 @@ const CostChart = ({ startDate, endDate, categories }: CostChartProps) => {
   );
 
   return (
-    <>
-      <Flex alignItems="start">
-        <div>
-          <Title>Cost</Title>
-          <Metric>$ {(totalUsage / 100).toFixed(2)}</Metric>
-          <Text>today so far</Text>
-        </div>
-      </Flex>
-      {data.length > 0 && (
-        <BarChart
-          className="h-32 mt-6"
-          data={data}
-          stack
-          index="date"
-          categories={selectedSnapshots}
-          colors={selectedSnapshots.map((s) => MODEL_TO_COLOR[s])}
-          showLegend={false}
-          showYAxis={false}
-          // showXAxis={false}
-          showGridLines={false}
-          showAnimation={false}
-          startEndOnly
-          // connectNulls
-          valueFormatter={dataFormatter}
-        />
-      )}
-    </>
+    <Card className="shadow-none">
+      <CardHeader>
+        <Flex alignItems="start">
+          <div>
+            <Title>Cost</Title>
+            <Metric>$ {(totalUsage / 100).toFixed(2)}</Metric>
+            <Text>today so far</Text>
+          </div>
+        </Flex>
+      </CardHeader>
+      <CardContent>
+        {data.length > 0 && (
+          <BarChart
+            className="h-32 mt-6"
+            data={data}
+            stack
+            index="date"
+            categories={selectedSnapshots}
+            colors={selectedSnapshots.map((s) => MODEL_TO_COLOR[s])}
+            showLegend={false}
+            showYAxis={false}
+            // showXAxis={false}
+            showGridLines={false}
+            showAnimation={false}
+            startEndOnly
+            // connectNulls
+            valueFormatter={dataFormatter}
+          />
+        )}
+      </CardContent>
+    </Card>
   );
 };
 

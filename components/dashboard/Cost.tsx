@@ -1,3 +1,4 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useSubscriptionData } from "@/lib/hooks/api/useSubscriptionData";
 import { useCostDonutChartData } from "@/lib/hooks/charts/useCostDonutChartData";
 import { Category } from "@/lib/types";
@@ -55,46 +56,50 @@ const MonthlyCostChart = ({
   const getPercentage = () => billing.total_usage / subscription.hard_limit_usd;
 
   return (
-    <div className="flex flex-col h-full">
-      <Flex alignItems="start">
-        <Title>Cost</Title>
-        {/* <BadgeDelta deltaType="moderateIncrease">23.1%</BadgeDelta> */}
-      </Flex>
+    <motion.div
+      initial="hidden"
+      whileInView="show"
+      animate="show"
+      variants={{
+        hidden: { opacity: 0 },
+        show: {
+          opacity: 1,
+        },
+      }}
+    >
+      <Card className="shadow-none">
+        <CardHeader>
+          <Flex alignItems="start">
+            <Title>Cost</Title>
+          </Flex>
 
-      <Metric>
-        {/* @ts-ignore */}${" "}
-        {chartData.reduce((acc, { cost }) => acc + cost, 0).toFixed(2)}
-      </Metric>
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        animate="show"
-        variants={{
-          hidden: { opacity: 0 },
-          show: {
-            opacity: 1,
-          },
-        }}
-      >
-        <DonutChart
-          className="mt-6"
-          data={chartData}
-          showAnimation={false}
-          category="cost"
-          index="name"
-          valueFormatter={(v) => `$ ${v.toFixed(2)}`}
-          colors={chartData.map(({ color }) => color)}
-        />
-      </motion.div>
-      <div className="flex flex-1" />
-      <Flex className="mt-4">
-        <Text className="truncate">{`${getPercentage().toFixed(
-          2
-        )}% of hard limit`}</Text>
-        <Text>$ {subscription.hard_limit_usd.toFixed(2)}</Text>
-      </Flex>
-      <ProgressBar value={getPercentage()} className="mt-2" />
-    </div>
+          <Metric>
+            {/* @ts-ignore */}${" "}
+            {chartData.reduce((acc, { cost }) => acc + cost, 0).toFixed(2)}
+          </Metric>
+        </CardHeader>
+        <CardContent>
+          <DonutChart
+            className="mt-6"
+            data={chartData}
+            showAnimation={false}
+            category="cost"
+            index="name"
+            valueFormatter={(v) => `$ ${v.toFixed(2)}`}
+            colors={chartData.map(({ color }) => color)}
+          />
+
+          <div className="flex flex-1" />
+          <Flex className="mt-4">
+            <Text className="truncate">{`${getPercentage().toFixed(
+              2
+            )}% of hard limit`}</Text>
+            <Text>$ {subscription.hard_limit_usd.toFixed(2)}</Text>
+          </Flex>
+          <ProgressBar value={getPercentage()} className="mt-2" />
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 

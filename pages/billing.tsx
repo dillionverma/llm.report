@@ -1,3 +1,5 @@
+"use client";
+
 import StripePortalButton from "@/components/StripePortalButton";
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
 import useLocalStorage from "@/lib/use-local-storage";

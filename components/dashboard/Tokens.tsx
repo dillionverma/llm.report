@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { animationVariant } from "@/lib/constants";
 import { useUsageDataCumulative } from "@/lib/hooks/api/useUsageDataCumulative";
 import { Category } from "@/lib/types";
@@ -45,32 +46,35 @@ const LoadingList = () => {
   }, 1500);
 
   return (
-    <div className="animate-pulse">
-      <div className="h-6 bg-gray-200 rounded-full  w-32 mb-2.5"></div>
-      {/* <div className="w-48 h-2 mb-10 bg-gray-200 rounded-full "></div>  */}
-      <motion.div
-        className="flex items-start space-y-1 flex-col h-[250px] mt-4"
-        variants={animationVariant}
-        initial="hidden"
-        whileInView="show"
-        animate="show"
-      >
-        {heights.map((value, index) => (
-          <motion.div
-            key={index}
-            variants={{
-              hidden: { opacity: 0, scaleX: 0, originX: 0 },
-              show: { opacity: 1, scaleX: 1, originX: 0 },
-            }}
-            className={` bg-gray-200 rounded-r-md  transition-all duration-500 ease-in-out h-[20rem]`}
-            style={{
-              width: `${value}%`,
-            }}
-          ></motion.div>
-        ))}
-      </motion.div>
-      <span className="sr-only">Loading...</span>
-    </div>
+    <Card className="shadow-none">
+      <CardHeader>
+        <div className="h-6 bg-gray-200 rounded-full w-32 mb-2.5"></div>
+      </CardHeader>
+      <CardContent>
+        <motion.div
+          className="flex items-start space-y-1 flex-col h-[250px] mt-4 animate-pulse"
+          variants={animationVariant}
+          initial="hidden"
+          whileInView="show"
+          animate="show"
+        >
+          {heights.map((value, index) => (
+            <motion.div
+              key={index}
+              variants={{
+                hidden: { opacity: 0, scaleX: 0, originX: 0 },
+                show: { opacity: 1, scaleX: 1, originX: 0 },
+              }}
+              className={` bg-gray-200 rounded-r-md  transition-all duration-500 ease-in-out h-[20rem]`}
+              style={{
+                width: `${value}%`,
+              }}
+            ></motion.div>
+          ))}
+        </motion.div>
+        <span className="sr-only">Loading...</span>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -123,103 +127,121 @@ const Tokens = ({
         },
       }}
     >
-      <Flex justifyContent="start" className="space-x-1" alignItems="center">
-        <Title>Tokens</Title>
-        <Icon
-          icon={InformationCircleIcon}
-          size="sm"
-          color="gray"
-          tooltip="Tokens are how OpenAI measures usage. 1 token ~= 4 characters in english."
-        />
-      </Flex>
-      <Flex justifyContent="start" alignItems="baseline" className="space-x-2">
-        <Metric>
-          {selectedCategory === "total" &&
-            totalTokenData
-              .reduce((acc, obj) => acc + obj.value, 0)
-              .toLocaleString("en-US", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })}
-          {selectedCategory === "context" &&
-            contextTokenData
-              .reduce((acc, obj) => acc + obj.value, 0)
-              .toLocaleString("en-US", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })}
-          {selectedCategory === "generated" &&
-            generatedTokenData
-              .reduce((acc, obj) => acc + obj.value, 0)
-              .toLocaleString("en-US", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              })}
-        </Metric>
-        <Text>Total Tokens</Text>
-      </Flex>
-      <TabGroup
-        className="mt-6"
-        onIndexChange={(value) =>
-          setSelectedCategory(selectedCategories[value as number])
-        }
-        defaultValue={selectedCategory}
-      >
-        <TabList>
-          {tabcategories.map((category) => (
-            <Tab key={category.key} value={category.key} icon={category.icon}>
-              {category.name}
-            </Tab>
-          ))}
-        </TabList>
-      </TabGroup>
-      <Flex className="mt-4">
-        <Text>
-          <Bold>Model</Bold>
-        </Text>
-        <Text>
-          <Bold>Tokens</Bold>
-        </Text>
-      </Flex>
+      <Card className="shadow-none">
+        <CardHeader>
+          <Flex
+            justifyContent="start"
+            className="space-x-1"
+            alignItems="center"
+          >
+            <Title>Tokens</Title>
+            <Icon
+              icon={InformationCircleIcon}
+              size="sm"
+              color="gray"
+              tooltip="Tokens are how OpenAI measures usage. 1 token ~= 4 characters in english."
+            />
+          </Flex>
+          <Flex
+            justifyContent="start"
+            alignItems="baseline"
+            className="space-x-2"
+          >
+            <Metric>
+              {selectedCategory === "total" &&
+                totalTokenData
+                  .reduce((acc, obj) => acc + obj.value, 0)
+                  .toLocaleString("en-US", {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })}
+              {selectedCategory === "context" &&
+                contextTokenData
+                  .reduce((acc, obj) => acc + obj.value, 0)
+                  .toLocaleString("en-US", {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })}
+              {selectedCategory === "generated" &&
+                generatedTokenData
+                  .reduce((acc, obj) => acc + obj.value, 0)
+                  .toLocaleString("en-US", {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })}
+            </Metric>
+            <Text>Total Tokens</Text>
+          </Flex>
+        </CardHeader>
+        <CardContent>
+          <TabGroup
+            className="mt-6"
+            onIndexChange={(value) =>
+              setSelectedCategory(selectedCategories[value as number])
+            }
+            defaultValue={selectedCategory}
+          >
+            <TabList>
+              {tabcategories.map((category) => (
+                <Tab
+                  key={category.key}
+                  value={category.key}
+                  icon={category.icon}
+                >
+                  {category.name}
+                </Tab>
+              ))}
+            </TabList>
+          </TabGroup>
+          <Flex className="mt-4">
+            <Text>
+              <Bold>Model</Bold>
+            </Text>
+            <Text>
+              <Bold>Tokens</Bold>
+            </Text>
+          </Flex>
 
-      {selectedCategory === "generated" && (
-        <BarList
-          data={generatedTokenData}
-          className="mt-4"
-          valueFormatter={(v) =>
-            v.toLocaleString("en-US", {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            })
-          }
-        />
-      )}
+          {selectedCategory === "generated" && (
+            <BarList
+              data={generatedTokenData}
+              className="mt-4"
+              valueFormatter={(v) =>
+                v.toLocaleString("en-US", {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              }
+            />
+          )}
 
-      {selectedCategory === "context" && (
-        <BarList
-          data={contextTokenData}
-          className="mt-4"
-          valueFormatter={(v) =>
-            v.toLocaleString("en-US", {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            })
-          }
-        />
-      )}
+          {selectedCategory === "context" && (
+            <BarList
+              data={contextTokenData}
+              className="mt-4"
+              valueFormatter={(v) =>
+                v.toLocaleString("en-US", {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              }
+            />
+          )}
 
-      {selectedCategory === "total" && (
-        <BarList
-          data={totalTokenData}
-          className="mt-4"
-          valueFormatter={(v) =>
-            v.toLocaleString("en-US", {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            })
-          }
-        />
-      )}
+          {selectedCategory === "total" && (
+            <BarList
+              data={totalTokenData}
+              className="mt-4"
+              valueFormatter={(v) =>
+                v.toLocaleString("en-US", {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              }
+            />
+          )}
+        </CardContent>
+      </Card>
     </motion.div>
   );
 };

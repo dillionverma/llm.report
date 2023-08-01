@@ -1,3 +1,5 @@
+"use client";
+
 import { FIRST_VISIT_KEY, LOCAL_STORAGE_KEY } from "@/lib/constants";
 import useLocalStorage from "@/lib/use-local-storage";
 import { Dialog, Transition } from "@headlessui/react";
@@ -5,7 +7,6 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import {
   Fragment,
   createContext,
@@ -522,7 +523,7 @@ const SettingsModal = () => {
   //   }
   // }, [subscribed, key, session?.user, user]);
 
-  const router = useRouter();
+  // const router = useRouter();
 
   // useEffect(() => {
   //   if (session?.user && !key) {
