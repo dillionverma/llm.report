@@ -1,21 +1,15 @@
 import RequestTable from "@/components/RequestTable";
 import UserCostPerDayChart from "@/components/users/UserCostPerDayChart";
-import { Callout, Card, Col, Grid, Subtitle, Title } from "@tremor/react";
-import { ConstructionIcon } from "lucide-react";
+import { Card, Col, Grid, Subtitle, Title } from "@tremor/react";
 import { Suspense } from "react";
 
 export default function User({ params: { id } }: { params: { id: string } }) {
   return (
     <Grid numItems={3} className="gap-4 w-full">
       <Col numColSpan={3}>
-        <Callout title="Alpha feature" icon={ConstructionIcon} color="blue">
-          This feature is in alpha and may change at any time.
-        </Callout>
-      </Col>
-      <Col numColSpan={1}>
         <Card className="shadow-none">
-          <Title>User: {id}</Title>
-          <Subtitle>Detailed information about the user.</Subtitle>
+          <Title>{decodeURIComponent(id)}</Title>
+          <Subtitle>Detailed insights about the user.</Subtitle>
         </Card>
       </Col>
       <Col numColSpan={3}>

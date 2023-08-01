@@ -1,5 +1,5 @@
-import Docs from "@/app/(dashboard)/api-keys/docs";
-import KeysTable from "@/app/(dashboard)/api-keys/keys-table";
+import Docs from "@/app/(dashboard)/install/docs";
+import KeysTable from "@/app/(dashboard)/install/keys-table";
 import { preWrapperPlugin } from "@/lib/markdown/preWrapperPlugin";
 import { Flex, Text, Title } from "@tremor/react";
 import MarkdownIt from "markdown-it";
@@ -20,6 +20,7 @@ curl https://api.openai.withlogging.com/v1/chat/completions // [!code ++] \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer $OPENAI_API_KEY" \\
   -H "X-Api-Key: Bearer $LLM_REPORT_API_KEY" // [!code ++] \\
+  -H "X-User-Id: myuser@example.com" // [!code ++] \\
   -d '{
     "model": "gpt-3.5-turbo",
     "messages": [{"role": "user", "content": "Hello!"}]
@@ -27,7 +28,6 @@ curl https://api.openai.withlogging.com/v1/chat/completions // [!code ++] \\
 `;
 
 const JS = `
-
 \`\`\`js
 fetch("https://api.openai.com/v1/chat/completions", { // [!code --]
 fetch("https://api.openai.withlogging.com/v1/chat/completions", { // [!code ++]
@@ -36,6 +36,7 @@ fetch("https://api.openai.withlogging.com/v1/chat/completions", { // [!code ++]
     "Content-Type": "application/json",
     Authorization: \`Bearer \${process.env.OPENAI_API_KEY}\`,
     "X-Api-Key": \`Bearer \${process.env.LLM_REPORT_API_KEY}\`, // [!code ++]
+    "X-User-Id": \`myuser@example.com\`, // [!code ++]
   },
   body: JSON.stringify({
     model: "gpt-3.5-turbo",
@@ -57,6 +58,7 @@ const configuration = new Configuration({
   baseOptions: { // [!code ++:5]
     headers: {
       "X-Api-Key": \`Bearer \${process.env.LLM_REPORT_API_KEY}\`, 
+      "X-User-Id": \`myuser@example.com\`, 
     },
   }
 });
@@ -81,6 +83,7 @@ completion = openai.ChatCompletion.create(
   ],
   headers={
     "X-Api-Key": "Bearer " + os.getenv("LLM_REPORT_API_KEY"), // [!code ++]
+    "X-User-Id": "myuser@example.com", // [!code ++]
   }
 )
 
@@ -147,7 +150,7 @@ export default async function LogsPage() {
       <Flex className="xl:flex-row flex-col items-start xl:items-center space-y-4">
         <div className="space-y-2">
           <div className="flex flex-row space-x-3">
-            <Title>API Keys</Title>
+            <Title>Installation</Title>
           </div>
           <Text>
             LLM Report uses API keys to authenticate your requests to the LLM

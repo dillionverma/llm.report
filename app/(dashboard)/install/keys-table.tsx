@@ -1,7 +1,7 @@
 "use client";
 
-import DeleteDialog from "@/app/(dashboard)/api-keys/delete-dialog";
-import KeyDialog from "@/app/(dashboard)/api-keys/key-dialog";
+import DeleteDialog from "@/app/(dashboard)/install/delete-dialog";
+import KeyDialog from "@/app/(dashboard)/install/key-dialog";
 import { fetcher } from "@/lib/utils";
 import { Card } from "@tremor/react";
 import { format } from "date-fns";

@@ -17,8 +17,9 @@ import {
   DateRangePickerValue,
   Grid,
 } from "@tremor/react";
-import { format, startOfMonth, startOfYear, sub } from "date-fns";
-import { ConstructionIcon } from "lucide-react";
+import { add, format, startOfMonth, startOfYear, sub } from "date-fns";
+import { Sparkle } from "lucide-react";
+import Link from "next/link";
 import { Suspense, useState } from "react";
 
 const dateSelectOptions = [
@@ -26,21 +27,25 @@ const dateSelectOptions = [
     value: "tdy",
     text: "Today",
     from: sub(new Date(), { days: 1 }),
+    to: add(new Date(), { days: 1 }),
   },
   {
     value: "3d",
     text: "Last 3 days",
     from: sub(new Date(), { days: 3 }),
+    to: add(new Date(), { days: 1 }),
   },
   {
     value: "w",
     text: "Last 7 days",
     from: sub(new Date(), { days: 7 }),
+    to: add(new Date(), { days: 1 }),
   },
   {
     value: "mtd",
     text: "This month",
     from: startOfMonth(new Date()),
+    to: add(new Date(), { days: 1 }),
   },
   {
     value: "lm",
@@ -52,13 +57,14 @@ const dateSelectOptions = [
     value: "y",
     text: "This year",
     from: startOfYear(new Date()),
+    to: add(new Date(), { days: 1 }),
   },
 ];
 
 export default function Users() {
   const [value, setValue] = useState<DateRangePickerValue>({
     from: sub(new Date(), { days: 7 }),
-    to: new Date(),
+    to: add(new Date(), { days: 1 }),
     selectValue: "w",
   });
 
@@ -66,8 +72,16 @@ export default function Users() {
   return (
     <Grid numItems={1} numItemsLg={1} className="gap-6 w-full">
       <Col numColSpan={1}>
-        <Callout title="Alpha feature" icon={ConstructionIcon} color="blue">
-          This feature is in alpha and may change at any time.
+        <Callout
+          title="New Feature - User Analytics"
+          icon={Sparkle}
+          color="green"
+        >
+          To start using this feature, follow the{" "}
+          <Link href="/install" className="underline">
+            installation instructions
+          </Link>
+          .
         </Callout>
       </Col>
 
@@ -105,7 +119,8 @@ export default function Users() {
       <Col numColSpan={1}>
         <Card className="shadow-none">
           <CardHeader>
-            <CardTitle>Cost Summary</CardTitle>
+            <CardTitle>Usage Summary</CardTitle>
+            <CardDescription>A usage summary of the top users</CardDescription>
           </CardHeader>
           <CardContent>
             <Suspense fallback={<>loading...</>}>

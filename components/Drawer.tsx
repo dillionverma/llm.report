@@ -6,8 +6,8 @@ import { Badge } from "@tremor/react";
 import { motion } from "framer-motion";
 import {
   ArrowUpDown,
+  Download,
   HomeIcon,
-  Key,
   MessageSquarePlus,
   Settings,
   User,
@@ -29,18 +29,18 @@ const HOME_LINKS = [
     text: "Logs",
     Icon: () => <ArrowUpDown className="h-4 w-4" />,
     href: "/logs",
-    badge: "New ✨",
+    badge: null,
   },
   {
     text: "Users",
     Icon: () => <User className="h-4 w-4" />,
     href: "/users",
-    badge: "Coming Soon",
+    badge: "New ✨",
   },
   {
-    text: "LLM Report API Keys",
-    Icon: () => <Key className="h-4 w-4" />,
-    href: "/api-keys",
+    text: "Installation",
+    Icon: () => <Download className="h-4 w-4" />,
+    href: "/install",
     badge: null,
   },
   {

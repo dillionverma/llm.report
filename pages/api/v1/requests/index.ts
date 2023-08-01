@@ -77,7 +77,7 @@ export default async function handler(
       await prisma.request.findMany({
         where: {
           userId: session.user.id,
-          ...(user_id && { user_id: user_id }),
+          ...(user_id && { user_id: decodeURIComponent(user_id) }),
           // ...where,
           ...searchFilter,
         },
