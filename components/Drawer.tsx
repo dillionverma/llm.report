@@ -93,9 +93,10 @@ const Drawer = () => {
               href={navItem.href}
               target={navItem.external ? "_blank" : undefined}
               className={cn(
-                "flex items-center w-full justify-start hover:bg-slate-50 transition-all rounded-md px-2 py-1 gap-2",
+                "flex items-center w-full justify-start hover:bg-slate-50 dark:hover:bg-slate-900 transition-all rounded-md px-2 py-1 gap-2",
                 {
-                  "bg-slate-50": activeTab === navItem.href.replace("/", ""),
+                  "bg-slate-50 dark:bg-slate-900":
+                    activeTab === navItem.href.replace("/", ""),
                 }
               )}
             >
@@ -131,7 +132,7 @@ const Drawer = () => {
       </div>
     ));
   return (
-    <aside className="flex-col flex-shrink-0 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 bg-white border-r border-b justify-between hidden lg:flex">
+    <aside className="flex-col flex-shrink-0 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 border-r border-b justify-between hidden lg:flex">
       <div className="flex flex-col gap-2 py-4">
         <Link href="/" className="flex items-center space-x-2 px-4">
           <Image

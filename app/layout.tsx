@@ -9,7 +9,7 @@ import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
-// import "@/styles/mdx.css";
+import "@/styles/mdx.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
