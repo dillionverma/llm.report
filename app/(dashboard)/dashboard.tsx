@@ -8,6 +8,7 @@ import useLocalStorage from "@/lib/use-local-storage";
 import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { Callout } from "@tremor/react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const DashboardPage = () => {
@@ -31,11 +32,14 @@ const DashboardPage = () => {
       >
         OpenAI introduced a new change to their API this morning (July 20,
         2023). They no longer allow third party apps to access their /api/usage
-        endpoint which we use to display this dashboard.{" "}
-        <strong>
-          We have introduced a new workaround to get around this issue. It
-          requires you to enter your session token from the OpenAI website.
-        </strong>
+        endpoint which we use to display this dashboard.
+        <Link className="underline" href="/settings/openai">
+          <strong>
+            We have introduced a new workaround to get around this issue. It
+            requires you to enter your session token from the OpenAI website.
+          </strong>
+        </Link>
+        .
       </Callout>
       {(!key || !validKey) && <OnboardingDashboard />}
       {key && validKey && <Dashboard key={key} />}

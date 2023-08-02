@@ -2,7 +2,7 @@
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const items = [
   {
@@ -23,11 +23,12 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {}
 
 export function SidebarNav({ className, ...props }: SidebarNavProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <nav className={cn("flex space-x-2", className)} {...props}>
       <Tabs
-        defaultValue="/settings/billing"
+        defaultValue={pathname || "/settings/billing"}
         onValueChange={(v) => {
           router.push(v);
         }}
