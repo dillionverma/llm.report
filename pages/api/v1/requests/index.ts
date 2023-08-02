@@ -53,13 +53,13 @@ export default async function handler(
           OR: [
             {
               request_body: {
-                path: "$.prompt",
+                path: ["$.prompt"],
                 string_contains: `${search}`,
               },
             },
             {
               request_body: {
-                path: "$.messages[*].content",
+                path: ["$.messages[*].content"],
                 array_contains: `${search}`,
               },
             },
