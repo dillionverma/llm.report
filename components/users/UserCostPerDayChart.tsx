@@ -33,7 +33,7 @@ const UserCostPerDayChart = ({ userId }: { userId: string }) => {
   const [totalCount, setTotalCount] = useState(0);
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 20,
+    pageSize: 10000,
   });
 
   useEffect(() => {
@@ -59,6 +59,7 @@ const UserCostPerDayChart = ({ userId }: { userId: string }) => {
       .then((data) => {
         setRequests(data.requests);
 
+        console.log("SSS", data.requests);
         // group by date and sum the cost
         const grouped: Record<
           string,
