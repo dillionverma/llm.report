@@ -1,6 +1,7 @@
 "use client";
 
 import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 type BillingInterval = "year" | "month";
@@ -28,68 +29,102 @@ export interface Plan {
 }
 
 const plans: Plan[] = [
-  {
-    name: "Free",
-    desc: "Everything you need to start.",
-    price: 0,
-    priceAnnual: 0,
-    priceIdMonth: "",
-    priceIdYear: "",
-    isMostPop: false,
-    features: [
-      "10,000 logs / month",
-      "Track multiple API keys",
-      "1 member only",
-    ],
-  },
+  // {
+  //   name: "Free",
+  //   desc: "Everything you need to start.",
+  //   price: 0,
+  //   priceAnnual: 0,
+  //   priceIdMonth: "",
+  //   priceIdYear: "",
+  //   isMostPop: false,
+  //   features: [
+  //     "10,000 logs / month",
+  //     "Track multiple API keys",
+  //     "1 member",
+  //     "1 project",
+  //   ],
+  // },
   {
     name: "Hobby",
     desc: "Perfect for small and growing projects.",
     price: 20,
-    priceAnnual: 200,
+    priceAnnual: 15,
     priceIdMonth: "",
     priceIdYear: "",
-    isMostPop: true,
+    isMostPop: false,
     features: [
       "100,000 logs / month",
-      "Track multiple API keys",
       "Detailed User Analytics",
-      "2 team members",
+      "Track multiple API keys (soon)",
+      "Data Exports (soon)",
+      "Email / Slack Alerts (soon)",
+      "1 member (soon)",
+      "1 project (soon)",
     ],
   },
   {
-    name: "Startup",
-    desc: "Set strong foundations for your team.",
-    price: 200,
-    priceAnnual: 2000,
+    name: "Pro",
+    desc: "For projects that are serious about growth.",
+    price: 60,
+    priceAnnual: 40,
     priceIdMonth: "",
     priceIdYear: "",
     isMostPop: true,
     features: [
-      "Unlimited logs",
-      "Track multiple API keys",
+      "1,000,000 logs / month",
       "Detailed User Analytics",
-      "5 team members",
+      "Track multiple API keys (soon)",
+      "Data Exports (soon)",
+      "Email / Slack Alerts (soon)",
+      "Weekly / Monthly Reports (soon)",
+      "3 members (soon)",
+      "3 projects (soon)",
     ],
   },
   {
-    name: "Enterprise",
-    desc: "Custom pricing for your team.",
-    price: "Contact Us",
-    priceAnnual: "Contact Us",
+    name: "Team",
+    desc: "Set strong foundations for your team.",
+    price: 500,
+    priceAnnual: 400,
     priceIdMonth: "",
     priceIdYear: "",
     isMostPop: false,
     features: [
       "Unlimited logs",
-      "Track multiple API keys",
       "Detailed User Analytics",
-      "Unlimited team members",
-      "Priority Support",
-      "Priority Feature Requests",
+      "Track multiple API keys (soon)",
+      "Data Exports (soon)",
+      "Email / Slack Alerts (soon)",
+      "Weekly / Monthly Reports (soon)",
+      "Unlimited team members (soon)",
+      "Unlimited projects (soon)",
     ],
   },
 ];
+
+const enterprisePlan: Plan = {
+  name: "Enterprise",
+  desc: "Custom pricing for your team.",
+  price: "Contact Us",
+  priceAnnual: "Contact Us",
+  priceIdMonth: "",
+  priceIdYear: "",
+  isMostPop: false,
+  features: [
+    // "Unlimited logs",
+    // "Track multiple API keys",
+    // "Detailed User Analytics",
+    // "Data Exports (soon)",
+    // "Email / Slack Alerts (soon)",
+    // "Weekly / Monthly Reports (soon)",
+    // "Unlimited team members (soon)",
+    // "Unlimited projects (soon)",
+    "SOC2",
+    "24/7/365 Priority Support",
+    "Priority Feature Requests",
+    "Private Slack channel",
+  ],
+};
 
 const Billing = () => {
   const [billingInterval, setBillingInterval] =
@@ -116,19 +151,29 @@ const Billing = () => {
           Annual
         </label>
       </div>
-      <div className="grid items-start gap-4 sm:grid-cols-2 sm:space-y-0 xl:grid-cols-4">
+      <div className="grid mt-8 items-start gap-4 sm:grid-cols-3 sm:space-y-0 xl:grid-cols-3">
         {plans.map((item, idx) => (
           <div
             key={idx}
-            className={`relative mt-6 grid grid-rows-2 h-full rounded-xl border sm:mt-0`}
-          >
-            {item.isMostPop && (
-              <div
-                aria-hidden="true"
-                className="left-1/2 top-0 w-full user-select-none center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,rgba(255,255,255,0)_0%,rgba(143,143,143,0.67)_50%,rgba(0,0,0,0)_100%)]"
-              />
+            className={cn(
+              `relative mt-6 grid grid-rows-5 h-full rounded-xl border divide-y sm:mt-0`,
+              {
+                "border border-primary shadow-xl": item.isMostPop,
+              }
             )}
-            <div className="flex flex-col gap-4 border-b p-4 justify-between">
+          >
+            <div className="flex flex-col gap-4 p-4 justify-between row-span-2">
+              {item.isMostPop && (
+                <>
+                  <div
+                    aria-hidden="true"
+                    className="left-1/2 top-0 w-full user-select-none center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,rgba(255,255,255,0)_0%,rgba(143,143,143,0.67)_50%,rgba(0,0,0,0)_100%)]"
+                  />
+                  <span className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full border bg-white px-3 py-2 text-center text-sm font-semibold text-gray-700 shadow-md">
+                    Most popular
+                  </span>
+                </>
+              )}
               <span className="font-medium text-primary">{item.name}</span>
               <div className="flex flex-col justify-between">
                 <div className={`text-4xl font-semibold text-gray-800`}>
@@ -146,32 +191,7 @@ const Billing = () => {
                 </div>
               </div>
               <p className="flex text-xs">{item.desc}</p>
-              {/* {item.name === "Enterprise" && (
-                  <div className="flex">
-                   <Slider
-                      defaultValue={[10]}
-                      min={10}
-                      max={70}
-                      step={10}
-                      className="primary"
-                      onValueChange={(value) => {
-                        console.log("REFRESHING:", value);
-                        setSliderValue(value[0]);
-                      }}
-                    /> 
-                  </div>
-                )} */}
-              {/* <div className="flex flex-1" /> */}
-              {/* {data?.user.stripeSubscriptionStatus && (
-                  <BillingPortalRedirectButton customerId={data.user.stripeId}>
-                    Update Plan
-                  </BillingPortalRedirectButton>
-                )} */}
 
-              {/* {!data?.user.stripeSubscriptionStatus && (
-                  <>
-                        </>
-                )} */}
               <button
                 onClick={() => handleCheckout(item.name as Name, item.price)}
                 className={`group relative  w-full overflow-hidden rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-white transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 `}
@@ -180,8 +200,7 @@ const Billing = () => {
                 {item.price === "Contact Us" ? "Contact Us" : "Choose Plan"}
               </button>
             </div>
-            {/* <hr className="flex flex-1" /> */}
-            <ul className="flex flex-col gap-2 p-4">
+            <ul className="flex flex-col gap-2 p-4 row-span-3">
               <li className="pb-2 font-medium text-gray-800">
                 <p>Features</p>
               </li>
@@ -205,6 +224,77 @@ const Billing = () => {
             </ul>
           </div>
         ))}
+      </div>
+
+      <div
+        className={`relative mt-6 grid h-full rounded-xl border sm:mt-0 grid-cols-2 divide-x`}
+      >
+        <div className="flex flex-col gap-4 p-4 justify-between">
+          {enterprisePlan.isMostPop && (
+            <>
+              <div
+                aria-hidden="true"
+                className="left-1/2 top-0 w-full user-select-none center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,rgba(255,255,255,0)_0%,rgba(143,143,143,0.67)_50%,rgba(0,0,0,0)_100%)]"
+              />
+              <span className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full border bg-white px-3 py-2 text-center text-sm font-semibold text-gray-700 shadow-md">
+                Most popular
+              </span>
+            </>
+          )}
+          <span className="font-medium text-primary">
+            {enterprisePlan.name}
+          </span>
+          <div className="flex flex-col justify-between">
+            <div className={`text-4xl font-semibold text-gray-800`}>
+              {billingInterval === "month"
+                ? enterprisePlan.price === "Contact Us"
+                  ? enterprisePlan.price
+                  : formatter.format(enterprisePlan.price as number)
+                : enterprisePlan.price === "Contact Us"
+                ? enterprisePlan.price
+                : formatter.format(enterprisePlan.priceAnnual as number)}
+
+              <span className="text-xl font-normal text-gray-600">
+                {enterprisePlan.price === "Contact Us" ? "" : "/mo"}
+              </span>
+            </div>
+          </div>
+          <p className="flex text-xs">{enterprisePlan.desc}</p>
+          <button
+            onClick={() =>
+              handleCheckout(enterprisePlan.name as Name, enterprisePlan.price)
+            }
+            className={`group relative  w-full overflow-hidden rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-white transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 `}
+          >
+            <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
+            {enterprisePlan.price === "Contact Us"
+              ? "Contact Us"
+              : "Choose Plan"}
+          </button>
+        </div>
+        {/* <hr className="flex flex-1" /> */}
+        <ul className="flex flex-col gap-2 p-4 row-span-2">
+          <li className="pb-2 font-medium text-gray-800">
+            <p>Features</p>
+          </li>
+          {enterprisePlan.features.map((featureItem, idx) => (
+            <li key={idx} className="flex items-center gap-2 text-xs">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-primary"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+              {featureItem}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
