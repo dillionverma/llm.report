@@ -58,8 +58,8 @@ const plans: Plan[] = [
       "Track multiple API keys (soon)",
       "Data Exports (soon)",
       "Email / Slack Alerts (soon)",
-      "1 member (soon)",
-      "1 project (soon)",
+      "1 member",
+      "2 projects",
     ],
   },
   {
@@ -104,7 +104,7 @@ const plans: Plan[] = [
 
 const enterprisePlan: Plan = {
   name: "Enterprise",
-  desc: "Custom pricing for your team.",
+  desc: "For large-scale applications managing serious workloads. Let us know what you need and we'll make it happen.",
   price: "Contact Us",
   priceAnnual: "Contact Us",
   priceIdMonth: "",
@@ -158,7 +158,7 @@ const Billing = () => {
             className={cn(
               `relative mt-6 grid grid-rows-5 h-full rounded-xl border divide-y sm:mt-0`,
               {
-                "border border-primary shadow-xl": item.isMostPop,
+                "border-2 border-primary shadow-xl": item.isMostPop,
               }
             )}
           >
@@ -244,7 +244,7 @@ const Billing = () => {
           <span className="font-medium text-primary">
             {enterprisePlan.name}
           </span>
-          <div className="flex flex-col justify-between">
+          {/* <div className="flex flex-col justify-between">
             <div className={`text-4xl font-semibold text-gray-800`}>
               {billingInterval === "month"
                 ? enterprisePlan.price === "Contact Us"
@@ -258,7 +258,7 @@ const Billing = () => {
                 {enterprisePlan.price === "Contact Us" ? "" : "/mo"}
               </span>
             </div>
-          </div>
+          </div> */}
           <p className="flex text-xs">{enterprisePlan.desc}</p>
           <button
             onClick={() =>
