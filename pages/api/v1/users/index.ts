@@ -3,6 +3,7 @@ import { calculateCost } from "@/lib/llm/calculateCost";
 import prisma from "@/lib/prisma";
 import { Snapshot } from "@/lib/types";
 import { Request } from "@prisma/client";
+import { endOfDay, startOfDay } from "date-fns";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
@@ -88,10 +89,10 @@ export default async function handler(
       if (start || end) {
         dateFilter.createdAt = {};
         if (start) {
-          dateFilter.createdAt.gte = start;
+          dateFilter.createdAt.gte = startOfDay(start);
         }
         if (end) {
-          dateFilter.createdAt.lte = end;
+          dateFilter.createdAt.lte = endOfDay(end);
         }
       }
 

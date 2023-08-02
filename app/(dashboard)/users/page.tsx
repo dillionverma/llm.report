@@ -17,7 +17,15 @@ import {
   DateRangePickerValue,
   Grid,
 } from "@tremor/react";
-import { add, format, startOfMonth, startOfYear, sub } from "date-fns";
+import {
+  add,
+  endOfDay,
+  format,
+  startOfDay,
+  startOfMonth,
+  startOfYear,
+  sub,
+} from "date-fns";
 import { Sparkle } from "lucide-react";
 import Link from "next/link";
 import { Suspense, useState } from "react";
@@ -26,26 +34,26 @@ const dateSelectOptions = [
   {
     value: "tdy",
     text: "Today",
-    from: sub(new Date(), { days: 1 }),
-    to: add(new Date(), { days: 1 }),
+    from: startOfDay(new Date()),
+    to: endOfDay(new Date()),
   },
   {
     value: "3d",
     text: "Last 3 days",
     from: sub(new Date(), { days: 3 }),
-    to: add(new Date(), { days: 1 }),
+    to: endOfDay(new Date()),
   },
   {
     value: "w",
     text: "Last 7 days",
     from: sub(new Date(), { days: 7 }),
-    to: add(new Date(), { days: 1 }),
+    to: endOfDay(new Date()),
   },
   {
     value: "mtd",
     text: "This month",
     from: startOfMonth(new Date()),
-    to: add(new Date(), { days: 1 }),
+    to: endOfDay(new Date()),
   },
   {
     value: "lm",
@@ -57,7 +65,7 @@ const dateSelectOptions = [
     value: "y",
     text: "This year",
     from: startOfYear(new Date()),
-    to: add(new Date(), { days: 1 }),
+    to: endOfDay(new Date()),
   },
 ];
 

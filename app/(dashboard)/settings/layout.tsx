@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const SettingsLayout = ({ children }: { children: any }) => {
   return (
-    <div className="max-w-4xl space-y-4">
+    <div className="max-w-5xl space-y-4">
       <Flex className="xl:flex-row flex-col items-start xl:items-center space-y-4">
         <div className="space-y-2">
           <div className="flex flex-row space-x-3">

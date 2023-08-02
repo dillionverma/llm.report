@@ -30,23 +30,38 @@ export interface Plan {
 const plans: Plan[] = [
   {
     name: "Free",
-    desc: "Everything you need to start growing your business.",
+    desc: "Everything you need to start.",
     price: 0,
     priceAnnual: 0,
     priceIdMonth: "",
     priceIdYear: "",
     isMostPop: false,
     features: [
-      "Up to 10,000 logs per month",
+      "10,000 logs / month",
       "Track multiple API keys",
       "1 member only",
     ],
   },
   {
-    name: "Startup",
-    desc: "Set strong foundations for your team.",
+    name: "Hobby",
+    desc: "Perfect for small and growing projects.",
     price: 20,
     priceAnnual: 200,
+    priceIdMonth: "",
+    priceIdYear: "",
+    isMostPop: true,
+    features: [
+      "100,000 logs / month",
+      "Track multiple API keys",
+      "Detailed User Analytics",
+      "2 team members",
+    ],
+  },
+  {
+    name: "Startup",
+    desc: "Set strong foundations for your team.",
+    price: 200,
+    priceAnnual: 2000,
     priceIdMonth: "",
     priceIdYear: "",
     isMostPop: true,
@@ -54,7 +69,7 @@ const plans: Plan[] = [
       "Unlimited logs",
       "Track multiple API keys",
       "Detailed User Analytics",
-      "Up to 5 team members",
+      "5 team members",
     ],
   },
   {
@@ -101,7 +116,7 @@ const Billing = () => {
           Annual
         </label>
       </div>
-      <div className="grid items-start gap-4 sm:grid-cols-2 sm:space-y-0 lg:grid-cols-3">
+      <div className="grid items-start gap-4 sm:grid-cols-2 sm:space-y-0 xl:grid-cols-4">
         {plans.map((item, idx) => (
           <div
             key={idx}

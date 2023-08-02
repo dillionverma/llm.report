@@ -9,7 +9,7 @@ export default function User({ params: { id } }: { params: { id: string } }) {
       <Col numColSpan={3}>
         <Card className="shadow-none">
           <Title>{decodeURIComponent(id)}</Title>
-          <Subtitle>Detailed insights about the user.</Subtitle>
+          <Subtitle>Detailed insights about the user</Subtitle>
         </Card>
       </Col>
       <Col numColSpan={3}>
