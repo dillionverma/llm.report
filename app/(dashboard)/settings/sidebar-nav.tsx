@@ -25,10 +25,16 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
   const router = useRouter();
   const pathname = usePathname();
 
+  console.log(pathname, "PATH");
+
   return (
     <nav className={cn("flex space-x-2", className)} {...props}>
       <Tabs
-        defaultValue={pathname || "/settings/billing"}
+        defaultValue={
+          pathname === "/settings"
+            ? "/settings/billing"
+            : pathname || "/settings/billing"
+        }
         onValueChange={(v) => {
           router.push(v);
         }}

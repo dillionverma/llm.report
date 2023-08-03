@@ -12,11 +12,9 @@ export const useUser = () => {
     fetcher
   );
 
-  if (!data) return { user: null, isLoading: true, subscribed: false };
-
   return {
-    user: data.user,
+    user: data?.user,
     isLoading,
-    subscribed: data.user.subscriptions.some((sub) => sub.status === "active"),
+    subscribed: data?.user.subscriptions.some((sub) => sub.status === "active"),
   };
 };
