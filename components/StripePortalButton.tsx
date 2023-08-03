@@ -1,3 +1,7 @@
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+
 const BILLING_PORTAL_REDIRECT_ENDPOINT = "/api/v1/stripe/portal";
 
 const StripePortalButton: React.FC<{
@@ -11,10 +15,17 @@ const StripePortalButton: React.FC<{
       action={BILLING_PORTAL_REDIRECT_ENDPOINT}
       className={className}
     >
-      <input type={"hidden"} name={"customerId"} value={customerId} />
-      <button className="flex items-center justify-center gap-x-2 rounded-lg bg-black py-2 px-4 text-center font-medium text-white duration-150 hover:bg-black/80 hover:shadow-none">
+      <Input type={"hidden"} name={"customerId"} value={customerId} />
+      <Button
+        className={cn(
+          buttonVariants({
+            variant: "default",
+          }),
+          className
+        )}
+      >
         {children}
-      </button>
+      </Button>
     </form>
   );
 };

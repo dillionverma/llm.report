@@ -1,6 +1,6 @@
-import DashboardPage from "@/app/(dashboard)/dashboard";
 import LandingPage from "@/app/(marketing)/landingpage";
 import { getCurrentUser } from "@/lib/session";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { Tweet, getTweet } from "react-tweet/api";
 
@@ -41,10 +41,11 @@ export default async function Home() {
   const tweets = await getTweets();
   const user = await getCurrentUser();
 
+  if (user) redirect("/openai");
+
   return (
     <Suspense fallback={<></>}>
-      {user && <DashboardPage />}
-      {!user && <LandingPage tweets={tweets} />}
+      <LandingPage tweets={tweets} />
     </Suspense>
   );
 }

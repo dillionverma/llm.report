@@ -71,8 +71,6 @@ export const InstallSteps = () => {
   );
 };
 
-// export default Install;
-
 // Usage
 const OnboardingDashboard = ({ className }: { className?: string }) => {
   const [step, setStep] = useState(1);

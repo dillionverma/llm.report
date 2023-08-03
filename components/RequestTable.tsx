@@ -717,8 +717,8 @@ export function RequestTable({ userId }: { userId?: string }) {
   //   table.getFilteredRowModel().rows.length;
 
   return (
-    <div>
-      <div className="flex items-center justify-between py-4 space-x-2">
+    <>
+      <div className="flex items-center justify-between pb-4 space-x-2">
         <Input
           placeholder="Search prompts or completions..."
           value={search}
@@ -854,7 +854,7 @@ export function RequestTable({ userId }: { userId?: string }) {
       <div className="py-4">
         <DataTablePagination table={table} totalCount={totalCount} />
       </div>
-    </div>
+    </>
   );
 }
 

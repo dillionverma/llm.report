@@ -5,11 +5,8 @@ import Dashboard from "@/components/dashboard";
 import { LOCAL_STORAGE_KEY } from "@/lib/constants";
 import openai from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
-import { Callout } from "@tremor/react";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const DashboardPage = () => {
   const { data: session, status } = useSession();
@@ -23,8 +20,8 @@ const DashboardPage = () => {
   if (status != "authenticated") return null;
 
   return (
-    <>
-      <Callout
+    <Suspense>
+      {/* <Callout
         title="OpenAI API changes"
         icon={ExclamationCircleIcon}
         color="blue"
@@ -40,10 +37,10 @@ const DashboardPage = () => {
           </strong>
         </Link>
         .
-      </Callout>
+      </Callout> */}
       {(!key || !validKey) && <OnboardingDashboard />}
       {key && validKey && <Dashboard key={key} />}
-    </>
+    </Suspense>
   );
 };
 

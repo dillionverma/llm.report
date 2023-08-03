@@ -1,0 +1,61 @@
+interface PlanLinks {
+  monthly: string;
+  yearly: string;
+}
+
+interface SubscriptionPlan {
+  developer: PlanLinks;
+  startup: PlanLinks;
+  team: PlanLinks;
+}
+
+export interface SubscriptionPlans {
+  development: SubscriptionPlan;
+  test: SubscriptionPlan;
+  production: SubscriptionPlan;
+}
+
+export const subscriptionPlans = {
+  development: {
+    developer: {
+      monthly: "https://buy.stripe.com/test_9AQ7use7tcS5bhm289",
+      yearly: "https://buy.stripe.com/test_fZe5mk9Rdg4h3OUaEH",
+    },
+    startup: {
+      monthly: "https://buy.stripe.com/test_9AQ164bZl2drclqaEJ",
+      yearly: "https://buy.stripe.com/test_6oE1640gD6tH2KQeUY",
+    },
+    team: {
+      monthly: "https://buy.stripe.com/test_9AQ4igbZl3hvdpu002",
+      yearly: "https://buy.stripe.com/test_00gdSQ0gD9FT1GMeV0",
+    },
+  },
+  test: {
+    developer: {
+      monthly: "https://buy.stripe.com/test_9AQ7use7tcS5bhm289",
+      yearly: "https://buy.stripe.com/test_fZe5mk9Rdg4h3OUaEH",
+    },
+    startup: {
+      monthly: "https://buy.stripe.com/test_9AQ164bZl2drclqaEJ",
+      yearly: "https://buy.stripe.com/test_6oE1640gD6tH2KQeUY",
+    },
+    team: {
+      monthly: "https://buy.stripe.com/test_9AQ4igbZl3hvdpu002",
+      yearly: "https://buy.stripe.com/test_00gdSQ0gD9FT1GMeV0",
+    },
+  },
+  production: {
+    developer: {
+      monthly: "https://buy.stripe.com/fZe4hL0fWb7KdEI289",
+      yearly: "https://buy.stripe.com/28o4hL0fW0t6dEI7su",
+    },
+    startup: {
+      monthly: "https://buy.stripe.com/4gw15z0fWb7KgQU003",
+      yearly: "https://buy.stripe.com/14kaG9faQ3FifMQ8wA",
+    },
+    team: {
+      monthly: "https://buy.stripe.com/fZeg0t2o41xa6cg6ot",
+      yearly: "https://buy.stripe.com/28o6pT1k03FifMQbIO",
+    },
+  },
+};

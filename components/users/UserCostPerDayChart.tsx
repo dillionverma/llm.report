@@ -59,7 +59,6 @@ const UserCostPerDayChart = ({ userId }: { userId: string }) => {
       .then((data) => {
         setRequests(data.requests);
 
-        console.log("SSS", data.requests);
         // group by date and sum the cost
         const grouped: Record<
           string,

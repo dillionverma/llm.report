@@ -1,10 +1,12 @@
 "use client";
 
+import { useCopyCode } from "@/lib/copyCode";
 import { Card, Flex, Text, Title } from "@tremor/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
 const Docs = ({ code }: { code: any }) => {
+  useCopyCode();
   let tabs = [
     { id: "curl", label: "curl" },
     { id: "js", label: "javascript" },
@@ -22,9 +24,7 @@ const Docs = ({ code }: { code: any }) => {
         <Title>Log your first request</Title>
       </Flex>
 
-      <Text>
-        Update your code using the examples below, or just press the button!
-      </Text>
+      <Text>Update your code using the examples below.</Text>
 
       <div className="mt-2">
         {tabs.map((tab) => (

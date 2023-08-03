@@ -1,8 +1,9 @@
 "use client";
 
 import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
+import { cn, fetcher } from "@/lib/utils";
 import { useState } from "react";
+import useSWR from "swr";
 
 type BillingInterval = "year" | "month";
 
@@ -45,12 +46,12 @@ const plans: Plan[] = [
   //   ],
   // },
   {
-    name: "Hobby",
-    desc: "Perfect for small and growing projects.",
+    name: "Developer",
+    desc: "Perfect for small projects.",
     price: 20,
     priceAnnual: 15,
-    priceIdMonth: "",
-    priceIdYear: "",
+    priceIdMonth: "price_1NaV0jB24wj8TkEzdNo0HXp7",
+    priceIdYear: "price_1NaV0jB24wj8TkEzGVbNRFHf",
     isMostPop: false,
     features: [
       "100,000 logs / month",
@@ -63,12 +64,12 @@ const plans: Plan[] = [
     ],
   },
   {
-    name: "Pro",
-    desc: "For projects that are serious about growth.",
+    name: "Startup",
+    desc: "Everything you need for a growing startup.",
     price: 60,
     priceAnnual: 40,
-    priceIdMonth: "",
-    priceIdYear: "",
+    priceIdMonth: "price_1NaV0kB24wj8TkEzB3kgrtuz",
+    priceIdYear: "price_1NaV0kB24wj8TkEziIqZXW3j",
     isMostPop: true,
     features: [
       "1,000,000 logs / month",
@@ -83,11 +84,11 @@ const plans: Plan[] = [
   },
   {
     name: "Team",
-    desc: "Set strong foundations for your team.",
+    desc: "For teams of all sizes.",
     price: 500,
     priceAnnual: 400,
-    priceIdMonth: "",
-    priceIdYear: "",
+    priceIdMonth: "price_1NaV0kB24wj8TkEzpoXWRwEB",
+    priceIdYear: "price_1NaV0kB24wj8TkEz8nuJ68Xq",
     isMostPop: false,
     features: [
       "Unlimited logs",
@@ -119,7 +120,7 @@ const enterprisePlan: Plan = {
     // "Weekly / Monthly Reports (soon)",
     // "Unlimited team members (soon)",
     // "Unlimited projects (soon)",
-    "SOC2",
+    "SOC 2",
     "24/7/365 Priority Support",
     "Priority Feature Requests",
     "Private Slack channel",
@@ -129,6 +130,11 @@ const enterprisePlan: Plan = {
 const Billing = () => {
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>("month");
+  const { data, isLoading } = useSWR("/api/v1/me", fetcher);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   const handleCheckout = (a: any, b: any) => {
     return;
@@ -192,6 +198,11 @@ const Billing = () => {
               </div>
               <p className="flex text-xs">{item.desc}</p>
 
+              {/* {data?.user.stripeSubscriptionStatus && ( */}
+              {/* <StripePortalButton customerId={data?.user?.stripe_customer_id}>
+                Manage Billing
+              </StripePortalButton> */}
+              {/* )} */}
               <button
                 onClick={() => handleCheckout(item.name as Name, item.price)}
                 className={`group relative  w-full overflow-hidden rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-white transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 `}
@@ -227,7 +238,7 @@ const Billing = () => {
       </div>
 
       <div
-        className={`relative mt-6 grid h-full rounded-xl border sm:mt-0 grid-cols-2 divide-x`}
+        className={`relative mt-6 grid rounded-xl border grid-cols-2 divide-x`}
       >
         <div className="flex flex-col gap-4 p-4 justify-between">
           {enterprisePlan.isMostPop && (

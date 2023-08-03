@@ -1,5 +1,6 @@
-import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
+import { ChevronsUpDown, CreditCard, LogOut, Settings } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,19 +14,17 @@ import { truncate } from "@/lib/utils";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useDialog } from "./SettingsModal";
 
 export function UserDropdownMenu() {
   const { data: session } = useSession();
-  const { openDialog } = useDialog();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="px-4 py-2">
-          <button className="flex items-center w-full justify-start hover:bg-slate-50 transition-all px-2 py-1 rounded-lg">
+        <div className="py-2">
+          <Button variant="outline">
             <Image
-              className="rounded-full cursor-pointer w-8 h-8"
+              className="rounded-full cursor-pointer w-6 h-6"
               alt={session?.user?.email || "User"}
               src={
                 session?.user.image ||
@@ -43,17 +42,19 @@ export function UserDropdownMenu() {
               </span>
             </div>
             <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
-          </button>
+          </Button>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {/* <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
-          </DropdownMenuItem> */}
+          <Link href="/settings/billing">
+            <DropdownMenuItem>
+              <CreditCard className="mr-2 h-4 w-4" />
+              <span>Billing</span>
+            </DropdownMenuItem>
+          </Link>
 
           <Link href="/settings">
             <DropdownMenuItem className="cursor-pointer">

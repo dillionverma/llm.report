@@ -65,10 +65,6 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           case "customer.subscription.updated":
           case "customer.subscription.deleted":
             const subscription = event.data.object as Stripe.Subscription;
-            console.log("SUB", subscription);
-
-            console.log("SUBSCRIPTION ID: ", subscription.customer);
-
             await manageSubscriptionStatusChange(
               subscription.id,
               subscription.customer as string,

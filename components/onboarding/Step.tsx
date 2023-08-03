@@ -1,13 +1,12 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ComponentProps } from "react";
 
-export function OnboardingStep({
-  step,
-  currentStep,
-}: {
+interface OnboardingStepProps {
   step: number;
   currentStep: number;
-}) {
+}
+
+export function OnboardingStep({ step, currentStep }: OnboardingStepProps) {
   let status =
     currentStep === step
       ? "active"
@@ -16,8 +15,11 @@ export function OnboardingStep({
       : "complete";
 
   return (
-    <motion.div animate={status} className="relative">
-      <motion.div
+    <m.div
+      animate={status}
+      className="relative flex h-10 w-10 items-center justify-center flex-row "
+    >
+      <m.div
         variants={{
           active: {
             scale: 1,
@@ -38,8 +40,7 @@ export function OnboardingStep({
         }}
         className="absolute inset-0 rounded-full bg-green-200"
       />
-
-      <motion.div
+      <m.div
         initial={false}
         variants={{
           inactive: {
@@ -49,8 +50,8 @@ export function OnboardingStep({
           },
           active: {
             backgroundColor: "#fff",
-            borderColor: "#3b82f6", // blue-500
-            color: "#3b82f6", // blue-500
+            borderColor: "#64748B", // blue-500
+            color: "#64748B", // blue-500
           },
           complete: {
             backgroundColor: "#22c55e", // green-500
@@ -68,8 +69,8 @@ export function OnboardingStep({
             <span>{step}</span>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 
@@ -82,7 +83,7 @@ export function CheckIcon(props: ComponentProps<"svg">) {
       stroke="currentColor"
       strokeWidth={3}
     >
-      <motion.path
+      <m.path
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
         transition={{

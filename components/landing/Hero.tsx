@@ -142,7 +142,7 @@ const Hero = () => {
                   <img
                     src="/accelerator-badge-dark.png"
                     alt="Backed by Vercel AI Accelerator"
-                    className="w-36"
+                    className="w-40"
                   />
                 </Link>
 
@@ -150,7 +150,7 @@ const Hero = () => {
                   <img
                     src="/buildspace-badge-dark.png"
                     alt="Backed by Buildspace"
-                    className="w-36"
+                    className="w-40"
                   />
                 </Link>
               </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import { QueryClient } from "@tanstack/react-query";
+import { Hydrate, QueryClient, dehydrate } from "@tanstack/react-query";
 import {
   PersistQueryClientProvider,
   PersistedClient,
@@ -68,6 +68,10 @@ export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
     return;
   });
 
+  const dehydratedState = dehydrate(client, {
+    shouldDehydrateQuery: () => true,
+  });
+
   return (
     <PersistQueryClientProvider
       client={client}
@@ -75,7 +79,7 @@ export const ReactQueryProvider = ({ children }: PropsWithChildren) => {
         persister: persister!,
       }}
     >
-      {children}
+      <Hydrate state={dehydratedState}>{children}</Hydrate>
     </PersistQueryClientProvider>
   );
 };

@@ -1,24 +1,13 @@
-"use client";
-
 import Drawer from "@/components/Drawer";
-import { useCopyCode } from "@/lib/copyCode";
 import { cn } from "@/lib/utils";
-import { useSession } from "next-auth/react";
 import { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const { data: session } = useSession();
-  useCopyCode();
-
   return (
     <main className="flex">
       <Drawer />
       <div className="w-full">
-        <header
-          className={cn("hidden w-full z-50", {
-            "bg-white border-b": session?.user,
-          })}
-        >
+        <header className={cn("hidden w-full z-50 bg-white border-b")}>
           <nav className="flex items-center h-16 px-8">
             {/* <Link href="/" className="flex items-center space-x-2">
                 <Image
@@ -42,12 +31,12 @@ export default function Layout({ children }: { children: ReactNode }) {
           </nav>
         </header>
         <div
-          className={cn("w-full space-y-4 md:p-8 p-4 pt-6 h-screen", {
-            "h-[calc(100vh-4rem)]": false,
-            "overflow-auto": session?.user,
-            "max-w-[1280px] mx-auto": !session?.user,
-            "bg-slate-50 dark:bg-slate-950": session?.user,
-          })}
+          className={cn(
+            "w-full space-y-4 md:p-8 p-4 pt-6 h-screen overflow-auto bg-slate-50 dark:bg-slate-950",
+            {
+              "h-[calc(100vh-4rem)]": false,
+            }
+          )}
         >
           {children}
         </div>

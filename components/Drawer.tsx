@@ -1,13 +1,26 @@
+"use client";
+
 import { UserDropdownMenu } from "@/components/Dropdown";
-import { useDialog } from "@/components/SettingsModal";
-import { cn } from "@/lib/utils";
+import { Icons } from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { useLogCount } from "@/lib/hooks/useLogCount";
+import { cn, numberFormat } from "@/lib/utils";
+import { BoltIcon } from "@heroicons/react/24/solid";
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
 import { Badge } from "@tremor/react";
 import { motion } from "framer-motion";
 import {
   ArrowUpDown,
   Download,
-  HomeIcon,
   MessageSquarePlus,
   Settings,
   User,
@@ -15,13 +28,14 @@ import {
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const LOGS_PER_MONTH = 100000;
 const HOME_LINKS = [
   {
-    text: "Dashboard",
-    Icon: () => <HomeIcon className="h-4 w-4" />,
+    text: "OpenAI Analytics",
+    Icon: () => <Icons.openai className="h-4 w-4" />,
     href: "/",
     badge: null,
   },
@@ -68,7 +82,11 @@ const COMMUNITY_LINKS = [
 ];
 
 const Drawer = () => {
-  const { isOpen, openDialog, closeDialog } = useDialog();
+  const { data, isLoading } = useLogCount({});
+  const logCount = data?.count;
+
+  const router = useRouter();
+  // const { isOpen, openDialog, closeDialog } = useDialog();
   const { data: session } = useSession();
 
   const [activeTab, setActiveTab] = useState("");
@@ -86,7 +104,7 @@ const Drawer = () => {
 
   const renderLinks = (links: any) =>
     links.map((navItem: any, index: number) => (
-      <div key={index} className="px-4">
+      <div key={index}>
         <div className="space-y-2">
           <motion.div whileHover="hover">
             <Link
@@ -132,9 +150,9 @@ const Drawer = () => {
       </div>
     ));
   return (
-    <aside className="flex-col flex-shrink-0 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 border-r border-b justify-between hidden lg:flex">
-      <div className="flex flex-col gap-2 py-4">
-        <Link href="/" className="flex items-center space-x-2 px-4">
+    <aside className="flex-col flex-shrink-0 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 border-r border-b justify-between hidden lg:flex px-4 pt-4">
+      <div className="flex flex-col gap-2">
+        <Link href="/" className="flex items-center space-x-2">
           <Image
             src="/logo.svg"
             alt="Logo"
@@ -144,13 +162,36 @@ const Drawer = () => {
           />
           <h1 className="text-gray-800 font-semibold text-xl">LLM Report</h1>
         </Link>
-        <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">Home</h2>
+        <h2 className="mb-2 text-lg font-semibold tracking-tight">Home</h2>
         {renderLinks(HOME_LINKS)}
-        <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-          Community
-        </h2>
+        <h2 className="mb-2 text-lg font-semibold tracking-tight">Community</h2>
         {renderLinks(COMMUNITY_LINKS)}
       </div>
+      <div className="flex flex-1" />
+      <Card className="p-2">
+        <CardHeader className="p-2">
+          <CardTitle>Free plan</CardTitle>
+          <CardDescription>
+            {logCount} / {numberFormat(LOGS_PER_MONTH)}
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-2">
+          <Progress value={logCount / LOGS_PER_MONTH} />
+          <sub>
+            {numberFormat(LOGS_PER_MONTH - logCount)} logs left this month
+          </sub>
+        </CardContent>
+        <CardFooter className="p-2">
+          <Button
+            onClick={() => router.push("/settings/billing")}
+            className="justify-center gap-2 w-full"
+          >
+            <BoltIcon className="h-4 w-4" />
+            <span>Upgrade</span>
+          </Button>
+        </CardFooter>
+      </Card>
+
       {session?.user && <UserDropdownMenu />}
     </aside>
   );

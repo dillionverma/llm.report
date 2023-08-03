@@ -14,6 +14,7 @@ export default async function handler(
   }
 
   if (req.method === "POST") {
+    const user_id = req.body.user_id || null;
     const request = await prisma.request.create({
       data: {
         user: {
@@ -29,6 +30,10 @@ export default async function handler(
         status: 200,
         cached: false,
         streamed: false,
+        prompt_tokens: 356,
+        completion_tokens: 54,
+        user_id,
+        model: "gpt-3.5-turbo-0301",
         request_headers: {
           host: "api.cachemyai.com",
           accept: "*/*",
