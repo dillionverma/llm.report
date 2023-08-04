@@ -70,6 +70,7 @@
     "next-auth": "^4.22.1",
     "next-themes": "^0.2.1",
     "papaparse": "^5.4.1",
+    "posthog-js": "^1.75.3",
     "react": "^18.2.0",
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
