@@ -1,6 +1,6 @@
 import Pricing from "@/components/pricing";
 
-const Billing = () => {
+const PricingPage = () => {
   return (
     <div className="mt-12">
       <Pricing />
@@ -8,4 +8,4 @@ const Billing = () => {
   );
 };
 
-export default Billing;
+export default PricingPage;

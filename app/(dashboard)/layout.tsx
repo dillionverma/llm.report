@@ -1,8 +1,16 @@
 import Drawer from "@/components/Drawer";
+import { getCurrentUser } from "@/lib/session";
 import { cn } from "@/lib/utils";
+import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/");
+  }
+
   return (
     <main className="flex">
       <Drawer />
