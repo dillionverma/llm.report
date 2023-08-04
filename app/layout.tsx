@@ -1,4 +1,4 @@
-import SettingsModal, { DialogProvider } from "@/components/SettingsModal";
+import { DialogProvider } from "@/components/SettingsModal";
 import { Analytics } from "@/components/analytics";
 import { CrispChat } from "@/components/crisp-chat";
 import MotionProvider from "@/components/motion-provider";
@@ -57,7 +57,6 @@ export default async function RootLayout({
                       <PosthogIdentify session={session} />
                       {/* <TailwindIndicator /> */}
                       <Toaster />
-                      <SettingsModal />
                     </ThemeProvider>
                   </TooltipProvider>
                 </DialogProvider>
