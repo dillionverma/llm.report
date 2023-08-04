@@ -1,6 +1,5 @@
 "use client";
 
-import { Switch } from "@/components/ui/switch";
 import { useUser } from "@/lib/hooks/user/useUser";
 import { subscriptionPlans } from "@/lib/stripe/subscriptionPlans";
 import { cn } from "@/lib/utils";
@@ -21,6 +20,7 @@ const formatter = new Intl.NumberFormat("en-US", {
 
 export interface Plan {
   name: Name;
+  cta: string;
   desc: string;
   price: number | string;
   priceAnnual: number | string;
@@ -31,28 +31,14 @@ export interface Plan {
 }
 
 const plans: Plan[] = [
-  // {
-  //   name: "Free",
-  //   desc: "Everything you need to start.",
-  //   price: 0,
-  //   priceAnnual: 0,
-  //   priceIdMonth: "",
-  //   priceIdYear: "",
-  //   isMostPop: false,
-  //   features: [
-  //     "10,000 logs / month",
-  //     "Track multiple API keys",
-  //     "1 member",
-  //     "1 project",
-  //   ],
-  // },
   {
-    name: "Developer" as Name,
-    desc: "Perfect for small projects.",
-    price: 20,
-    priceAnnual: 15,
-    priceIdMonth: "price_1NaV0jB24wj8TkEzdNo0HXp7",
-    priceIdYear: "price_1NaV0jB24wj8TkEzGVbNRFHf",
+    name: "Free" as Name,
+    cta: "Current Plan",
+    desc: "Perfect for tinkering on passion projects",
+    price: 0,
+    priceAnnual: 0,
+    priceIdMonth: "",
+    priceIdYear: "",
     isMostPop: false,
     features: [
       "100,000 logs / month",
@@ -60,39 +46,21 @@ const plans: Plan[] = [
       "Track multiple API keys (soon)",
       "Data Exports (soon)",
       "Email / Slack Alerts (soon)",
-      "1 member",
-      "2 projects",
+      // "1 member",
+      // "1 project",
     ],
   },
   {
-    name: "Startup" as Name,
-    desc: "Everything you need for a growing startup.",
-    price: 60,
-    priceAnnual: 40,
-    priceIdMonth: "price_1NaV0kB24wj8TkEzB3kgrtuz",
-    priceIdYear: "price_1NaV0kB24wj8TkEziIqZXW3j",
+    name: "Pro" as Name,
+    cta: "Get Started",
+    desc: "For production apps and teams.",
+    price: 20,
+    priceAnnual: 15,
+    priceIdMonth: "price_1NaV0jB24wj8TkEzdNo0HXp7",
+    priceIdYear: "price_1NaV0jB24wj8TkEzGVbNRFHf",
     isMostPop: true,
     features: [
-      "1,000,000 logs / month",
-      "Detailed User Analytics",
-      "Track multiple API keys (soon)",
-      "Data Exports (soon)",
-      "Email / Slack Alerts (soon)",
-      "Weekly / Monthly Reports (soon)",
-      "3 members (soon)",
-      "3 projects (soon)",
-    ],
-  },
-  {
-    name: "Team" as Name,
-    desc: "For teams of all sizes.",
-    price: 500,
-    priceAnnual: 400,
-    priceIdMonth: "price_1NaV0kB24wj8TkEzpoXWRwEB",
-    priceIdYear: "price_1NaV0kB24wj8TkEz8nuJ68Xq",
-    isMostPop: false,
-    features: [
-      "Unlimited logs",
+      "Unlimited logs / month",
       "Detailed User Analytics",
       "Track multiple API keys (soon)",
       "Data Exports (soon)",
@@ -100,33 +68,97 @@ const plans: Plan[] = [
       "Weekly / Monthly Reports (soon)",
       "Unlimited team members (soon)",
       "Unlimited projects (soon)",
+      // "1 member",
+      // "2 projects",
+    ],
+  },
+  // {
+  //   name: "Startup" as Name,
+  //   desc: "Everything you need for a growing startup.",
+  //   price: 60,
+  //   priceAnnual: 40,
+  //   priceIdMonth: "price_1NaV0kB24wj8TkEzB3kgrtuz",
+  //   priceIdYear: "price_1NaV0kB24wj8TkEziIqZXW3j",
+  //   isMostPop: true,
+  //   features: [
+  //     "1,000,000 logs / month",
+  //     "Detailed User Analytics",
+  //     "Track multiple API keys (soon)",
+  //     "Data Exports (soon)",
+  //     "Email / Slack Alerts (soon)",
+  //     "Weekly / Monthly Reports (soon)",
+  //     "3 members (soon)",
+  //     "3 projects (soon)",
+  //   ],
+  // },
+  // {
+  //   name: "Team" as Name,
+  //   desc: "For teams of all sizes.",
+  //   price: 500,
+  //   priceAnnual: 400,
+  //   priceIdMonth: "price_1NaV0kB24wj8TkEzpoXWRwEB",
+  //   priceIdYear: "price_1NaV0kB24wj8TkEz8nuJ68Xq",
+  //   isMostPop: false,
+  //   features: [
+  //     "Unlimited logs",
+  //     "Detailed User Analytics",
+  //     "Track multiple API keys (soon)",
+  //     "Data Exports (soon)",
+  //     "Email / Slack Alerts (soon)",
+  //     "Weekly / Monthly Reports (soon)",
+  //     "Unlimited team members (soon)",
+  //     "Unlimited projects (soon)",
+  //   ],
+  // },
+  {
+    name: "Enterprise" as Name,
+    cta: "Contact Us",
+    desc: "For large-scale applications managing serious workloads. Let us know what you need and we'll make it happen.",
+    price: "Contact Us",
+    priceAnnual: "Contact Us",
+    priceIdMonth: "",
+    priceIdYear: "",
+    isMostPop: false,
+    features: [
+      // "Unlimited logs",
+      // "Track multiple API keys",
+      // "Detailed User Analytics",
+      // "Data Exports (soon)",
+      // "Email / Slack Alerts (soon)",
+      // "Weekly / Monthly Reports (soon)",
+      // "Unlimited team members (soon)",
+      // "Unlimited projects (soon)",
+      "SOC 2",
+      "24/7/365 Priority Support",
+      "Priority Feature Requests",
+      "Private Slack channel",
     ],
   },
 ];
 
-const enterprisePlan: Plan = {
-  name: "Enterprise" as Name,
-  desc: "For large-scale applications managing serious workloads. Let us know what you need and we'll make it happen.",
-  price: "Contact Us",
-  priceAnnual: "Contact Us",
-  priceIdMonth: "",
-  priceIdYear: "",
-  isMostPop: false,
-  features: [
-    // "Unlimited logs",
-    // "Track multiple API keys",
-    // "Detailed User Analytics",
-    // "Data Exports (soon)",
-    // "Email / Slack Alerts (soon)",
-    // "Weekly / Monthly Reports (soon)",
-    // "Unlimited team members (soon)",
-    // "Unlimited projects (soon)",
-    "SOC 2",
-    "24/7/365 Priority Support",
-    "Priority Feature Requests",
-    "Private Slack channel",
-  ],
-};
+// const enterprisePlan: Plan = {
+//   name: "Enterprise" as Name,
+//   desc: "For large-scale applications managing serious workloads. Let us know what you need and we'll make it happen.",
+//   price: "Contact Us",
+//   priceAnnual: "Contact Us",
+//   priceIdMonth: "",
+//   priceIdYear: "",
+//   isMostPop: false,
+//   features: [
+//     // "Unlimited logs",
+//     // "Track multiple API keys",
+//     // "Detailed User Analytics",
+//     // "Data Exports (soon)",
+//     // "Email / Slack Alerts (soon)",
+//     // "Weekly / Monthly Reports (soon)",
+//     // "Unlimited team members (soon)",
+//     // "Unlimited projects (soon)",
+//     "SOC 2",
+//     "24/7/365 Priority Support",
+//     "Priority Feature Requests",
+//     "Private Slack channel",
+//   ],
+// };
 
 const Billing = () => {
   const { user, isLoading, subscribed } = useUser();
@@ -165,7 +197,18 @@ const Billing = () => {
   return (
     <Suspense>
       <section className="container h-full w-full flex flex-col gap-4">
-        <div className="relative flex items-center justify-center">
+        <div className="relative max-w-xl mx-auto sm:text-center">
+          <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+            Simple pricing.
+          </h3>
+          <div className="mt-3 max-w-xl">
+            <p>
+              <strong>100k logs / month free every month.</strong> No credit
+              card required.
+            </p>
+          </div>
+        </div>
+        {/* <div className="relative flex items-center justify-center">
           <label className="mr-3 min-w-[3.5rem] text-sm text-gray-500 dark:text-gray-400">
             Monthly
           </label>
@@ -179,7 +222,7 @@ const Billing = () => {
           <label className="relative ml-3 min-w-[3.5rem] text-sm text-gray-500 dark:text-gray-400">
             Annual
           </label>
-        </div>
+        </div> */}
         <div className="grid mt-8 items-start gap-4 sm:grid-cols-3 sm:space-y-0 xl:grid-cols-3">
           {plans.map((item, idx) => (
             <div
@@ -215,7 +258,11 @@ const Billing = () => {
                       : formatter.format(item.priceAnnual as number)}
 
                     <span className="text-xl font-normal text-gray-600">
-                      {item.price === "Contact Us" ? "" : "/mo"}
+                      {item.price === "Contact Us" ? (
+                        ""
+                      ) : (
+                        <sub className="text-xs">/ month</sub>
+                      )}
                     </span>
                   </div>
                 </div>
@@ -228,10 +275,20 @@ const Billing = () => {
                 {/* )} */}
                 <button
                   onClick={() => handleCheckout(item.name as Name)}
-                  className={`group relative  w-full overflow-hidden rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-white transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 `}
+                  className={cn(
+                    `group relative  w-full overflow-hidden rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-white `,
+                    {
+                      "opacity-60": item.cta === "Current Plan",
+                      "transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 ":
+                        item.cta !== "Current Plan",
+                    }
+                  )}
+                  disabled={item.cta === "Current Plan"}
                 >
-                  <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
-                  {item.price === "Contact Us" ? "Contact Us" : "Choose Plan"}
+                  {item.cta !== "Current Plan" && (
+                    <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
+                  )}
+                  {item.cta}
                 </button>
               </div>
               <ul className="flex flex-col gap-2 p-4 row-span-3">
@@ -259,8 +316,7 @@ const Billing = () => {
             </div>
           ))}
         </div>
-
-        <div
+        {/* <div
           className={`relative mt-6 grid rounded-xl border grid-cols-2 divide-x`}
         >
           <div className="flex flex-col gap-4 p-4 justify-between">
@@ -278,21 +334,6 @@ const Billing = () => {
             <span className="font-medium text-primary">
               {enterprisePlan.name}
             </span>
-            {/* <div className="flex flex-col justify-between">
-            <div className={`text-4xl font-semibold text-gray-800`}>
-              {billingInterval === "month"
-                ? enterprisePlan.price === "Contact Us"
-                  ? enterprisePlan.price
-                  : formatter.format(enterprisePlan.price as number)
-                : enterprisePlan.price === "Contact Us"
-                ? enterprisePlan.price
-                : formatter.format(enterprisePlan.priceAnnual as number)}
-
-              <span className="text-xl font-normal text-gray-600">
-                {enterprisePlan.price === "Contact Us" ? "" : "/mo"}
-              </span>
-            </div>
-          </div> */}
             <p className="flex text-xs">{enterprisePlan.desc}</p>
             <button
               onClick={() => handleCheckout(enterprisePlan.name as Name)}
@@ -304,7 +345,6 @@ const Billing = () => {
                 : "Choose Plan"}
             </button>
           </div>
-          {/* <hr className="flex flex-1" /> */}
           <ul className="flex flex-col gap-2 p-4 row-span-2">
             <li className="pb-2 font-medium text-gray-800">
               <p>Features</p>
@@ -327,7 +367,7 @@ const Billing = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </section>
     </Suspense>
   );

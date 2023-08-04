@@ -1279,6 +1279,22 @@
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz"
   integrity sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==
 
+"@splinetool/react-spline@^2.2.6":
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/@splinetool/react-spline/-/react-spline-2.2.6.tgz#c48f634f352311b9da210978f88bd195d605ee8a"
+  integrity sha512-y9L2VEbnC6FNZZu8XMmWM9YTTTWal6kJVfP05Amf0QqDNzCSumKsJxZyGUODvuCmiAvy0PfIfEsiVKnSxvhsDw==
+  dependencies:
+    lodash.debounce "^4.0.8"
+    react-merge-refs "^2.0.1"
+
+"@splinetool/runtime@^0.9.411":
+  version "0.9.411"
+  resolved "https://registry.yarnpkg.com/@splinetool/runtime/-/runtime-0.9.411.tgz#7bbb705b14206860412bee77573033d78908ae58"
+  integrity sha512-ByR96AVBr+Ol6hY/d/h5WBiQjTY1s8gwg/aYMuOdcwhUlaQ21BRRA3iEx1YD/3z6PqvEN+EJ1ubBUUhN65dqCg==
+  dependencies:
+    on-change "^4.0.0"
+    semver-compare "^1.0.0"
+
 "@stripe/stripe-js@^1.52.1":
   version "1.52.1"
   resolved "https://registry.npmjs.org/@stripe/stripe-js/-/stripe-js-1.52.1.tgz"
@@ -3391,6 +3407,11 @@ lodash.clamp@^4.0.3:
   resolved "https://registry.npmjs.org/lodash.clamp/-/lodash.clamp-4.0.3.tgz"
   integrity sha512-HvzRFWjtcguTW7yd8NJBshuNaCa8aqNFtnswdT7f/cMd/1YKy5Zzoq4W/Oxvnx9l7aeY258uSdDfM793+eLsVg==
 
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+  integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
+
 lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz"
@@ -4113,6 +4134,11 @@ oidc-token-hash@^5.0.3:
   resolved "https://registry.npmjs.org/oidc-token-hash/-/oidc-token-hash-5.0.3.tgz"
   integrity sha512-IF4PcGgzAr6XXSff26Sk/+P4KZFJVuHAJZj3wgO3vX2bMdNVp/QXTP3P7CEm9V1IdG8lDLY3HhiqpsE/nOwpPw==
 
+on-change@^4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/on-change/-/on-change-4.0.2.tgz#838129790f09dc2ed04284944bda6e82b92c10b8"
+  integrity sha512-cMtCyuJmTx/bg2HCpHo3ZLeF7FZnBOapLqZHr2AlLeJ5Ul0Zu2mUJJz051Fdwu/Et2YW04ZD+TtU+gVy0ACNCA==
+
 once@^1.3.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/once/-/once-1.4.0.tgz"
@@ -4470,6 +4496,11 @@ react-merge-refs@^1.1.0:
   resolved "https://registry.npmjs.org/react-merge-refs/-/react-merge-refs-1.1.0.tgz"
   integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
 
+react-merge-refs@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-2.0.2.tgz#73f576111124897dec4ea56035a97e199e8cb377"
+  integrity sha512-V5BGTwGa2r+/t0A/BZMS6L7VPXY0CU8xtAhkT3XUoI1WJJhhtvulvoiZkJ5Jt9YAW23m4xFWmhQ+C5HwjtTFhQ==
+
 react-parallax-tilt@^1.7.138:
   version "1.7.138"
   resolved "https://registry.npmjs.org/react-parallax-tilt/-/react-parallax-tilt-1.7.138.tgz"
@@ -4776,6 +4807,11 @@ schema-utils@^4.0.0:
     ajv "^8.9.0"
     ajv-formats "^2.1.1"
     ajv-keywords "^5.1.0"
+
+semver-compare@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/semver-compare/-/semver-compare-1.0.0.tgz#0dee216a1c941ab37e9efb1788f6afc5ff5537fc"
+  integrity sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==
 
 semver@^6.3.0:
   version "6.3.1"

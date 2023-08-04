@@ -43,6 +43,8 @@
     "@radix-ui/react-tooltip": "^1.0.6",
     "@react-three/drei": "^9.68.0",
     "@react-three/fiber": "^8.13.0",
+    "@splinetool/react-spline": "^2.2.6",
+    "@splinetool/runtime": "^0.9.411",
     "@stripe/stripe-js": "^1.52.1",
     "@tanstack/query-sync-storage-persister": "^4.29.19",
     "@tanstack/react-query": "^4.29.19",
