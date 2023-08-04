@@ -1,4 +1,6 @@
-import LandingPage from "@/app/(marketing)/landingpage";
+import FeatureGrid from "@/components/landing/FeatureGrid";
+import Hero from "@/components/landing/Hero";
+import Testimonials from "@/components/landing/Testimonials";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -45,7 +47,13 @@ export default async function Home() {
 
   return (
     <Suspense fallback={<></>}>
-      <LandingPage tweets={tweets} />
+      <div className="container">
+        <Hero />
+        {/* <Dashboard /> */}
+        {/* <TrustedBy /> */}
+        <FeatureGrid />
+        <Testimonials tweets={tweets} />
+      </div>
     </Suspense>
   );
 }

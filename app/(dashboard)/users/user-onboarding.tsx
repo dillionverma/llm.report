@@ -104,7 +104,7 @@ const UserOnboarding = ({
     const paymentLink =
       subscriptionPlans[
         process.env.NODE_ENV as "development" | "production" | "test"
-      ][plan as "developer" | "startup" | "team"]["monthly"];
+      ][plan as "free" | "pro"]["monthly"];
 
     const url = `${paymentLink}?${params.toString()}`;
 
@@ -229,16 +229,14 @@ const UserOnboarding = ({
               >
                 <SelectTrigger>
                   <SelectValue
-                    defaultValue="developer"
-                    placeholder="Developer - $20/month"
+                    defaultValue="free"
+                    placeholder="Free - $0/month"
                   />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="developer">
-                    Developer - $20/month
-                  </SelectItem>
-                  <SelectItem value="startup">Startup - $60/month</SelectItem>
-                  <SelectItem value="team">Team - $500/month</SelectItem>
+                  <SelectItem value="pro">Pro - $20/month</SelectItem>
+                  {/* <SelectItem value="startup">Startup - $20/month</SelectItem> */}
+                  {/* <SelectItem value="team">Team - $500/month</SelectItem> */}
                 </SelectContent>
               </Select>
               <CardDescription className="mt-2">

@@ -1,205 +1,312 @@
-import { PricingPlan, priceIds } from "@/lib/constants";
-import getStripe from "@/lib/stripe/getStripe";
-import axios from "axios";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import StripePortalButton from "./StripePortalButton";
+"use client";
+
+import { useUser } from "@/lib/hooks/user/useUser";
+import { subscriptionPlans } from "@/lib/stripe/subscriptionPlans";
+import { cn } from "@/lib/utils";
+import { Suspense, useState } from "react";
 
 type BillingInterval = "year" | "month";
 
-const plans = [
+type Name = "free" | "pro" | "enterprise";
+
+// Create our number formatter.
+const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  // These options are needed to round to whole numbers if that's what you want.
+  minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+  maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+});
+
+export interface Plan {
+  name: Name;
+  cta: string;
+  desc: string;
+  price: number | string;
+  priceAnnual: number | string;
+  isMostPop: boolean;
+  priceIdMonth: string;
+  priceIdYear: string;
+  features: string[];
+}
+
+const plans: Plan[] = [
   {
-    name: "Developer",
-    desc: "For solo developers / founders",
-    price: 10,
-    isMostPop: true,
-    features: ["Real-time analytics"],
-  },
-  {
-    name: "Startup",
-    desc: "For fast growing startups",
-    price: 50,
+    name: "Free" as Name,
+    cta: "Get Started",
+    desc: "Perfect for tinkering on passion projects",
+    price: 0,
+    priceAnnual: 0,
+    priceIdMonth: "",
+    priceIdYear: "",
     isMostPop: false,
     features: [
-      "Real-time analytics",
-      "Email alerts (coming soon)",
-      "Slack alerts (coming soon)",
-      "Weekly reports (coming soon)",
-      "Priority support",
-      "Feature requests",
+      "100,000 logs / month",
+      "Detailed User Analytics",
+      "Track multiple API keys (soon)",
+      "Data Exports (soon)",
+      "Email / Slack Alerts (soon)",
+      // "1 member",
+      // "1 project",
+    ],
+  },
+  {
+    name: "Pro" as Name,
+    cta: "Get Started",
+    desc: "For production apps and teams.",
+    price: 20,
+    priceAnnual: 15,
+    priceIdMonth: "price_1NaV0jB24wj8TkEzdNo0HXp7",
+    priceIdYear: "price_1NaV0jB24wj8TkEzGVbNRFHf",
+    isMostPop: true,
+    features: [
+      "Unlimited logs / month",
+      "Detailed User Analytics",
+      "Track multiple API keys (soon)",
+      "Data Exports (soon)",
+      "Email / Slack Alerts (soon)",
+      "Weekly / Monthly Reports (soon)",
+      "Unlimited team members (soon)",
+      "Unlimited projects (soon)",
+      // "1 member",
+      // "2 projects",
     ],
   },
   // {
-  //   name: "Enterprise",
-  //   desc: "For large companies",
-  //   price: 500,
-  //   isMostPop: false,
+  //   name: "Startup" as Name,
+  //   desc: "Everything you need for a growing startup.",
+  //   price: 60,
+  //   priceAnnual: 40,
+  //   priceIdMonth: "price_1NaV0kB24wj8TkEzB3kgrtuz",
+  //   priceIdYear: "price_1NaV0kB24wj8TkEziIqZXW3j",
+  //   isMostPop: true,
   //   features: [
-  //     "Curabitur faucibus",
-  //     "massa ut pretium maximus",
-  //     "Sed posuere nisi",
-  //     "Pellentesque eu nibh et neque",
-  //     "Suspendisse a leo",
-  //     "Praesent quis venenatis ipsum",
-  //     "Duis non diam vel tortor",
+  //     "1,000,000 logs / month",
+  //     "Detailed User Analytics",
+  //     "Track multiple API keys (soon)",
+  //     "Data Exports (soon)",
+  //     "Email / Slack Alerts (soon)",
+  //     "Weekly / Monthly Reports (soon)",
+  //     "3 members (soon)",
+  //     "3 projects (soon)",
   //   ],
   // },
+  // {
+  //   name: "Team" as Name,
+  //   desc: "For teams of all sizes.",
+  //   price: 500,
+  //   priceAnnual: 400,
+  //   priceIdMonth: "price_1NaV0kB24wj8TkEzpoXWRwEB",
+  //   priceIdYear: "price_1NaV0kB24wj8TkEz8nuJ68Xq",
+  //   isMostPop: false,
+  //   features: [
+  //     "Unlimited logs",
+  //     "Detailed User Analytics",
+  //     "Track multiple API keys (soon)",
+  //     "Data Exports (soon)",
+  //     "Email / Slack Alerts (soon)",
+  //     "Weekly / Monthly Reports (soon)",
+  //     "Unlimited team members (soon)",
+  //     "Unlimited projects (soon)",
+  //   ],
+  // },
+  {
+    name: "Enterprise" as Name,
+    cta: "Contact Us",
+    desc: "For large-scale applications managing serious workloads. Let us know what you need and we'll make it happen.",
+    price: "Contact Us",
+    priceAnnual: "Contact Us",
+    priceIdMonth: "",
+    priceIdYear: "",
+    isMostPop: false,
+    features: [
+      // "Unlimited logs",
+      // "Track multiple API keys",
+      // "Detailed User Analytics",
+      // "Data Exports (soon)",
+      // "Email / Slack Alerts (soon)",
+      // "Weekly / Monthly Reports (soon)",
+      // "Unlimited team members (soon)",
+      // "Unlimited projects (soon)",
+      "SOC 2",
+      "24/7/365 Priority Support",
+      "Priority Feature Requests",
+      "Private Slack channel",
+    ],
+  },
 ];
 
+// const enterprisePlan: Plan = {
+//   name: "Enterprise" as Name,
+//   desc: "For large-scale applications managing serious workloads. Let us know what you need and we'll make it happen.",
+//   price: "Contact Us",
+//   priceAnnual: "Contact Us",
+//   priceIdMonth: "",
+//   priceIdYear: "",
+//   isMostPop: false,
+//   features: [
+//     // "Unlimited logs",
+//     // "Track multiple API keys",
+//     // "Detailed User Analytics",
+//     // "Data Exports (soon)",
+//     // "Email / Slack Alerts (soon)",
+//     // "Weekly / Monthly Reports (soon)",
+//     // "Unlimited team members (soon)",
+//     // "Unlimited projects (soon)",
+//     "SOC 2",
+//     "24/7/365 Priority Support",
+//     "Priority Feature Requests",
+//     "Private Slack channel",
+//   ],
+// };
+
 const Pricing = () => {
+  const { user, isLoading, subscribed } = useUser();
+
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>("month");
-  const [subscribed, setSubscribed] = useState(false);
-  const [isLifetime, setIsLifetime] = useState(false);
-  const { data } = useSession();
 
-  const handleCheckout = async (name: PricingPlan) => {
-    const priceId = priceIds[process.env.NODE_ENV][name][billingInterval];
+  const handleCheckout = (plan: Name) => {
+    console.log("AA");
+    if (!user) return;
+    console.log("BB");
 
-    try {
-      const {
-        data: { sessionId },
-      } = await axios.post<{ sessionId: string }>("/api/v1/stripe/checkout", {
-        priceId,
+    if (plan === "enterprise") {
+      window.open("https://cal.com/dillionverma/chat", "_blank");
+    } else {
+      const params = new URLSearchParams({
+        client_reference_id: user.id,
       });
 
-      const stripe = await getStripe();
-      stripe?.redirectToCheckout({ sessionId });
-    } catch (error) {
-      return alert((error as Error)?.message);
-    } finally {
-      // setPriceIdLoading(undefined);
+      console.log(
+        plan,
+        process.env.NODE_ENV,
+        subscriptionPlans[
+          process.env.NODE_ENV as "development" | "production" | "test"
+        ]
+      );
+      const paymentLink =
+        subscriptionPlans[
+          process.env.NODE_ENV as "development" | "production" | "test"
+        ][plan.toLowerCase() as "free" | "pro"]["monthly"];
+      const url = `${paymentLink}?${params.toString()}`;
+      window.open(url, "_blank");
     }
   };
 
-  const [user, setUser] = useState<any>({});
-
-  useEffect(() => {
-    (async () => {
-      if (!data?.user) return;
-      const res = await axios.get("/api/v1/me");
-      console.log(res);
-
-      const isSubscribed =
-        res.data.user.subscriptions.filter(
-          (sub: any) => sub.status === "active" || sub.status === "trialing"
-        ).length > 0;
-
-      const isLifetime =
-        res.data.user.payments.filter(
-          (payment: any) => payment.status === "succeeded"
-        ).length > 0;
-
-      setSubscribed(isSubscribed);
-      setIsLifetime(isLifetime);
-      setUser(res.data.user);
-    })();
-  }, [data?.user]);
-
   return (
-    <section className="py-14">
-      <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
-        {!subscribed && !isLifetime && (
-          <>
-            <div className="relative max-w-xl mx-auto sm:text-center mb-8">
-              <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-                Choose a plan
-              </h3>
-            </div>
-
-            {process.env.NODE_ENV === "production" && (
-              <>
-                {/* @ts-ignore */}
-                <stripe-pricing-table
-                  client-reference-id={data?.user.id}
-                  customer-email={data?.user.email}
-                  pricing-table-id="prctbl_1N2Eb9B24wj8TkEzaJUNfSjS"
-                  publishable-key="pk_live_51N1AtxB24wj8TkEz3li5RqdgbYON9DXrSudOzmMc80gegb5h8CFPpXIUEvIur8yckJlmsbR8sqKrN58O5m6h8uOW00Syk5n0vt"
-                />
-              </>
-            )}
-
-            {process.env.NODE_ENV === "development" && (
-              <>
-                {/* @ts-ignore */}
-                <stripe-pricing-table
-                  client-reference-id={data?.user.id}
-                  customer-email={data?.user.email}
-                  pricing-table-id="prctbl_1N1vPHB24wj8TkEzwXcFhcOS"
-                  publishable-key="pk_test_51N1AtxB24wj8TkEzMfn8iSqXkThvyKEaiWrGe7L8DQaGhojJpaud2xWyCQfzymmK7ZPwsewSYzg0i1fSkSpnMpjG00w9h7rhtj"
-                />
-              </>
-            )}
-          </>
-        )}
-
-        {(subscribed || isLifetime) && (
-          <div className="max-w-screen-xl mx-auto px-4 md:px-8">
-            <div className="items-start justify-between py-4 md:flex">
-              <div>
-                <h3 className="text-gray-800 text-2xl font-bold">Account</h3>
-              </div>
-              <div className="items-center gap-x-3 mt-6 md:mt-0 sm:flex"></div>
-            </div>
-
-            {isLifetime && (
-              <div className="flex animate">
-                WOOHOO! You have lifetime access 🎉 🥳
-              </div>
-            )}
-            {subscribed && !isLifetime && (
-              <StripePortalButton customerId={user.stripe_customer_id}>
-                Manage Subscription
-              </StripePortalButton>
-            )}
+    <Suspense>
+      <section className="container h-full w-full flex flex-col gap-4">
+        <div className="relative max-w-xl mx-auto sm:text-center">
+          <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+            Simple pricing.
+          </h3>
+          <div className="mt-3 max-w-xl">
+            <p>
+              <strong>100k logs free every month.</strong> No credit card
+              required.
+            </p>
           </div>
-        )}
-
-        {/* <div className="mt-16 justify-center gap-6 sm:grid sm:grid-cols-2 sm:space-y-0 lg:grid-cols-2">
+        </div>
+        {/* <div className="relative flex items-center justify-center">
+          <label className="mr-3 min-w-[3.5rem] text-sm text-gray-500 dark:text-gray-400">
+            Monthly
+          </label>
+          <Switch
+            id="billing-interval"
+            checked={billingInterval === "year"}
+            onCheckedChange={(checked) =>
+              setBillingInterval(checked ? "year" : "month")
+            }
+          />
+          <label className="relative ml-3 min-w-[3.5rem] text-sm text-gray-500 dark:text-gray-400">
+            Annual
+          </label>
+        </div> */}
+        <div className="grid mt-8 items-start gap-4 sm:grid-cols-3 sm:space-y-0 xl:grid-cols-3">
           {plans.map((item, idx) => (
             <div
               key={idx}
-              className={`relative flex-1 flex items-stretch flex-col rounded-xl border-2 mt-6 sm:mt-0 ${
-                item.isMostPop ? "mt-10" : ""
-              }`}
-            >
-              {item.isMostPop ? (
-                <span className="w-32 absolute -top-5 left-0 right-0 mx-auto px-3 py-2 rounded-full border shadow-md bg-white text-center text-gray-700 text-sm font-semibold">
-                  Most popular
-                </span>
-              ) : (
-                ""
+              className={cn(
+                `relative mt-6 grid grid-rows-5 h-full rounded-xl border divide-y sm:mt-0`,
+                {
+                  "border-2 border-primary shadow-xl": item.isMostPop,
+                }
               )}
-              <div className="p-8 space-y-4 border-b">
-                <span className="text-blue-600 font-medium">{item.name}</span>
-                <div className="text-gray-800 text-3xl font-semibold">
-                  ${item.price}{" "}
-                  <span className="text-xl text-gray-600 font-normal">/mo</span>
+            >
+              <div className="flex flex-col gap-4 p-4 justify-between row-span-2">
+                {item.isMostPop && (
+                  <>
+                    <div
+                      aria-hidden="true"
+                      className="left-1/2 top-0 w-full user-select-none center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,rgba(255,255,255,0)_0%,rgba(143,143,143,0.67)_50%,rgba(0,0,0,0)_100%)]"
+                    />
+                    <span className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full border bg-white px-3 py-2 text-center text-sm font-semibold text-gray-700 shadow-md">
+                      Most popular
+                    </span>
+                  </>
+                )}
+                <span className="font-medium text-primary">{item.name}</span>
+                <div className="flex flex-col justify-between">
+                  <div className={`text-4xl font-semibold text-gray-800`}>
+                    {billingInterval === "month"
+                      ? item.price === "Contact Us"
+                        ? item.price
+                        : formatter.format(item.price as number)
+                      : item.price === "Contact Us"
+                      ? item.price
+                      : formatter.format(item.priceAnnual as number)}
+
+                    <span className="text-xl font-normal text-gray-600">
+                      {item.price === "Contact Us" ? (
+                        ""
+                      ) : (
+                        <sub className="text-xs">/ month</sub>
+                      )}
+                    </span>
+                  </div>
                 </div>
-                <p>{item.desc}</p>
+                <p className="flex text-xs">{item.desc}</p>
+
+                {/* {data?.user.stripeSubscriptionStatus && ( */}
+                {/* <StripePortalButton customerId={data?.user?.stripe_customer_id}>
+                Manage Billing
+              </StripePortalButton> */}
+                {/* )} */}
                 <button
-                  onClick={() => handleCheckout(item.name as PricingPlan)}
-                  className="px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-700"
+                  onClick={() => handleCheckout(item.name as Name)}
+                  className={cn(
+                    `group relative  w-full overflow-hidden rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-white `,
+                    {
+                      "opacity-60": user && item.cta === "Current Plan",
+                      "transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 ":
+                        item.cta !== "Current Plan",
+                    }
+                  )}
+                  disabled={user && item.cta === "Current Plan"}
                 >
-                  Get Started
+                  {item.cta !== "Current Plan" && (
+                    <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
+                  )}
+                  {item.cta}
                 </button>
               </div>
-              <ul className="p-8 space-y-3">
-                <li className="pb-2 text-gray-800 font-medium">
+              <ul className="flex flex-col gap-2 p-4 row-span-3">
+                <li className="pb-2 font-medium text-gray-800">
                   <p>Features</p>
                 </li>
                 {item.features.map((featureItem, idx) => (
-                  <li key={idx} className="flex items-center gap-5">
+                  <li key={idx} className="flex items-center gap-2 text-xs">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-blue-600"
+                      className="h-5 w-5 text-primary"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       ></path>
                     </svg>
                     {featureItem}
@@ -208,9 +315,61 @@ const Pricing = () => {
               </ul>
             </div>
           ))}
+        </div>
+        {/* <div
+          className={`relative mt-6 grid rounded-xl border grid-cols-2 divide-x`}
+        >
+          <div className="flex flex-col gap-4 p-4 justify-between">
+            {enterprisePlan.isMostPop && (
+              <>
+                <div
+                  aria-hidden="true"
+                  className="left-1/2 top-0 w-full user-select-none center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,rgba(255,255,255,0)_0%,rgba(143,143,143,0.67)_50%,rgba(0,0,0,0)_100%)]"
+                />
+                <span className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full border bg-white px-3 py-2 text-center text-sm font-semibold text-gray-700 shadow-md">
+                  Most popular
+                </span>
+              </>
+            )}
+            <span className="font-medium text-primary">
+              {enterprisePlan.name}
+            </span>
+            <p className="flex text-xs">{enterprisePlan.desc}</p>
+            <button
+              onClick={() => handleCheckout(enterprisePlan.name as Name)}
+              className={`group relative  w-full overflow-hidden rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-white transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 `}
+            >
+              <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
+              {enterprisePlan.price === "Contact Us"
+                ? "Contact Us"
+                : "Choose Plan"}
+            </button>
+          </div>
+          <ul className="flex flex-col gap-2 p-4 row-span-2">
+            <li className="pb-2 font-medium text-gray-800">
+              <p>Features</p>
+            </li>
+            {enterprisePlan.features.map((featureItem, idx) => (
+              <li key={idx} className="flex items-center gap-2 text-xs">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-primary"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                {featureItem}
+              </li>
+            ))}
+          </ul>
         </div> */}
-      </div>
-    </section>
+      </section>
+    </Suspense>
   );
 };
 

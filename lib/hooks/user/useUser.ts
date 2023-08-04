@@ -15,6 +15,8 @@ export const useUser = () => {
   return {
     user: data?.user,
     isLoading,
-    subscribed: data?.user.subscriptions.some((sub) => sub.status === "active"),
+    subscribed: data?.user?.subscriptions.some(
+      (sub) => sub.status === "active"
+    ),
   };
 };

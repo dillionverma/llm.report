@@ -1,12 +1,15 @@
 "use client";
 
 import { m } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useDialog } from "../SettingsModal";
 import Dashboard from "../dashboard";
 import JoinUsers from "./JoinUsers";
 
 const Hero = () => {
+  const router = useRouter();
   const { isOpen, openDialog, closeDialog } = useDialog();
 
   return (
@@ -72,13 +75,19 @@ const Hero = () => {
           >
             <button
               className="group px-4 py-2 bg-gradient-to-r from-red-600 to-amber-600  text-sm md:text-lg text-white font-medium bg-indigo-50 rounded-full inline-flex items-center relative"
-              onClick={() => openDialog()}
+              // onClick={() => openDialog()}
+              onClick={() => {
+                router.push("/login");
+              }}
             >
               <span className="absolute top-0 left-0 w-full h-full rounded-full opacity-50 filter  bg-gradient-to-r from-red-600 to-amber-600"></span>
               <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 filter group-active:opacity-0 rounded-full opacity-50 bg-gradient-to-r from-red-600 to-amber-600"></span>
               <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-full shadow-xl filter group-active:opacity-0 group-hover:blur-sm bg-gradient-to-r from-red-600 to-amber-600"></span>
               <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-full bg-gradient-to-r from-red-600 to-amber-600"></span>
-              <span className="relative">Get started for free</span>
+              <span className="relative text-lg tracking-tighter">
+                Get started for free
+              </span>
+              <ChevronRight className="h-6 w-6 ml-1 duration-150 ease-in-out transform group-hover:translate-x-1" />
               {/* your dashboard for free in &lt; 1min */}
 
               {/* <svg
