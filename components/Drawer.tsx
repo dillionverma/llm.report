@@ -86,7 +86,6 @@ const Drawer = () => {
   const logCount = data?.count;
 
   const router = useRouter();
-  // const { isOpen, openDialog, closeDialog } = useDialog();
   const { data: session } = useSession();
 
   const [activeTab, setActiveTab] = useState("");

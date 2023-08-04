@@ -1,7 +1,6 @@
 "use client";
 
 import { InstallSteps } from "@/components/OnboardingDashboard";
-import { useDialog } from "@/components/SettingsModal";
 import { LOCAL_STORAGE_KEY, LOCAL_STORAGE_ORG_ID } from "@/lib/constants";
 import openai, { OpenAI } from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
@@ -16,7 +15,6 @@ const OpenAISettings = () => {
   const [orgId, setOrgId] = useLocalStorage<string>(LOCAL_STORAGE_ORG_ID);
 
   const [validKey, setValidKey] = useState(false);
-  const { openDialog } = useDialog();
   const { data: session } = useSession();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

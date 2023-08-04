@@ -1,6 +1,5 @@
 "use client";
 
-import { useDialog } from "@/components/SettingsModal";
 import Cost from "@/components/dashboard/Cost";
 import CostChart from "@/components/dashboard/CostChart";
 import GeneratedTokenChart from "@/components/dashboard/GeneratedTokenChart";
@@ -39,7 +38,7 @@ import {
 } from "@tremor/react";
 import { add, startOfMonth, sub } from "date-fns";
 import { m } from "framer-motion";
-import { useSession } from "next-auth/react";
+import { useSession, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ContextTokenChart from "./ContextTokenChart";
 
@@ -110,7 +109,6 @@ export default function Dashboard() {
   const [subscribed, setSubscribed] = useState(true);
   const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY, "", true);
   const [validKey, setValidKey] = useState(false);
-  const { openDialog } = useDialog();
   const { data } = useSession();
   // useEffect(() => {
   //   (async () => {

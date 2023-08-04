@@ -4,13 +4,11 @@ import { m } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useDialog } from "../SettingsModal";
 import Dashboard from "../dashboard";
 import JoinUsers from "./JoinUsers";
 
 const Hero = () => {
   const router = useRouter();
-  const { isOpen, openDialog, closeDialog } = useDialog();
 
   return (
     <m.section
