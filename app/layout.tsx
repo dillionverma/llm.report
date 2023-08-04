@@ -2,6 +2,7 @@ import SettingsModal, { DialogProvider } from "@/components/SettingsModal";
 import { Analytics } from "@/components/analytics";
 import { CrispChat } from "@/components/crisp-chat";
 import MotionProvider from "@/components/motion-provider";
+import PosthogIdentify from "@/components/posthog-identify";
 import { PHProvider } from "@/components/posthog-provider";
 import SessionProvider from "@/components/session-provider";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -14,6 +15,7 @@ import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import "@/styles/mdx.css";
 import { Metadata } from "next";
+import { getSession } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "LLM Report",
@@ -21,11 +23,13 @@ export const metadata: Metadata = {
   // image: absoluteUrl("/api/og"),
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getSession();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -50,6 +54,7 @@ export default function RootLayout({
                       <Analytics />
                       <CrispChat />
                       <WebVitals />
+                      <PosthogIdentify session={session} />
                       {/* <TailwindIndicator /> */}
                       <Toaster />
                       <SettingsModal />

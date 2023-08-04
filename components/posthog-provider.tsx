@@ -18,15 +18,6 @@ export function PostHogPageview(): JSX.Element {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (session?.user) {
-      posthog.identify(session?.user.id, {
-        email: session?.user.email,
-        name: session?.user.name,
-      });
-    }
-  }, [session?.user]);
-
-  useEffect(() => {
     if (pathname) {
       let url = window.origin + pathname;
       if (searchParams && searchParams.toString()) {
