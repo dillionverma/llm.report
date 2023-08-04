@@ -1,5 +1,6 @@
 // app/providers.tsx
 "use client";
+import { useSession } from "next-auth/react";
 import { usePathname, useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
@@ -12,8 +13,18 @@ if (typeof window !== "undefined") {
 }
 
 export function PostHogPageview(): JSX.Element {
+  const { data: session } = useSession();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (session?.user) {
+      posthog.identify(session?.user.id, {
+        email: session?.user.email,
+        name: session?.user.name,
+      });
+    }
+  }, [session?.user]);
 
   useEffect(() => {
     if (pathname) {
