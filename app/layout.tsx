@@ -7,6 +7,7 @@ import SessionProvider from "@/components/session-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { WebVitals } from "@/components/web-vitals";
 import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -48,6 +49,7 @@ export default function RootLayout({
                       {children}
                       <Analytics />
                       <CrispChat />
+                      <WebVitals />
                       {/* <TailwindIndicator /> */}
                       <Toaster />
                       <SettingsModal />
