@@ -38,7 +38,7 @@ import {
 } from "@tremor/react";
 import { add, startOfMonth, sub } from "date-fns";
 import { m } from "framer-motion";
-import { useSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import ContextTokenChart from "./ContextTokenChart";
 
