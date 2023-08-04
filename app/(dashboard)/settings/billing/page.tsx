@@ -1,4 +1,4 @@
-import Pricing from "@/components/pricing";
+import Pricing from "@/components/pricing-plans";
 
 const Billing = () => {
   return <Pricing />;
