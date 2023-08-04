@@ -1,11 +1,6 @@
 "use client";
 
 import Script from "next/script";
-import posthog from "posthog-js";
-
-posthog.init("phc_9bFbacVl5VErRxnadh05Rt2Kv8ccYWFgaVtmfjAek60", {
-  api_host: "https://app.posthog.com",
-});
 
 export function Analytics() {
   return (

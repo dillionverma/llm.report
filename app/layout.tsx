@@ -2,6 +2,7 @@ import SettingsModal, { DialogProvider } from "@/components/SettingsModal";
 import { Analytics } from "@/components/analytics";
 import { CrispChat } from "@/components/crisp-chat";
 import MotionProvider from "@/components/motion-provider";
+import { PHProvider } from "@/components/posthog-provider";
 import SessionProvider from "@/components/session-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/toaster";
@@ -33,28 +34,30 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <MotionProvider>
-          <SessionProvider>
-            <ReactQueryProvider>
-              <DialogProvider>
-                <TooltipProvider>
-                  <ThemeProvider
-                    attribute="class"
-                    defaultTheme="light"
-                    enableSystem
-                  >
-                    {children}
-                    <Analytics />
-                    <CrispChat />
-                    {/* <TailwindIndicator /> */}
-                    <Toaster />
-                    <SettingsModal />
-                  </ThemeProvider>
-                </TooltipProvider>
-              </DialogProvider>
-            </ReactQueryProvider>
-          </SessionProvider>
-        </MotionProvider>
+        <PHProvider>
+          <MotionProvider>
+            <SessionProvider>
+              <ReactQueryProvider>
+                <DialogProvider>
+                  <TooltipProvider>
+                    <ThemeProvider
+                      attribute="class"
+                      defaultTheme="light"
+                      enableSystem
+                    >
+                      {children}
+                      <Analytics />
+                      <CrispChat />
+                      {/* <TailwindIndicator /> */}
+                      <Toaster />
+                      <SettingsModal />
+                    </ThemeProvider>
+                  </TooltipProvider>
+                </DialogProvider>
+              </ReactQueryProvider>
+            </SessionProvider>
+          </MotionProvider>
+        </PHProvider>
       </body>
     </html>
   );
