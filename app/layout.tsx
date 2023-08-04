@@ -1,4 +1,3 @@
-import { DialogProvider } from "@/components/SettingsModal";
 import { Analytics } from "@/components/analytics";
 import { CrispChat } from "@/components/crisp-chat";
 import MotionProvider from "@/components/motion-provider";
@@ -43,23 +42,21 @@ export default async function RootLayout({
           <MotionProvider>
             <SessionProvider>
               <ReactQueryProvider>
-                <DialogProvider>
-                  <TooltipProvider>
-                    <ThemeProvider
-                      attribute="class"
-                      defaultTheme="light"
-                      enableSystem
-                    >
-                      {children}
-                      <Analytics />
-                      <CrispChat />
-                      <WebVitals />
-                      <PosthogIdentify session={session} />
-                      {/* <TailwindIndicator /> */}
-                      <Toaster />
-                    </ThemeProvider>
-                  </TooltipProvider>
-                </DialogProvider>
+                <TooltipProvider>
+                  <ThemeProvider
+                    attribute="class"
+                    defaultTheme="light"
+                    enableSystem
+                  >
+                    {children}
+                    <Analytics />
+                    <CrispChat />
+                    <WebVitals />
+                    <PosthogIdentify session={session} />
+                    {/* <TailwindIndicator /> */}
+                    <Toaster />
+                  </ThemeProvider>
+                </TooltipProvider>
               </ReactQueryProvider>
             </SessionProvider>
           </MotionProvider>
