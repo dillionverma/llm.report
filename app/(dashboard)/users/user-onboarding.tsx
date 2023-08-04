@@ -234,6 +234,7 @@ const UserOnboarding = ({
                   />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="free">Free - $0/month</SelectItem>
                   <SelectItem value="pro">Pro - $20/month</SelectItem>
                   {/* <SelectItem value="startup">Startup - $20/month</SelectItem> */}
                   {/* <SelectItem value="team">Team - $500/month</SelectItem> */}
