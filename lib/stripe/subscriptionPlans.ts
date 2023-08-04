@@ -21,8 +21,8 @@ export const subscriptionPlans = {
       yearly: "https://buy.stripe.com/test_fZe5mk9Rdg4h3OUaEH",
     },
     pro: {
-      monthly: "https://buy.stripe.com/test_9AQ164bZl2drclqaEJ",
-      yearly: "https://buy.stripe.com/test_6oE1640gD6tH2KQeUY",
+      monthly: "https://buy.stripe.com/test_9AQ7use7tcS5bhm289",
+      yearly: "https://buy.stripe.com/test_fZe5mk9Rdg4h3OUaEH",
     },
     // team: {
     //   monthly: "https://buy.stripe.com/test_9AQ4igbZl3hvdpu002",
@@ -35,8 +35,8 @@ export const subscriptionPlans = {
       yearly: "https://buy.stripe.com/test_fZe5mk9Rdg4h3OUaEH",
     },
     pro: {
-      monthly: "https://buy.stripe.com/test_9AQ164bZl2drclqaEJ",
-      yearly: "https://buy.stripe.com/test_6oE1640gD6tH2KQeUY",
+      monthly: "https://buy.stripe.com/test_9AQ7use7tcS5bhm289",
+      yearly: "https://buy.stripe.com/test_fZe5mk9Rdg4h3OUaEH",
     },
     // team: {
     //   monthly: "https://buy.stripe.com/test_9AQ4igbZl3hvdpu002",
@@ -49,8 +49,8 @@ export const subscriptionPlans = {
       yearly: "https://buy.stripe.com/28o4hL0fW0t6dEI7su",
     },
     pro: {
-      monthly: "https://buy.stripe.com/4gw15z0fWb7KgQU003",
-      yearly: "https://buy.stripe.com/14kaG9faQ3FifMQ8wA",
+      monthly: "https://buy.stripe.com/fZe4hL0fWb7KdEI289",
+      yearly: "https://buy.stripe.com/28o4hL0fW0t6dEI7su",
     },
     // team: {
     //   monthly: "https://buy.stripe.com/fZeg0t2o41xa6cg6ot",
