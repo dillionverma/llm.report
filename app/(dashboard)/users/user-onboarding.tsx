@@ -24,7 +24,14 @@ import { subscriptionPlans } from "@/lib/stripe/subscriptionPlans";
 import { cn } from "@/lib/utils";
 import { Badge, Grid, Title } from "@tremor/react";
 import { m } from "framer-motion";
-import { Check, Copy, CreditCard, Key, Send } from "lucide-react";
+import {
+  ArrowRightCircle,
+  Check,
+  Copy,
+  CreditCard,
+  Key,
+  Send,
+} from "lucide-react";
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -75,6 +82,10 @@ const UserOnboarding = ({
   }, [step, subscribed]);
 
   if (!user) return null;
+
+  const handleSkip = () => {
+    setStep(3);
+  };
 
   const handleSubmit = async () => {
     const res = await fetch("/api/v1/keys", {
@@ -266,19 +277,15 @@ const UserOnboarding = ({
                 </StripePortalButton>
               )}
 
-              {/* <button
-                type="button"
-                className="inline-flex justify-center items-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 opacity-40 gap-2"
-                // onClick={handleSubmit}
-              >
+              <Button className="gap-2" variant="outline" onClick={handleSkip}>
                 <span>Skip</span>
                 <ArrowRightCircle className="w-4 h-4" />
-              </button> */}
+              </Button>
             </CardFooter>
           </Card>
           <Card
             className={cn("", {
-              "opacity-50 pointer-events-none": !subscribed || !key,
+              "opacity-50 pointer-events-none": !key || step < 3,
             })}
           >
             <CardHeader className="flex-row gap-4 items-center">
