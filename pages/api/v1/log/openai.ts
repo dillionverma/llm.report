@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
+import { clickhouseClient } from "@/lib/clickhouse/clickhouseClient";
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,13 +24,15 @@ export default async function handler(
     }
 
     try {
-      const body = { ...req.body, llm_report_user_id: user.id };
-      await fetch("https://api.us-east.tinybird.co/v0/events?name=openai_log", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.TINYBIRD_API_KEY}`,
-        },
-        body: JSON.stringify(body),
+      const body = {
+        ...req.body,
+        llm_report_user_id: user.id,
+        provider: "openai",
+      };
+      await clickhouseClient.insert({
+        table: "request",
+        values: [body],
+        format: "JSONEachRow",
       });
     } catch (error) {
       console.log("error", error);
