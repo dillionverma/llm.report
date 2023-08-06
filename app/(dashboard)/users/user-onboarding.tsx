@@ -149,7 +149,7 @@ const UserOnboarding = ({
             <CardHeader>
               <CardTitle className="flex gap-2 flex-row items-center">
                 <span>End-User Analytics </span>
-                <Badge color="green">✨ Paid</Badge>
+                <Badge color="blue">✨ Free</Badge>
               </CardTitle>
               <CardDescription>( ~ 1 minute installation )</CardDescription>
               <CardDescription>
