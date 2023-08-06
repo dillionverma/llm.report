@@ -36,7 +36,7 @@ const HOME_LINKS = [
   {
     text: "OpenAI Analytics",
     Icon: () => <Icons.openai className="h-4 w-4" />,
-    href: "/",
+    href: "/openai",
     badge: null,
   },
   {
