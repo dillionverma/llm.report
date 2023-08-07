@@ -81,6 +81,44 @@ const COMMUNITY_LINKS = [
   },
 ];
 
+const LinkItem = ({ text, href, Icon, badge, external, isActive }: any) => (
+  <motion.div whileHover="hover" className="space-y-2">
+    <Link
+      href={href}
+      target={external ? "_blank" : undefined}
+      className={cn(
+        "flex items-center w-full justify-start hover:bg-slate-50 dark:hover:bg-slate-900 transition-all rounded-md px-2 py-1 gap-2",
+        {
+          "bg-slate-50 dark:bg-slate-900": isActive,
+        }
+      )}
+    >
+      <motion.div
+        className="flex"
+        initial={{
+          rotate: 0,
+          originX: "50%",
+          originY: "50%",
+        }}
+        variants={{
+          hover: {
+            rotate: [0, 20, 0],
+            transition: {
+              ease: ["easeOut"],
+            },
+            originX: "50%",
+            originY: "50%",
+          },
+        }}
+      >
+        <Icon />
+      </motion.div>
+      <p className="flex">{text}</p>
+      {badge && <Badge className="ml-2 px-2 cursor-pointer">{badge}</Badge>}
+    </Link>
+  </motion.div>
+);
+
 const Drawer = () => {
   const { data, isLoading } = useLogCount({});
   const logCount = data?.count;
@@ -103,51 +141,13 @@ const Drawer = () => {
 
   const renderLinks = (links: any) =>
     links.map((navItem: any, index: number) => (
-      <div key={index}>
-        <div className="space-y-2">
-          <motion.div whileHover="hover">
-            <Link
-              href={navItem.href}
-              target={navItem.external ? "_blank" : undefined}
-              className={cn(
-                "flex items-center w-full justify-start hover:bg-slate-50 dark:hover:bg-slate-900 transition-all rounded-md px-2 py-1 gap-2",
-                {
-                  "bg-slate-50 dark:bg-slate-900":
-                    activeTab === navItem.href.replace("/", ""),
-                }
-              )}
-            >
-              <motion.div
-                className="flex"
-                initial={{
-                  rotate: 0,
-                  originX: "50%",
-                  originY: "50%",
-                }}
-                variants={{
-                  hover: {
-                    rotate: [0, 20, 0],
-                    transition: {
-                      ease: ["easeOut"],
-                    },
-                    originX: "50%",
-                    originY: "50%",
-                  },
-                }}
-              >
-                <navItem.Icon />
-              </motion.div>
-              <p className="flex">{navItem.text}</p>
-              {navItem.badge && (
-                <Badge className="ml-2 px-2 cursor-pointer">
-                  {navItem.badge}
-                </Badge>
-              )}
-            </Link>
-          </motion.div>
-        </div>
-      </div>
+      <LinkItem
+        key={index}
+        {...navItem}
+        isActive={activeTab === navItem.href.replace("/", "")}
+      />
     ));
+
   return (
     <aside className="flex-col flex-shrink-0 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 border-r border-b justify-between hidden lg:flex px-4 pt-4">
       <div className="flex flex-col gap-2">
@@ -183,10 +183,12 @@ const Drawer = () => {
         <CardFooter className="p-2">
           <Button
             onClick={() => router.push("/settings/billing")}
-            className="justify-center gap-2 w-full"
+            className="group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2"
           >
+            <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
+
             <BoltIcon className="h-4 w-4" />
-            <span>Upgrade</span>
+            <span>Upgrade to pro</span>
           </Button>
         </CardFooter>
       </Card>

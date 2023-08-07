@@ -1,8 +1,10 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useUser } from "@/lib/hooks/user/useUser";
 import { subscriptionPlans } from "@/lib/stripe/subscriptionPlans";
 import { cn } from "@/lib/utils";
+import { BoltIcon } from "@heroicons/react/24/solid";
 import { Suspense, useState } from "react";
 
 type BillingInterval = "year" | "month";
@@ -33,7 +35,7 @@ export interface Plan {
 const plans: Plan[] = [
   {
     name: "Free" as Name,
-    cta: "Get Started",
+    cta: "Current Plan",
     desc: "Perfect for tinkering on passion projects",
     price: 0,
     priceAnnual: 0,
@@ -52,7 +54,7 @@ const plans: Plan[] = [
   },
   {
     name: "Pro" as Name,
-    cta: "Get Started",
+    cta: "Upgrade to Pro",
     desc: "For production apps and teams.",
     price: 20,
     priceAnnual: 15,
@@ -273,23 +275,22 @@ const Pricing = () => {
                 Manage Billing
               </StripePortalButton> */}
                 {/* )} */}
-                <button
+                <Button
+                  className={cn("relative group justify-center gap-2 w-full", {
+                    "opacity-60": user && item.cta === "Current Plan",
+                    "transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2":
+                      item.cta !== "Current Plan",
+                  })}
                   onClick={() => handleCheckout(item.name as Name)}
-                  className={cn(
-                    `group relative  w-full overflow-hidden rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-white `,
-                    {
-                      "opacity-60": user && item.cta === "Current Plan",
-                      "transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 ":
-                        item.cta !== "Current Plan",
-                    }
-                  )}
                   disabled={user && item.cta === "Current Plan"}
                 >
                   {item.cta !== "Current Plan" && (
                     <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
                   )}
-                  {item.cta}
-                </button>
+
+                  <BoltIcon className="h-4 w-4" />
+                  <span>{item.cta}</span>
+                </Button>
               </div>
               <ul className="flex flex-col gap-2 p-4 row-span-3">
                 <li className="pb-2 font-medium text-gray-800">
