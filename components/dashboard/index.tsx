@@ -4,10 +4,8 @@ import Cost from "@/components/dashboard/Cost";
 import CostChart from "@/components/dashboard/CostChart";
 import GeneratedTokenChart from "@/components/dashboard/GeneratedTokenChart";
 import MonthlyChart from "@/components/dashboard/MonthlyChart";
-import MonthlyChartByMinute from "@/components/dashboard/MonthlyChartByMinute";
+import DetailedAnalyticsTab from "@/components/dashboard/DetailedAnalyticsTab";
 import RequestChart from "@/components/dashboard/RequestChart";
-import Requests from "@/components/dashboard/Requests";
-import Tokens from "@/components/dashboard/Tokens";
 import {
   CATEGORIES,
   CATEGORIES_KEY,
@@ -169,7 +167,7 @@ export default function Dashboard() {
 
   return (
     <m.div
-      className="rounded-lg p-4 border bg-background"
+      className="p-4 border rounded-lg bg-background"
       variants={{
         hidden: { opacity: 0, y: -10 },
         show: { opacity: 1, y: 0, transition: { type: "spring" } },
@@ -392,23 +390,11 @@ export default function Dashboard() {
             </Grid>
           </TabPanel>
           <TabPanel>
-            <Grid className="gap-4 mt-6">
-              <Grid numItemsMd={1} className="gap-4">
-                <MonthlyChartByMinute
-                  startDate={value.from!}
-                  endDate={value.to!}
-                  categories={categories!}
-                />
-              </Grid>
-              <Grid numItemsMd={1} numItemsLg={3} className="gap-4">
-                <Requests startDate={value.from!} endDate={value.to!} />
-                <Tokens
-                  startDate={value.from!}
-                  endDate={value.to!}
-                  categories={categories!}
-                />
-              </Grid>
-            </Grid>
+            <DetailedAnalyticsTab
+              startDate={value.from!}
+              endDate={value.to!}
+              categories={categories!}
+            />
           </TabPanel>
         </TabPanels>
       </TabGroup>
