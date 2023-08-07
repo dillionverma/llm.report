@@ -9,7 +9,7 @@ import { Suspense, useState } from "react";
 
 type BillingInterval = "year" | "month";
 
-type Name = "free" | "pro" | "enterprise";
+type Name = "Free" | "Pro" | "Enterprise";
 
 // Create our number formatter.
 const formatter = new Intl.NumberFormat("en-US", {
@@ -173,8 +173,8 @@ const Pricing = () => {
     if (!user) return;
     console.log("BB");
 
-    if (plan === "enterprise") {
-      window.open("https://cal.com/dillionverma/chat", "_blank");
+    if (plan === "Enterprise") {
+      window.open("https://cal.com/dillionverma/llm-report-demo", "_blank");
     } else {
       const params = new URLSearchParams({
         client_reference_id: user.id,
@@ -287,8 +287,7 @@ const Pricing = () => {
                   {item.cta !== "Current Plan" && (
                     <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
                   )}
-
-                  <BoltIcon className="h-4 w-4" />
+                  {item.name === "Pro" && <BoltIcon className="h-4 w-4" />}
                   <span>{item.cta}</span>
                 </Button>
               </div>
