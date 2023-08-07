@@ -12,7 +12,7 @@ const Hero = () => {
 
   return (
     <m.section
-      className="relative max-w-screen-xl mx-auto py-14 px-4 md:px-8"
+      className="py-14"
       initial="hidden"
       whileInView="show"
       animate="show"

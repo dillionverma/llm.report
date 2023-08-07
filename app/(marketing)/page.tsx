@@ -47,13 +47,11 @@ export default async function Home() {
 
   return (
     <Suspense fallback={<></>}>
-      <div className="container">
-        <Hero />
-        {/* <Dashboard /> */}
-        {/* <TrustedBy /> */}
-        <FeatureGrid />
-        <Testimonials tweets={tweets} />
-      </div>
+      <Hero />
+      {/* <Dashboard /> */}
+      {/* <TrustedBy /> */}
+      <FeatureGrid />
+      <Testimonials tweets={tweets} />
     </Suspense>
   );
 }
