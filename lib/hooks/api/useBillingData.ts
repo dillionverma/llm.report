@@ -1,5 +1,4 @@
 import usageRange from "@/fixtures/openai/usage-range.json";
-import { rateLimitQuery } from "@/lib/rateLimit";
 import openai, { OpenAI } from "@/lib/services/openai";
 import { useQuery } from "@tanstack/react-query";
 import { add, format } from "date-fns";
@@ -9,9 +8,9 @@ export const useBillingData = (startDate: Date, endDate: Date) => {
   const { status } = useSession();
 
   // Add one day to endDate if startDate and endDate are the same
-  if (format(startDate, "yyyy-MM-dd") === format(endDate, "yyyy-MM-dd")) {
-    endDate = add(endDate, { days: 1 });
-  }
+  // if (format(startDate, "yyyy-MM-dd") === format(endDate, "yyyy-MM-dd")) {
+  endDate = add(endDate, { days: 1 });
+  // }
 
   const queryKey = [
     "billing",

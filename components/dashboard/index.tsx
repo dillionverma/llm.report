@@ -2,9 +2,9 @@
 
 import Cost from "@/components/dashboard/Cost";
 import CostChart from "@/components/dashboard/CostChart";
+import DetailedAnalyticsTab from "@/components/dashboard/DetailedAnalyticsTab";
 import GeneratedTokenChart from "@/components/dashboard/GeneratedTokenChart";
 import MonthlyChart from "@/components/dashboard/MonthlyChart";
-import DetailedAnalyticsTab from "@/components/dashboard/DetailedAnalyticsTab";
 import RequestChart from "@/components/dashboard/RequestChart";
 import {
   CATEGORIES,
@@ -34,7 +34,7 @@ import {
   Text,
   Title,
 } from "@tremor/react";
-import { add, startOfMonth, sub } from "date-fns";
+import { add, endOfDay, startOfDay, startOfMonth, sub } from "date-fns";
 import { m } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -97,8 +97,8 @@ export default function Dashboard() {
       });
     } else {
       setValue({
-        from: v.from || new Date(),
-        to: v.to || new Date(),
+        from: v.from ? startOfDay(v.from) : new Date(),
+        to: v.to ? endOfDay(v.to) : new Date(),
         selectValue: v.selectValue,
       });
     }
