@@ -32,25 +32,29 @@ const MonthlyCostChart = ({
 
   if (!subscription || !chartData || !billing)
     return (
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        animate="show"
-        variants={{
-          hidden: { opacity: 0 },
-          show: {
-            opacity: 1,
-          },
-        }}
-        className="animate-pulse flex flex-col justify-between h-full w-full"
-      >
-        <div>
-          <div className="mt-3 bg-gray-200 rounded-full w-[7rem] h-3 mb-2.5 "></div>
-          <div className="mt-3 bg-gray-200 rounded-full w-[8rem] h-8 mb-2.5 "></div>
-        </div>
-        <div className="rounded-full bg-slate-200 h-[10rem] w-[10rem] flex self-center"></div>
-        <div className="mt-3 bg-gray-200 rounded-full w-full h-4 mb-2.5 "></div>
-      </motion.div>
+      <Card className="shadow-none">
+        <CardContent>
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            animate="show"
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+              },
+            }}
+            className="animate-pulse flex flex-col justify-between h-full w-full"
+          >
+            <div>
+              <div className="mt-3 bg-gray-200 rounded-full w-[7rem] h-3 mb-2.5 "></div>
+              <div className="mt-3 bg-gray-200 rounded-full w-[8rem] h-8 mb-2.5 "></div>
+            </div>
+            <div className="rounded-full bg-slate-200 h-[10rem] w-[10rem] flex self-center"></div>
+            <div className="mt-3 bg-gray-200 rounded-full w-full h-4 mb-2.5 "></div>
+          </motion.div>
+        </CardContent>
+      </Card>
     );
 
   const getPercentage = () => billing.total_usage / subscription.hard_limit_usd;

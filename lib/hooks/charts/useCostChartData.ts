@@ -31,7 +31,10 @@ export const useCostChartData = (
   const groupedData = data
     .flatMap((day) => day!.data)
     .reduce((acc, cur) => {
-      const date = format(new Date(cur.aggregation_timestamp * 1000), "h:mm a");
+      const date = format(
+        new Date(cur.aggregation_timestamp * 1000),
+        "MMMM d, yyyy h:mm a"
+      );
 
       if (!acc[date]) {
         acc[date] = {};
@@ -57,6 +60,8 @@ export const useCostChartData = (
         new Date(cur.timestamp * 1000),
         "MMMM d, yyyy h:mm a"
       );
+
+      // console.log("date", date);
 
       if (!acc[date]) {
         acc[date] = {};

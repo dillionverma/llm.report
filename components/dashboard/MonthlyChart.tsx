@@ -29,32 +29,36 @@ type Select = "minute" | "day" | "cumulative";
 const selectionTabs: Select[] = ["day", "cumulative"];
 
 const Loading = () => (
-  <motion.div
-    initial="hidden"
-    whileInView="show"
-    animate="show"
-    variants={{
-      hidden: { opacity: 0, originX: 1 },
-      show: {
-        opacity: 1,
-        originX: 1,
-      },
-    }}
-    className="flex flex-col w-full h-full animate-pulse"
-  >
-    <div className="flex flex-row items-center justify-between">
-      <div>
-        <div className="mt-3 bg-gray-200 rounded-full  w-[7rem] h-3 mb-2.5 "></div>
-        <div className="mt-3 bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5 "></div>
-      </div>
-      <div className="bg-gray-200 rounded-full  w-[10rem] h-8 mb-2.5"></div>
-    </div>
-    {/* <div className="flex flex-col items-end">
+  <Card className="shadow-none">
+    <CardContent>
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        animate="show"
+        variants={{
+          hidden: { opacity: 0, originX: 1 },
+          show: {
+            opacity: 1,
+            originX: 1,
+          },
+        }}
+        className="flex flex-col w-full h-full animate-pulse"
+      >
+        <div className="flex flex-row items-center justify-between">
+          <div>
+            <div className="mt-3 bg-gray-200 rounded-full  w-[7rem] h-3 mb-2.5 "></div>
+            <div className="mt-3 bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5 "></div>
+          </div>
+          <div className="bg-gray-200 rounded-full  w-[10rem] h-8 mb-2.5"></div>
+        </div>
+        {/* <div className="flex flex-col items-end">
   <div className="bg-gray-200 rounded-full  w-[8rem] h-8 mb-2.5"></div>
 </div> */}
-    <LoadingChart />
-    <div className="mt-3 bg-gray-200 rounded-full  w-full h-4 mb-2.5 "></div>
-  </motion.div>
+        <LoadingChart />
+        <div className="mt-3 bg-gray-200 rounded-full  w-full h-4 mb-2.5 "></div>
+      </motion.div>
+    </CardContent>
+  </Card>
 );
 
 export interface MonthlyChartProps {
