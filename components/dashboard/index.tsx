@@ -78,10 +78,7 @@ const dateSelectOptions = [
 export default function Dashboard() {
   const [value, setValue] = useState<DateRangePickerValue>({
     from: startOfMonth(new Date()),
-    to:
-      startOfMonth(new Date()) === new Date()
-        ? new Date()
-        : add(new Date(), { days: 1 }),
+    to: new Date(),
     selectValue: "mtd",
   });
 
