@@ -5,11 +5,11 @@ const JoinUsers = () => (
       className="w-10 h-10 rounded-full border-2 border-white"
     />
     <img
-      src="https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg"
+      src="https://randomuser.me/api/portraits/men/91.jpg"
       className="w-10 h-10 rounded-full border-2 border-white"
     />
     <img
-      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=a72ca28288878f8404a795f39642a46f"
+      src="https://randomuser.me/api/portraits/women/3.jpg"
       className="w-10 h-10 rounded-full border-2 border-white"
     />
     <img
@@ -17,7 +17,7 @@ const JoinUsers = () => (
       className="w-10 h-10 rounded-full border-2 border-white"
     />
     <img
-      src="./geetu.png"
+      src="https://randomuser.me/api/portraits/women/42.jpg"
       className="w-10 h-10 rounded-full border-2 border-white"
     />
     <p className="text-sm text-gray-500 font-medium translate-x-5">
