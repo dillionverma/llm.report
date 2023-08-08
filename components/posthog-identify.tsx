@@ -16,7 +16,9 @@ export default function PosthogIdentify({
   useEffect(() => {
     if (!session) return;
     if (session.user && posthog) {
-      posthog.identify(session.user.id);
+      posthog.identify(session.user.id, {
+        email: session.user.email,
+      });
       // if (session.user.teams?.length > 0) {
       //   posthog?.group("team", session.user.teams[0].id);
       // }
