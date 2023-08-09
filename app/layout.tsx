@@ -14,7 +14,6 @@ import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import "@/styles/mdx.css";
 import { Metadata } from "next";
-import { getSession } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "LLM Report",
@@ -27,8 +26,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getSession();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -52,7 +49,7 @@ export default async function RootLayout({
                     <Analytics />
                     <CrispChat />
                     <WebVitals />
-                    <PosthogIdentify session={session} />
+                    <PosthogIdentify />
                     {/* <TailwindIndicator /> */}
                     <Toaster />
                   </ThemeProvider>
