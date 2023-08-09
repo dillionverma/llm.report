@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useLogCount } from "@/lib/hooks/useLogCount";
-import { cn, numberFormat } from "@/lib/utils";
+import { cn, nFormatter, numberFormat } from "@/lib/utils";
 import { BoltIcon } from "@heroicons/react/24/solid";
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
 import { Badge } from "@tremor/react";
+import { getDaysInMonth } from "date-fns";
 import { motion } from "framer-motion";
 import {
   ArrowUpDown,
@@ -121,7 +122,7 @@ const LinkItem = ({ text, href, Icon, badge, external, isActive }: any) => (
 
 const Drawer = () => {
   const { data, isLoading } = useLogCount({});
-  const logCount = data?.count;
+  const logCount = data?.count || 999;
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -138,6 +139,10 @@ const Drawer = () => {
   }, [pathname]);
 
   if (!session?.user) return null;
+
+  const logsLeft = LOGS_PER_MONTH - logCount;
+  const projectedLogs =
+    (logCount / new Date().getDate()) * getDaysInMonth(new Date());
 
   const renderLinks = (links: any) =>
     links.map((navItem: any, index: number) => (
@@ -174,11 +179,18 @@ const Drawer = () => {
             {logCount} / {numberFormat(LOGS_PER_MONTH)}
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-2">
-          <Progress value={logCount / LOGS_PER_MONTH} />
-          <sub>
-            {numberFormat(LOGS_PER_MONTH - logCount)} logs left this month
-          </sub>
+        <CardContent className="p-2 flex flex-col gap-2">
+          <div>
+            <Progress value={(logCount / LOGS_PER_MONTH) * 100} />
+            {/* <Progress
+              className="absolute green-300"
+              value={(projectedLogs / LOGS_PER_MONTH) * 100}
+            /> */}
+          </div>
+          <div className="text-xs">
+            {numberFormat(logsLeft)} logs left this month
+          </div>
+          <div className="text-xs">~{nFormatter(projectedLogs)} projected</div>
         </CardContent>
         <CardFooter className="p-2">
           <Button
