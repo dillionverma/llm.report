@@ -18,10 +18,9 @@ const schema = z.object({
   request_body: z.string(),
   response_headers: z.string(),
   response_body: z.string(),
-  hashed_key: z.string(),
+  hashed_key: z.string().optional(),
   completion: z.string(),
-  latency: z.number(),
-  timestamp: z.date().default(() => new Date()),
+  duration_in_ms: z.number(),
 });
 
 export default async function handler(
@@ -37,6 +36,7 @@ export default async function handler(
   const response = schema.safeParse(req.body);
   if (!response.success) {
     const { errors } = response.error;
+    console.log("errors", errors);
 
     return res.status(400).json({
       error: { message: "Invalid request", errors },
