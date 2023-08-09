@@ -18,6 +18,7 @@ export default function PosthogIdentify({
     if (session.user && posthog) {
       posthog.identify(session.user.id, {
         email: session.user.email,
+        name: session.user.name,
       });
       // if (session.user.teams?.length > 0) {
       //   posthog?.group("team", session.user.teams[0].id);
