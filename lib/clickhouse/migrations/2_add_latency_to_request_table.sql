@@ -1,0 +1,2 @@
+ALTER TABLE request ADD COLUMN latency Float64
+DEFAULT 0.0;

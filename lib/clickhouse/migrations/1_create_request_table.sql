@@ -1,4 +1,4 @@
-CREATE TABLE request
+CREATE TABLE IF NOT EXISTS request
 (
     -- User ID of LLM.Report
     llm_report_user_id String,
@@ -30,4 +30,4 @@ CREATE TABLE request
     timestamp DateTime DEFAULT now(),
 )
 ENGINE = MergeTree
-PRIMARY KEY (llm_report_user_id, timestamp, model, status)
+PRIMARY KEY (llm_report_user_id, timestamp, model, status);

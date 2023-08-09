@@ -50,6 +50,7 @@ No-code solution to analyze your OpenAI API costs and token usage.
   <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/openai-demo.gif" width="100%">
 </a>
 
+<<<<<<< HEAD
 ### Logs
 
 Log your OpenAI API requests / responses and analyze them to improve your prompts.
@@ -152,3 +153,12 @@ Inspired by [Dub](https://dub.sh) and [Plausible](https://plausible.io), both ar
 - [screen.studio](https://screen.studio) – the best video recording tool
 - [vercel](https://vercel.com) – for making next.js and making it easy to build powerful apps
 - [Dub](https://dub.sh) – for inspiring me to open-source this project
+=======
+3. Prisma migrate
+   Run `yarn db:migrate:prod`
+
+## Clickhouse Migrations
+
+- Using [clickhouse-migrations](https://github.com/VVVi/clickhouse-migrations) to run migration for clickhouse db
+- Follow the steps mentioned in the repo's readme
+>>>>>>> 2e98896 (added clickhouse migrations, log openai api validation)
