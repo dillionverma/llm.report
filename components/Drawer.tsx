@@ -122,7 +122,7 @@ const LinkItem = ({ text, href, Icon, badge, external, isActive }: any) => (
 
 const Drawer = () => {
   const { data, isLoading } = useLogCount({});
-  const logCount = data?.count || 999;
+  const logCount = data?.count;
 
   const router = useRouter();
   const { data: session } = useSession();
