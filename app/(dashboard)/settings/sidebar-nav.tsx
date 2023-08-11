@@ -25,8 +25,6 @@ export function SidebarNav({ className, ...props }: SidebarNavProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log(pathname, "PATH");
-
   return (
     <nav className={cn("flex space-x-2", className)} {...props}>
       <Tabs

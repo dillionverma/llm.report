@@ -168,8 +168,8 @@ const Drawer = () => {
         </Link>
         <h2 className="mb-2 text-lg font-semibold tracking-tight">Home</h2>
         {renderLinks(HOME_LINKS)}
-        <h2 className="mb-2 text-lg font-semibold tracking-tight">Community</h2>
-        {renderLinks(COMMUNITY_LINKS)}
+        {/* <h2 className="mb-2 text-lg font-semibold tracking-tight">Community</h2>
+        {renderLinks(COMMUNITY_LINKS)} */}
       </div>
       <div className="flex flex-1" />
       <Card className="p-2">

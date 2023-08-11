@@ -2,7 +2,7 @@ import Pricing from "@/components/pricing-plans";
 
 const PricingPage = () => {
   return (
-    <div className="mt-12">
+    <div className="py-36">
       <Pricing />
     </div>
   );

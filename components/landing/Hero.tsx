@@ -29,20 +29,21 @@ const Hero = () => {
     >
       {/* <div className="absolute top-0 left-0 w-full h-full opacity-40"></div> */}
       <div className="relative z-10 gap-5 items-center">
-        <div className="flex-1 max-w-lg py-5 sm:mx-auto sm:text-center lg:max-w-lg ">
-          <m.h3
-            className="text-4xl text-gray-800 font-semibold md:text-5xl"
+        <div className="mx-2 md:mx-6 max-w-screen min-w-fit mb-4 mt-8 sm:mt-8 flex flex-col items-center">
+          <m.h1
+            className="flex flex-col md:flex-row text-5xl md:text-7xl font-bold justify-center text-center md:h-max"
             variants={{
               hidden: { opacity: 0, y: -10 },
               show: { opacity: 1, y: 0, transition: { type: "spring" } },
             }}
           >
-            A better way to monitor your{" "}
-            <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
-              {" "}
-              OpenAI API usage
+            <span className="text-primary-50 leading-none md:pb-4 tracking-tight">
+              <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
+                Open Source
+              </span>{" "}
+              LLM Ops
             </span>
-          </m.h3>
+          </m.h1>
           <m.p
             className="text-gray-500 leading-relaxed mt-3"
             variants={{
@@ -52,9 +53,11 @@ const Hero = () => {
           >
             {/* Know exactly what&apos;s happening in your AI app with realtime
             dashboards, usage reports, and alerts. */}
-            Just enter your OpenAI API key, and we fetch your data from the
+            {/* Just enter your OpenAI API key, and we fetch your data from the
             OpenAI API directly to create a dashboard. No need to install
-            anything.
+            anything. */}
+            End-to-end platform to build, test, monitor and deploy your llm
+            apps.
           </m.p>
           <m.p
             className="text-gray-500 leading-relaxed mt-3 text-sm"

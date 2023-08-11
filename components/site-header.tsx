@@ -1,4 +1,3 @@
-// import { CommandMenu } from "@/components/command-menu";
 import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { buttonVariants } from "@/components/ui/button";
@@ -13,7 +12,7 @@ interface SiteHeaderProps {
 
 export function SiteHeader({ user }: SiteHeaderProps) {
   return (
-    <header className="supports-backdrop-blur:bg-background/80 sticky top-0 z-40 w-full backdrop-blur border-b">
+    <header className="supports-backdrop-blur:bg-background/80 sticky top-0 z-40 w-full backdrop-blur bg-background border-b">
       <div className="container flex h-16 items-center">
         <MainNav />
         <MobileNav />

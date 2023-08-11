@@ -1,5 +1,13 @@
-import { ChevronsUpDown, CreditCard, LogOut, Settings } from "lucide-react";
+import {
+  ChevronsUpDown,
+  CreditCard,
+  ExternalLink,
+  LifeBuoy,
+  LogOut,
+  UserPlus,
+} from "lucide-react";
 
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,9 +16,11 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { truncate } from "@/lib/utils";
+import { DiscordLogoIcon } from "@radix-ui/react-icons";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -50,29 +60,41 @@ export function UserDropdownMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <Link href="/settings/billing">
-            <DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
               <CreditCard className="mr-2 h-4 w-4" />
               <span>Billing</span>
             </DropdownMenuItem>
           </Link>
-
-          <Link href="/settings">
+          <Link href="/settings/team">
             <DropdownMenuItem className="cursor-pointer">
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-              {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+              <UserPlus className="mr-2 h-4 w-4" />
+              <span>Invite Team</span>
             </DropdownMenuItem>
           </Link>
-          {/* <Link href="/feature-request">
-            <DropdownMenuItem
-              onClick={() =>
-                window.open("https://llmreport.featurebase.app/", "_blank")
-              }
-            >
-              <LifeBuoy className="mr-2 h-4 w-4" />
-              <span>Feedback</span>
+          <Link href="/settings/openai">
+            <DropdownMenuItem className="cursor-pointer">
+              <Icons.openai className="mr-2 h-4 w-4" />
+              <span>OpenAI Settings</span>
             </DropdownMenuItem>
-          </Link> */}
+          </Link>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <Link href="/feature-request">
+            <DropdownMenuItem className="cursor-pointer">
+              <LifeBuoy className="mr-2 h-4 w-4" />
+              <span>Submit Feedback</span>
+            </DropdownMenuItem>
+          </Link>
+          <Link href="https://discord.gg/eVtDPmRWXm" target="_blank">
+            <DropdownMenuItem className="cursor-pointer">
+              <DiscordLogoIcon className="mr-2 h-4 w-4" />
+              <span>Discord</span>
+              <DropdownMenuShortcut>
+                <ExternalLink className="h-4 w-4" />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
