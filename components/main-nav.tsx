@@ -44,40 +44,44 @@ const components: {
   },
 ];
 
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "flex flex-col h-full select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-4 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-          <div className="flex-1" />
-          {props.video && (
-            <video
-              src={props.video}
-              autoPlay
-              loop
-              muted
-              className="rounded-xl border"
-            />
-          )}
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
+interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
+  video?: string;
+  title: string;
+}
+
+const ListItem = React.forwardRef<React.ElementRef<"a">, ListItemProps>(
+  ({ className, title, children, ...props }, ref) => {
+    return (
+      <li>
+        <NavigationMenuLink asChild>
+          <a
+            ref={ref}
+            className={cn(
+              "flex flex-col h-full select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+              className
+            )}
+            {...props}
+          >
+            <div className="text-sm font-medium leading-none">{title}</div>
+            <p className="line-clamp-4 text-sm leading-snug text-muted-foreground">
+              {children}
+            </p>
+            <div className="flex-1" />
+            {props.video && (
+              <video
+                src={props.video}
+                autoPlay
+                loop
+                muted
+                className="rounded-xl border"
+              />
+            )}
+          </a>
+        </NavigationMenuLink>
+      </li>
+    );
+  }
+);
 ListItem.displayName = "ListItem";
 
 export function MainNav() {
