@@ -1,5 +1,6 @@
 "use client";
 
+import ShimmerButton from "@/components/magicui/shimmer-button";
 import { m } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -39,9 +40,11 @@ const Hero = () => {
           >
             <span className="text-primary-50 leading-none md:pb-4 tracking-tight">
               <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
-                Open Source
+                Monitoring and Analytics
+                {/* Open Source */}
               </span>{" "}
-              LLM Ops
+              for OpenAI
+              {/* LLM Ops */}
             </span>
           </m.h1>
           <m.p
@@ -57,7 +60,7 @@ const Hero = () => {
             OpenAI API directly to create a dashboard. No need to install
             anything. */}
             End-to-end platform to build, test, monitor and deploy your llm
-            apps.
+            based apps.
           </m.p>
           <m.p
             className="text-gray-500 leading-relaxed mt-3 text-sm"
@@ -74,64 +77,19 @@ const Hero = () => {
               show: { opacity: 1, y: 0, transition: { type: "spring" } },
             }}
           >
-            <button
-              className="group px-4 py-2 bg-gradient-to-r from-red-600 to-amber-600  text-sm md:text-lg text-white font-medium bg-indigo-50 rounded-full inline-flex items-center relative"
-              // onClick={() => openDialog()}
+            <ShimmerButton
+              shadowEnabled={false}
+              className="inline-flex items-center shadow-2xl transition-all  hover:shadow-[0_0_40px_8px_rgba(185,28,28,0.7)]"
+              background="radial-gradient(ellipse 80% 70% at 50% 120%, #FBBF24, #B91C1C)"
               onClick={() => {
                 router.push("/login");
               }}
             >
-              <span className="absolute top-0 left-0 w-full h-full rounded-full opacity-50 filter  bg-gradient-to-r from-red-600 to-amber-600"></span>
-              <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 filter group-active:opacity-0 rounded-full opacity-50 bg-gradient-to-r from-red-600 to-amber-600"></span>
-              <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-full shadow-xl filter group-active:opacity-0 group-hover:blur-sm bg-gradient-to-r from-red-600 to-amber-600"></span>
-              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-full bg-gradient-to-r from-red-600 to-amber-600"></span>
-              <span className="relative text-lg tracking-tighter">
+              <span className="whitespace-pre-wrap bg-gradient-to-b from-black from-30% to-gray-300/80 bg-clip-text text-center text-2xl font-semibold leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 dark:text-transparent">
                 Get started for free
               </span>
-              <ChevronRight className="h-6 w-6 ml-1 duration-150 ease-in-out transform group-hover:translate-x-1" />
-              {/* your dashboard for free in &lt; 1min */}
-
-              {/* <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 ml-1 duration-150 ease-in-out transform group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg> */}
-            </button>
-
-            {/* <Link
-              className="mt-4 group px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600  text-white font-medium bg-indigo-50 rounded-full inline-flex items-center relative"
-              href="/demo"
-            >
-              <span className="absolute top-0 left-0 w-full h-full rounded-full opacity-50 filter  bg-gradient-to-r from-blue-600 to-cyan-600"></span>
-              <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 filter group-active:opacity-0 rounded-full opacity-50 bg-gradient-to-r from-blue-600 to-cyan-600"></span>
-              <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-full shadow-xl filter group-active:opacity-0 group-hover:blur-sm bg-gradient-to-r from-blue-600 to-cyan-600"></span>
-              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-full bg-gradient-to-r from-blue-600 to-cyan-600"></span>
-              <span className="relative">See Live Demo</span>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 ml-1 duration-150 ease-in-out transform group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </Link> */}
+              <ChevronRight className="h-6 w-6 duration-150 ease-in-out transform group-hover:translate-x-3" />
+            </ShimmerButton>
 
             <div className="mt-6">
               <JoinUsers />
@@ -170,12 +128,6 @@ const Hero = () => {
 
         <div className="flex-1 mt-5 mx-auto sm:w-11/12 lg:mt-14 lg:w-auto">
           <Dashboard />
-          {/* </m.div> */}
-          {/* <img
-            src="https://i.postimg.cc/kgd4WhyS/container.png"
-            alt=""
-            className="w-full"
-          /> */}
         </div>
       </div>
     </m.section>
