@@ -4,67 +4,71 @@ import Link from "next/link";
 
 const footerNavs = [
   {
-    label: "Company",
+    label: "Product",
     items: [
       {
-        href: "javascript:void()",
-        name: "Partners",
+        href: "/",
+        name: "OpenAI Cost Analytics",
       },
       {
-        href: "javascript:void()",
-        name: "Blog",
+        href: "/",
+        name: "Logging",
       },
       {
-        href: "javascript:void()",
-        name: "Team",
-      },
-      {
-        href: "javascript:void()",
-        name: "Careers",
-      },
-    ],
-  },
-  {
-    label: "Resources",
-    items: [
-      {
-        href: "javascript:void()",
-        name: "contact",
-      },
-      {
-        href: "javascript:void()",
-        name: "Support",
-      },
-      {
-        href: "javascript:void()",
-        name: "Docs",
-      },
-      {
-        href: "javascript:void()",
+        href: "/pricing",
         name: "Pricing",
       },
     ],
   },
+
   {
-    label: "About",
+    label: "Community",
     items: [
       {
-        href: "javascript:void()",
-        name: "Terms",
+        href: "https://discord.gg/eVtDPmRWXm",
+        name: "Discord",
       },
       {
-        href: "javascript:void()",
-        name: "License",
+        href: "https://twitter.com/dillionverma",
+        name: "Twitter",
       },
       {
-        href: "javascript:void()",
-        name: "Privacy",
-      },
-      {
-        href: "javascript:void()",
-        name: "About US",
+        href: "mailto:dillion@llm.report",
+        name: "Email",
       },
     ],
+  },
+  {
+    label: "Legal",
+    items: [
+      {
+        href: "/terms",
+        name: "Terms",
+      },
+
+      {
+        href: "/privacy",
+        name: "Privacy",
+      },
+    ],
+  },
+];
+
+const footerSocials = [
+  {
+    href: "https://discord.gg/eVtDPmRWXm",
+    name: "Discord",
+    icon: <DiscordLogoIcon className="h-4 w-4" />,
+  },
+  {
+    href: "https://twitter.com/dillionverma",
+    name: "Twitter",
+    icon: <Icons.twitter className="h-4 w-4" />,
+  },
+  {
+    href: "https://github.com/dillionverma",
+    name: "GitHub",
+    icon: <Icons.gitHub className="h-4 w-4" />,
   },
 ];
 
@@ -82,109 +86,40 @@ export function SiteFooter() {
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-3">
-            <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Product
-              </h2>
-              <ul className="gap-2 grid">
-                <li>
-                  <Link
-                    href="/"
-                    className="cursor-pointer text-gray-400 hover:text-gray-600 hover:opacity-90 duration-200"
-                  >
-                    Open AI Cost Analytics
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/"
-                    className="cursor-pointer text-gray-400 hover:text-gray-600 hover:opacity-90 duration-200"
-                  >
-                    Logging
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/pricing"
-                    className="cursor-pointer text-gray-400 hover:text-gray-600 hover:opacity-90 duration-200"
-                  >
-                    Pricing
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Resources
-              </h2>
-              <ul className="gap-2 grid">
-                <li>
-                  <Link
-                    href="https://twitter.com/dillionverma"
-                    className="cursor-pointer text-gray-400 hover:text-gray-600 hover:opacity-90 duration-200"
-                  >
-                    Twitter
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="https://discord.gg/eVtDPmRWXm"
-                    className="cursor-pointer text-gray-400 hover:text-gray-600 hover:opacity-90 duration-200"
-                  >
-                    Discord
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Legal
-              </h2>
-              <ul className="gap-2 grid">
-                <li>
-                  <Link
-                    href="/terms"
-                    className="cursor-pointer text-gray-400 hover:text-gray-600 hover:opacity-90 duration-200"
-                  >
-                    Terms
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/privacy"
-                    className="cursor-pointer text-gray-400 hover:text-gray-600 hover:opacity-90 duration-200"
-                  >
-                    Privacy
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            {footerNavs.map((nav) => (
+              <div key={nav.label}>
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                  {nav.label}
+                </h2>
+                <ul className="gap-2 grid">
+                  {nav.items.map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        className="cursor-pointer text-gray-400 hover:text-gray-600 hover:opacity-90 duration-200"
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="flex flex-col sm:flex-row sm:flex sm:items-center sm:justify-between border-t py-4 gap-2">
           <div className="flex space-x-5 sm:justify-center sm:mt-0">
-            <Link
-              href="https://discord.gg/eVtDPmRWXm"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-600"
-            >
-              <DiscordLogoIcon className="w-4 h-4" />
-              <span className="sr-only">Discord community</span>
-            </Link>
-            <Link
-              href="https://twitter.com/dillionverma"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-600"
-            >
-              <Icons.twitter className="w-4 h-4" />
-              <span className="sr-only">Twitter page</span>
-            </Link>
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-600"
-            >
-              <Icons.gitHub className="w-4 h-4" />
-              <span className="sr-only">GitHub account</span>
-            </Link>
+            {footerSocials.map((social) => (
+              <Link
+                key={social.name}
+                href={social.href}
+                className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-600"
+              >
+                {social.icon}
+                <span className="sr-only">{social.name}</span>
+              </Link>
+            ))}
           </div>
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
