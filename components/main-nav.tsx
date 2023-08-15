@@ -23,21 +23,21 @@ const components: {
 }[] = [
   {
     title: "OpenAI Analytics",
-    href: "/openai",
+    href: "https://docs.llm.report/openai",
     description:
       "Enter your OpenAI API key and get access to a dashboard of analytics.",
     video: "/openai-demo.mp4",
   },
   {
     title: "Logging",
-    href: "/logs",
+    href: "https://docs.llm.report/logs",
     description:
       "Log your prompts to gain insights about latency, cost per request, and more.",
     video: "/logs-demo.mp4",
   },
   {
     title: "User Analytics",
-    href: "/users",
+    href: "/https://docs.llm.report/users",
     description:
       "Understand your cost per user, discover your power users, and adjust your pricing strategy.",
     video: "/users-demo.mp4",
@@ -117,7 +117,10 @@ export function MainNav() {
                   </NavigationMenuLink>
                 </li>
 
-                <ListItem href="/" title="Installation">
+                <ListItem
+                  href="https://docs.llm.report/introduction"
+                  title="Installation"
+                >
                   How to install and configure llm.report
                 </ListItem>
                 {/* <ListItem href="/docs/primitives/typography" title="Typography">
