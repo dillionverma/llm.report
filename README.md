@@ -55,7 +55,7 @@ No-code solution to analyze your OpenAI API costs and token usage.
 Log your OpenAI API requests / responses and analyze them to improve your prompts.
 
 <a href="https://docs.llm.report/features/logs">
-  <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/logs-demo.gif" width="100%">
+  <video alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/logs-demo.mp4" width="100%">
 </a>
 
 ### User Analytics
