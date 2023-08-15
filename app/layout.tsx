@@ -18,7 +18,6 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "LLM Report",
   description: "Get Detailed Insights About Your OpenAI API Costs",
-  // image: absoluteUrl("/api/og"),
 };
 
 export default async function RootLayout({
