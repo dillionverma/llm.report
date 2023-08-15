@@ -1,11 +1,9 @@
+<h1 align="center">llm.report</h1>
+<p align="center"><b>An open-source logging and analytics platform for OpenAI</b></p>
+
 <a href="https://llm.report">
   <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/openai-demo.gif" width="100%">
-  <h1 align="center">llm.report</h1>
 </a>
-
-<p align="center">
-  An open-source logging and analytics platform for OpenAI
-</p>
 
 <h4 align="center">
   <a href="https://twitter.com/llmreport">
@@ -30,6 +28,7 @@
   <a href="#introduction"><strong>Introduction</strong></a> ·
   <a href="#self-hosted-installation"><strong>Self Hosted Installation</strong></a> ·
   <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
+  <a href="#call-founders"><strong>Call Founders</strong></a> ·
   <a href="#contributing"><strong>Contributing</strong></a>
 </p>
 <br/>
@@ -92,6 +91,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [Postgres](https://www.postgresql.org/) – database
 - [NextAuth.js](https://next-auth.js.org/) – auth
 - [Stripe](https://stripe.com/) – payments
+
+## Call Founders
+
+<a href="https://cal.com/dillionverma/llm-report-demo"><img alt="Schedule a meeting" src="https://cal.com/book-with-cal-dark.svg" /></a>
+
+Email: [dillion@llm.report](mailto:dillion@llm.report)
 
 ## Contributing
 
