@@ -112,3 +112,6 @@ Inspired by [Dub](https://dub.sh) and [Plausible](https://plausible.io), both ar
 - [Dub](https://dub.sh) – for inspiring me to open-source this project
 - [screen.studio](https://screen.studio) – the best video recording tool
 - [Shadcn](https://ui.shadcn.com) – for making it easy to build beautiful UIs
+- [tremor.so](https://tremor.so) – beautiful dashboard componenets
+- [mintlify](https://mintlify.com) – beautiful documentation
+- [vercel](https://vercel.com) – for making next.js and making it easy to build powerful apps
