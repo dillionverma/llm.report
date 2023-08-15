@@ -15,17 +15,10 @@ import { Progress } from "@/components/ui/progress";
 import { useLogCount } from "@/lib/hooks/useLogCount";
 import { cn, nFormatter, numberFormat } from "@/lib/utils";
 import { BoltIcon } from "@heroicons/react/24/solid";
-import { DiscordLogoIcon } from "@radix-ui/react-icons";
 import { Badge } from "@tremor/react";
 import { getDaysInMonth } from "date-fns";
 import { motion } from "framer-motion";
-import {
-  ArrowUpDown,
-  Download,
-  MessageSquarePlus,
-  Settings,
-  User,
-} from "lucide-react";
+import { ArrowUpDown, Download, Settings, User } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -63,22 +56,6 @@ const HOME_LINKS = [
     Icon: () => <Settings className="h-4 w-4" />,
     href: "/settings",
     badge: null,
-  },
-];
-
-const COMMUNITY_LINKS = [
-  {
-    text: "Feature Request",
-    Icon: () => <MessageSquarePlus className="h-4 w-4" />,
-    href: "/feature-request",
-    badge: null,
-  },
-  {
-    text: "Discord",
-    Icon: () => <DiscordLogoIcon className="h-4 w-4" />,
-    href: "https://discord.gg/eVtDPmRWXm",
-    badge: "Come Say Hi! 👋",
-    external: true,
   },
 ];
 

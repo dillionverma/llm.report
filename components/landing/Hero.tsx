@@ -13,7 +13,7 @@ const Hero = () => {
 
   return (
     <m.section
-      className="py-14"
+      className="py-20"
       initial="hidden"
       whileInView="show"
       animate="show"
@@ -29,8 +29,8 @@ const Hero = () => {
       }}
     >
       {/* <div className="absolute top-0 left-0 w-full h-full opacity-40"></div> */}
-      <div className="relative z-10 gap-5 items-center">
-        <div className="mx-2 md:mx-6 max-w-screen min-w-fit mb-4 mt-8 sm:mt-8 flex flex-col items-center">
+      <div className="relative z-10 items-center">
+        <div className="max-w-screen min-w-fit flex flex-col items-center py-20">
           <m.h1
             className="flex flex-col md:flex-row text-5xl md:text-7xl font-bold justify-center text-center md:h-max"
             variants={{
@@ -48,19 +48,19 @@ const Hero = () => {
             </span>
           </m.h1>
           <m.p
-            className="text-gray-500 leading-relaxed mt-3"
+            className="text-gray-500 leading-relaxed mt-3 text-xl"
             variants={{
               hidden: { opacity: 0, y: -10 },
               show: { opacity: 1, y: 0, transition: { type: "spring" } },
             }}
           >
-            {/* Know exactly what&apos;s happening in your AI app with realtime
-            dashboards, usage reports, and alerts. */}
+            Know exactly what&apos;s happening in your AI app with realtime
+            analytics, usage reports, and alerts.
             {/* Just enter your OpenAI API key, and we fetch your data from the
             OpenAI API directly to create a dashboard. No need to install
             anything. */}
-            End-to-end platform to build, test, monitor and deploy your llm
-            based apps.
+            {/* End-to-end platform to build, test, monitor and deploy your llm
+            based apps. */}
           </m.p>
           <m.p
             className="text-gray-500 leading-relaxed mt-3 text-sm"
@@ -79,7 +79,7 @@ const Hero = () => {
           >
             <ShimmerButton
               shadowEnabled={false}
-              className="inline-flex items-center shadow-2xl transition-all  hover:shadow-[0_0_40px_8px_rgba(185,28,28,0.7)]"
+              className="inline-flex items-center shadow-2xl transition-all  hover:shadow-[0_0_40px_8px_rgba(185,28,28,0.5)]"
               background="radial-gradient(ellipse 80% 70% at 50% 120%, #f59e0b, #B91C1C)"
               onClick={() => {
                 router.push("/login");
@@ -106,7 +106,10 @@ const Hero = () => {
                 <Link
                   href="https://vercel.com/blog/ai-accelerator-participants"
                   target="_blank"
+                  className="group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-sm"
                 >
+                  <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
+
                   <img
                     src="/accelerator-badge-dark.png"
                     alt="Backed by Vercel AI Accelerator"
@@ -114,7 +117,13 @@ const Hero = () => {
                   />
                 </Link>
 
-                <Link href="https://buildspace.so/sf1" target="_blank">
+                <Link
+                  href="https://buildspace.so/sf1"
+                  target="_blank"
+                  className="group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-sm"
+                >
+                  <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
+
                   <img
                     src="/buildspace-badge-dark.png"
                     alt="Backed by Buildspace"

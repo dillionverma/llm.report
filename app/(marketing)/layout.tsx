@@ -1,4 +1,4 @@
-import DotPattern from "@/components/magicui/dot-pattern";
+import GridPattern from "@/components/magicui/grid-pattern";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCurrentUser } from "@/lib/session";
@@ -18,16 +18,13 @@ export default async function MarketingLayout({
       <SiteHeader user={user} />
       <main className="flex-1 container">{children}</main>
       <SiteFooter />
-      {/* Top Ellipse Gradient */}
-      <div className="pointer-events-none absolute inset-0 h-screen dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(120,119,198,0.2),rgba(255,255,255,0))]" />
-      <DotPattern
-        width={20}
-        height={20}
-        cx={1}
-        cy={1}
-        cr={1}
+      <GridPattern
+        width={40}
+        height={40}
+        x={-1}
+        y={-1}
         className={cn(
-          "[mask-image:linear-gradient(to_bottom,white,transparent,transparent)] "
+          "stroke-gray-300/30 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
         )}
       />
     </>

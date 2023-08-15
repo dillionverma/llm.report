@@ -1,7 +1,9 @@
+import { Icons } from "@/components/icons";
 import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { buttonVariants } from "@/components/ui/button";
 import { UserAccountNav } from "@/components/user-account-nav";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { User } from "next-auth";
 import Link from "next/link";
@@ -16,28 +18,21 @@ export function SiteHeader({ user }: SiteHeaderProps) {
       <div className="container flex h-16 items-center">
         <MainNav />
         <MobileNav />
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-between">
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {/* <CommandMenu /> */}
+            <Link
+              className={cn(
+                buttonVariants(),
+                "gap-2 whitespace-pre hidden md:flex"
+              )}
+              href={siteConfig.links.github}
+            >
+              <Icons.gitHub className="h-4 w-4 fill-current" />
+              Star on GitHub
+            </Link>
           </div>
           <nav className="flex items-center gap-2">
-            {/* <Link
-              href={siteConfig.links.twitter}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={cn(
-                  buttonVariants({
-                    variant: "ghost",
-                  }),
-                  "w-9 px-0"
-                )}
-              >
-                <Icons.gitHub className="h-4 w-4" />
-                <span className="sr-only">Twitter</span>
-              </div>
-            </Link> */}
             {/* <Link
               href={siteConfig.links.github}
               target="_blank"
@@ -51,8 +46,26 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                   "w-9 px-0"
                 )}
               >
-                <Icons.gitHub className="h-4 w-4 fill-current" />
+                <Icons.gitHub className="h-4 w-4" />
                 <span className="sr-only">Github</span>
+              </div>
+            </Link> */}
+
+            {/* <Link
+              href={siteConfig.links.twitter}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div
+                className={cn(
+                  buttonVariants({
+                    variant: "ghost",
+                  }),
+                  "w-9 px-0"
+                )}
+              >
+                <Icons.twitter className="h-4 w-4 fill-current" />
+                <span className="sr-only">Twitter</span>
               </div>
             </Link> */}
             {/* <ModeToggle /> */}
@@ -71,17 +84,16 @@ export function SiteHeader({ user }: SiteHeaderProps) {
               <Link
                 href="/login"
                 className={cn(
-                  buttonVariants({ variant: "secondary", size: "sm" }),
-                  "px-4"
+                  buttonVariants({ variant: "secondary", size: "lg" }),
+                  "px-4 bg-gradient-to-r from-red-600 to-amber-600 text-white"
                 )}
               >
-                Login
+                Get Started
               </Link>
             )}
           </nav>
         </div>
       </div>
-      {/* <div className="absolute bottom-0 h-px w-full bg-[radial-gradient(50%_100%_at_50%_100%,rgba(0,0,0,.12)_0%,rgba(255,255,255,0)_100%)] dark:bg-[radial-gradient(50%_100%_at_50%_100%,rgba(255,255,255,.32)_0%,rgba(255,255,255,0)_100%)]" /> */}
     </header>
   );
 }
