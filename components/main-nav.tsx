@@ -26,21 +26,21 @@ const components: {
     href: "https://docs.llm.report/features/openai",
     description:
       "Enter your OpenAI API key and get access to a dashboard of analytics.",
-    video: "/openai-demo.mp4",
+    video: "https://cdn.llm.report/openai-demo.mp4",
   },
   {
     title: "Logging",
     href: "https://docs.llm.report/features/logs",
     description:
       "Log your prompts to gain insights about latency, cost per request, and more.",
-    video: "/logs-demo.mp4",
+    video: "https://cdn.llm.report/logs-demo.mp4",
   },
   {
     title: "User Analytics",
     href: "https://docs.llm.report/features/users",
     description:
       "Understand your cost per user, discover your power users, and adjust your pricing strategy.",
-    video: "/users-demo.mp4",
+    video: "https://cdn.llm.report/users-demo.mp4",
   },
 ];
 
