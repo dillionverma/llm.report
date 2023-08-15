@@ -94,7 +94,7 @@ Email: [dillion@llm.report](mailto:dillion@llm.report)
 - [Next.js](https://nextjs.org/) – framework
 - [Typescript](https://www.typescriptlang.org/) – language
 - [Tailwind](https://tailwindcss.com/) – CSS
-- [Shadcn](https://ui.shadcn.com) – UI components
+- [Shadcn](https://ui.shadcn.com) – App UI components
 - [Magic UI](https://magicuikit.com/) – Marketing UI components
 - [Postgres](https://www.postgresql.org/) – database
 - [NextAuth.js](https://next-auth.js.org/) – auth
