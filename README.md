@@ -1,8 +1,7 @@
-<h1 align="center">llm.report</h1>
-<p align="center"><b>An open-source logging and analytics platform for OpenAI</b></p>
-
 <a href="https://llm.report">
   <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/openai-demo.gif" width="100%">
+  <h1 align="center">llm.report</h1>
+  <p align="center"><b>An open-source logging and analytics platform for OpenAI</b></p>
 </a>
 
 <h4 align="center">
@@ -108,10 +107,6 @@ Here's how you can contribute:
 <a href="https://github.com/dillionverma/llm.report/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=dillionverma/llm.report" />
 </a>
-
-## Author
-
-- Dillion Verma ([@dillionverma](https://twitter.com/dillionverma))
 
 ## License
 
