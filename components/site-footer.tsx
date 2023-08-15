@@ -97,13 +97,16 @@ export function SiteFooter() {
     <footer className="border-t">
       <div className="mx-auto w-full max-w-screen-xl px-4">
         <div className="md:flex md:justify-between p-4 sm:py-16">
-          <div className="mb-6 md:mb-0">
-            <Link href="/" className="flex items-center">
+          <div className="mb-6 flex-col flex gap-4">
+            <Link href="/" className="flex items-center gap-2">
               <Icons.logo className="h-8 w-8 text-primary" />
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                 llm.report
               </span>
             </Link>
+            <p className="max-w-xs">
+              Open-source monitoring and analytics for OpenAI.
+            </p>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-4">
             {footerNavs.map((nav) => (

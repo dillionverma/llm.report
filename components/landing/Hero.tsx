@@ -152,7 +152,15 @@ const Hero = () => {
               <JoinUsers />
             </div> */}
           </m.div>
-          <BackedBy />
+          <m.div
+            className="flex md:flex-col items-center justify-center space-x-4 mt-4 w-[500px]"
+            variants={{
+              hidden: { opacity: 0, y: -10 },
+              show: { opacity: 1, y: 0, transition: { type: "spring" } },
+            }}
+          >
+            <BackedBy />
+          </m.div>
         </div>
 
         <div className="flex-1 mt-5 mx-auto sm:w-11/12 lg:mt-14 lg:w-auto">
