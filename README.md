@@ -30,7 +30,6 @@
   <a href="#introduction"><strong>Introduction</strong></a> ·
   <a href="#self-hosted-installation"><strong>Self Hosted Installation</strong></a> ·
   <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
-  <a href="#implementation"><strong>Implementation</strong></a> ·
   <a href="#contributing"><strong>Contributing</strong></a>
 </p>
 <br/>
@@ -47,21 +46,21 @@ Here are some of the features that llm.report provides out-of-the-box:
 
 ### OpenAI API Analytics
 
-Dub provides a powerful analytics dashboard for your links, including geolocation, device, and browser information.
-
-![OpenAI Analytics](https://cdn.llm.report/openai-demo.gif)
+<a href="https://docs.llm.report/features/openai">
+  <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/openai-demo.gif" width="100%">
+</a>
 
 ### Logs
 
-You can easily configure custom domains on Dub – just add an A/CNAME record to your DNS provider and you're good to go. This is built on the [Vercel Domains API](https://domains-api.vercel.app/).
-
-![Logs](https://cdn.llm.report/logs-demo.gif)
+<a href="https://docs.llm.report/features/logs">
+  <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/logs-demo.gif" width="100%">
+</a>
 
 ### User Analytics
 
-You can easily generate and customize QR codes for your links, which can be used for flyers, posters, powerpoint presentations, etc.
-
-![User Analytics](https://cdn.llm.report/users-demo.gif)
+<a href="https://docs.llm.report/features/users">
+  <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/users-demo.gif" width="100%">
+</a>
 
 ## Self-Hosted Installation
 
@@ -88,16 +87,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [NextAuth.js](https://next-auth.js.org/) – auth
 - [Stripe](https://stripe.com/) – payments
 
-## Implementation
-
-<!-- Dub is built as a standard Next.js application with [Middleware](https://nextjs.org/docs/advanced-features/middleware) to handle multi-tenancy, inspired by [the Vercel Platforms Starter Kit](https://github.com/vercel/platforms).
-
-[Redis](https://redis.io/) is used as the caching layer for all short links.
-
-[Clickhouse](https://clickhouse.com/) ([Tinybird](https://tinybird.com/)) is used as the analytics database for storing link click data.
-
-[MySQL](https://www.mysql.com/) is used as the database for storing user data, project data, and link metadata. You can refer to the Prisma schema [here](/prisma/schema.prisma). -->
-
 ## Contributing
 
 Here's how you can contribute:
@@ -115,4 +104,11 @@ Here's how you can contribute:
 
 ## License
 
-Inspired by [Dub](https://dub.sh), Dub is open-source under the GNU Affero General Public License Version 3 (AGPLv3) or any later version. You can [find it here](https://github.com/dillionverma/llm.report/blob/main/LICENSE.md).
+Inspired by [Dub](https://dub.sh) and [Plausible](https://plausible.io), both are open-source under the GNU Affero General Public License Version 3 (AGPLv3) or any later version. You can [find it here](https://github.com/dillionverma/llm.report/blob/main/LICENSE.md). The reason for this is that we believe in the open-source ethos and want to contribute back to the community.
+
+## Credits
+
+- [OpenAI](https://openai.com/) – for creating the ChatGPT
+- [Dub](https://dub.sh) – for inspiring me to open-source this project
+- [screen.studio](https://screen.studio) – the best video recording tool
+- [Shadcn](https://ui.shadcn.com) – for making it easy to build beautiful UIs
