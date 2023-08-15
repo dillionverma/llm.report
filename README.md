@@ -114,10 +114,10 @@ Inspired by [Dub](https://dub.sh) and [Plausible](https://plausible.io), both ar
 
 ## Credits
 
-- [OpenAI](https://openai.com/) – for creating the ChatGPT
-- [Dub](https://dub.sh) – for inspiring me to open-source this project
-- [screen.studio](https://screen.studio) – the best video recording tool
+- [OpenAI](https://openai.com/) – for creating ChatGPT
 - [shadcn-ui](https://ui.shadcn.com) – for making it easy to build beautiful UIs
 - [tremor.so](https://tremor.so) – beautiful dashboard componenets
 - [mintlify](https://mintlify.com) – beautiful documentation
+- [screen.studio](https://screen.studio) – the best video recording tool
 - [vercel](https://vercel.com) – for making next.js and making it easy to build powerful apps
+- [Dub](https://dub.sh) – for inspiring me to open-source this project
