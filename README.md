@@ -38,7 +38,7 @@ llm.report is an open-source logging and analytics platform for OpenAI: Log your
 
 Here are some of the features that llm.report provides out-of-the-box:
 
-- [OpenaAI API Analytics](#openai-api-analytics)
+- [OpenAI API Analytics](#openai-api-analytics)
 - [Logs](#logs)
 - [User Analytics](#user-analytics)
 
