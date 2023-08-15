@@ -17,6 +17,11 @@ const nextConfig = {
         destination: "https://docs.llm.report",
         permanent: true,
       },
+      {
+        source: "/discord",
+        destination: "https://discord.gg/eVtDPmRWXm",
+        permanent: true,
+      },
     ];
   },
   images: {

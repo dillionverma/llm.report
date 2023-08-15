@@ -1,5 +1,5 @@
 <a href="https://llm.report">
-  <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/openai-demo.gif">
+  <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/openai-demo.gif" width="100%">
   <h1 align="center">llm.report</h1>
 </a>
 
@@ -7,15 +7,24 @@
   An open-source logging and analytics platform for OpenAI
 </p>
 
-<p align="center">
+<h4 align="center">
   <a href="https://twitter.com/llmreport">
     <img src="https://img.shields.io/twitter/follow/llmreport?style=flat&label=%40llmreport&logo=twitter&color=0bf&logoColor=fff" alt="Twitter" />
   </a>
-  <a href="https://news.ycombinator.com/item?id=32939407"><img src="https://img.shields.io/badge/Hacker%20News-255-%23FF6600" alt="Hacker News"></a>
   <a href="https://github.com/dillionverma/llm.report/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/dillionverma/llm.report?label=license&logo=github&color=f80&logoColor=fff" alt="License" />
   </a>
-</p>
+  <a href="https://github.com/dillionverma/llm.report/blob/main/CONTRIBUTING.md">
+    <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen" alt="PRs welcome!" />
+  </a>
+  <a href="https://github.com/dillionverma/llm.report/issues">
+    <img src="https://img.shields.io/github/commit-activity/m/dillionverma/llm.report" alt="git commit activity" />
+  </a>
+  <a href="https://llm.report/discord">
+    <img src="https://img.shields.io/badge/chat-on%20Discord-blueviolet" alt="Discord Channel" />
+  </a>
+
+</h4>
 
 <p align="center">
   <a href="#introduction"><strong>Introduction</strong></a> ·
