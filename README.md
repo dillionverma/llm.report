@@ -26,8 +26,8 @@
 <p align="center">
   <a href="#introduction"><strong>Introduction</strong></a> ·
   <a href="#self-hosted-installation"><strong>Self Hosted Installation</strong></a> ·
+  <a href="#cloud-installation"><strong>Cloud Installation</strong></a> ·
   <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
-  <a href="#call-founders"><strong>Call Founders</strong></a> ·
   <a href="#contributing"><strong>Contributing</strong></a>
 </p>
 <br/>
@@ -81,6 +81,14 @@ Calculate the cost per user for your AI app.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Cloud Installation
+
+Head over to [llm.report](https://llm.report) to get started for free or schedule a call with the founders for a demo.
+
+<a href="https://cal.com/dillionverma/llm-report-demo"><img alt="Schedule a meeting" src="https://cal.com/book-with-cal-dark.svg" /></a>
+
+Email: [dillion@llm.report](mailto:dillion@llm.report)
+
 ## Tech Stack
 
 - [Next.js](https://nextjs.org/) – framework
@@ -90,12 +98,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [Postgres](https://www.postgresql.org/) – database
 - [NextAuth.js](https://next-auth.js.org/) – auth
 - [Stripe](https://stripe.com/) – payments
-
-## Call Founders
-
-<a href="https://cal.com/dillionverma/llm-report-demo"><img alt="Schedule a meeting" src="https://cal.com/book-with-cal-dark.svg" /></a>
-
-Email: [dillion@llm.report](mailto:dillion@llm.report)
 
 ## Contributing
 
