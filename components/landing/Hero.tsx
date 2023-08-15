@@ -1,13 +1,54 @@
 "use client";
 
 import ShimmerButton from "@/components/magicui/shimmer-button";
+import { buttonVariants } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 import { m } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Phone } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Dashboard from "../dashboard";
-import JoinUsers from "./JoinUsers";
 
+const BackedBy = () => (
+  <div className="mt-12 flex flex-col gap-4 justify-center items-center">
+    <div>
+      <h3 className="font-semibold text-sm text-gray-600 text-center">
+        Backed by the best in the industry
+      </h3>
+    </div>
+
+    <div className="flex flex-row gap-4">
+      <Link
+        href="https://vercel.com/blog/ai-accelerator-participants"
+        target="_blank"
+        className="group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-md"
+      >
+        <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40"></span>
+
+        <img
+          src="/accelerator-badge-dark.png"
+          alt="Backed by Vercel AI Accelerator"
+          className="w-28"
+        />
+      </Link>
+
+      <Link
+        href="https://buildspace.so/sf1"
+        target="_blank"
+        className="group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-md"
+      >
+        <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40"></span>
+
+        <img
+          src="/buildspace-badge-dark.png"
+          alt="Backed by Buildspace"
+          className="w-28"
+        />
+      </Link>
+    </div>
+  </div>
+);
 const Hero = () => {
   const router = useRouter();
 
@@ -30,7 +71,7 @@ const Hero = () => {
     >
       {/* <div className="absolute top-0 left-0 w-full h-full opacity-40"></div> */}
       <div className="relative z-10 items-center">
-        <div className="max-w-screen min-w-fit flex flex-col items-center py-20">
+        <div className="max-w-screen flex flex-col items-center py-20">
           <m.h1
             className="flex flex-col md:flex-row text-5xl md:text-7xl font-bold justify-center text-center md:h-max"
             variants={{
@@ -41,7 +82,6 @@ const Hero = () => {
             <span className="text-primary-50 leading-none md:pb-4 tracking-tight">
               <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
                 Monitoring and Analytics
-                {/* Open Source */}
               </span>{" "}
               for OpenAI
               {/* LLM Ops */}
@@ -71,68 +111,48 @@ const Hero = () => {
           ></m.p>
 
           <m.div
-            className="flex flex-col items-center justify-center space-x-4 mt-4"
+            className="flex md:flex-col items-center justify-center space-x-4 mt-4 w-[500px]"
             variants={{
               hidden: { opacity: 0, y: -10 },
               show: { opacity: 1, y: 0, transition: { type: "spring" } },
             }}
           >
-            <ShimmerButton
-              shadowEnabled={false}
-              className="inline-flex items-center shadow-2xl transition-all  hover:shadow-[0_0_40px_8px_rgba(185,28,28,0.5)]"
-              background="radial-gradient(ellipse 80% 70% at 50% 120%, #f59e0b, #B91C1C)"
-              onClick={() => {
-                router.push("/login");
-              }}
-            >
-              <span className="whitespace-pre-wrap bg-gradient-to-b from-black from-30% to-gray-300/80 bg-clip-text text-center text-2xl font-semibold leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 dark:text-transparent">
-                Get started for free
-              </span>
-              <ChevronRight className="h-6 w-6 duration-150 ease-in-out transform group-hover:translate-x-3" />
-            </ShimmerButton>
+            <div className="grid md:grid-cols-2 gap-8 place-items-center">
+              <ShimmerButton
+                className="flex items-center justify-center shadow-2xl transition-all hover:shadow-[0_0_40px_8px_rgba(185,28,28,0.5)]"
+                background="radial-gradient(ellipse 80% 70% at 50% 120%, #f59e0b, #B91C1C)"
+                onClick={() => {
+                  router.push("/login");
+                }}
+              >
+                <span className="whitespace-pre bg-gradient-to-b from-black from-30% to-gray-300/80 bg-clip-text text-center text-sm lg:text-2xl font-semibold leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 dark:text-transparent z-10">
+                  Get started for free
+                </span>
+                <ChevronRight className="h-6 w-6 duration-150 ease-in-out transform group-hover:translate-x-1 m-auto" />
+              </ShimmerButton>
 
-            <div className="mt-6">
+              <Link
+                className={cn(
+                  buttonVariants({
+                    size: "lg",
+                  }),
+                  "gap-2 whitespace-pre flex",
+                  "group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-sm"
+                )}
+                href={siteConfig.links.cal}
+                target="_blank"
+              >
+                <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40" />
+                <Phone className="h-4 w-4 fill-current" />
+                Schedule a call
+              </Link>
+            </div>
+
+            {/* <div className="mt-6">
               <JoinUsers />
-            </div>
-
-            <div className="mt-6 flex flex-col gap-4 justify-center items-center">
-              <div>
-                <h3 className="font-semibold text-sm text-gray-600 text-center">
-                  Backed by the best in the industry
-                </h3>
-              </div>
-
-              <div className="flex flex-row gap-4">
-                <Link
-                  href="https://vercel.com/blog/ai-accelerator-participants"
-                  target="_blank"
-                  className="group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-sm"
-                >
-                  <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
-
-                  <img
-                    src="/accelerator-badge-dark.png"
-                    alt="Backed by Vercel AI Accelerator"
-                    className="w-40"
-                  />
-                </Link>
-
-                <Link
-                  href="https://buildspace.so/sf1"
-                  target="_blank"
-                  className="group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-sm"
-                >
-                  <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
-
-                  <img
-                    src="/buildspace-badge-dark.png"
-                    alt="Backed by Buildspace"
-                    className="w-40"
-                  />
-                </Link>
-              </div>
-            </div>
+            </div> */}
           </m.div>
+          <BackedBy />
         </div>
 
         <div className="flex-1 mt-5 mx-auto sm:w-11/12 lg:mt-14 lg:w-auto">

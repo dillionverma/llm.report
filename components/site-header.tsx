@@ -24,10 +24,12 @@ export function SiteHeader({ user }: SiteHeaderProps) {
             <Link
               className={cn(
                 buttonVariants(),
-                "gap-2 whitespace-pre hidden md:flex"
+                "gap-2 whitespace-pre hidden md:flex",
+                "group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-sm"
               )}
               href={siteConfig.links.github}
             >
+              <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40" />
               <Icons.gitHub className="h-4 w-4 fill-current" />
               Star on GitHub
             </Link>

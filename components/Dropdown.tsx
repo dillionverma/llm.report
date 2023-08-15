@@ -1,8 +1,8 @@
 import {
+  Book,
   ChevronsUpDown,
   CreditCard,
   ExternalLink,
-  LifeBuoy,
   LogOut,
   UserPlus,
 } from "lucide-react";
@@ -80,10 +80,25 @@ export function UserDropdownMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href="/feature-request">
+          <Link href="https://docs.llm.report" target="_blank">
             <DropdownMenuItem className="cursor-pointer">
-              <LifeBuoy className="mr-2 h-4 w-4" />
+              <Book className="mr-2 h-4 w-4" />
+              <span>Documentation</span>
+              <DropdownMenuShortcut>
+                <ExternalLink className="h-4 w-4" />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
+          <Link
+            href="https://github.com/dillionverma/llm.report/issues"
+            target="_blank"
+          >
+            <DropdownMenuItem className="cursor-pointer">
+              <Icons.gitHub className="mr-2 h-4 w-4" />
               <span>Submit Feedback</span>
+              <DropdownMenuShortcut>
+                <ExternalLink className="h-4 w-4" />
+              </DropdownMenuShortcut>
             </DropdownMenuItem>
           </Link>
           <Link href="https://discord.gg/eVtDPmRWXm" target="_blank">

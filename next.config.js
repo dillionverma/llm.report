@@ -10,7 +10,15 @@ const nextConfig = {
       },
     },
   }),
-
+  async redirects() {
+    return [
+      {
+        source: "/docs",
+        destination: "https://docs.llm.report",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     domains: ["avatars.githubusercontent.com", "lh3.googleusercontent.com"],
   },
