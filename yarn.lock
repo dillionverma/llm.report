@@ -1332,17 +1332,10 @@
   resolved "https://registry.npmjs.org/@stripe/stripe-js/-/stripe-js-1.52.1.tgz"
   integrity sha512-fza40OPSpGQlFxc5TZWiYC/6Lk89Sep1fLuv9ss33YS6lCAF8UZbfA1E6W+lwO4c7WRKZIZumHIEbPJfP/O9uw==
 
-"@swc/helpers@0.5.1":
+"@swc/helpers@0.5.1", "@swc/helpers@^0.5.1":
   version "0.5.1"
   resolved "https://registry.npmjs.org/@swc/helpers/-/helpers-0.5.1.tgz"
   integrity sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==
-  dependencies:
-    tslib "^2.4.0"
-
-"@swc/helpers@^0.4.14":
-  version "0.4.14"
-  resolved "https://registry.npmjs.org/@swc/helpers/-/helpers-0.4.14.tgz"
-  integrity sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==
   dependencies:
     tslib "^2.4.0"
 
@@ -2211,9 +2204,9 @@ date-fns@^2.28.0, date-fns@^2.29.3:
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.29.3.tgz"
   integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
 
-date-fns@^2.9.0:
+date-fns@^2.30.0:
   version "2.30.0"
-  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.30.0.tgz"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
   integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==
   dependencies:
     "@babel/runtime" "^7.21.0"
@@ -4637,15 +4630,15 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react-tweet@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/react-tweet/-/react-tweet-2.0.1.tgz"
-  integrity sha512-r8Yrv+cW8ajpCcT2AJCIji9crbbVxiaYSagqU4IW4Btsm3b3Ui65pFOV9gZmnt2xorn8L98kqj8REEuGxwnaeA==
+react-tweet@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/react-tweet/-/react-tweet-3.1.1.tgz#dc9a3a5dfef5e6290698df23c459e805ffebe5b3"
+  integrity sha512-8GQLa5y0G56kvGQkN7OiaKkjFAhWYVdyFq62ioY2qVtpMrjchVU+3KnqneCyp0+BemOQZkg6WWp/qoCNeEMH6A==
   dependencies:
-    "@swc/helpers" "^0.4.14"
+    "@swc/helpers" "^0.5.1"
     clsx "^1.2.1"
-    date-fns "^2.9.0"
-    swr "^2.1.0"
+    date-fns "^2.30.0"
+    swr "^2.2.0"
 
 react-use-measure@^2.1.1:
   version "2.1.1"
@@ -5045,11 +5038,19 @@ suspend-react@^0.0.8:
   resolved "https://registry.npmjs.org/suspend-react/-/suspend-react-0.0.8.tgz"
   integrity sha512-ZC3r8Hu1y0dIThzsGw0RLZplnX9yXwfItcvaIzJc2VQVi8TGyGDlu92syMB5ulybfvGLHAI5Ghzlk23UBPF8xg==
 
-swr@^2.1.0, swr@^2.1.5:
+swr@^2.1.5:
   version "2.1.5"
   resolved "https://registry.npmjs.org/swr/-/swr-2.1.5.tgz"
   integrity sha512-/OhfZMcEpuz77KavXST5q6XE9nrOBOVcBLWjMT+oAE/kQHyE3PASrevXCtQDZ8aamntOfFkbVJp7Il9tNBQWrw==
   dependencies:
+    use-sync-external-store "^1.2.0"
+
+swr@^2.2.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-2.2.1.tgz#19b89a9034a62a73c30dbf06857a0a31981cd60a"
+  integrity sha512-KJVA7dGtOBeZ+2sycEuzUfVIP5lZ/cd0xjevv85n2YG0x1uHJQicjAtahVZL6xG3+TjqhbBqimwYzVo3saeVXQ==
+  dependencies:
+    client-only "^0.0.1"
     use-sync-external-store "^1.2.0"
 
 synckit@^0.8.5:
