@@ -80,7 +80,7 @@ const Hero = () => {
             <ShimmerButton
               shadowEnabled={false}
               className="inline-flex items-center shadow-2xl transition-all  hover:shadow-[0_0_40px_8px_rgba(185,28,28,0.7)]"
-              background="radial-gradient(ellipse 80% 70% at 50% 120%, #FBBF24, #B91C1C)"
+              background="radial-gradient(ellipse 80% 70% at 50% 120%, #f59e0b, #B91C1C)"
               onClick={() => {
                 router.push("/login");
               }}

@@ -1,0 +1,93 @@
+---
+title: Logs
+description: Log your OpenAI API calls to your own database for easy debugging and analytics.
+---
+
+<video
+  className="block rounded-xl shadow-lg"
+  src="https://cdn.llm.report/logs-demo.mp4"
+  alt="Logs demo"
+  autoPlay
+  loop
+  muted
+/>
+
+## Logs
+
+Log your OpenAI API calls to your own database for easy debugging and analytics.
+
+Just swap out `https://api.openai.com` for `https://api.openai.withlogging.com` and add your `LLM_REPORT_API_KEY` to the `X-Api-Key` header.
+
+<CodeGroup>
+
+```javascript node
+import { Configuration, OpenAIApi } from "openai";
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+  basePath: "https://api.openai.withlogging.com/v1",
+  baseOptions: {
+    headers: {
+      "X-Api-Key": `Bearer ${process.env.LLM_REPORT_API_KEY}`,
+    },
+  },
+});
+
+const openai = new OpenAIApi(configuration);
+
+const completion = await openai.createChatCompletion({
+  model: "gpt-3.5-turbo",
+  messages: [
+    { role: "system", content: "You are a helpful assistant." },
+    { role: "user", content: "Hello world" },
+  ],
+});
+```
+
+```javascript javascript
+fetch("https://api.openai.withlogging.com/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    "X-Api-Key": `Bearer ${process.env.LLM_REPORT_API_KEY}`,
+  },
+  body: JSON.stringify({
+    model: "gpt-3.5-turbo",
+    messages: [{ role: "user", content: "Hello world" }],
+  }),
+});
+```
+
+```python python
+import os
+import openai
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_base = "https://api.openai.withlogging.com/v1"
+
+completion = openai.ChatCompletion.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {"role": "user", "content": "Hello!"}
+  ],
+  headers={
+    "X-Api-Key": "Bearer " + os.getenv("LLM_REPORT_API_KEY"),
+  }
+)
+
+print(completion.choices[0].message)
+```
+
+```bash bash
+curl https://api.openai.withlogging.com/v1/chat/completions  \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer $OPENAI_API_KEY" \\
+  -H "X-Api-Key: Bearer $LLM_REPORT_API_KEY" \\
+  -d '{
+    "model": "gpt-3.5-turbo",
+    "messages": [{"role": "user", "content": "Hello!"}]
+  }'
+```
+
+</CodeGroup>
