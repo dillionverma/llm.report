@@ -46,17 +46,23 @@ Here are some of the features that llm.report provides out-of-the-box:
 
 ### OpenAI API Analytics
 
+No-code solution to analyze your OpenAI API costs and token usage.
+
 <a href="https://docs.llm.report/features/openai">
   <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/openai-demo.gif" width="100%">
 </a>
 
 ### Logs
 
+Log your OpenAI API requests / responses and analyze them to improve your prompts.
+
 <a href="https://docs.llm.report/features/logs">
   <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/logs-demo.gif" width="100%">
 </a>
 
 ### User Analytics
+
+Calculate the cost per user for your AI app.
 
 <a href="https://docs.llm.report/features/users">
   <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/users-demo.gif" width="100%">
@@ -111,7 +117,7 @@ Inspired by [Dub](https://dub.sh) and [Plausible](https://plausible.io), both ar
 - [OpenAI](https://openai.com/) – for creating the ChatGPT
 - [Dub](https://dub.sh) – for inspiring me to open-source this project
 - [screen.studio](https://screen.studio) – the best video recording tool
-- [Shadcn](https://ui.shadcn.com) – for making it easy to build beautiful UIs
+- [shadcn-ui](https://ui.shadcn.com) – for making it easy to build beautiful UIs
 - [tremor.so](https://tremor.so) – beautiful dashboard componenets
 - [mintlify](https://mintlify.com) – beautiful documentation
 - [vercel](https://vercel.com) – for making next.js and making it easy to build powerful apps
