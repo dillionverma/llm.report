@@ -24,7 +24,7 @@ export default async function MarketingLayout({
         x={-1}
         y={-1}
         className={cn(
-          "stroke-gray-300/30 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
+          "-z-10 stroke-gray-300/30 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] "
         )}
       />
     </>

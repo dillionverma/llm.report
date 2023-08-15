@@ -6,7 +6,7 @@ import WordStar from "./Stars";
 
 const FeatureGrid = () => {
   return (
-    <section className="py-14">
+    <section id="features">
       <Features.Cards
         features={[
           {

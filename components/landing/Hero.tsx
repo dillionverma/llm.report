@@ -8,6 +8,7 @@ import { m } from "framer-motion";
 import { ChevronRight, Phone } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Suspense } from "react";
 import Dashboard from "../dashboard";
 
 const BackedBy = () => (
@@ -29,7 +30,7 @@ const BackedBy = () => (
         <img
           src="/accelerator-badge-dark.png"
           alt="Backed by Vercel AI Accelerator"
-          className="w-28"
+          className="w-36"
         />
       </Link>
 
@@ -43,7 +44,7 @@ const BackedBy = () => (
         <img
           src="/buildspace-badge-dark.png"
           alt="Backed by Buildspace"
-          className="w-28"
+          className="w-36"
         />
       </Link>
     </div>
@@ -54,7 +55,7 @@ const Hero = () => {
 
   return (
     <m.section
-      className="py-20"
+      id="hero"
       initial="hidden"
       whileInView="show"
       animate="show"
@@ -70,7 +71,7 @@ const Hero = () => {
       }}
     >
       {/* <div className="absolute top-0 left-0 w-full h-full opacity-40"></div> */}
-      <div className="relative z-10 items-center">
+      <div className="py-20 min-h-screen">
         <div className="max-w-screen flex flex-col items-center py-20">
           <m.h1
             className="flex flex-col md:flex-row text-5xl md:text-7xl font-bold justify-center text-center md:h-max"
@@ -81,7 +82,7 @@ const Hero = () => {
           >
             <span className="text-primary-50 leading-none md:pb-4 tracking-tight">
               <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
-                Monitoring and Analytics
+                Logging and Analytics
               </span>{" "}
               for OpenAI
               {/* LLM Ops */}
@@ -95,7 +96,7 @@ const Hero = () => {
             }}
           >
             Know exactly what&apos;s happening in your AI app with realtime
-            analytics, usage reports, and alerts.
+            logging, analytics, usage reports, and alerts.
             {/* Just enter your OpenAI API key, and we fetch your data from the
             OpenAI API directly to create a dashboard. No need to install
             anything. */}
@@ -163,8 +164,10 @@ const Hero = () => {
           </m.div>
         </div>
 
-        <div className="flex-1 mt-5 mx-auto sm:w-11/12 lg:mt-14 lg:w-auto">
-          <Dashboard />
+        <div className="mx-auto max-w-[1200px]">
+          <Suspense fallback={<div>Loading...</div>}>
+            <Dashboard />
+          </Suspense>
         </div>
       </div>
     </m.section>

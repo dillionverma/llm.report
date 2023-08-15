@@ -1,9 +1,9 @@
+import FAQ from "@/components/landing/Faq";
 import FeatureGrid from "@/components/landing/FeatureGrid";
 import Hero from "@/components/landing/Hero";
 import Testimonials from "@/components/landing/Testimonials";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
 import { Tweet, getTweet } from "react-tweet/api";
 
 const tweetIds = [
@@ -46,12 +46,12 @@ export default async function Home() {
   if (user) redirect("/openai");
 
   return (
-    <Suspense fallback={<></>}>
+    <>
       <Hero />
-      {/* <Dashboard /> */}
       {/* <TrustedBy /> */}
       <FeatureGrid />
       <Testimonials tweets={tweets} />
-    </Suspense>
+      <FAQ />
+    </>
   );
 }

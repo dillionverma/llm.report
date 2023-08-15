@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "llm.report",
   url: "https://llm.report",
   ogImage: "https://llm.report/screenshot.png",
-  description: "OpenAI API Analytics and Reporting.",
+  description: "Open-source logging and analytics for OpenAI.",
   links: {
     twitter: "https://twitter.com/dillionverma",
     github: "https://github.com/dillionverma/llm.report",
