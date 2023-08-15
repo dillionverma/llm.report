@@ -95,6 +95,7 @@ Email: [dillion@llm.report](mailto:dillion@llm.report)
 - [Typescript](https://www.typescriptlang.org/) – language
 - [Tailwind](https://tailwindcss.com/) – CSS
 - [Shadcn](https://ui.shadcn.com) – UI components
+- [Magic UI](https://magicuikit.com/) – Marketing UI components
 - [Postgres](https://www.postgresql.org/) – database
 - [NextAuth.js](https://next-auth.js.org/) – auth
 - [Stripe](https://stripe.com/) – payments
