@@ -7,12 +7,16 @@ const footerNavs = [
     label: "Product",
     items: [
       {
-        href: "/",
-        name: "OpenAI Cost Analytics",
+        href: "https://docs.llm.report/features/openai",
+        name: "OpenAI Analytics",
       },
       {
-        href: "/",
-        name: "Logging",
+        href: "https://docs.llm.report/features/logs",
+        name: "Logs",
+      },
+      {
+        href: "https://docs.llm.report/features/users",
+        name: "User Analytics",
       },
       {
         href: "/pricing",
@@ -20,7 +24,23 @@ const footerNavs = [
       },
     ],
   },
-
+  {
+    label: "Developers",
+    items: [
+      {
+        href: "https://docs.llm.report",
+        name: "Docs",
+      },
+      {
+        href: "https://github.com/dillionverma/llm.report/issues",
+        name: "Feedback and Requests",
+      },
+      {
+        href: "https://github.com/dillionverma/llm.report/commits/main",
+        name: "Changelog",
+      },
+    ],
+  },
   {
     label: "Community",
     items: [
@@ -85,7 +105,7 @@ export function SiteFooter() {
               </span>
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-4">
             {footerNavs.map((nav) => (
               <div key={nav.label}>
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
