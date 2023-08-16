@@ -7,7 +7,7 @@ import { PostHogProvider } from "posthog-js/react";
 import { useEffect } from "react";
 
 if (typeof window !== "undefined") {
-  posthog.init(process.env.POSTHOG_API_KEY, {
+  posthog.init(process.env.POSTHOG_API_KEY!, {
     api_host: "https://app.posthog.com",
   });
 }
