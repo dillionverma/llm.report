@@ -1,5 +1,5 @@
-// app/providers.tsx
 "use client";
+
 import { useSession } from "next-auth/react";
 import { usePathname, useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
