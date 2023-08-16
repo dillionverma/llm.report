@@ -81,6 +81,8 @@ Calculate the cost per user for your AI app.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+> We're still working on making this as streamlined as possible. If you run into any issues, please open an issue or reach out to us on [Discord](https://llm.report/discord).
+
 ## Cloud Installation
 
 Head over to [llm.report](https://llm.report) to get started for free or schedule a call with the founders for a demo.
