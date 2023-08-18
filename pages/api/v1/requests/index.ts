@@ -2,6 +2,7 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
+import { sha256 } from "../keys";
 
 type QueryParameters = {
   user_id?: string;
@@ -28,10 +29,25 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  let userId = null as string | null;
   const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
-    return res.status(401).json({ error: "You must be logged in." });
+    const token = getBearerToken(req);
+    if (!token) {
+      return res.status(401).json({
+        error: "You must be logged in or provide an API key.",
+      });
+    }
+    const user = await getUser(token);
+    if (!user) {
+      return res.status(401).json({
+        error: "Invalid API key.",
+      });
+    }
+    userId = user.id;
+  } else {
+    userId = session.user.id;
   }
 
   if (req.method === "GET") {
@@ -74,7 +90,7 @@ export default async function handler(
 
     const requests = await prisma.request.findMany({
       where: {
-        userId: session.user.id,
+        userId,
         ...(user_id && { user_id: decodeURIComponent(user_id) }),
         // ...where,
         ...searchFilter,
@@ -115,7 +131,7 @@ export default async function handler(
 
     const totalCount = await prisma.request.count({
       where: {
-        userId: session.user.id,
+        userId,
         ...(user_id && { user_id: user_id }),
         // ...where,
         ...searchFilter,
@@ -130,3 +146,24 @@ export default async function handler(
     return res.status(405).json({ error: "Method not allowed" });
   }
 }
+
+const getBearerToken = (request: NextApiRequest) => {
+  const headers = request.headers;
+  const authorizationHeader = headers.authorization;
+
+  if (!authorizationHeader) return null;
+  const token = authorizationHeader.replace("Bearer ", "");
+  return token;
+};
+
+const getUser = async (apiKey: string) => {
+  const key = await prisma.apiKey.findUnique({
+    where: {
+      hashed_key: await sha256(apiKey),
+    },
+    include: {
+      user: true,
+    },
+  });
+  return key?.user;
+};
