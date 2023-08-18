@@ -48,11 +48,12 @@ import remarkGfm from "remark-gfm";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DataTablePagination } from "./DataTablePagination";
 import { Input } from "./ui/input";
+import { RequestExportButton } from "./RequestExportButton";
 
 const RenderMarkdown = ({ children }: { children: string }) => {
   return (
     <ReactMarkdown
-      className="prose max-w-none text-sm text-black overflow-x-auto whitespace-normal"
+      className="overflow-x-auto text-sm prose text-black whitespace-normal max-w-none"
       remarkPlugins={[remarkGfm]}
     >
       {children}
@@ -71,7 +72,7 @@ const TR: React.FC<TableRowProps> = ({ label, value, preformatted }) => {
 
   return (
     <tr>
-      <td className="font-medium text-gray-500 text-right px-6">{label}</td>
+      <td className="px-6 font-medium text-right text-gray-500">{label}</td>
       <td className={cellClasses}>
         {preformatted ? (
           <pre className="overflow-auto whitespace-pre-wrap">
@@ -114,12 +115,12 @@ const RequestDialog = ({
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
               </Transition.Child>
 
               <div className="fixed inset-0 overflow-hidden">
                 <div className="absolute inset-0 overflow-hidden">
-                  <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                  <div className="fixed inset-y-0 right-0 flex max-w-full pl-10 pointer-events-none">
                     <Transition.Child
                       as={Fragment}
                       enter="transform transition ease-in-out duration-300 sm:duration-500"
@@ -129,7 +130,7 @@ const RequestDialog = ({
                       leaveFrom="translate-x-0"
                       leaveTo="translate-x-full"
                     >
-                      <Dialog.Panel className="pointer-events-auto relative w-screen max-w-xl">
+                      <Dialog.Panel className="relative w-screen max-w-xl pointer-events-auto">
                         <Transition.Child
                           as={Fragment}
                           enter="ease-in-out duration-300"
@@ -139,22 +140,21 @@ const RequestDialog = ({
                           leaveFrom="opacity-100"
                           leaveTo="opacity-0"
                         >
-                          <div className="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
+                          <div className="absolute top-0 left-0 flex pt-4 pr-2 -ml-8 sm:-ml-10 sm:pr-4">
                             <button
                               type="button"
-                              className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white
-                          "
+                              className="text-gray-300 rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white "
                               onClick={closeModal}
                             >
                               <span className="sr-only">Close panel</span>
                               <XMarkIcon
-                                className="h-6 w-6"
+                                className="w-6 h-6"
                                 aria-hidden="true"
                               />
                             </button>
                           </div>
                         </Transition.Child>
-                        <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                        <div className="flex flex-col h-full py-6 overflow-y-scroll bg-white shadow-xl">
                           <div className="px-4 sm:px-6">
                             <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
                               Log
@@ -163,7 +163,7 @@ const RequestDialog = ({
                           {/* <pre>
                         <code>{JSON.stringify(request, null, 2)}</code>
                       </pre> */}
-                          <div className="mt-6 flex-1 px-4 sm:px-6">
+                          <div className="flex-1 px-4 mt-6 sm:px-6">
                             <table className="min-w-full divide-y divide-gray-200">
                               <tbody className="bg-white divide-y divide-gray-200">
                                 <TR
@@ -245,7 +245,7 @@ const RequestDialog = ({
                                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                                     Prompt
                                   </h3>
-                                  <div className="text-sm border border-gray-200 bg-gray-50 rounded-lg p-4 whitespace-pre-wrap">
+                                  <div className="p-4 text-sm whitespace-pre-wrap border border-gray-200 rounded-lg bg-gray-50">
                                     {new URL(request.url).pathname ===
                                       "/v1/completions" && (
                                       <RenderMarkdown>
@@ -267,7 +267,7 @@ const RequestDialog = ({
                                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                                     Completion
                                   </h3>
-                                  <div className="text-sm border border-gray-200 bg-gray-50 rounded-lg p-4">
+                                  <div className="p-4 text-sm border border-gray-200 rounded-lg bg-gray-50">
                                     {new URL(request.url).pathname ===
                                       "/v1/completions" && (
                                       <>
@@ -300,7 +300,7 @@ const RequestDialog = ({
                                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                                     Request
                                   </h3>
-                                  <pre className="overflow-auto whitespace-pre-wrap text-sm bg-gray-100 rounded-lg p-4">
+                                  <pre className="p-4 overflow-auto text-sm whitespace-pre-wrap bg-gray-100 rounded-lg">
                                     <code>
                                       {JSON.stringify(
                                         request.request_body,
@@ -312,7 +312,7 @@ const RequestDialog = ({
                                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                                     Response
                                   </h3>
-                                  <pre className="overflow-auto whitespace-pre-wrap text-sm bg-gray-100 rounded-lg p-4">
+                                  <pre className="p-4 overflow-auto text-sm whitespace-pre-wrap bg-gray-100 rounded-lg">
                                     <code>
                                       {!request.streamed && (
                                         <>
@@ -367,7 +367,7 @@ const columns: ColumnDef<Request>[] = [
         //   onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         // >
         //   Time
-        //   <ArrowUpDown className="ml-2 h-4 w-4" />
+        //   <ArrowUpDown className="w-4 h-4 ml-2" />
         // </Button>
       );
     },
@@ -384,7 +384,7 @@ const columns: ColumnDef<Request>[] = [
     cell: ({ row }) => {
       const url = row.getValue("url") as string;
       return (
-        <div className="whitespace-pre-wrap overflow-x-auto">
+        <div className="overflow-x-auto whitespace-pre-wrap">
           <pre>{new URL(url).pathname}</pre>
         </div>
       );
@@ -521,9 +521,9 @@ const columns: ColumnDef<Request>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button variant="ghost" className="w-8 h-8 p-0">
               <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
+              <MoreHorizontal className="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -599,7 +599,7 @@ const columns: ColumnDef<Request>[] = [
   //       currency: "USD",
   //     }).format(amount);
 
-  //     return <div className="text-right font-medium">{formatted}</div>;
+  //     return <div className="font-medium text-right">{formatted}</div>;
   //   },
   // },
 ];
@@ -749,43 +749,16 @@ export function RequestTable({ userId }: { userId?: string }) {
             className="h-8 px-2 lg:px-3"
           >
             Reset
-            <X className="ml-2 h-4 w-4" />
+            <X className="w-4 h-4 ml-2" />
           </Button>
         )} */}
         <div className="flex flex-row space-x-2">
           {/* <DataTableViewOptions table={table} /> */}
-          <CSVLink
-            filename={`logs.csv`}
-            // enclosingCharacter={`"`}
-            data={requests.map((log: any) => {
-              return {
-                createdAt: log.createdAt,
-                id: log.id,
-                ip: log.ip,
-                url: log.url,
-                method: log.method,
-                status: log.status,
-                cached: log.cached,
-                streamed: log.streamed,
-                prompt:
-                  new URL(log.url).pathname === "/v1/completions"
-                    ? `"${log.prompt}"`
-                    : `"${log.request_body.messages.map(
-                        (m: any) => `${m.role}:\n ${m.content}\n `
-                      )}"`.replace(/"/g, '""'),
-                completion: log.completion,
-              };
-            })}
-          >
-            <Button variant="outline" size="sm">
-              Export
-              <Download className="ml-2 h-4 w-4" />
-            </Button>
-          </CSVLink>
+          <RequestExportButton />
         </div>
       </div>
 
-      <div className="rounded-md border">
+      <div className="border rounded-md">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup, idx1) => (
@@ -822,7 +795,7 @@ export function RequestTable({ userId }: { userId?: string }) {
                   className="cursor-pointer hover:bg-gray-100"
                 >
                   {row.getVisibleCells().map((cell, idx2) => (
-                    <TableCell key={idx2} className="whitespace-nowrap py-2">
+                    <TableCell key={idx2} className="py-2 whitespace-nowrap">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
