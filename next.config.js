@@ -22,6 +22,11 @@ const nextConfig = {
         destination: "https://discord.gg/eVtDPmRWXm",
         permanent: true,
       },
+      {
+        source: "/star",
+        destination: "https://github.com/dillionverma/llm.report",
+        permanent: true,
+      },
     ];
   },
   images: {
