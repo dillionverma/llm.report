@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useDebounce from "@/lib/use-debounce";
-import { cn, currencyFormat, numberFormat } from "@/lib/utils";
+import { cn, currencyFormat, numberFormat, truncateEmail } from "@/lib/utils";
 import { Request } from "@prisma/client";
 import {
   ColumnDef,
@@ -33,6 +33,10 @@ const columns: ColumnDef<Request>[] = [
   {
     accessorKey: "user_id",
     header: "User Id",
+    cell: ({ row }) => {
+      const value = row.getValue("user_id") as string;
+      return <div>{truncateEmail(value)}</div>;
+    },
   },
   {
     accessorKey: "total_requests",

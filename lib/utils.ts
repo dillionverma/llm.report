@@ -6,6 +6,23 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const truncateEmail = (email: string | null) => {
+  if (!email) return email;
+
+  if (!email.includes("@")) {
+    return email; // return the original string if it doesn't look like an email
+  }
+
+  const [local, domain] = email.split("@");
+
+  let truncatedLocal =
+    local.length <= 2
+      ? local
+      : local[0] + "*".repeat(local.length - 2) + local[local.length - 1];
+
+  return `${truncatedLocal}@${domain}`;
+};
+
 export const truncate = (str: string, length: number) => {
   if (!str || str.length <= length) return str;
   return `${str.slice(0, length)}...`;

@@ -18,7 +18,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useDebounce from "@/lib/use-debounce";
-import { cn, currencyFormat, numberFormat, truncate } from "@/lib/utils";
+import {
+  cn,
+  currencyFormat,
+  numberFormat,
+  truncate,
+  truncateEmail,
+} from "@/lib/utils";
 import { Dialog, Transition } from "@headlessui/react";
 import { SparklesIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Request } from "@prisma/client";
@@ -35,20 +41,14 @@ import {
 } from "@tanstack/react-table";
 import { Tab, TabGroup, TabList } from "@tremor/react";
 import { format } from "date-fns";
-import {
-  CurlyBraces,
-  Download,
-  LucideMessageCircle,
-  MoreHorizontal,
-} from "lucide-react";
+import { CurlyBraces, LucideMessageCircle, MoreHorizontal } from "lucide-react";
 import { Fragment, useEffect, useMemo, useState } from "react";
-import { CSVLink } from "react-csv";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DataTablePagination } from "./DataTablePagination";
-import { Input } from "./ui/input";
 import { RequestExportButton } from "./RequestExportButton";
+import { Input } from "./ui/input";
 
 const RenderMarkdown = ({ children }: { children: string }) => {
   return (
@@ -201,7 +201,10 @@ const RequestDialog = ({
                                   label="streamed"
                                   value={request.streamed ? "true" : "false"}
                                 />
-                                <TR label="user id" value={request.user_id} />
+                                <TR
+                                  label="user id"
+                                  value={truncateEmail(request.user_id)}
+                                />
 
                                 {/* <TableRow
                               label="Request"
@@ -449,8 +452,8 @@ const columns: ColumnDef<Request>[] = [
     accessorKey: "user_id",
     header: "User ID",
     cell: ({ row }) => {
-      const value = row.getValue("user_id") as any;
-      return <div>{truncate(value, 50)}</div>;
+      const value = row.getValue("user_id") as string;
+      return <div>{truncateEmail(value)}</div>;
     },
   },
   // {

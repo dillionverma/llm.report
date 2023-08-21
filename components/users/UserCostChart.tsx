@@ -1,5 +1,5 @@
 import useDebounce from "@/lib/use-debounce";
-import { currencyFormat } from "@/lib/utils";
+import { currencyFormat, truncateEmail } from "@/lib/utils";
 import {
   ColumnFiltersState,
   PaginationState,
@@ -54,7 +54,11 @@ const UserCostChart = ({ from, to }: UserCostChartProps) => {
       .then((res) => res.json())
       .then((data) => {
         setUsers(
-          data.users.map((user: any) => ({ ...user, cost: user.total_cost }))
+          data.users.map((user: any) => ({
+            ...user,
+            cost: user.total_cost,
+            user_id: truncateEmail(user.user_id),
+          }))
         );
         setTotalCount(data.totalCount);
         setIsLoading(false);
