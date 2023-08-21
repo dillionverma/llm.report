@@ -1,5 +1,4 @@
 import { authOptions } from "@/lib/auth";
-import { calculateCost } from "@/lib/llm/calculateCost";
 import prisma from "@/lib/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
@@ -73,62 +72,45 @@ export default async function handler(
         }
       : {};
 
-    const requests = (
-      await prisma.request.findMany({
-        where: {
-          userId: session.user.id,
-          ...(user_id && { user_id: decodeURIComponent(user_id) }),
-          // ...where,
-          ...searchFilter,
-        },
-        orderBy: {
-          [sortBy]: sortOrder,
-        },
-        take: Number(pageSize),
-        skip,
-        // include: {
-        //   metadata: true,
-        // },
-        select: {
-          id: true,
-          createdAt: true,
-          updatedAt: true,
-          ip: true,
-          url: true,
-          method: true,
-          status: true,
-          cached: true,
-          streamed: true,
-          // metadata: true,
-          user_id: true,
-          completion: true,
-          model: true,
-          openai_id: true,
+    const requests = await prisma.request.findMany({
+      where: {
+        userId: session.user.id,
+        ...(user_id && { user_id: decodeURIComponent(user_id) }),
+        // ...where,
+        ...searchFilter,
+      },
+      orderBy: {
+        [sortBy]: sortOrder,
+      },
+      take: Number(pageSize),
+      skip,
+      // include: {
+      //   metadata: true,
+      // },
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        ip: true,
+        url: true,
+        method: true,
+        status: true,
+        cached: true,
+        streamed: true,
+        // metadata: true,
+        user_id: true,
+        completion: true,
+        model: true,
+        openai_id: true,
+        cost: true,
 
-          prompt_tokens: true,
-          completion_tokens: true,
+        prompt_tokens: true,
+        completion_tokens: true,
 
-          request_body: true,
-          response_body: true,
-          streamed_response_body: true,
-        },
-      })
-    ).map((request) => {
-      try {
-        const cost = calculateCost({
-          model: request.model,
-          input: request.prompt_tokens,
-          output: request.completion_tokens,
-        });
-
-        return {
-          ...request,
-          cost,
-        };
-      } catch (e) {
-        console.log(e);
-        return request;
-      }
+        request_body: true,
+        response_body: true,
+        streamed_response_body: true,
+      },
     });
 
     const totalCount = await prisma.request.count({

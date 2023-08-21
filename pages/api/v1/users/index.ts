@@ -118,14 +118,14 @@ export default async function handler(
 
       const filteredUsers: (Partial<Request> & { cost: number })[] = requests
         .filter(
-          (request) =>
+          (request: any) =>
             request.user_id !== null &&
             request.user_id !== "" &&
             request.model !== null &&
             request.prompt_tokens !== null &&
             request.completion_tokens !== null
         )
-        .map((request) => {
+        .map((request: any) => {
           return {
             ...request,
             cost: calculateCost({
