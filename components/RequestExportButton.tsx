@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
-import axios from "axios";
-import { format, startOfMonth, sub } from "date-fns";
-import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   DateRangePicker,
   DateRangePickerItem,
   DateRangePickerValue,
 } from "@tremor/react";
+import axios from "axios";
+import { endOfDay, format, startOfMonth, sub } from "date-fns";
+import { Download } from "lucide-react";
+import { Fragment, useState } from "react";
 import { toast } from "react-hot-toast";
 
 const dateSelectOptions = [
@@ -16,18 +16,20 @@ const dateSelectOptions = [
     value: "w",
     text: "Last 7 days",
     from: sub(new Date(), { days: 7 }),
+    to: endOfDay(new Date()),
   },
   {
     value: "mtd",
     text: "Month to date",
     from: startOfMonth(new Date()),
+    to: endOfDay(new Date()),
   },
   {
     value: "m",
     text: "Last 30 days",
     from: sub(new Date(), { days: 30 }),
     // utc end date
-    to: new Date(),
+    to: endOfDay(new Date()),
   },
 ];
 
@@ -44,7 +46,7 @@ export const RequestExportButton = () => {
 
   const [dateRange, setDateRange] = useState<DateRangePickerValue>({
     from: startOfMonth(new Date()),
-    to: new Date(),
+    to: endOfDay(new Date()),
     selectValue: "mtd",
   });
 
