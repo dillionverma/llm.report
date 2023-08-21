@@ -61,7 +61,7 @@ export default async function handler(
       },
     });
 
-    const keysResponse = keys.map((key) => {
+    const keysResponse = keys.map((key: any) => {
       return {
         ...key,
         hashed_key: undefined,
