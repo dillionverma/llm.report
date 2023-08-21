@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const truncateEmail = (email: string | null) => {
-  if (!email) return email;
+  if (!email) return "";
 
   if (!email.includes("@")) {
     return email; // return the original string if it doesn't look like an email
