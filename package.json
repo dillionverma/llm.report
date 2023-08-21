@@ -67,6 +67,7 @@
     "eslint-config-next": "^13.4.12",
     "framer-motion": "^10.15.0",
     "idb-keyval": "^6.2.1",
+    "json-2-csv": "^4.1.0",
     "loader-utils": "^3.2.1",
     "lucide-react": "^0.261.0",
     "maath": "^0.5.3",
