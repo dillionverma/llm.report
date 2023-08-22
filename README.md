@@ -115,7 +115,7 @@ Here's how you can contribute:
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=dillionverma/llm.report&type=Date)](https://star-history.com/#dillionverma/llm.report&Date)
+![Star History Chart](https://api.star-history.com/svg?repos=dillionverma/llm.report&type=Date)
 
 ## License
 
