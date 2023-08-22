@@ -68,6 +68,8 @@ Calculate the cost per user for your AI app.
 
 ## Self-Hosted Installation
 
+> Self-hosted installation is under construction 🚧
+
 1. Copy `.env.example` into `.env.local` (create new file)
 
 2. Setup local postgres db
