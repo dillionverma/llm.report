@@ -113,6 +113,10 @@ Here's how you can contribute:
   <img src="https://contrib.rocks/image?repo=dillionverma/llm.report" />
 </a>
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=dillionverma/llm.report&type=Date)](https://star-history.com/#dillionverma/llm.report&Date)
+
 ## License
 
 Inspired by [Dub](https://dub.sh) and [Plausible](https://plausible.io), both are open-source under the GNU Affero General Public License Version 3 (AGPLv3) or any later version. You can [find it here](https://github.com/dillionverma/llm.report/blob/main/LICENSE). The reason for this is that we believe in the open-source ethos and want to contribute back to the community.
