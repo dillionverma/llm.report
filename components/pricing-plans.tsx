@@ -5,6 +5,7 @@ import { useUser } from "@/lib/hooks/user/useUser";
 import { subscriptionPlans } from "@/lib/stripe/subscriptionPlans";
 import { cn } from "@/lib/utils";
 import { BoltIcon } from "@heroicons/react/24/solid";
+import { useRouter } from 'next/navigation';
 import { Suspense, useState } from "react";
 
 type BillingInterval = "year" | "month";
@@ -163,6 +164,7 @@ const plans: Plan[] = [
 // };
 
 const Pricing = () => {
+  const router = useRouter();
   const { user, isLoading, subscribed } = useUser();
 
   const [billingInterval, setBillingInterval] =
@@ -170,7 +172,10 @@ const Pricing = () => {
 
   const handleCheckout = (plan: Name) => {
     console.log("AA");
-    if (!user) return;
+    if (!user) {
+      router.push('/login');
+      return;
+    }
     console.log("BB");
 
     if (plan === "Enterprise") {
