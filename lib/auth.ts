@@ -1,3 +1,4 @@
+import { env } from "@/env.mjs";
 import prisma from "@/lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
@@ -17,23 +18,24 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+  debug: process.env.NODE_ENV === "development",
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: env.GOOGLE_CLIENT_ID!,
+      clientSecret: env.GOOGLE_CLIENT_SECRET!,
     }),
     GitHubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
+      clientId: env.GITHUB_CLIENT_ID!,
+      clientSecret: env.GITHUB_CLIENT_SECRET!,
     }),
-    ...(process.env.RESEND_WEB_EMAIL_ADDRESS
+    ...(env.RESEND_WEB_EMAIL_ADDRESS
       ? [
           EmailProvider({
             name: "email",
             type: "email",
             id: "email",
             server: "",
-            from: process.env.RESEND_WEB_EMAIL_ADDRESS,
+            from: env.RESEND_WEB_EMAIL_ADDRESS,
             sendVerificationRequest: sendWebVerificationRequest,
           }),
         ]

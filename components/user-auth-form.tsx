@@ -51,9 +51,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       });
     }
 
-    setIsLoading(false);
-
     router.push(signInResult?.url || "/openai");
+
+    setIsLoading(false);
 
     return toast({
       title: "Check your email",

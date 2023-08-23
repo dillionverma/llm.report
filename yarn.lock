@@ -1358,6 +1358,18 @@
   dependencies:
     tslib "^2.4.0"
 
+"@t3-oss/env-core@0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@t3-oss/env-core/-/env-core-0.6.1.tgz#24d04c22f3e73732e69ac8ff8b13ed00732d20aa"
+  integrity sha512-KQD7qEDJtkWIWWmTVjNvk0wnHpkvAQ6CRbUxbWMFNG/fiosBQDQvtRpBNu6USxBscJCoC4z6y7P9MN52/mLOzw==
+
+"@t3-oss/env-nextjs@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@t3-oss/env-nextjs/-/env-nextjs-0.6.1.tgz#62a7686f91732517cd97300e48a58150ce08f006"
+  integrity sha512-z1dIC++Vxj9kmzX5nSPfcrCSkszy3dTEPC4Ssx7Ap5AqR3c2Qa7S0xf8axn6coy7D/vCXDAAnHYnCMDhtcY3SQ==
+  dependencies:
+    "@t3-oss/env-core" "0.6.1"
+
 "@tailwindcss/typography@^0.5.9":
   version "0.5.9"
   resolved "https://registry.yarnpkg.com/@tailwindcss/typography/-/typography-0.5.9.tgz#027e4b0674929daaf7c921c900beee80dbad93e8"
@@ -6626,7 +6638,7 @@ zod@3.21.4:
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.21.4.tgz#10882231d992519f0a10b5dd58a38c9dabbb64db"
   integrity sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==
 
-zod@^3.21.4:
+zod@^3.22.2:
   version "3.22.2"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.2.tgz#3add8c682b7077c05ac6f979fea6998b573e157b"
   integrity sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==

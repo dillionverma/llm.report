@@ -56,6 +56,7 @@
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^0.9.411",
     "@stripe/stripe-js": "^1.52.1",
+    "@t3-oss/env-nextjs": "^0.6.1",
     "@tanstack/query-sync-storage-persister": "^4.29.19",
     "@tanstack/react-query": "^4.29.19",
     "@tanstack/react-query-persist-client": "^4.29.19",
@@ -108,7 +109,7 @@
     "three": "^0.152.2",
     "ts-node": "^10.9.1",
     "typescript": "5.0.4",
-    "zod": "^3.21.4"
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
