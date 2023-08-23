@@ -1,3 +1,4 @@
+import Banner from "@/components/landing/banner";
 import GridPattern from "@/components/magicui/grid-pattern";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -15,6 +16,7 @@ export default async function MarketingLayout({
 
   return (
     <>
+      <Banner />
       <SiteHeader user={user} />
       <main className="flex-1 container">{children}</main>
       <SiteFooter />
