@@ -103,9 +103,7 @@ cp .env.example .env
 yarn dx
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-> We're still working on making this as streamlined as possible. If you run into any issues, please open an issue or reach out to us on [Discord](https://llm.report/discord).
+Open [http://localhost:3000](http://localhost:3000) with your browser!
 
 ## Cloud Installation
 
