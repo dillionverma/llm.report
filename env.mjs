@@ -22,6 +22,7 @@ export const env = createEnv({
     STRIPE_SECRET_KEY: z.string().optional(),
 
     RESEND_WEB_EMAIL_ADDRESS: z.string().optional(),
+    RESEND_API_KEY: z.string().optional(),
   },
   client: {
     // NEXT_PUBLIC_APP_URL: z.string().min(1),
