@@ -2,31 +2,53 @@ import { PrismaClient } from "@prisma/client";
 import { calculateCost } from "./llm/calculateCost";
 
 declare global {
-  var prisma: PrismaClient | undefined | any;
+  type ExtendedPrismaClient = PrismaClient & {
+    $extends: {
+      result: {
+        request: {
+          prompt: {
+            needs: { url: true; request_body: true };
+            compute: (log: any) => string;
+          };
+          cost: {
+            needs: {
+              prompt_tokens: true;
+              completion_tokens: true;
+              model: true;
+            };
+            compute: (log: any) => number;
+          };
+        };
+      };
+    };
+  };
+  var prisma: PrismaClient | ExtendedPrismaClient | undefined;
 }
 
-const prisma =
-  global.prisma ||
-  new PrismaClient({
-    log: [
-      {
-        emit: "stdout",
-        level: "query",
-      },
-      {
-        emit: "stdout",
-        level: "error",
-      },
-      {
-        emit: "stdout",
-        level: "info",
-      },
-      {
-        emit: "stdout",
-        level: "warn",
-      },
-    ],
-  }).$extends({
+const client: ExtendedPrismaClient =
+  (globalThis.prisma as ExtendedPrismaClient) ||
+  (
+    new PrismaClient({
+      log: [
+        {
+          emit: "stdout",
+          level: "query",
+        },
+        {
+          emit: "stdout",
+          level: "error",
+        },
+        {
+          emit: "stdout",
+          level: "info",
+        },
+        {
+          emit: "stdout",
+          level: "warn",
+        },
+      ],
+    }) as ExtendedPrismaClient
+  ).$extends({
     result: {
       request: {
         prompt: {
@@ -53,6 +75,6 @@ const prisma =
     },
   });
 
-if (process.env.NODE_ENV === "development") global.prisma = prisma;
+if (process.env.NODE_ENV !== "production") globalThis.prisma = client;
 
 export default prisma;

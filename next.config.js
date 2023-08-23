@@ -1,5 +1,19 @@
 /** @type {import('next').NextConfig} */
 
+require("dotenv").config({ path: "./.env" });
+
+if (!process.env.NEXTAUTH_SECRET)
+  throw new Error(
+    "Please set NEXTAUTH_SECRET in your .env file. Use `openssl rand -base64 32` to generate a secret."
+  );
+if (process.env.VERCEL_URL && !process.env.NEXT_PUBLIC_SITE_URL) {
+  // this means into a preview deployment
+  process.env.NEXT_PUBLIC_SITE_URL = "https://" + process.env.VERCEL_URL;
+}
+
+process.env.NEXTAUTH_URL = process.env.NEXT_PUBLIC_SITE_URL;
+console.log("NEXTAUTH_URL", process.env.NEXTAUTH_URL);
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
