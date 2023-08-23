@@ -62,6 +62,7 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "cobe": "^0.6.3",
+    "crisp-sdk-web": "^1.0.21",
     "date-fns": "^2.29.3",
     "eslint": "8.39.0",
     "eslint-config-next": "^13.4.19",

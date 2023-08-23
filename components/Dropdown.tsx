@@ -4,6 +4,7 @@ import {
   CreditCard,
   ExternalLink,
   LogOut,
+  MessageSquare,
   UserPlus,
 } from "lucide-react";
 
@@ -21,6 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { truncate } from "@/lib/utils";
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
+import { Crisp } from "crisp-sdk-web";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -80,6 +82,19 @@ export function UserDropdownMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          <Link
+            // no js op
+            href="#"
+            onClick={() => {
+              Crisp.chat.open();
+              Crisp.chat.show();
+            }}
+          >
+            <DropdownMenuItem className="cursor-pointer">
+              <MessageSquare className="mr-2 h-4 w-4" />
+              <span>Ask a question</span>
+            </DropdownMenuItem>
+          </Link>
           <Link href="https://docs.llm.report" target="_blank">
             <DropdownMenuItem className="cursor-pointer">
               <Book className="mr-2 h-4 w-4" />
@@ -101,6 +116,7 @@ export function UserDropdownMenu() {
               </DropdownMenuShortcut>
             </DropdownMenuItem>
           </Link>
+
           <Link href="https://discord.gg/eVtDPmRWXm" target="_blank">
             <DropdownMenuItem className="cursor-pointer">
               <DiscordLogoIcon className="mr-2 h-4 w-4" />

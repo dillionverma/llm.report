@@ -1,13 +1,30 @@
 "use client";
 
-import Script from "next/script";
+import { Crisp } from "crisp-sdk-web";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export function CrispChat() {
-  return (
-    <Script id="crisp-chat">
-      {`
-  window.$crisp=[];window.CRISP_WEBSITE_ID="81153c9f-1d41-4e46-9742-a579fc85b458";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();
-`}
-    </Script>
-  );
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_CRISP_CHAT_ID) return;
+
+    Crisp.configure(process.env.NEXT_PUBLIC_CRISP_CHAT_ID, {
+      autoload: false,
+    });
+
+    if (!session?.user) {
+      Crisp.chat.show();
+    } else {
+      Crisp.chat.hide();
+    }
+
+    if (session?.user?.email) {
+      Crisp.user.setEmail(session.user.email);
+      Crisp.user.setNickname(session.user.name || session.user.email);
+    }
+  }, [session]);
+
+  return null;
 }
