@@ -279,7 +279,7 @@ export const Icons = {
     <svg
       stroke="currentColor"
       fill="#5865F2"
-      stroke-width="0"
+      strokeWidth="0"
       viewBox="0 0 24 24"
       width="120"
       height="60"
