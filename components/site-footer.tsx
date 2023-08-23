@@ -97,7 +97,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t">
       <div className="mx-auto w-full max-w-screen-xl px-4">
-        <div className="md:flex md:justify-between p-4 sm:py-16 sm:pb-24 gap-4">
+        <div className="md:flex md:justify-between p-4 py-16 sm:pb-24 gap-4">
           <div className="mb-12 flex-col flex gap-4">
             <Link href="/" className="flex items-center gap-2">
               <Icons.logo className="h-8 w-8 text-primary" />
