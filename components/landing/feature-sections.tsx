@@ -10,7 +10,7 @@ const features = [
   {
     id: "feature-openai",
     header: "Analyze",
-    name: "Advanced OpenAI API Analytics",
+    name: "Advanced OpenAI API Dashboard",
     description:
       "Just enter your OpenAI API key and get a detailed analysis of your usage. API keys are stored securely in your browser. No data is sent to our servers.",
     icon: Icons.openai,
@@ -34,7 +34,7 @@ const features = [
   {
     id: "feature-users",
     header: "Minimize",
-    name: "Cost Per User",
+    name: "Measure Cost Per User",
     description:
       "Analyze your cost per user and adjust your pricing to maximize revenue.",
     icon: Icons.user,
