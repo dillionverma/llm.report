@@ -94,22 +94,13 @@ cp .env.example .env
 
 - Generate `NEXTAUTH_SECRET` using `openssl rand -base64 32` and add it to `.env`
 
-5. Setup local postgres db
+5. Quickstart
+
+> Requires Docker and Docker Compose to be installed
+> Will start a local Postgres instance with a few test users - the credentials will be logged in the console
 
 ```bash
-yarn db:up
-```
-
-6. Prisma migrate
-
-```bash
-yarn db:setup
-```
-
-7. Start the server
-
-```bash
-yarn dev
+yarn dx
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
