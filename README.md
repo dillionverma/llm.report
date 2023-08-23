@@ -68,16 +68,49 @@ Calculate the cost per user for your AI app.
 
 ## Self-Hosted Installation
 
-1. Copy `.env.example` into `.env` (create new file)
+1. Clone the repo
 
-2. Setup local postgres db
-   Run `yarn db:up` to run the postgres db using docker
+```bash
+git clone https://github.com/dillionverma/llm.report.git
+```
 
-3. Prisma migrate
-   Run `yarn db:setup`
+2. cd into the repo
 
-4. To start the server
-   Run `yarn dev`
+```bash
+cd llm.report
+```
+
+3. Install dependencies
+
+```bash
+yarn
+```
+
+4. Setup environment variables
+
+```bash
+cp .env.example .env
+```
+
+- Generate `NEXTAUTH_SECRET` using `openssl rand -base64 32` and add it to `.env`
+
+5. Setup local postgres db
+
+```bash
+yarn db:up
+```
+
+6. Prisma migrate
+
+```bash
+yarn db:setup
+```
+
+7. Start the server
+
+```bash
+yarn dev
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

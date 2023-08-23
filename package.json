@@ -15,15 +15,15 @@
     "stripe:fixtures": "stripe fixtures fixtures/stripe.json",
     "dx": "yarn db:setup",
     "db:setup": "run-s db:deploy db:seed",
-    "db:deploy": "npx prisma migrate deploy",
+    "db:deploy": "npx prisma migrate dev",
     "db:seed": "npx prisma db seed",
     "db:nuke": "docker compose down --volumes --remove-orphans || docker-compose down --volumes --remove-orphans",
     "db:up": "docker compose up -d || docker-compose up -d",
-    "db:migrate:prod": "dotenv -e .env -- npx prisma db push",
     "db:migrate:dev": "dotenv -e .env -- npx prisma migrate dev",
     "db:drop:dev": "dotenv -e .env -- npx prisma migrate reset",
-    "db:drop:prod": "dotenv -e .env -- npx prisma migrate reset",
     "db:reset:dev": "yarn db:drop:dev && yarn db:migrate:dev",
+    "db:migrate:prod": "dotenv -e .env.production -- npx prisma db push",
+    "db:drop:prod": "dotenv -e .env.production -- npx prisma migrate reset",
     "db:reset:prod": "yarn db:drop:prod && yarn db:migrate:prod"
   },
   "dependencies": {
