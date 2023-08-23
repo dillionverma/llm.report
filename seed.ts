@@ -4,17 +4,26 @@ import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
 async function main() {
-  const password = "testPassword";
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const password = "admin";
+  // const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = await prisma.user.create({
-    data: {
-      email: "testEmail@example.com",
-      emailVerified: new Date(),
-    },
+  const userData = {
+    email: "admin@admin.com",
+    // password: hashedPassword,
+    password: "admin",
+    emailVerified: new Date(),
+  };
+
+  const user = await prisma.user.upsert({
+    where: { email: userData.email },
+    update: userData,
+    create: userData,
   });
 
-  console.log("User Created: ", user);
+  console.log(
+    `User Email {${user.email}} Created With Password {${user.password}} `,
+    user
+  );
 }
 
 main()
