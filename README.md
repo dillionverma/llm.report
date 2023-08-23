@@ -68,13 +68,13 @@ Calculate the cost per user for your AI app.
 
 ## Self-Hosted Installation
 
-1. Copy `.env.example` into `.env.local` (create new file)
+1. Copy `.env.example` into `.env` (create new file)
 
 2. Setup local postgres db
-   Run `docker-compose up -d` to run the postgres db using docker
+   Run `yarn db:up` to run the postgres db using docker
 
 3. Prisma migrate
-   Run `yarn db:migrate:dev`
+   Run `yarn db:setup`
 
 4. To start the server
    Run `yarn dev`
