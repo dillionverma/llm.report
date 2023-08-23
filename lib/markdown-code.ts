@@ -207,20 +207,45 @@ const markdownConfig = {
   typographer: true,
 };
 
-export async function getUsersCode() {
-  const highlighter = await getHighlighter(highlighterConfig);
+interface CodeResults {
+  curl: string;
+  js: string;
+  nodejs: string;
+  python: string;
+}
 
-  // https://github.com/vuejs/vitepress/pull/1534/files
-  const renderer = new MarkdownIt({
-    ...markdownConfig,
-    highlight: (code, lang) => {
-      return highlighter?.codeToHtml(code, {
-        lang,
-        // theme: "material-theme-palenight",
-      });
-    },
-  }).use(preWrapperPlugin);
+interface Highlighter {
+  codeToHtml: (
+    code: string,
+    options: { lang: string; theme?: string }
+  ) => string;
+}
 
+let highlighterInstance: Highlighter | null = null;
+let markdownItInstance: MarkdownIt | null = null;
+
+async function getHighlighterInstance(): Promise<Highlighter> {
+  if (!highlighterInstance) {
+    highlighterInstance = await getHighlighter(highlighterConfig);
+  }
+  return highlighterInstance;
+}
+
+async function getMarkdownItInstance(): Promise<MarkdownIt> {
+  if (!markdownItInstance) {
+    const highlighter = await getHighlighterInstance();
+
+    markdownItInstance = new MarkdownIt({
+      ...markdownConfig,
+      highlight: (code, lang) => highlighter.codeToHtml(code, { lang }),
+    }).use(preWrapperPlugin);
+  }
+
+  return markdownItInstance;
+}
+
+export async function getUsersCode(): Promise<CodeResults> {
+  const renderer = await getMarkdownItInstance();
   return {
     curl: renderer.render(CurlUser),
     js: renderer.render(JSUser),
@@ -229,20 +254,8 @@ export async function getUsersCode() {
   };
 }
 
-export async function getLogsCode() {
-  const highlighter = await getHighlighter(highlighterConfig);
-
-  // https://github.com/vuejs/vitepress/pull/1534/files
-  const renderer = new MarkdownIt({
-    ...markdownConfig,
-    highlight: (code, lang) => {
-      return highlighter?.codeToHtml(code, {
-        lang,
-        // theme: "material-theme-palenight",
-      });
-    },
-  }).use(preWrapperPlugin);
-
+export async function getLogsCode(): Promise<CodeResults> {
+  const renderer = await getMarkdownItInstance();
   return {
     curl: renderer.render(CurlLogs),
     js: renderer.render(JSLogs),
