@@ -13,7 +13,7 @@ const CommunitySection = () => {
             Join our community
           </p>
           <p className="text-gray-600">
-            Join the open-source community and help define the future of LLM
+            Join our open-source community and help shape the future of LLM
             Report.
           </p>
         </div>
