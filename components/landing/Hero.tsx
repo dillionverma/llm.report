@@ -1,21 +1,17 @@
 "use client";
 
 import ShimmerButton from "@/components/magicui/shimmer-button";
-import { buttonVariants } from "@/components/ui/button";
-import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
 import { m } from "framer-motion";
-import { ChevronRight, Phone } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Suspense } from "react";
-import Dashboard from "../dashboard";
 
 const BackedBy = () => (
   <div className="mt-12 flex flex-col gap-4 justify-center items-center">
     <div>
       <h3 className="font-semibold text-sm text-gray-600 text-center">
-        Backed by the best in the industry
+        BACKED BY THE BEST IN THE INDUSTRY
       </h3>
     </div>
 
@@ -64,7 +60,7 @@ const Hero = () => {
         hidden: {},
         show: {
           transition: {
-            staggerChildren: 0.04,
+            staggerChildren: 0.02,
             // delayChildren: 0.5,
           },
         },
@@ -82,9 +78,9 @@ const Hero = () => {
           >
             <span className="text-primary-50 leading-none md:pb-4 tracking-tight">
               <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
-                Logging and Analytics
+                Log and Monitor your AI Apps
               </span>{" "}
-              for OpenAI
+              {/* for OpenAI */}
               {/* LLM Ops */}
             </span>
           </m.h1>
@@ -118,7 +114,7 @@ const Hero = () => {
               show: { opacity: 1, y: 0, transition: { type: "spring" } },
             }}
           >
-            <div className="grid md:grid-cols-2 gap-8 place-items-center">
+            <div className="grid md:grid-cols-1 gap-8 place-items-center">
               <ShimmerButton
                 className="flex items-center justify-center shadow-2xl transition-all hover:shadow-[0_0_40px_8px_rgba(185,28,28,0.5)]"
                 background="radial-gradient(ellipse 80% 70% at 50% 120%, #f59e0b, #B91C1C)"
@@ -132,7 +128,7 @@ const Hero = () => {
                 <ChevronRight className="h-6 w-6 duration-150 ease-in-out transform group-hover:translate-x-1 m-auto" />
               </ShimmerButton>
 
-              <Link
+              {/* <Link
                 className={cn(
                   buttonVariants({
                     size: "lg",
@@ -146,7 +142,7 @@ const Hero = () => {
                 <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40" />
                 <Phone className="h-4 w-4 fill-current" />
                 Schedule a call
-              </Link>
+              </Link> */}
             </div>
 
             {/* <div className="mt-6">
@@ -164,11 +160,24 @@ const Hero = () => {
           </m.div>
         </div>
 
-        <div className="mx-auto max-w-[1200px]">
+        <m.div
+          className="mx-auto max-w-[1200px]"
+          variants={{
+            hidden: { opacity: 0, y: -10 },
+            show: { opacity: 1, y: 0, transition: { type: "spring" } },
+          }}
+        >
           <Suspense fallback={<div>Loading...</div>}>
-            <Dashboard />
+            {/* <Dashboard /> */}
+            <video
+              src="https://cdn.llm.report/openai-demo.mp4"
+              autoPlay
+              loop
+              muted
+              className="rounded-xl border shadow-2xl"
+            />
           </Suspense>
-        </div>
+        </m.div>
       </div>
     </m.section>
   );

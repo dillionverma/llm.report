@@ -142,6 +142,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         spin: "spin calc(var(--speed) * 2) infinite linear",
         slide: "slide var(--speed) ease-in-out infinite alternate",
+        marquee: "marquee var(--duration) linear infinite",
       },
       keyframes: {
         "accordion-down": {
@@ -166,6 +167,10 @@ module.exports = {
           "100%": {
             rotate: "360deg",
           },
+        },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-50% - var(--gap)/2))" },
         },
         slide: {
           to: {

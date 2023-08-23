@@ -2,7 +2,6 @@
 
 import { Cobe } from "./Cobe";
 import { Features } from "./Features";
-import WordStar from "./Stars";
 
 const FeatureGrid = () => {
   return (
@@ -18,7 +17,7 @@ const FeatureGrid = () => {
           {
             Image: () => (
               <>
-                <WordStar />
+                {/* <WordStar /> */}
 
                 <div
                   style={{
