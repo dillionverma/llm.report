@@ -3,7 +3,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-const CommunitySection = () => {
+export default async function CommunitySection() {
   return (
     <section id="community">
       <div className="max-w-screen-xl mx-auto px-4 md:text-center md:px-8 py-20">
@@ -42,6 +42,4 @@ const CommunitySection = () => {
       </div>
     </section>
   );
-};
-
-export default CommunitySection;
+}
