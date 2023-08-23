@@ -12,7 +12,7 @@ const features = [
     header: "Analyze",
     name: "Advanced OpenAI API Dashboard",
     description:
-      "Just enter your OpenAI API key and get a detailed analysis of your usage. API keys are stored securely in your browser. No data is sent to our servers.",
+      "Just enter your OpenAI API key, and we fetch your data from the OpenAI API directly to create a dashboard. No need to install anything.",
     icon: Icons.openai,
     video: "https://cdn.llm.report/openai-demo.mp4",
     cta: "Get Started",
