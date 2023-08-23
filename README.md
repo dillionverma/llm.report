@@ -96,8 +96,8 @@ cp .env.example .env
 
 5. Quickstart
 
-> Requires Docker and Docker Compose to be installed
-> Will start a local Postgres instance with a few test users - the credentials will be logged in the console
+> - Requires Docker and Docker Compose to be installed.
+> - Will start a local Postgres instance with a few test users - the credentials will be logged in the console
 
 ```bash
 yarn dx
