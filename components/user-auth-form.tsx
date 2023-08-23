@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { userAuthSchema } from "@/lib/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -19,6 +19,7 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 type FormData = z.infer<typeof userAuthSchema>;
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(userAuthSchema),
     defaultValues: {
@@ -35,22 +36,24 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   async function onSubmit(data: FormData) {
     setIsLoading(true);
 
-    const signInResult = await signIn("Credentials", {
+    const signInResult = await signIn("credentials", {
       email: data.email.toLowerCase(),
       password: data.password,
       redirect: false,
       callbackUrl: "/openai",
     });
 
-    setIsLoading(false);
-
-    if (!signInResult?.ok) {
+    if (!signInResult || signInResult?.error || !signInResult?.ok) {
       return toast({
         title: "Something went wrong.",
         description: "Your sign in request failed. Please try again.",
         variant: "destructive",
       });
     }
+
+    setIsLoading(false);
+
+    router.push(signInResult?.url || "/openai");
 
     return toast({
       title: "Check your email",

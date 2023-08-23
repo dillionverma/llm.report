@@ -1,17 +1,22 @@
 import prisma from "@/lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 import axios from "axios";
-import { NextAuthOptions, Session } from "next-auth";
-import { AdapterUser } from "next-auth/adapters";
+import { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import EmailProvider from "next-auth/providers/email";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import EmailProvider from "next-auth/providers/email";
-import CredentialsProvider from "next-auth/providers/credentials";
 import { sendWebVerificationRequest } from "./resend/emails/sendVerificationRequest";
-import { PrismaClient } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma as PrismaClient),
+  pages: {
+    signIn: "/login",
+  },
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -69,33 +74,46 @@ export const authOptions: NextAuthOptions = {
 
               if (!isValid) return null;
 
-              return true;
+              return existingUser;
             },
           }),
         ]
       : []),
   ],
   callbacks: {
-    session: async ({
-      session,
-      user,
-    }: {
-      session: Session;
-      user: AdapterUser;
-    }) => {
-      session.user = {
-        ...session.user,
-        id: user.id,
-        // @ts-ignore
-        isAdmin: user.role === "ADMIN",
+    async session({ token, session }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.picture;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      const dbUser = await prisma?.user.findFirst({
+        where: {
+          email: token.email,
+        },
+      });
+
+      if (!dbUser) {
+        if (user) {
+          token.id = user?.id;
+        }
+        return token;
+      }
+
+      return {
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
       };
-      console.log("shit");
-      return Promise.resolve(session);
     },
   },
   events: {
     signIn: async ({ profile, account, user }) => {
-      console.log("SIGN IN", profile, account, user);
       if (account?.provider === "github" && profile) {
         const res = await fetch("https://api.github.com/user/emails", {
           headers: { Authorization: `token ${account.access_token}` },
