@@ -21,14 +21,18 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
-    EmailProvider({
-      name: "email",
-      type: "email",
-      id: "email",
-      server: "",
-      from: process.env.RESEND_WEB_EMAIL_ADDRESS,
-      sendVerificationRequest: sendWebVerificationRequest,
-    }),
+    ...(process.env.RESEND_WEB_EMAIL_ADDRESS
+      ? [
+          EmailProvider({
+            name: "email",
+            type: "email",
+            id: "email",
+            server: "",
+            from: process.env.RESEND_WEB_EMAIL_ADDRESS,
+            sendVerificationRequest: sendWebVerificationRequest,
+          }),
+        ]
+      : []),
     ...(process.env.NODE_ENV === "development"
       ? [
           CredentialsProvider({
@@ -57,24 +61,15 @@ export const authOptions: NextAuthOptions = {
 
               if (!existingUser) return null;
 
-              const isValid = await bcrypt.compare(
-                credentials.password,
-                existingUser.password
-              );
+              // const isValid = await bcrypt.compare(
+              //   credentials.password,
+              //   existingUser.password
+              // );
+              const isValid = credentials.password === existingUser.password;
 
-              // const res = await fetch("/your/endpoint", {
-              //   method: "POST",
-              //   body: JSON.stringify(credentials),
-              //   headers: { "Content-Type": "application/json" },
-              // });
-              // const user = await res.json();
+              if (!isValid) return null;
 
-              // If no error and we have user data, return it
-              if (res.ok && user) {
-                return user;
-              }
-              // Return null if user data could not be retrieved
-              return null;
+              return true;
             },
           }),
         ]
@@ -94,6 +89,7 @@ export const authOptions: NextAuthOptions = {
         // @ts-ignore
         isAdmin: user.role === "ADMIN",
       };
+      console.log("shit");
       return Promise.resolve(session);
     },
   },
@@ -112,7 +108,7 @@ export const authOptions: NextAuthOptions = {
             (a: any, b: any) => b.primary - a.primary
           )[0].email;
 
-          const updatedUser = await prisma.user.upsert({
+          const updatedUser = await prisma?.user.upsert({
             where: { id: user.id },
             update: {
               email: profile.email,

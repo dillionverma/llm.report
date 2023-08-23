@@ -11,6 +11,8 @@ import { useSearchParams } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
+import { Input } from "./ui/input";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -21,6 +23,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     resolver: zodResolver(userAuthSchema),
     defaultValues: {
       email: "",
+      password: "",
     },
   });
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -32,10 +35,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   async function onSubmit(data: FormData) {
     setIsLoading(true);
 
-    const signInResult = await signIn("email", {
+    const signInResult = await signIn("Credentials", {
       email: data.email.toLowerCase(),
+      password: data.password,
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl: "/openai",
     });
 
     setIsLoading(false);
@@ -56,7 +60,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   return (
     <div className={cn("grid gap-4", className)} {...props}>
-      {/* <Form {...form}>
+      <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid gap-2">
             <FormField
@@ -71,6 +75,28 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                       type="email"
                       autoCapitalize="none"
                       autoComplete="email"
+                      autoCorrect="off"
+                      disabled={isLoading || isGitHubLoading}
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      id="password"
+                      placeholder="Password"
+                      type="password"
+                      autoCapitalize="none"
+                      autoComplete="password"
                       autoCorrect="off"
                       disabled={isLoading || isGitHubLoading}
                       {...field}
@@ -99,7 +125,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             Or continue with
           </span>
         </div>
-      </div> */}
+      </div>
       <button
         type="button"
         className={cn(buttonVariants({ variant: "outline" }))}
