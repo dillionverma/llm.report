@@ -198,14 +198,14 @@ const Pricing = () => {
 
   return (
     <Suspense>
-      <section className="container h-full w-full flex flex-col gap-4">
+      <section className="container flex flex-col w-full h-full gap-4">
         <div className="relative max-w-xl mx-auto sm:text-center">
-          <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+          <h3 className="text-3xl font-semibold text-custom sm:text-4xl">
             Simple pricing.
           </h3>
-          <div className="mt-3 max-w-xl">
+          <div className="max-w-xl mt-3 text-custom-foreground">
             <p>
-              <strong>100k logs free every month.</strong> No credit card
+              <strong className="text-custom">100k logs free every month.</strong> No credit card
               required.
             </p>
           </div>
@@ -225,7 +225,7 @@ const Pricing = () => {
             Annual
           </label>
         </div> */}
-        <div className="grid mt-8 items-start gap-4 sm:grid-cols-3 sm:space-y-0 xl:grid-cols-3">
+        <div className="grid items-start gap-4 mt-8 sm:grid-cols-3 sm:space-y-0 xl:grid-cols-3">
           {plans.map((item, idx) => (
             <div
               key={idx}
@@ -236,21 +236,21 @@ const Pricing = () => {
                 }
               )}
             >
-              <div className="flex flex-col gap-4 p-4 justify-between row-span-2">
+              <div className="flex flex-col justify-between row-span-2 gap-4 p-4">
                 {item.isMostPop && (
                   <>
                     <div
                       aria-hidden="true"
                       className="left-1/2 top-0 w-full user-select-none center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,rgba(255,255,255,0)_0%,rgba(143,143,143,0.67)_50%,rgba(0,0,0,0)_100%)]"
                     />
-                    <span className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full border bg-white px-3 py-2 text-center text-sm font-semibold text-gray-700 shadow-md">
+                    <span className="absolute left-0 right-0 w-32 px-3 py-2 mx-auto text-sm font-semibold text-center text-gray-700 bg-white border rounded-full shadow-md -top-5">
                       Most popular
                     </span>
                   </>
                 )}
                 <span className="font-medium text-primary">{item.name}</span>
                 <div className="flex flex-col justify-between">
-                  <div className={`text-4xl font-semibold text-gray-800`}>
+                  <div className={`text-4xl font-semibold text-custom`}>
                     {billingInterval === "month"
                       ? item.price === "Contact Us"
                         ? item.price
@@ -259,7 +259,7 @@ const Pricing = () => {
                       ? item.price
                       : formatter.format(item.priceAnnual as number)}
 
-                    <span className="text-xl font-normal text-gray-600">
+                    <span className="text-xl font-normal text-custom-foreground">
                       {item.price === "Contact Us" ? (
                         ""
                       ) : (
@@ -285,21 +285,21 @@ const Pricing = () => {
                   disabled={user && item.cta === "Current Plan"}
                 >
                   {item.cta !== "Current Plan" && (
-                    <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
+                    <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 ease-out transform translate-x-12 bg-white rotate-12 opacity-10 group-hover:-translate-x-60"></span>
                   )}
-                  {item.name === "Pro" && <BoltIcon className="h-4 w-4" />}
+                  {item.name === "Pro" && <BoltIcon className="w-4 h-4" />}
                   <span>{item.cta}</span>
                 </Button>
               </div>
-              <ul className="flex flex-col gap-2 p-4 row-span-3">
-                <li className="pb-2 font-medium text-gray-800">
+              <ul className="flex flex-col row-span-3 gap-2 p-4">
+                <li className="pb-2 font-medium text-custom">
                   <p>Features</p>
                 </li>
                 {item.features.map((featureItem, idx) => (
                   <li key={idx} className="flex items-center gap-2 text-xs">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-primary"
+                      className="w-5 h-5 text-primary"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -319,14 +319,14 @@ const Pricing = () => {
         {/* <div
           className={`relative mt-6 grid rounded-xl border grid-cols-2 divide-x`}
         >
-          <div className="flex flex-col gap-4 p-4 justify-between">
+          <div className="flex flex-col justify-between gap-4 p-4">
             {enterprisePlan.isMostPop && (
               <>
                 <div
                   aria-hidden="true"
                   className="left-1/2 top-0 w-full user-select-none center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,rgba(255,255,255,0)_0%,rgba(143,143,143,0.67)_50%,rgba(0,0,0,0)_100%)]"
                 />
-                <span className="absolute -top-5 left-0 right-0 mx-auto w-32 rounded-full border bg-white px-3 py-2 text-center text-sm font-semibold text-gray-700 shadow-md">
+                <span className="absolute left-0 right-0 w-32 px-3 py-2 mx-auto text-sm font-semibold text-center text-gray-700 bg-white border rounded-full shadow-md -top-5">
                   Most popular
                 </span>
               </>
@@ -339,13 +339,13 @@ const Pricing = () => {
               onClick={() => handleCheckout(enterprisePlan.name as Name)}
               className={`group relative  w-full overflow-hidden rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-white transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 `}
             >
-              <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-60"></span>
+              <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 ease-out transform translate-x-12 bg-white rotate-12 opacity-10 group-hover:-translate-x-60"></span>
               {enterprisePlan.price === "Contact Us"
                 ? "Contact Us"
                 : "Choose Plan"}
             </button>
           </div>
-          <ul className="flex flex-col gap-2 p-4 row-span-2">
+          <ul className="flex flex-col row-span-2 gap-2 p-4">
             <li className="pb-2 font-medium text-gray-800">
               <p>Features</p>
             </li>
@@ -353,7 +353,7 @@ const Pricing = () => {
               <li key={idx} className="flex items-center gap-2 text-xs">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-primary"
+                  className="w-5 h-5 text-primary"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
