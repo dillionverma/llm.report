@@ -1,22 +1,20 @@
 import { Icons } from "@/components/icons";
 import Link from "next/link";
+import { ModeToggle } from "../mode-toggle";
 
 const TestimonialHighlight = () => {
   return (
     <>
       <section id="testimonial-highlight">
-        <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-20">
+        <div className="max-w-screen-xl px-4 py-20 mx-auto md:px-8">
           <Link
-            className="max-w-3xl mx-auto cursor-pointer text-center group"
+            className="max-w-3xl mx-auto text-center cursor-pointer group"
             href="https://twitter.com/rauchg/status/1693750425160486942?s=20"
           >
-            {/* <h3 className=" font-semibold pb-6">What people are saying</h3> */}
+            {/* <h3 className="pb-6 font-semibold ">What people are saying</h3> */}
             <figure>
               <blockquote>
-                <p
-                  className="text-gray-800 text-xl text-center font-semibold sm:text-2xl italic group-hover:-translate-y-1 transition-all duration-300 ease-in-out
-                "
-                >
+                <p className="text-xl italic font-semibold text-center transition-all duration-300 ease-in-out text-custom sm:text-2xl group-hover:-translate-y-1 ">
                   “🔥 llm.report OSS, instant, realtime LLM observability“
                 </p>
               </blockquote>
@@ -33,7 +31,7 @@ const TestimonialHighlight = () => {
                     Guillermo Rauch
                     <Icons.twitterVerified className="ml-1 mb-[0.2rem] inline h-4 w-4 text-blue-500" />
                   </span>
-                  <span className="block text-gray-800 text-sm mt-0.5">
+                  <span className="block text-custom-foreground text-sm mt-0.5">
                     CEO of Vercel (Next.js) and creator of Socket.io
                   </span>
                   <Icons.vercel className="w-24 mx-auto" />

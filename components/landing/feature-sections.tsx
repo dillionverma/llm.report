@@ -50,8 +50,8 @@ const FeatureSections = () => {
     <>
       {features.map((feature) => (
         <section id={feature.id} key={feature.id}>
-          <div className="mx-auto px-6 py-6 sm:py-20">
-            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+          <div className="px-6 py-6 mx-auto sm:py-20">
+            <div className="grid max-w-2xl grid-cols-1 mx-auto gap-x-16 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-5">
               <div
                 className={cn("m-auto lg:col-span-2", {
                   "lg:order-last": feature.reverse,
@@ -60,10 +60,10 @@ const FeatureSections = () => {
                 <h2 className="text-base font-semibold leading-7 text-orange-600">
                   {feature.header}
                 </h2>
-                <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                <p className="mt-2 text-3xl font-bold tracking-tight text-custom sm:text-4xl">
                   {feature.name}
                 </p>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
+                <p className="mt-6 text-lg leading-8 text-custom-foreground">
                   {feature.description}
                 </p>
                 <Link
@@ -84,7 +84,7 @@ const FeatureSections = () => {
                 autoPlay
                 loop
                 muted
-                className="rounded-xl border m-auto lg:col-span-3 shadow-2xl"
+                className="m-auto border shadow-2xl rounded-xl lg:col-span-3"
               />
             </div>
           </div>

@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -34,6 +34,9 @@
     --ring: 240 5% 64.9%;
 
     --radius: 0.5rem;
+
+    --custom: 217.8 23.1% 22.9%;
+    --custom-foreground: 240 4% 16%;
   }
 
   .dark {
@@ -65,6 +68,9 @@
     --destructive-foreground: 0 85.7% 97.3%;
 
     --ring: var(--muted);
+
+    --custom: 0 0% 89.8%;
+    --custom-foreground: 0 0% 63.9%;
   }
 }
 
@@ -73,7 +79,6 @@
     @apply px-4;
   }
 }
-
 
 @layer base {
   * {
@@ -84,7 +89,6 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
-
 
 @layer utilities {
   .step {
