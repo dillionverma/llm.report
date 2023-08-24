@@ -1,4 +1,9 @@
+import million from "million/compiler";
 import "./env.mjs";
+
+const millionConfig = {
+  auto: { rsc: true },
+};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -36,4 +41,4 @@ const nextConfig = {
   transpilePackages: ["react-tweet"],
 };
 
-export default nextConfig;
+export default million.next(nextConfig, millionConfig);
