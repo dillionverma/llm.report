@@ -107,7 +107,7 @@
     "stripe": "^12.3.0",
     "swr": "^2.1.5",
     "three": "^0.152.2",
-    "typescript": "5.0.4",
+    "typescript": "^5.3.0-dev.20230825",
     "zod": "^3.22.2"
   },
   "devDependencies": {
