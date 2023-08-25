@@ -1,6 +1,28 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities;  
+/* Hide scrollbar in WebKit-based browsers */
+body::-webkit-scrollbar {
+    width: 0.5em;
+    display: none; /* Hide the scrollbar */
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 0.25em;
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
  
 @layer base {
   :root {
