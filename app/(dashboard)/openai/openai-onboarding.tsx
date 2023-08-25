@@ -1,251 +1,392 @@
 "use client";
 
+import StripePortalButton from "@/components/StripePortalButton";
 import { OnboardingStep } from "@/components/onboarding/Step";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { LOCAL_STORAGE_KEY } from "@/lib/constants";
-import openai, { OpenAI } from "@/lib/services/openai";
-import useLocalStorage from "@/lib/use-local-storage";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useUser } from "@/lib/hooks/user/useUser";
+import { subscriptionPlans } from "@/lib/stripe/subscriptionPlans";
 import { cn } from "@/lib/utils";
-import { Badge, Grid } from "@tremor/react";
+import { Badge, Grid, Title } from "@tremor/react";
+import { m } from "framer-motion";
+import {
+  ArrowRightCircle,
+  Check,
+  Copy,
+  CreditCard,
+  Key,
+  Send,
+} from "lucide-react";
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { mutate } from "swr";
 
-const Step = ({ className, ...props }: React.ComponentProps<"h3">) => (
-  <div
-    className={cn(
-      "font-heading mt-6 scroll-m-20 text-xl font-semibold tracking-tight",
-      className
-    )}
-    {...props}
-  />
-);
+let tabs = [
+  { id: "curl", label: "curl" },
+  { id: "js", label: "javascript" },
+  { id: "nodejs", label: "node.js" },
+  { id: "python", label: "python" },
+];
 
-const Steps = ({ ...props }) => (
-  <div
-    className="[&>div]:step mb-8 ml-4 border-l pl-8 [counter-reset:step]"
-    {...props}
-  />
-);
-
-export const InstallSteps = () => {
-  return (
-    <Steps>
-      <Step>
-        Go to{" "}
-        <a
-          className="underline text-blue-500"
-          target="_blank"
-          href="https://platform.openai.com/account/usage"
-        >
-          https://platform.openai.com/account/usage
-        </a>
-      </Step>
-      <Step>Open Chrome Network requests tab</Step>
-      <p>Mac:</p>
-      <pre className="my-2">
-        <code className="bg-gray-100 p-2 rounded-md text-sm">
-          cmd + option + i
-        </code>
-      </pre>
-      <p>Windows: </p>
-      <pre className="my-2">
-        <code className="bg-gray-100 p-2 rounded-md text-sm">
-          ctrl + shift + i
-        </code>
-      </pre>
-      <Step>Find the GET request with the following URL</Step>
-      <pre className="my-2">
-        <code className="bg-gray-100 p-2 rounded-md text-sm">
-          https://api.openai.com/dashboard/billing/usage
-        </code>
-      </pre>
-      <Step>Copy session token</Step>
-      <p>It will be in the request headers under `authorization`</p>
-      <p>It looks like this:</p>
-      <pre className="my-2">
-        <code className="bg-gray-100 p-2 rounded-md text-sm">
-          Bearer sess-rYyW10fURtEce3rYSS6QGRMnLziKwrRdZeDt
-        </code>
-      </pre>
-      <Step>Paste the session token below</Step>
-      <p>Only paste the token itself, remove the `Bearer` prefix</p>
-      <pre className="my-2">
-        <code className="bg-gray-100 p-2 rounded-md text-sm">
-          sess-rYyW10fURtEce3rYSS6QGRMnLziKwrRdZeDt
-        </code>
-      </pre>
-    </Steps>
-  );
-};
-
-// Usage
-const OnboardingDashboard = ({ className }: { className?: string }) => {
-  const [step, setStep] = useState(1);
-  const [key, setKey] = useLocalStorage<string>(LOCAL_STORAGE_KEY);
-
-  const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    if (name === LOCAL_STORAGE_KEY) {
-      setKey(value);
-      OpenAI.setKey(value);
-    }
+interface OnboardingProps {
+  code: {
+    curl: string;
+    js: string;
+    nodejs: string;
+    python: string;
   };
+  onRefresh?: () => void;
+  className?: string;
+  user_id?: boolean;
+}
+
+const UserOnboarding = ({
+  code,
+  className,
+  onRefresh = () => {},
+  user_id = false,
+}: OnboardingProps) => {
+  const { user, isLoading, subscribed } = useUser();
+  const [step, setStep] = useState(1);
+  const [key, setKey] = useState<string>();
+  let [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [plan, setPlan] = useState("free");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      const isValid = await openai.isValidKey(key);
+    if (copied) {
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    }
+  }, [copied]);
 
-      if (isValid) {
-        setStep(2);
-        await new Promise((r) => setTimeout(r, 500));
-      }
-    })();
-  }, [key]);
+  useEffect(() => {
+    if (step === 2 && subscribed) setStep(3);
+  }, [step, subscribed]);
+
+  if (!user) return null;
+
+  const handleSkip = () => {
+    setStep(3);
+  };
+
+  const handleSubmit = async () => {
+    const res = await fetch("/api/v1/keys", {
+      method: "POST",
+      body: JSON.stringify({ name: "onboarding" }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await res.json();
+    console.log(json);
+
+    toast.success("Key generated successfully!");
+
+    setStep(2);
+
+    setKey(json.key);
+
+    mutate("/api/v1/keys");
+  };
+
+  const handlePayment = async () => {
+    const params = new URLSearchParams({
+      client_reference_id: user.id,
+    });
+
+    const paymentLink =
+      subscriptionPlans[
+        process.env.NODE_ENV as "development" | "production" | "test"
+      ][plan as "free" | "pro"]["monthly"];
+
+    const url = `${paymentLink}?${params.toString()}`;
+
+    window.open(url, "_blank");
+  };
+
+  const handleLog = async () => {
+    const res = await fetch("/api/v1/requests/insert-demo", {
+      method: "POST",
+      body: JSON.stringify({
+        ...(user && { user_id: "myuser@example.com" }),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await res.json();
+    console.log(json);
+
+    toast.success("First Log generated successfully!");
+
+    setStep(3);
+    onRefresh();
+  };
 
   return (
     <Suspense>
-      <div className={cn("flex flex-col w-full max-w-xl space-y-4", className)}>
-        <Grid numItems={1} className="gap-4 w-full">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex gap-2 flex-row items-center">
-                <span>OpenAI Analytics</span>
-                <Badge color="blue">✨ Free</Badge>
-              </CardTitle>
-              <CardDescription>( ~ 1 minute installation )</CardDescription>
-              <CardDescription>
-                If you&apos;re using OpenAI, you probably have no idea which
-                model you&apos;re using, how much it costs you, or what your
-                token usage is.
-              </CardDescription>
-              <CardDescription className="font-semibold">
-                We built a dashboard to help you understand your usage and
-                costs.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <video
-                src="https://cdn.llm.report/openai-demo.mp4"
-                autoPlay
-                loop
-                muted
-                className="rounded-xl border"
-              />
-            </CardContent>
-          </Card>
-
-          <Card>
-            {/* <CardHeader>
-              <CardTitle>OpenAI Session Token</CardTitle>
-              <CardDescription>
-               
-              </CardDescription>
-            </CardHeader> */}
-            <CardHeader className="flex-row gap-4 items-center">
-              <OnboardingStep step={1} currentStep={step} />
-              <div className="flex flex-col justify-center gap-1.5">
-                <CardTitle>OpenAI Session Token</CardTitle>
+      <div className={cn("flex flex-col items-center w-full h-full lg:flex-row", className)}>
+        <div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-2 ">
+          <div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex flex-row items-center gap-2">
+                  <span>End-User Analytics </span>
+                  <Badge color="blue">✨ Free</Badge>
+                </CardTitle>
+                <CardDescription>( ~ 1 minute installation )</CardDescription>
                 <CardDescription>
-                  Paste your OpenAI session token below to get started. We use
-                  your OpenAI session token to call the OpenAI API and create
-                  your dashboard. This does not cost you and we do not store
-                  your key on our servers.
+                  Building an AI product is hard. You probably have no idea who
+                  your power users are, how many requests they&apos;re making,
+                  or how much they&apos;re costing you.
                 </CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <ScrollArea>
-                <InstallSteps />
-              </ScrollArea>
-              <Input
-                type="text"
-                name={LOCAL_STORAGE_KEY}
-                onChange={onChange}
-                required
-                value={key as string}
-                className="my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
-                placeholder="sess-5q293fh..."
-              />
+                <CardDescription className="font-semibold">
+                  Lets start answering these questions today.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <video
+                  src="https://cdn.llm.report/users-demo.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  className="border rounded-xl"
+                />
+              </CardContent>
+            </Card>
+          </div>
+          <div className="space-y-4">
+            <Card>
+              <CardHeader className="flex-row items-center gap-4">
+                <OnboardingStep step={1} currentStep={step} />
+                <div className="flex flex-col justify-center gap-1.5">
+                  <CardTitle>Create an LLM Report API Key</CardTitle>
+                  <CardDescription>
+                    This key will be used to identify your requests so that you
+                    can view your logs in the dashboard.
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              {key && (
+                <CardContent>
+                  <Input
+                    type="text"
+                    name="name"
+                    value={key}
+                    className="w-full px-2 py-1 text-gray-500 bg-transparent border rounded-lg shadow-sm outline-none"
+                  />
+                </CardContent>
+              )}
+              <CardFooter>
+                {!key && (
+                  <Button onClick={handleSubmit}>
+                    <Key className="w-4 h-4 mr-2" />
+                    <span>Create API Key</span>
+                  </Button>
+                )}
 
-              <p className="text-sm text-gray-500 mt-1 inline-block">
-                Find API Key{" "}
-                <Link
-                  href="https://beta.openai.com/account/api-keys"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline"
+                {key && (
+                  <Button
+                    className="gap-2"
+                    onClick={() => {
+                      navigator.clipboard.writeText(key);
+                      toast.success("Copied to clipboard!");
+                      setCopied(true);
+                    }}
+                  >
+                    {copied && <Check className="w-4 h-4" />}
+                    {!copied && <Copy className="w-4 h-4" />}
+                    <span>Copy to Clipboard</span>
+                  </Button>
+                )}
+              </CardFooter>
+            </Card>
+            <Card
+              className={cn("", {
+                "opacity-50 pointer-events-none": !key,
+              })}
+            >
+              <CardHeader className="flex-row items-center gap-4">
+                <OnboardingStep step={2} currentStep={step} />
+                <div className="flex flex-col justify-center gap-1.5">
+                  <CardTitle>Choose a plan</CardTitle>
+                  <CardDescription>
+                    Choose a plan that fits your needs. We support developers,
+                    startups, and teams of all sizes.
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Select
+                  onValueChange={(v) => {
+                    console.log(v);
+                    setPlan(v);
+                  }}
                 >
-                  here.
-                </Link>
-              </p>
-            </CardContent>
-          </Card>
-        </Grid>
+                  <SelectTrigger>
+                    <SelectValue
+                      defaultValue="free"
+                      placeholder="Free - $0/month"
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="free">Free - $0/month</SelectItem>
+                    <SelectItem value="pro">Pro - $20/month</SelectItem>
+                    {/* <SelectItem value="startup">Startup - $20/month</SelectItem> */}
+                    {/* <SelectItem value="team">Team - $500/month</SelectItem> */}
+                  </SelectContent>
+                </Select>
+                <CardDescription className="mt-2">
+                  You can change your plan at any time.{" "}
+                  <Link href="/settings/billing" className="underline">
+                    More details
+                  </Link>
+                  .
+                </CardDescription>
+              </CardContent>
+              <CardFooter className="max-md:space-y-2 max-md:flex-col md:justify-between">
+                {!subscribed && (
+                  <Button className="gap-2" onClick={handlePayment}>
+                    <CreditCard className="w-4 h-4" />
+                    <span>Add a Payment Method</span>
+                  </Button>
+                )}
+
+                {subscribed && user.stripe_customer_id && (
+                  <StripePortalButton
+                    customerId={user.stripe_customer_id}
+                    className="gap-2"
+                  >
+                    <CreditCard className="w-4 h-4" />
+                    <span>Manage Plan</span>
+                  </StripePortalButton>
+                )}
+
+                <Button
+                  className="gap-2 max-md:w-52"
+                  variant="outline"
+                  onClick={handleSkip}
+                >
+                  <span>Skip</span>
+                  <ArrowRightCircle className="w-4 h-4" />
+                </Button>
+              </CardFooter>
+            </Card>
+            <Card
+              className={cn("", {
+                "opacity-50 pointer-events-none": !key || step < 3,
+              })}
+            >
+              <CardHeader className="flex-row items-center gap-4">
+                <OnboardingStep step={3} currentStep={step} />
+                <div className="flex flex-col justify-center gap-1.5">
+                  <Title>Log your first request</Title>
+                  <CardDescription>
+                    Update your code using the examples below, or just press the
+                    button!
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="mt-2">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`${
+                        activeTab === tab.id ? "" : "hover:text-black/60"
+                      } relative rounded-full px-3 py-1.5 text-sm font-medium text-black outline-sky-400 transition focus-visible:outline-2`}
+                      style={{
+                        WebkitTapHighlightColor: "transparent",
+                      }}
+                    >
+                      {activeTab === tab.id && (
+                        <m.span
+                          layoutId="bubble"
+                          className="absolute inset-0 z-10 bg-white mix-blend-difference"
+                          style={{ borderRadius: 9999 }}
+                          transition={{
+                            type: "spring",
+                            bounce: 0.2,
+                            duration: 0.6,
+                          }}
+                        />
+                      )}
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-2 space-y-2">
+                  <m.div
+                    className="md"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        activeTab === "curl"
+                          ? code.curl.replace(
+                              "$LLM_REPORT_API_KEY",
+                              key || "$LLM_REPORT_API_KEY"
+                            )
+                          : activeTab === "js"
+                          ? code.js.replace(
+                              "${process.env.LLM_REPORT_API_KEY}",
+                              key || "process.e"
+                            )
+                          : activeTab === "nodejs"
+                          ? code.nodejs.replace(
+                              "${process.env.LLM_REPORT_API_KEY}",
+                              key || "process.e"
+                            )
+                          : activeTab === "python"
+                          ? code.python.replace(
+                              'os.getenv("OPENAI_API_KEY")',
+                              key || 'os.getenv("OPENAI_API_KEY")'
+                            )
+                          : "",
+                    }}
+                  />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={handleLog}>
+                  <Send className="w-4 h-4 mr-2" />
+                  Send Request
+                </Button>
+                {/* <button
+                type="button"
+                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                onClick={handleLog}
+              >
+                <Send className="w-4 h-4 mr-2" />
+                Send Request
+              </button> */}
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
       </div>
     </Suspense>
   );
 };
 
-//  {/* <div className={cn("flex flex-col w-full max-w-xl space-y-4", className)}>
-//       <Grid numItems={1} className="gap-4 w-full">
-//         <Card>
-//           <Flex justifyContent="start" className="gap-4 mb-2">
-//             <OnboardingStep step={1} currentStep={step} />
-//             <Title>llm.report setup instructions</Title>
-//           </Flex>
-//           <Text>
-//             We use your OpenAI session token to call the OpenAI API and create
-//             your dashboard. This does not cost you and we do not store your key
-//             on our servers.
-//           </Text>
-
-//           <InstallSteps />
-
-//           <div className="mt-2">
-//             {/* {!key && (
-//               <button
-//                 type="button"
-//                 className="inline-flex justify-center items-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-//                 onClick={handleSubmit}
-//               >
-//                 <Key className="w-4 h-4 mr-2" />
-//                 Create API Key
-//               </button>
-//             )} */}
-
-//             <input
-//               type="text"
-//               name={LOCAL_STORAGE_KEY}
-//               onChange={onChange}
-//               required
-//               value={key as string}
-//               className="w-full my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
-//               placeholder="sess-5q293fh..."
-//             />
-
-//             {/* <p className="text-sm text-gray-500 mt-1 inline-block">
-//               Find API Key{" "}
-//               <Link
-//                 href="https://beta.openai.com/account/api-keys"
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//                 className="underline"
-//               >
-//                 here.
-//               </Link>
-//             </p> */}
-//           </div>
-//         </Card>
-//       </Grid>
-//     </div>
-
-export default OnboardingDashboard;
+export default UserOnboarding;
