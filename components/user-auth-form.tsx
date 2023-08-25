@@ -7,20 +7,24 @@ import { cn } from "@/lib/utils";
 import { userAuthSchema } from "@/lib/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
+import { Input } from "./ui/input";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 type FormData = z.infer<typeof userAuthSchema>;
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(userAuthSchema),
     defaultValues: {
       email: "",
+      password: "",
     },
   });
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -32,21 +36,24 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   async function onSubmit(data: FormData) {
     setIsLoading(true);
 
-    const signInResult = await signIn("email", {
+    const signInResult = await signIn("credentials", {
       email: data.email.toLowerCase(),
+      password: data.password,
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl: "/openai",
     });
 
-    setIsLoading(false);
-
-    if (!signInResult?.ok) {
+    if (!signInResult || signInResult?.error || !signInResult?.ok) {
       return toast({
         title: "Something went wrong.",
         description: "Your sign in request failed. Please try again.",
         variant: "destructive",
       });
     }
+
+    router.push(signInResult?.url || "/openai");
+
+    setIsLoading(false);
 
     return toast({
       title: "Check your email",
@@ -56,9 +63,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   return (
     <div className={cn("grid gap-4", className)} {...props}>
-      {/* <Form {...form}>
+      <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid gap-2">
+          <div className="grid gap-4">
             <FormField
               control={form.control}
               name="email"
@@ -71,6 +78,28 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                       type="email"
                       autoCapitalize="none"
                       autoComplete="email"
+                      autoCorrect="off"
+                      disabled={isLoading || isGitHubLoading}
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      id="password"
+                      placeholder="Password"
+                      type="password"
+                      autoCapitalize="none"
+                      autoComplete="password"
                       autoCorrect="off"
                       disabled={isLoading || isGitHubLoading}
                       {...field}
@@ -99,7 +128,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             Or continue with
           </span>
         </div>
-      </div> */}
+      </div>
       <button
         type="button"
         className={cn(buttonVariants({ variant: "outline" }))}

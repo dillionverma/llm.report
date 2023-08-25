@@ -1,5 +1,6 @@
-/** @type {import('next').NextConfig} */
+import "./env.mjs";
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -35,4 +36,4 @@ const nextConfig = {
   transpilePackages: ["react-tweet"],
 };
 
-module.exports = nextConfig;
+export default nextConfig;

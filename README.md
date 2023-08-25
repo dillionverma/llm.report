@@ -68,20 +68,42 @@ Calculate the cost per user for your AI app.
 
 ## Self-Hosted Installation
 
-1. Copy `.env.example` into `.env.local` (create new file)
+1. Clone the repo
 
-2. Setup local postgres db
-   Run `docker-compose up -d` to run the postgres db using docker
+```bash
+git clone https://github.com/dillionverma/llm.report.git
+```
 
-3. Prisma migrate
-   Run `yarn db:migrate:dev`
+2. cd into the repo
 
-4. To start the server
-   Run `yarn dev`
+```bash
+cd llm.report
+```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Install dependencies
 
-> We're still working on making this as streamlined as possible. If you run into any issues, please open an issue or reach out to us on [Discord](https://llm.report/discord).
+```bash
+yarn
+```
+
+4. Setup environment variables
+
+```bash
+cp .env.example .env
+```
+
+- Generate `NEXTAUTH_SECRET` using `openssl rand -base64 32` and add it to `.env`
+
+5. Quickstart
+
+> - Requires Docker and Docker Compose to be installed.
+> - Will start a local Postgres instance with a few test users - the credentials will be logged in the console
+
+```bash
+yarn dx
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser!
 
 ## Cloud Installation
 

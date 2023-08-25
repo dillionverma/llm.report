@@ -2,7 +2,28 @@ import { PrismaClient } from "@prisma/client";
 import { calculateCost } from "./llm/calculateCost";
 
 declare global {
-  var prisma: PrismaClient | undefined | any;
+  type ExtendedPrismaClient = PrismaClient & {
+    $extends: {
+      result: {
+        request: {
+          prompt: {
+            needs: { url: true; request_body: true };
+            compute: (log: any) => string;
+          };
+          cost: {
+            needs: {
+              prompt_tokens: true;
+              completion_tokens: true;
+              model: true;
+            };
+            compute: (log: any) => number;
+          };
+        };
+      };
+    };
+  };
+  var prisma: PrismaClient | ExtendedPrismaClient | any;
+  // var prisma: PrismaClient | undefined | any;
 }
 
 const prisma =

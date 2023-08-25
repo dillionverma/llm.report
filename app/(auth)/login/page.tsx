@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Login | Magic UI",
+  title: "Login | llm.report",
   description: "Login to your account",
 };
 
