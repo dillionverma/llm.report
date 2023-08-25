@@ -201,7 +201,7 @@ import { Progress } from "@/components/ui/progress";
 import { useLogCount } from "@/lib/hooks/useLogCount";
 import { cn, nFormatter, numberFormat } from "@/lib/utils";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -215,12 +215,15 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Download, Settings, User, Zap } from "lucide-react";
 import { Badge } from "./ui/badge";
+import { ModeToggle } from "./mode-toggle";
 const LOGS_PER_MONTH = 100000;
 
 const LINK_ITEMS = [
   {
     text: "OpenAI Analytics",
-    Icon: () => <Icons.openai className="w-4 h-4" />,
+    Icon: () => (
+      <Icons.openaidrawer className="w-4 h-4 dark:fill-zinc-200 fill-zinc-700" />
+    ),
     href: "/openai",
     badge: null,
   },
@@ -256,9 +259,9 @@ const LinkItem = ({ text, href, Icon, badge, external, isActive }: any) => (
       href={href}
       target={external ? "_blank" : undefined}
       className={cn(
-        "flex items-center w-full justify-start hover:bg-zinc-100 dark:hover:bg-slate-900 dark:hover:text-indigo-300 hover:text-indigo-600 transition-all rounded-md px-2 py-1 gap-2",
+        "flex items-center w-full justify-start hover:bg-zinc-100 dark:hover:bg-slate-900 dark:hover:text-indigo-500 hover:text-indigo-600 transition-all rounded-md px-2 py-1 gap-2",
         {
-          "bg-zinc-200 dark:bg-slate-900": isActive,
+          "bg-zinc-200 dark:bg-slate-900 text-indigo-500": isActive,
         }
       )}
     >
@@ -335,13 +338,14 @@ const CommonMenu = () => {
     <>
       <div className="flex flex-col gap-2">
         <Link href="/" className="flex items-center space-x-2">
-          <Image
+          {/* <Image
             src="/logo.svg"
             alt="Logo"
             width={32}
             height={32}
             className="rounded-full bg-slate-200"
-          />
+          /> */}
+          <Icons.logo className="w-8 h-8" />
           <h1 className="text-xl font-semibold text-custom">LLM Report</h1>
         </Link>
         <h2 className="mb-2 text-lg font-semibold tracking-tight">Home</h2>
