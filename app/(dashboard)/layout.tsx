@@ -12,7 +12,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <main className="flex">
+    <main className="flex flex-col lg:flex-row">
       <Drawer />
       <div className="w-full">
         <header className={cn("hidden w-full z-50 bg-white border-b")}>
@@ -25,14 +25,14 @@ export default async function Layout({ children }: { children: ReactNode }) {
                   height={32}
                   className="rounded-full"
                 />
-                <h1 className="text-gray-800 font-semibold text-xl">
+                <h1 className="text-xl font-semibold text-gray-800">
                   LLM Report
                 </h1>
               </Link> 
               <div className="flex-1" />
 
               {/* {session?.user && (
-                <div className="flex justify-center items-center ml-auto">
+                <div className="flex items-center justify-center ml-auto">
                   <UserDropdownMenu />
                 </div>
               )} */}
