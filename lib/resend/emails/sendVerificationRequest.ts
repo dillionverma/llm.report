@@ -6,7 +6,7 @@ const sendVerificationRequest =
   (subject: string, from: string) =>
   async (params: SendVerificationRequestParams) => {
     try {
-      await resend.sendEmail({
+      await resend?.sendEmail({
         from,
         to: params.identifier,
         subject,

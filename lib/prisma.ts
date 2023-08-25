@@ -22,33 +22,32 @@ declare global {
       };
     };
   };
-  var prisma: PrismaClient | ExtendedPrismaClient | undefined;
+  var prisma: PrismaClient | ExtendedPrismaClient | any;
+  // var prisma: PrismaClient | undefined | any;
 }
 
-const client: ExtendedPrismaClient =
-  (globalThis.prisma as ExtendedPrismaClient) ||
-  (
-    new PrismaClient({
-      log: [
-        {
-          emit: "stdout",
-          level: "query",
-        },
-        {
-          emit: "stdout",
-          level: "error",
-        },
-        {
-          emit: "stdout",
-          level: "info",
-        },
-        {
-          emit: "stdout",
-          level: "warn",
-        },
-      ],
-    }) as ExtendedPrismaClient
-  ).$extends({
+const prisma =
+  global.prisma ||
+  new PrismaClient({
+    log: [
+      {
+        emit: "stdout",
+        level: "query",
+      },
+      {
+        emit: "stdout",
+        level: "error",
+      },
+      {
+        emit: "stdout",
+        level: "info",
+      },
+      {
+        emit: "stdout",
+        level: "warn",
+      },
+    ],
+  }).$extends({
     result: {
       request: {
         prompt: {
@@ -75,6 +74,6 @@ const client: ExtendedPrismaClient =
     },
   });
 
-if (process.env.NODE_ENV !== "production") globalThis.prisma = client;
+if (process.env.NODE_ENV === "development") global.prisma = prisma;
 
 export default prisma;

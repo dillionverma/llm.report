@@ -5,10 +5,8 @@ import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import EmailProvider from "next-auth/providers/email";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import { sendWebVerificationRequest } from "./resend/emails/sendVerificationRequest";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma as PrismaClient),
@@ -28,32 +26,29 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GITHUB_CLIENT_ID!,
       clientSecret: env.GITHUB_CLIENT_SECRET!,
     }),
-    ...(env.RESEND_WEB_EMAIL_ADDRESS
-      ? [
-          EmailProvider({
-            name: "email",
-            type: "email",
-            id: "email",
-            server: "",
-            from: env.RESEND_WEB_EMAIL_ADDRESS,
-            sendVerificationRequest: sendWebVerificationRequest,
-          }),
-        ]
-      : []),
+    // ...(env.RESEND_WEB_EMAIL_ADDRESS
+    //   ? [
+    //       EmailProvider({
+    //         name: "email",
+    //         type: "email",
+    //         id: "email",
+    //         server: "",
+    //         from: env.RESEND_WEB_EMAIL_ADDRESS,
+    //         sendVerificationRequest: sendWebVerificationRequest,
+    //       }),
+    //     ]
+    //   : []),
+
+    // Only enable credentials auth in development mode
     ...(process.env.NODE_ENV === "development"
       ? [
           CredentialsProvider({
-            // The name to display on the sign in form (e.g. 'Sign in with...')
             name: "Credentials",
-            // The credentials is used to generate a suitable form on the sign in page.
-            // You can specify whatever fields you are expecting to be submitted.
-            // e.g. domain, username, password, 2FA token, etc.
-            // You can pass any HTML attribute to the <input> tag through the object.
             credentials: {
               email: {
                 label: "Username",
                 type: "email",
-                placeholder: "jsmith@gmail.com",
+                placeholder: "johndoe@gmail.com",
               },
               password: { label: "Password", type: "password" },
             },
@@ -68,10 +63,6 @@ export const authOptions: NextAuthOptions = {
 
               if (!existingUser) return null;
 
-              // const isValid = await bcrypt.compare(
-              //   credentials.password,
-              //   existingUser.password
-              // );
               const isValid = credentials.password === existingUser.password;
 
               if (!isValid) return null;
