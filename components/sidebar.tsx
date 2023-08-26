@@ -25,13 +25,13 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Download, Settings, User, Zap } from "lucide-react";
 import { Badge } from "./ui/badge";
-import { ModeToggle } from "./mode-toggle";
+// import { ModeToggle } from "./mode-toggle";
 const LOGS_PER_MONTH = 100000;
 
 const LINK_ITEMS = [
   {
     text: "OpenAI Analytics",
-    Icon: () => <Icons.openai className="w-5 h-5" />,
+    Icon: () => <Icons.openaidrawer className="w-5 h-5 fill-zinc-700 dark:fill-white" />,
     href: "/openai",
     badge: null,
   },
@@ -199,7 +199,7 @@ export const CommonMenu = () => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <ModeToggle />
+        {/* <ModeToggle /> */}
         <Link href="/" className="flex items-center space-x-2">
           {/* <Image
               src="/logo.svg"

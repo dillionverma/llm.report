@@ -117,16 +117,15 @@
 import Link, { LinkProps } from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import * as React from "react";
-
 import { Icons } from "@/components/icons";
-import { ScrollArea } from "@/components/ui/scroll-area";
+// import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { docsConfig } from "@/config/docs";
-import { siteConfig } from "@/config/site";
+// import { docsConfig } from "@/config/docs";
+// import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { CommonMenu } from "./sidebar";
 import { ChevronRight, MenuIcon } from "lucide-react";
-import { ModeToggle } from "./mode-toggle";
+// import { ModeToggle } from "./mode-toggle";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
@@ -152,49 +151,45 @@ export function MobileNav() {
           <Icons.logo className="w-6 h-6 mr-1" />
           llm.report
         </h1>
-        <ModeToggle />
+        {/* <ModeToggle /> */}
       </div>
       <div className="flex items-center justify-between pl-5 mt-3 text-base w-fit">
         <p className="text-muted-foreground">Home </p>
         <ChevronRight className="w-[15px] h-[15px] mt-[2px]" />
         <span className="font-semibold text-indigo-300">{displayPathname}</span>
       </div>
-      <SheetContent
-        side="left"
-        className="flex flex-col justify-between pr-4"
-      >
+      <SheetContent side="left" className="flex flex-col justify-between pr-4">
         <CommonMenu />
       </SheetContent>
     </Sheet>
   );
 }
 
-interface MobileLinkProps extends LinkProps {
-  onOpenChange?: (open: boolean) => void;
-  children: React.ReactNode;
-  className?: string;
-}
+// interface MobileLinkProps extends LinkProps {
+//   onOpenChange?: (open: boolean) => void;
+//   children: React.ReactNode;
+//   className?: string;
+// }
 
-function MobileLink({
-  href,
-  onOpenChange,
-  className,
-  children,
-  ...props
-}: MobileLinkProps) {
-  const router = useRouter();
-  return (
-    <Link
-      href={href}
-      onClick={() => {
-        router.push(href.toString());
-        onOpenChange?.(false);
-      }}
-      className={cn(className)}
-      {...props}
-    >
-      {children}
-    </Link>
-  );
-}
-
+// function MobileLink({
+//   href,
+//   onOpenChange,
+//   className,
+//   children,
+//   ...props
+// }: MobileLinkProps) {
+//   const router = useRouter();
+//   return (
+//     <Link
+//       href={href}
+//       onClick={() => {
+//         router.push(href.toString());
+//         onOpenChange?.(false);
+//       }}
+//       className={cn(className)}
+//       {...props}
+//     >
+//       {children}
+//     </Link>
+//   );
+// }
