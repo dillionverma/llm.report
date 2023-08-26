@@ -209,7 +209,7 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 // import { BoltIcon } from "@heroicons/react/24/solid";
 // import { Badge } from "@tremor/react";
 import { getDaysInMonth } from "date-fns";
-// import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { UserDropdownMenu } from "@/components/Dropdown";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
@@ -254,20 +254,37 @@ const LINK_ITEMS = [
 ];
 
 const LinkItem = ({ text, href, Icon, badge, external, isActive }: any) => (
-  <div className="space-y-2 group">
+  <m.div whileHover="hover" className="space-y-2 group">
     <Link
       href={href}
       target={external ? "_blank" : undefined}
       className={cn(
-        "flex items-center w-full justify-start hover:bg-zinc-100 dark:hover:bg-slate-900 dark:hover:text-indigo-500 hover:text-indigo-600 transition-all rounded-md px-2 py-1 gap-2",
+        "flex items-center w-full justify-start hover:bg-zinc-100 dark:hover:bg-slate-900 dark:hover:text-indigo-300 hover:text-indigo-600 transition-all rounded-md px-2 py-1 gap-2",
         {
-          "bg-zinc-200 dark:bg-slate-900 text-indigo-500": isActive,
+          "bg-zinc-200 dark:bg-slate-900": isActive,
         }
       )}
     >
-      <div className="text-muted-foreground group-hover:text-indigo-400 group-hover:animate-wiggle">
+      <m.div
+        className="flex"
+        initial={{
+          rotate: 0,
+          originX: "50%",
+          originY: "50%",
+        }}
+        variants={{
+          hover: {
+            rotate: [0, 20, 0],
+            transition: {
+              ease: ["easeOut"],
+            },
+            originX: "50%",
+            originY: "50%",
+          },
+        }}
+      >
         <Icon />
-      </div>
+      </m.div>
       <p className="flex">{text}</p>
       {badge && (
         <Badge
@@ -278,8 +295,36 @@ const LinkItem = ({ text, href, Icon, badge, external, isActive }: any) => (
         </Badge>
       )}
     </Link>
-  </div>
+  </m.div>
 );
+
+// const LinkItem = ({ text, href, Icon, badge, external, isActive }: any) => (
+//   <div className="space-y-2 group">
+//     <Link
+//       href={href}
+//       target={external ? "_blank" : undefined}
+//       className={cn(
+//         "flex items-center w-full justify-start hover:bg-zinc-100 dark:hover:bg-slate-900 dark:hover:text-indigo-500 hover:text-indigo-600 transition-all rounded-md px-2 py-1 gap-2",
+//         {
+//           "bg-zinc-200 dark:bg-slate-900 text-indigo-500": isActive,
+//         }
+//       )}
+//     >
+//       <div className="text-muted-foreground group-hover:text-indigo-400 group-hover:animate-wiggle">
+//         <Icon />
+//       </div>
+//       <p className="flex">{text}</p>
+//       {badge && (
+//         <Badge
+//           variant="common"
+//           // className="px-3 py-1 ml-2 text-sm text-indigo-600 cursor-pointer bg-indigo-50 dark:bg-inherit dark:text-indigo-400"
+//         >
+//           {badge}
+//         </Badge>
+//       )}
+//     </Link>
+//   </div>
+// );
 
 const CardComponent = ({ logCount, logsLeft, projectedLogs, router }: any) => (
   <Card className="p-2">
