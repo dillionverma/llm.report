@@ -143,7 +143,12 @@ const UserOnboarding = ({
 
   return (
     <Suspense>
-      <div className={cn("flex flex-col items-center w-full h-full lg:flex-row", className)}>
+      <div
+        className={cn(
+          "flex flex-col items-center w-full h-full lg:flex-row",
+          className
+        )}
+      >
         <div className="grid w-full grid-cols-1 gap-4 lg:grid-cols-2 ">
           <div>
             <Card>
@@ -312,8 +317,8 @@ const UserOnboarding = ({
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
                       className={`${
-                        activeTab === tab.id ? "" : "hover:text-black/60"
-                      } relative rounded-full px-3 py-1.5 text-sm font-medium text-black outline-sky-400 transition focus-visible:outline-2`}
+                        activeTab === tab.id ? "" : "hover:text-indigo-400"
+                      } relative rounded-full px-3 py-1.5 text-sm font-medium text-custom outline-sky-400 transition focus-visible:outline-2`}
                       style={{
                         WebkitTapHighlightColor: "transparent",
                       }}
@@ -343,7 +348,7 @@ const UserOnboarding = ({
                     dangerouslySetInnerHTML={{
                       __html:
                         activeTab === "curl"
-                          ? code.curl.replace(
+                          ? code?.curl.replace(
                               "$LLM_REPORT_API_KEY",
                               key || "$LLM_REPORT_API_KEY"
                             )
