@@ -31,7 +31,9 @@ const LOGS_PER_MONTH = 100000;
 const LINK_ITEMS = [
   {
     text: "OpenAI Analytics",
-    Icon: () => <Icons.openaidrawer className="w-5 h-5 fill-zinc-700 dark:fill-white" />,
+    Icon: () => (
+      <Icons.openaidrawer className="w-5 h-5 fill-zinc-700 dark:fill-white" />
+    ),
     href: "/openai",
     badge: null,
   },
@@ -200,7 +202,7 @@ export const CommonMenu = () => {
     <>
       <div className="flex flex-col gap-2">
         {/* <ModeToggle /> */}
-        <Link href="/" className="flex items-center space-x-2">
+        <Link href="/" className="flex items-center pt-10 space-x-2">
           {/* <Image
               src="/logo.svg"
               alt="Logo"

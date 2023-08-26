@@ -18,7 +18,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
       <div className="flex flex-col justify-between lg:hidden">
         <MobileNav />
       </div>
-      <div className="lg:flex flex-col justify-between w-3/4 max-w-[280px] gap-4 pb-5 mx-4 pr-3 border-r h-fill hidden">
+      <div className="lg:flex flex-col justify-between w-3/4 max-w-[280px] gap-4 pb-5 mx-4 pr-3 border-r h-screen hidden">
         <CommonMenu />
       </div>
       <div
