@@ -64,24 +64,15 @@ const RenderMarkdown = ({ children }: { children: string }) => {
 interface TableRowProps {
   label: string;
   value: string;
-  preformatted?: boolean;
 }
 
-const TR: React.FC<TableRowProps> = ({ label, value, preformatted }) => {
+const TR: React.FC<TableRowProps> = ({ label, value }) => {
   const cellClasses = "px-6 py-2";
 
   return (
     <tr>
       <td className="px-6 font-medium text-right text-gray-500">{label}</td>
-      <td className={cellClasses}>
-        {preformatted ? (
-          <pre className="overflow-auto whitespace-pre-wrap">
-            <code>{value}</code>
-          </pre>
-        ) : (
-          value
-        )}
-      </td>
+      <td className={cellClasses}>{value}</td>
     </tr>
   );
 };
