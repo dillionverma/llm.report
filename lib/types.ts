@@ -113,7 +113,12 @@ export interface OrganizationUsers {
       };
     }[];
   };
-  invited: any[]; // Replace 'any' with the actual type if known
+  // invited: any[]; // Replace 'any' with the actual type if known
+  invited: {
+    email: string;
+    id: string;
+    role: string;
+  }[];
   can_invite: boolean;
 }
 
