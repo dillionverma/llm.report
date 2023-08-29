@@ -55,7 +55,7 @@
     },
     {
       "group": "API Reference",
-      "pages": ["api/endpoint/get", "api/authentication", "api/requests"]
+      "pages": ["api/authentication", "api/requests"]
     }
   ],
   "footerSocials": {
