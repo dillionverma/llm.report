@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.21.5",
+    "@clickhouse/client": "^0.2.0",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "@hookform/resolvers": "^3.1.1",

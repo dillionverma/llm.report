@@ -252,6 +252,18 @@
   resolved "https://registry.yarnpkg.com/@chevrotain/utils/-/utils-10.5.0.tgz#0ee36f65b49b447fbac71b9e5af5c5c6c98ac057"
   integrity sha512-hBzuU5+JjB2cqNZyszkDHZgOSrUUT8V3dhgRl8Q9Gp6dAj/H5+KILGjbhDpc3Iy9qmqlm/akuOI2ut9VUtzJxQ==
 
+"@clickhouse/client-common@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@clickhouse/client-common/-/client-common-0.2.0.tgz#0c0c78d29d4a86c5bfa359fc5d4fb46f7a1b79e1"
+  integrity sha512-mRfKRJ4MgBP9urA4IQYYSvXvNufrl6XNvzJiQfmSXr1j7KyqE8hTC+NRIwPpzs4drdvaEAciHRsd1g56+gFuww==
+
+"@clickhouse/client@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@clickhouse/client/-/client-0.2.0.tgz#81ed8c1148ad7f6d812d2eb95ea217c44699eeea"
+  integrity sha512-lJ3fZvJUE8opIuGvaMPT7Ot65HjZ56eaA+2EjvSeNPDXHMxSf1IXhErW6EFkJQHImNKpOlhELDJH6bwPpWsAJQ==
+  dependencies:
+    "@clickhouse/client-common" "0.2.0"
+
 "@emotion/is-prop-valid@^0.8.2":
   version "0.8.8"
   resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-0.8.8.tgz#db28b1c4368a259b60a97311d6a952d4fd01ac1a"
