@@ -9,7 +9,7 @@ const generateKey = (size: number = 32, format: BufferEncoding = "hex") => {
   return buffer.toString(format);
 };
 
-async function sha256(message: string) {
+export async function sha256(message: string) {
   const hash = createHash("sha256"); // Use createHash to create a hash object
   hash.update(message, "utf8"); // Update the hash with the message
   const hashHex = hash.digest("hex"); // Get the hash digest in hex format
