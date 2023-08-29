@@ -32,6 +32,11 @@ const nextConfig = {
         destination: "https://github.com/dillionverma/llm.report",
         permanent: true,
       },
+      {
+        source: "/github",
+        destination: "https://github.com/dillionverma/llm.report",
+        permanent: true,
+      },
     ];
   },
   images: {
