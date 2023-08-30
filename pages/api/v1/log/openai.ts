@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import { clickhouseClient } from "@/lib/clickhouse/clickhouseClient";
 import { z } from "zod";
+import { sha256 } from "../keys";
 
 const schema = z.object({
   provider_id: z.string(),
@@ -103,14 +104,3 @@ const getUser = async (apiKey: string) => {
 
   return key?.user;
 };
-
-async function sha256(message: string) {
-  // encode as UTF-8
-  const msgBuffer = new TextEncoder().encode(message);
-  // hash the message
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-  // convert Buffer to Array
-  const hashArray = Array.prototype.slice.call(new Uint8Array(hashBuffer));
-  // convert bytes to hex string
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-}
