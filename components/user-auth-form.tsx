@@ -39,7 +39,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         email: data.email.toLowerCase(),
         password: data.password,
         redirect: true,
-        callbackUrl: "/verify",
+        callbackUrl: "/openai",
       });
     } catch (error) {
       console.log(error);
