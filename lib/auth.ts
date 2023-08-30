@@ -7,6 +7,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma as PrismaClient),
@@ -40,38 +41,44 @@ export const authOptions: NextAuthOptions = {
     //   : []),
 
     // Only enable credentials auth in development mode
-    ...(process.env.NODE_ENV === "development"
-      ? [
-          CredentialsProvider({
-            name: "Credentials",
-            credentials: {
-              email: {
-                label: "Username",
-                type: "email",
-                placeholder: "johndoe@gmail.com",
-              },
-              password: { label: "Password", type: "password" },
-            },
-            async authorize(
-              credentials: Record<"email" | "password", string> | undefined,
-              req
-            ) {
-              if (credentials === undefined) return null;
-              const existingUser = await prisma?.user.findUnique({
-                where: { email: credentials.email.toLowerCase() },
-              });
+    // ...(process.env.NODE_ENV === "development"
+    // ? [
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: { label: "email", type: "text" },
+        password: { label: "password", type: "password" },
+      },
 
-              if (!existingUser) return null;
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Invalid credentials");
+        }
 
-              const isValid = credentials.password === existingUser.password;
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
 
-              if (!isValid) return null;
+        if (!user || !user?.hashedPassword) {
+          throw new Error("Invalid credentials");
+        }
 
-              return existingUser;
-            },
-          }),
-        ]
-      : []),
+        const isCorrectPassword = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        );
+
+        if (!isCorrectPassword) {
+          throw new Error("Invalid credentials");
+        }
+
+        return user;
+      },
+    }),
+    // ]
+    // : []),
   ],
   callbacks: {
     async session({ token, session }) {

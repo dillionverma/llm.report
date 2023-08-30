@@ -2,8 +2,9 @@
 
 import { Icons } from "@/components/icons";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
-import { userAuthSchema } from "@/lib/validations/auth";
+import { userRegisterSchema } from "@/lib/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -12,16 +13,21 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
+import axios from "axios";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface UserRegisterFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-type FormData = z.infer<typeof userAuthSchema>;
+type FormData = z.infer<typeof userRegisterSchema>;
 
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+export function UserRegisterForm({
+  className,
+  ...props
+}: UserRegisterFormProps) {
   const router = useRouter();
   const form = useForm<FormData>({
-    resolver: zodResolver(userAuthSchema),
+    resolver: zodResolver(userRegisterSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
@@ -33,25 +39,32 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const searchParams = useSearchParams();
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
+    console.log("1");
+    setIsLoading(true);
+    console.log("2");
     try {
-      setIsLoading(true);
-      await signIn("credentials", {
-        email: data.email.toLowerCase(),
-        password: data.password,
-        redirect: true,
-        callbackUrl: "/verify",
+      console.log("3");
+      await axios.post("/api/register", data);
+      setIsLoading(false);
+
+      return toast({
+        title: "Check your email",
+        description:
+          "We sent you a verification link. Be sure to check your spam too.",
       });
     } catch (error) {
-      console.log(error);
+      return toast({
+        title: "Something went wrong.",
+        description: "Your sign in request failed. Please try again.",
+        variant: "destructive",
+      });
     }
-    // async function onSubmit(data: FormData) {
-    // setIsLoading(true);
 
     // const signInResult = await signIn("credentials", {
     //   email: data.email.toLowerCase(),
-    //   password: data.userpassword,
+    //   password: data.password,
     //   redirect: false,
-    //   // callbackUrl: "/openai",
+    //   callbackUrl: "/openai",
     // });
 
     // if (!signInResult || signInResult?.error || !signInResult?.ok) {
@@ -63,13 +76,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     // }
 
     // router.push(signInResult?.url || "/openai");
-
-    // setIsLoading(false);
-
-    // return toast({
-    //   title: "Check your email",
-    //   description: "We sent you a login link. Be sure to check your spam too.",
-    // });
   };
 
   return (
@@ -77,6 +83,28 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid gap-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      id="name"
+                      placeholder="John Doe"
+                      type="name"
+                      autoCapitalize="none"
+                      autoComplete="name"
+                      autoCorrect="off"
+                      disabled={isLoading || isGitHubLoading}
+                      {...field}
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
@@ -129,7 +157,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               {isLoading && (
                 <Icons.spinner className="w-4 h-4 mr-2 animate-spin" />
               )}
-              Sign In with Email
+              Sign up with Email
             </Button>
           </div>
         </form>

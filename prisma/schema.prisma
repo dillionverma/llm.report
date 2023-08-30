@@ -52,12 +52,12 @@ model User {
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now()) @updatedAt
 
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    password      String?
-    image         String?
-    role          Role      @default(USER)
+    name           String?
+    email          String?   @unique
+    emailVerified  DateTime?
+    hashedPassword String?
+    image          String?
+    role           Role      @default(USER)
 
     stripe_customer_id String? @unique
 
