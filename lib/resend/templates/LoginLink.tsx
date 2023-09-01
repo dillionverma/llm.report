@@ -19,8 +19,8 @@ interface Props {
 
 const Email = ({ firstName, loginLink }: Props) => {
   const previewText = firstName
-    ? `Welcome to LLM.Report, ${firstName}!`
-    : `Welcome to LLM.Report!`;
+    ? `Welcome to llm.report, ${firstName}!`
+    : `Welcome to llm.report!`;
 
   return (
     <Html>
@@ -38,15 +38,15 @@ const Email = ({ firstName, loginLink }: Props) => {
           <Container className="mx-auto my-[40px] w-[465px] max-w-[465px] rounded border border-solid border-[#eaeaea] p-[20px]">
             <Section className="mt-[32px]">
               <Img
-                src={`https://magicuikit.com/icon.png`}
+                src={`https://llm.report/logo.png`}
                 width="40"
                 height="37"
-                alt="LLM.Report Icon"
+                alt="llm.report logo"
                 className="mx-auto my-0"
               />
             </Section>
             <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
-              Welcome to <strong>LLM.Report</strong> 🎉
+              Welcome to <strong>llm.report</strong>
             </Heading>
             {/* <Text className="text-black text-[14px] leading-[24px]">
               {firstName && `Hello ${firstName} 👋`}

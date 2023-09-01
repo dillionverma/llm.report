@@ -21,12 +21,18 @@ export const env = createEnv({
     STRIPE_WEBHOOK_SECRET: z.string().optional(),
     STRIPE_SECRET_KEY: z.string().optional(),
 
-    RESEND_WEB_EMAIL_ADDRESS: z.string().optional(),
+    RESEND_FROM_ADDRESS: z.string().optional(),
+    RESEND_FROM_NAME: z.string().optional(),
     RESEND_API_KEY: z.string().optional(),
   },
   client: {
-    // NEXT_PUBLIC_APP_URL: z.string().min(1),
+    NEXT_PUBLIC_RESEND_ENABLED: z
+      .string()
+      .transform((s) => s !== "false" && s !== "0"),
     NEXT_PUBLIC_POSTHOG_API_KEY: z.string().optional(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
+  },
+  experimental__runtimeEnv: {
+    NEXT_PUBLIC_RESEND_ENABLED: process.env.NEXT_PUBLIC_RESEND_ENABLED,
   },
 });

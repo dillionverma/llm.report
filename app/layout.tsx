@@ -5,7 +5,8 @@ import PosthogIdentify from "@/components/posthog-identify";
 import { PHProvider } from "@/components/posthog-provider";
 import SessionProvider from "@/components/session-provider";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/toaster";
+import { Toaster as HotToaster } from "@/components/toaster";
+import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { WebVitals } from "@/components/web-vitals";
 import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
@@ -17,7 +18,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "LLM Report",
-  description: "Get Detailed Insights About Your OpenAI API Costs",
+  description: "Logging and Analytics for AI Apps",
 };
 
 export default async function RootLayout({
@@ -51,6 +52,7 @@ export default async function RootLayout({
                     <PosthogIdentify />
                     {/* <TailwindIndicator /> */}
                     <Toaster />
+                    <HotToaster />
                   </ThemeProvider>
                 </TooltipProvider>
               </ReactQueryProvider>
