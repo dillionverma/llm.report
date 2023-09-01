@@ -27,8 +27,12 @@ async function getTweets() {
   try {
     const tweets = await Promise.all(
       tweetIds.map(async (id) => {
-        const tweet = await getTweet(id);
-        return tweet;
+        try {
+          const tweet = await getTweet(id);
+          return tweet;
+        } catch (error) {
+          console.log(error);
+        }
       })
     );
     return tweets.length ? { props: { tweets } } : { notFound: true };
