@@ -123,6 +123,7 @@ Email: [dillion@llm.report](mailto:dillion@llm.report)
 - [Postgres](https://www.postgresql.org/) – database
 - [NextAuth.js](https://next-auth.js.org/) – auth
 - [Stripe](https://stripe.com/) – payments
+- [Resend](https://resend.com/) - emails
 
 ## Contributing
 
