@@ -32,9 +32,6 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_API_KEY: z.string().optional(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
   },
-  // runtimeEnv: {
-  //   NEXT_PUBLIC_RESEND_ENABLED: z.coerce.boolean().optional(),
-  // },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_RESEND_ENABLED: process.env.NEXT_PUBLIC_RESEND_ENABLED,
   },
