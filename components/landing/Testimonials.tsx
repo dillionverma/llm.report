@@ -20,21 +20,25 @@ const tweetIds = [
   // "1654551137201328128",
   // "1658983912410890241",
   "1658936278690439170",
-  "1658970955203641344",
+  // "1658970955203641344",
 ];
 
 async function getTweets() {
   try {
     const tweets = await Promise.all(
-      tweetIds.map(async (id) => {
-        try {
-          const tweet = await getTweet(id);
-          return tweet;
-        } catch (error) {
-          console.log(error);
-        }
-      })
+      tweetIds
+        .map(async (id) => {
+          try {
+            const tweet = await getTweet(id);
+            if (!tweet) return null;
+            return tweet;
+          } catch (error) {
+            return null;
+          }
+        })
+        .filter((t) => t !== null)
     );
+
     return tweets.length ? { props: { tweets } } : { notFound: true };
   } catch (error) {
     return { notFound: true };
