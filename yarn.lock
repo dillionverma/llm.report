@@ -4860,10 +4860,10 @@ micromatch@^4.0.4, micromatch@^4.0.5:
     braces "^3.0.2"
     picomatch "^2.3.1"
 
-million@^2.6.0-beta.10:
-  version "2.6.0-beta.10"
-  resolved "https://registry.yarnpkg.com/million/-/million-2.6.0-beta.10.tgz#2ad1925b24ea4ab52af5fa407fc6cf3acd000822"
-  integrity sha512-4iI3lLQxAJp8E1ohNbsvwR7O8YieSkc5bhEqwH9cXxcU94OWluu7oDk7BgoMJRjJIWinq+mKkb1F4L6jTH3d+A==
+million@^2.6.0-beta.11:
+  version "2.6.0-beta.11"
+  resolved "https://registry.yarnpkg.com/million/-/million-2.6.0-beta.11.tgz#d73ec53e0adc1108b4999abeb8ea412c7968ef53"
+  integrity sha512-IdADUGj6oDPm9ZfyEP9qwO45ItNq8vf8mIDZ3BtSnxQsjvyi1yqBSfZClAyyo+Ez/DOF9+IzZ61J0g5oqA3V7Q==
   dependencies:
     "@babel/core" "^7.21.0"
     "@babel/generator" "^7.22.7"
