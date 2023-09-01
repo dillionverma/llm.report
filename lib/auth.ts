@@ -1,10 +1,12 @@
 import { env } from "@/env.mjs";
 import prisma from "@/lib/prisma";
+import { sendVerificationRequest } from "@/lib/resend/emails/sendVerificationRequest";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import EmailProvider from "next-auth/providers/email";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -18,6 +20,12 @@ export const authOptions: NextAuthOptions = {
   },
   debug: process.env.NODE_ENV === "development",
   providers: [
+    EmailProvider({
+      type: "email",
+      server: "",
+      from: env.RESEND_FROM_ADDRESS,
+      sendVerificationRequest,
+    }),
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID!,
       clientSecret: env.GOOGLE_CLIENT_SECRET!,
@@ -28,18 +36,6 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GITHUB_CLIENT_SECRET!,
       allowDangerousEmailAccountLinking: true,
     }),
-    // ...(env.RESEND_WEB_EMAIL_ADDRESS
-    //   ? [
-    //       EmailProvider({
-    //         name: "email",
-    //         type: "email",
-    //         id: "email",
-    //         server: "",
-    //         from: env.RESEND_WEB_EMAIL_ADDRESS,
-    //         sendVerificationRequest: sendWebVerificationRequest,
-    //       }),
-    //     ]
-    //   : []),
 
     // Only enable credentials auth in development mode
     ...(process.env.NODE_ENV === "development"

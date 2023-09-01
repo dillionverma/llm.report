@@ -3,6 +3,7 @@
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
+import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
 import { userAuthSchema } from "@/lib/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,12 +37,16 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   async function onSubmit(data: FormData) {
     setIsLoading(true);
 
-    const signInResult = await signIn("credentials", {
+    let provider = env.NEXT_PUBLIC_RESEND_ENABLED ? "email" : "credentials";
+
+    const signInResult = await signIn(provider, {
       email: data.email.toLowerCase(),
       password: data.password,
       redirect: false,
       callbackUrl: "/openai",
     });
+
+    setIsLoading(false);
 
     if (!signInResult || signInResult?.error || !signInResult?.ok) {
       return toast({
@@ -51,19 +56,22 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       });
     }
 
-    router.push(signInResult?.url || "/openai");
-
-    setIsLoading(false);
-
-    return toast({
-      title: "Check your email",
-      description: "We sent you a login link. Be sure to check your spam too.",
-    });
+    if (provider === "credentials") {
+      router.push(signInResult?.url || "/openai");
+    } else {
+      toast({
+        title: "Check your email",
+        description:
+          "We sent you a login link. Be sure to check your spam too.",
+      });
+    }
   }
+
+  console.log("NEXT_PUBLIC_RESEND_ENABLEDED", env.NEXT_PUBLIC_RESEND_ENABLED);
 
   return (
     <div className={cn("grid gap-4", className)} {...props}>
-      {process.env.NODE_ENV == "development" && (
+      {process.env.NODE_ENV === "development" && (
         <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -81,7 +89,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                           autoCapitalize="none"
                           autoComplete="email"
                           autoCorrect="off"
-                          disabled={isLoading || isGitHubLoading}
+                          disabled={
+                            isLoading || isGitHubLoading || isGoogleLoading
+                          }
                           {...field}
                         />
                       </FormControl>
@@ -90,28 +100,30 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          id="password"
-                          placeholder="Password"
-                          type="password"
-                          autoCapitalize="none"
-                          autoComplete="password"
-                          autoCorrect="off"
-                          disabled={isLoading || isGitHubLoading}
-                          {...field}
-                        />
-                      </FormControl>
+                {!env.NEXT_PUBLIC_RESEND_ENABLED && (
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            id="password"
+                            placeholder="Password"
+                            type="password"
+                            autoCapitalize="none"
+                            autoComplete="password"
+                            autoCorrect="off"
+                            disabled={isLoading || isGitHubLoading}
+                            {...field}
+                          />
+                        </FormControl>
 
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
                 <button className={cn(buttonVariants())} disabled={isLoading}>
                   {isLoading && (
                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />

@@ -1,8 +1,9 @@
+import { env } from "@/env.mjs";
 import { SendVerificationRequestParams } from "next-auth/providers";
 import { resend } from "..";
 import Email from "../templates/LoginLink";
 
-const sendVerificationRequest =
+const sendWebVerificationRequest =
   (subject: string, from: string) =>
   async (params: SendVerificationRequestParams) => {
     try {
@@ -19,7 +20,7 @@ const sendVerificationRequest =
     }
   };
 
-export const sendWebVerificationRequest = sendVerificationRequest(
-  "Verify LLM.Report Login",
-  process.env.RESEND_EMAIL_FROM_ADDRESS!
+export const sendVerificationRequest = sendWebVerificationRequest(
+  "Welcome to llm.report",
+  `${env.RESEND_FROM_NAME} < ${env.RESEND_FROM_ADDRESS} >`
 );

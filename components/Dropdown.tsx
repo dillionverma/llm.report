@@ -34,7 +34,7 @@ export function UserDropdownMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="py-2">
-          <Button variant="outline">
+          <Button variant="outline" className="w-full">
             <Image
               className="rounded-full cursor-pointer w-6 h-6"
               alt={session?.user?.email || "User"}
