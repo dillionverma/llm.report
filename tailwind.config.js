@@ -54,6 +54,10 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        custom: {
+          DEFAULT: "hsl(var(--custom))",
+          foreground: "hsl(var(--custom-foreground))",
+        },
         // light mode
         tremor: {
           brand: {
@@ -140,6 +144,7 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "wiggle": "wiggle 1s linear infinite",
         spin: "spin calc(var(--speed) * 2) infinite linear",
         slide: "slide var(--speed) ease-in-out infinite alternate",
         marquee: "marquee var(--duration) linear infinite",
@@ -152,6 +157,12 @@ module.exports = {
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
+        },
+        "wiggle": {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(-30deg)' },
+          '50%': { transform: 'rotate(30deg)' },
+          '75%': { transform: 'rotate(-30deg)' },
         },
 
         spin: {

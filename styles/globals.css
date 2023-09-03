@@ -56,6 +56,9 @@ body::-webkit-scrollbar-thumb:hover {
     --ring: 240 5% 64.9%;
 
     --radius: 0.5rem;
+
+    --custom: 217.8 23.1% 22.9%;
+    --custom-foreground: 240 4% 16%;
   }
 
   .dark {
@@ -87,6 +90,9 @@ body::-webkit-scrollbar-thumb:hover {
     --destructive-foreground: 0 85.7% 97.3%;
 
     --ring: var(--muted);
+
+    --custom: 0 0% 89.8%;
+    --custom-foreground: 0 0% 63.9%;
   }
 }
 

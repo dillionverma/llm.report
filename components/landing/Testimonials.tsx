@@ -53,14 +53,14 @@ export default async function Testimonials() {
   return (
     <section id="testimonials" className="relative">
       <div className="py-14 space-y-14">
-        <div className="mx-auto max-w-md text-center sm:max-w-2xl">
-          <h2 className="font-display text-4xl font-bold leading-tight text-black sm:text-5xl sm:leading-tight">
+        <div className="max-w-md mx-auto text-center sm:max-w-2xl">
+          <h2 className="text-4xl font-bold leading-tight font-display text-custom-foreground sm:text-5xl sm:leading-tight">
             Loved by{" "}
-            <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
+            <span className="text-transparent bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text">
               3,000+ users
             </span>{" "}
             and{" "}
-            <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">
+            <span className="text-transparent bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text">
               companies
             </span>{" "}
             worldwide
@@ -71,7 +71,7 @@ export default async function Testimonials() {
           </p>
         </div>
 
-        <div className="flex gap-4 flex-col">
+        <div className="flex flex-col gap-4">
           <Marquee pauseOnHover className="[--duration:40s]">
             {firstRow?.map((t, idx) => (
               <ServerTweetCard
@@ -92,8 +92,8 @@ export default async function Testimonials() {
           </Marquee>
         </div>
       </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-white dark:from-slate-950"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white dark:from-slate-950"></div>
+      <div className="absolute inset-y-0 left-0 w-1/4 pointer-events-none bg-gradient-to-r from-white dark:from-slate-950"></div>
+      <div className="absolute inset-y-0 right-0 w-1/4 pointer-events-none bg-gradient-to-l from-white dark:from-slate-950"></div>
     </section>
   );
 }

@@ -6,18 +6,18 @@ import Link from "next/link";
 export default async function CommunitySection() {
   return (
     <section id="community">
-      <div className="max-w-screen-xl mx-auto px-4 md:text-center md:px-8 py-20">
+      <div className="max-w-screen-xl px-4 py-20 mx-auto md:text-center md:px-8">
         <div className="max-w-xl space-y-3 md:mx-auto">
-          <h3 className="text-orange-600 font-semibold">Community</h3>
-          <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+          <h3 className="font-semibold text-orange-600">Community</h3>
+          <p className="text-3xl font-semibold text-custom sm:text-4xl">
             Join our community
           </p>
-          <p className="text-gray-600">
+          <p className="text-custom-foreground">
             Join our open-source community and help shape the future of LLM
             Report.
           </p>
         </div>
-        <div className="mt-4 flex gap-4 justify-center items-center">
+        <div className="flex items-center justify-center gap-4 mt-4">
           <Link
             href="https://github.com/dillionverma/llm.report/issues"
             className={cn(

@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const BackedBy = () => (
-  <div className="mt-12 flex flex-col gap-4 justify-center items-center">
+  <div className="flex flex-col items-center justify-center gap-4 mt-12">
     <div>
-      <h3 className="font-semibold text-sm text-gray-600 text-center">
+      <h3 className="text-sm font-semibold text-center text-custom">
         BACKED BY THE BEST IN THE INDUSTRY
       </h3>
     </div>
@@ -12,9 +12,9 @@ const BackedBy = () => (
       <Link
         href="https://vercel.com/blog/ai-accelerator-participants"
         target="_blank"
-        className="group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-md"
+        className="relative justify-center w-full gap-2 transition-all duration-300 ease-out rounded-md group hover:ring-2 hover:ring-primary hover:ring-offset-2"
       >
-        <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40"></span>
+        <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 ease-out transform translate-x-12 bg-white rotate-12 opacity-10 group-hover:-translate-x-40"></span>
 
         <img
           src="/accelerator-badge-dark.png"
@@ -26,9 +26,9 @@ const BackedBy = () => (
       <Link
         href="https://buildspace.so/sf1"
         target="_blank"
-        className="group relative justify-center gap-2 w-full transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2 rounded-md"
+        className="relative justify-center w-full gap-2 transition-all duration-300 ease-out rounded-md group hover:ring-2 hover:ring-primary hover:ring-offset-2"
       >
-        <span className="absolute right-0 -mt-12 h-32 w-8 translate-x-12 rotate-12 transform bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40"></span>
+        <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 ease-out transform translate-x-12 bg-white rotate-12 opacity-10 group-hover:-translate-x-40"></span>
 
         <img
           src="/buildspace-badge-dark.png"
