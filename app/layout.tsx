@@ -14,7 +14,9 @@ import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import "@/styles/mdx.css";
+import "@/styles/querybuilder.css";
 import { Metadata } from "next";
+import "react-querybuilder/dist/query-builder.css";
 
 export const metadata: Metadata = {
   title: "LLM Report",

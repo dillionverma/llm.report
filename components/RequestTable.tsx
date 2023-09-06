@@ -1,6 +1,10 @@
 "use client";
 
+import { DataTableViewOptions } from "@/components/DataTableViewOptions";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Operator, QueryBuilder, RuleGroupType } from "react-querybuilder";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -413,6 +417,23 @@ const columns: ColumnDef<Request>[] = [
     },
   },
   {
+    accessorKey: "request_headers",
+    header: "Metadata",
+    cell: ({ row, cell }) => {
+      const value = row.getValue("request_headers") as any;
+      // filter out non- x-metadata- headers
+      const metadata = Object.entries(value)
+        .filter(([key, _]) => key.startsWith("x-metadata"))
+        .map(([key, value], i) => (
+          <Badge key={i} variant="outline">
+            {key.replace("x-metadata-", "")}:{value as string}
+          </Badge>
+        ));
+
+      return metadata;
+    },
+  },
+  {
     accessorKey: "request_body",
     header: "Prompt",
     cell: ({ row }) => {
@@ -674,6 +695,27 @@ export function RequestTable({ userId }: { userId?: string }) {
     },
   });
 
+  const defaultQuery: RuleGroupType = { combinator: "and", rules: [] };
+  const defaultOperators: Operator[] = [{ name: "=", label: "=" }];
+  const [metadata, setMetadata] = useState<{ label: string; name: string }[]>(
+    []
+  );
+  const [query, setQuery] = useState(defaultQuery);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const apiUrl = `/api/v1/requests/metadata`;
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+        const metadata = data?.map((d: any) => ({ label: d, name: d }));
+        setMetadata(metadata);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, []);
+
   useEffect(() => {
     const params = new URLSearchParams({
       ...(userId && {
@@ -686,6 +728,7 @@ export function RequestTable({ userId }: { userId?: string }) {
         sortBy: sorting[0].id,
         sortOrder: sorting[0].desc ? "desc" : "asc",
       }),
+      filter: JSON.stringify(query),
     });
 
     const apiUrl = `/api/v1/requests?${params.toString()}`;
@@ -704,7 +747,7 @@ export function RequestTable({ userId }: { userId?: string }) {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [debouncedSearch, pageIndex, pageSize, sorting, userId]);
+  }, [debouncedSearch, pageIndex, pageSize, sorting, userId, query]);
 
   // const isFiltered =
   //   table.getPreFilteredRowModel().rows.length >
@@ -712,44 +755,40 @@ export function RequestTable({ userId }: { userId?: string }) {
 
   return (
     <>
-      <div className="flex items-center justify-between pb-4 space-x-2">
-        <Input
-          placeholder="Search prompts or completions..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="max-w-sm"
-        />
-
-        {/* <Input
-          placeholder="Filter user ids"
-          value={(table.getColumn("user_id")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("user_id")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        /> */}
-
-        {/* {table.getColumn("url") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("url")}
-            title="API"
-            options={endpoints}
+      <div className="flex items-center justify-between space-x-2">
+        <div className="flex flex-row space-x-2 items-center justify-center">
+          <Input
+            placeholder="Search prompts or completions..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="min-w-[250px]"
           />
-        )} */}
-        {/* {isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
-            Reset
-            <X className="w-4 h-4 ml-2" />
-          </Button>
-        )} */}
+
+          {/* {isFiltered && (
+            <Button
+              variant="ghost"
+              onClick={() => table.resetColumnFilters()}
+              className="h-8 px-2 lg:px-3"
+            >
+              Reset
+              <X className="w-4 h-4 ml-2" />
+            </Button>
+          )} */}
+        </div>
+
         <div className="flex flex-row space-x-2">
-          {/* <DataTableViewOptions table={table} /> */}
+          <DataTableViewOptions table={table} />
           <RequestExportButton />
         </div>
+      </div>
+
+      <div className="flex flex-col w-full py-4">
+        <QueryBuilder
+          fields={metadata}
+          defaultQuery={defaultQuery}
+          operators={defaultOperators}
+          onQueryChange={(q) => setQuery(q)}
+        />
       </div>
 
       <div className="border rounded-md">
