@@ -82,7 +82,9 @@ export const InstallSteps = () => {
         src="https://cdn.llm.report/onboarding-inst-2.png"
         alt="Instructions"
       />
-      <Step>Refresh Your Screen While On Network Tab</Step>
+      <Step className="text-red-500">
+        Refresh Your Screen While On Network Tab
+      </Step>
       <Step>Search "sess" and click green highlight</Step>
       <img
         src="https://cdn.llm.report/onboarding-inst-03.png"
