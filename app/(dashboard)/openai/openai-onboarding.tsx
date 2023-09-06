@@ -134,7 +134,7 @@ const OnboardingDashboard = ({ className }: { className?: string }) => {
             </CardHeader>
             <CardContent>
               <video
-                src="https://cdn.llm.report/openai-demo.mp4"
+                src="https://cdn.llm.report/llm-report-onboarding-yt.mp4"
                 autoPlay
                 loop
                 muted
