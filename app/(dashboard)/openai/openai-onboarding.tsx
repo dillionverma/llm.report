@@ -15,7 +15,6 @@ import openai, { OpenAI } from "@/lib/services/openai";
 import useLocalStorage from "@/lib/use-local-storage";
 import { cn } from "@/lib/utils";
 import { Badge, Grid } from "@tremor/react";
-import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 
 const Step = ({ className, ...props }: React.ComponentProps<"h3">) => (
@@ -48,33 +47,52 @@ export const InstallSteps = () => {
           https://platform.openai.com/account/usage
         </a>
       </Step>
-      <Step>Open Chrome Network requests tab</Step>
-      <p>Mac:</p>
-      <pre className="my-2">
-        <code className="bg-gray-100 p-2 rounded-md text-sm">
-          cmd + option + i
-        </code>
-      </pre>
-      <p>Windows: </p>
-      <pre className="my-2">
-        <code className="bg-gray-100 p-2 rounded-md text-sm">
-          ctrl + shift + i
-        </code>
-      </pre>
-      <Step>Find the GET request with the following URL</Step>
-      <pre className="my-2">
-        <code className="bg-gray-100 p-2 rounded-md text-sm">
-          https://api.openai.com/dashboard/billing/usage
-        </code>
-      </pre>
-      <Step>Copy session token</Step>
-      <p>It will be in the request headers under `authorization`</p>
-      <p>It looks like this:</p>
-      <pre className="my-2">
-        <code className="bg-gray-100 p-2 rounded-md text-sm">
-          Bearer sess-rYyW10fURtEce3rYSS6QGRMnLziKwrRdZeDt
-        </code>
-      </pre>
+      <Step>Open Chrome Developer Tools</Step>
+      <div className="grid grid-cols-2 gap-4 items-center">
+        <div className="flex flex-col justify-center items-center">
+          <p className="text-center">Mac:</p>
+          <pre className="my-2 text-center">
+            <code className="bg-gray-100 p-2 rounded-md text-sm">
+              cmd + option + i
+            </code>
+          </pre>
+          <br></br>
+          <p className="text-center">Windows:</p>
+          <pre className="my-2 text-center">
+            <code className="bg-gray-100 p-2 rounded-md text-sm">
+              ctrl + shift + i
+            </code>
+          </pre>
+        </div>
+        <div className="flex justify-center items-center">
+          <img
+            src="https://cdn.llm.report/onboarding-inst-0.png"
+            alt="Instructions"
+            style={{ maxWidth: "15vw" }}
+          />
+        </div>
+      </div>
+      <Step>Click the Network Tab</Step>
+      <img
+        src="https://cdn.llm.report/onboarding-inst-1.png"
+        alt="Instructions"
+      />
+      <Step>Click the Search Icon beside</Step>
+      <img
+        src="https://cdn.llm.report/onboarding-inst-2.png"
+        alt="Instructions"
+      />
+      <Step>Refresh Your Screen While On Network Tab</Step>
+      <Step>Search "sess" and click green highlight</Step>
+      <img
+        src="https://cdn.llm.report/onboarding-inst-03.png"
+        alt="Instructions"
+      />
+      <Step>Scroll and copy the session from the right side</Step>
+      <img
+        src="https://cdn.llm.report/onboarding-inst-04.png"
+        alt="Instructions"
+      />
       <Step>Paste the session token below</Step>
       <p>Only paste the token itself, remove the `Bearer` prefix</p>
       <pre className="my-2">
@@ -113,23 +131,18 @@ const OnboardingDashboard = ({ className }: { className?: string }) => {
 
   return (
     <Suspense>
-      <div className={cn("flex flex-col w-full max-w-xl space-y-4", className)}>
+      <div
+        className={cn("flex flex-col w-full max-w-3xl space-y-4", className)}
+      >
         <Grid numItems={1} className="gap-4 w-full">
           <Card>
             <CardHeader>
-              <CardTitle className="flex gap-2 flex-row items-center">
-                <span>OpenAI Analytics</span>
+              <CardTitle className="flex gap-2 flex-row items-center text-2xl">
+                <span>Connect Your Session Token (~1 minute)</span>
                 <Badge color="blue">✨ Free</Badge>
               </CardTitle>
-              <CardDescription>( ~ 1 minute installation )</CardDescription>
-              <CardDescription>
-                If you&apos;re using OpenAI, you probably have no idea which
-                model you&apos;re using, how much it costs you, or what your
-                token usage is.
-              </CardDescription>
-              <CardDescription className="font-semibold">
-                We built a dashboard to help you understand your usage and
-                costs.
+              <CardDescription className="text-xl">
+                Instructional Video Below
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -138,9 +151,27 @@ const OnboardingDashboard = ({ className }: { className?: string }) => {
                 autoPlay
                 loop
                 muted
+                controls
                 className="rounded-xl border"
               />
             </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex-row gap-4 items-center">
+              <CardTitle className="flex gap-2 flex-row items-center">
+                Token:
+              </CardTitle>
+              <Input
+                type="text"
+                name={LOCAL_STORAGE_KEY}
+                onChange={onChange}
+                required
+                value={key as string}
+                className="my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
+                placeholder="sess-5q293fh..."
+              />
+            </CardHeader>
           </Card>
 
           <Card>
@@ -153,7 +184,7 @@ const OnboardingDashboard = ({ className }: { className?: string }) => {
             <CardHeader className="flex-row gap-4 items-center">
               <OnboardingStep step={1} currentStep={step} />
               <div className="flex flex-col justify-center gap-1.5">
-                <CardTitle>OpenAI Session Token</CardTitle>
+                <CardTitle>Text Instructions</CardTitle>
                 <CardDescription>
                   Paste your OpenAI session token below to get started. We use
                   your OpenAI session token to call the OpenAI API and create
@@ -166,27 +197,22 @@ const OnboardingDashboard = ({ className }: { className?: string }) => {
               <ScrollArea>
                 <InstallSteps />
               </ScrollArea>
-              <Input
-                type="text"
-                name={LOCAL_STORAGE_KEY}
-                onChange={onChange}
-                required
-                value={key as string}
-                className="my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
-                placeholder="sess-5q293fh..."
-              />
-
-              <p className="text-sm text-gray-500 mt-1 inline-block">
-                Find API Key{" "}
-                <Link
-                  href="https://beta.openai.com/account/api-keys"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline"
-                >
-                  here.
-                </Link>
-              </p>
+              <Card>
+                <CardHeader className="flex-row gap-4 items-center">
+                  <CardTitle className="flex gap-2 flex-row items-center">
+                    Token:
+                  </CardTitle>
+                  <Input
+                    type="text"
+                    name={LOCAL_STORAGE_KEY}
+                    onChange={onChange}
+                    required
+                    value={key as string}
+                    className="my-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-gray-800 shadow-sm rounded-lg selection:bg-gray-300 focus:bg-white autofill:bg-white"
+                    placeholder="sess-5q293fh..."
+                  />
+                </CardHeader>
+              </Card>
             </CardContent>
           </Card>
         </Grid>
