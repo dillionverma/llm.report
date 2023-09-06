@@ -1,0 +1,28 @@
+.ruleGroup {
+    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+
+    background-color: rgb(248 250 252) !important;
+    border: 1px solid hsl(var(--border)) !important;
+
+    .ruleGroup-header > * {
+        background-color: rgb(255 255 255) !important;
+        border-radius: calc(var(--radius) - 2px);
+        border: 1px solid hsl(var(--border)) !important;
+        padding: 2px 4px !important;
+        box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05) !important
+    }
+
+    .ruleGroup-body > .rule > * {
+        background-color: rgb(255 255 255) !important;
+        border-radius: calc(var(--radius) - 2px);
+        border: 1px solid hsl(var(--border)) !important;
+        padding: 2px 6px !important;
+        box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05) !important
+
+    }
+
+    .ruleGroup-body > .rule > .ruleGroup-remove {
+        padding: 4px 4px !important;
+    }
+}

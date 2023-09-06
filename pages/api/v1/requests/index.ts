@@ -2,6 +2,7 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
+import { formatQuery } from "react-querybuilder";
 import { sha256 } from "../keys";
 
 type QueryParameters = {
@@ -23,6 +24,41 @@ const sortingFields = {
   method: "method",
   status: "status",
   cached: "cached",
+};
+
+// TODO: This is a hacky way to convert the react-querybuilder format to the prisma format
+// Refer here to accomodate more operators:
+// https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#json-filters
+function convertToPrismaFormat(input: any) {
+  const output: any = {};
+
+  input.rules.forEach((rule: any) => {
+    if (rule.operator === "=" && rule.valueSource === "value") {
+      if (input.combinator === "and") {
+        output.AND = output.AND || [];
+        output.AND.push({
+          request_headers: {
+            path: [rule.field],
+            string_contains: rule.value,
+          },
+        });
+      } else if (input.combinator === "or") {
+        output.OR = output.OR || [];
+        output.OR.push({
+          request_headers: {
+            path: [rule.field],
+            string_contains: rule.value,
+          },
+        });
+      }
+    }
+  });
+
+  return output;
+}
+
+const isEmpty = (obj: any) => {
+  return Object.keys(obj).length === 0;
 };
 
 export default async function handler(
@@ -62,7 +98,16 @@ export default async function handler(
     }: QueryParameters = req.query as unknown as QueryParameters;
 
     const skip = (Number(pageNumber) - 1) * Number(pageSize);
-    // const where = isEmpty(JSON.parse(filter)) ? { OR: JSON.parse(filter) } : {};
+
+    const metadataFilter = convertToPrismaFormat(
+      JSON.parse(
+        formatQuery(JSON.parse(filter), {
+          format: "json_without_ids",
+          parseNumbers: true,
+        })
+      )
+    );
+
     const searchFilter = search
       ? {
           OR: [
@@ -92,7 +137,7 @@ export default async function handler(
       where: {
         userId,
         ...(user_id && { user_id: decodeURIComponent(user_id) }),
-        // ...where,
+        ...metadataFilter,
         ...searchFilter,
       },
       orderBy: {
@@ -100,9 +145,6 @@ export default async function handler(
       },
       take: Number(pageSize),
       skip,
-      // include: {
-      //   metadata: true,
-      // },
       select: {
         id: true,
         createdAt: true,
@@ -123,6 +165,7 @@ export default async function handler(
         prompt_tokens: true,
         completion_tokens: true,
 
+        request_headers: true,
         request_body: true,
         response_body: true,
         streamed_response_body: true,
