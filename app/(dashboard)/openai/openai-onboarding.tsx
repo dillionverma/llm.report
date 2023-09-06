@@ -184,7 +184,7 @@ const OnboardingDashboard = ({ className }: { className?: string }) => {
             <CardHeader className="flex-row gap-4 items-center">
               <OnboardingStep step={1} currentStep={step} />
               <div className="flex flex-col justify-center gap-1.5">
-                <CardTitle>Text Instructions</CardTitle>
+                <CardTitle className="text-2xl">Text Instructions</CardTitle>
                 <CardDescription>
                   Paste your OpenAI session token below to get started. We use
                   your OpenAI session token to call the OpenAI API and create
