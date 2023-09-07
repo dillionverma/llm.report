@@ -85,7 +85,7 @@ export const InstallSteps = () => {
       <Step className="text-red-500">
         Refresh Your Screen While On Network Tab
       </Step>
-      <Step>Search "sess" and click green highlight</Step>
+      <Step>Search &apos;sess&apos; and click green highlight</Step>
       <img
         src="https://cdn.llm.report/onboarding-inst-03.png"
         alt="Instructions"
