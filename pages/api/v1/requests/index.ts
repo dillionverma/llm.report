@@ -176,6 +176,7 @@ export default async function handler(
       where: {
         userId,
         ...(user_id && { user_id: user_id }),
+        ...metadataFilter,
         // ...where,
         ...searchFilter,
       },
