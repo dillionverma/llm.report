@@ -150,6 +150,14 @@ export default function Dashboard() {
     CATEGORIES
   );
 
+  useEffect(() => {
+    // Delete categories key from localstorage once
+    if (!localStorage.getItem("refresh")) {
+      localStorage.removeItem(CATEGORIES_KEY);
+      localStorage.setItem("refresh", "true");
+    }
+  }, []);
+
   const [users, setUsers] = useState<OrganizationUsers>();
   const [orgId, setOrgId] = useLocalStorage<string>(LOCAL_STORAGE_ORG_ID, "");
 
