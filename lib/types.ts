@@ -125,14 +125,14 @@ export interface OrganizationUsers {
 export type Category = Model;
 
 export type Model =
-  | "DALL-E API"
   | "Audio models"
-  | "Chat models"
   | "Embedding models"
-  | "Fine-tuned models"
+  | "Fine-tuning models"
   | "GPT-4"
-  | "Image models"
-  | "Instruct models";
+  | "GPT-3.5"
+  | "InstructGPT"
+  | "GPT base models"
+  | "Image models";
 
 export type GPT4Model =
   | "gpt-4"

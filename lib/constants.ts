@@ -34,13 +34,13 @@ export const FADE_UP_ANIMATION_VARIANTS = {
 export const CATEGORIES: Category[] = [
   // "Total Cost ($)",
   "Audio models",
-  "Chat models",
   "Embedding models",
-  "Fine-tuned models",
+  "Fine-tuning models",
   "GPT-4",
+  "GPT-3.5",
+  "InstructGPT",
+  "GPT base models",
   "Image models",
-  "Instruct models",
-  "DALL-E API",
 ];
 
 export const IMAGE_RESOLUTIONS: ImageResolution[] = [
@@ -112,15 +112,13 @@ export const COLORS: Color[] = [
 export const CATEGORY_TO_COLOR: Record<Category, Color> = {
   // "Total Cost ($)": "blue",
   "Audio models": "purple",
-  "Chat models": "amber",
+  "GPT-3.5": "amber",
   "Embedding models": "rose",
-  "Fine-tuned models": "indigo",
+  "Fine-tuning models": "indigo",
   "GPT-4": "emerald",
   "Image models": "sky",
-  "Instruct models": "lime",
-
-  // TODO: Might be deprecated
-  "DALL-E API": "pink",
+  InstructGPT: "lime",
+  "GPT base models": "pink",
 };
 
 export const MODEL_TO_COLOR: Record<Snapshot, Color> = {
