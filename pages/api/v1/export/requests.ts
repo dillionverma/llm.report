@@ -1,5 +1,6 @@
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { Request } from "@prisma/client";
 import { parseISO } from "date-fns";
 import { json2csv } from "json-2-csv";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -37,9 +38,9 @@ export default async function handler(
       cost: true,
       cached: true,
       streamed: true,
-      metadata: true,
       prompt: true,
       completion: true,
+      request_headers: true,
     },
     where: {
       createdAt: {
@@ -50,7 +51,17 @@ export default async function handler(
     },
   });
 
-  const csv = await json2csv(requests, {
+  const filteredRequests = requests.map((request: Request) => {
+    const metadata = Object.entries(request.request_headers!).filter(
+      ([key, _]) => key.startsWith("x-metadata")
+    );
+    return {
+      ...request,
+      metadata,
+    };
+  });
+
+  const csv = await json2csv(filteredRequests, {
     expandNestedObjects: false,
     keys: [
       "createdAt",
