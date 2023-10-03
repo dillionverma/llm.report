@@ -51,29 +51,37 @@ export default async function handler(
     },
   });
 
-  const [filteredRequests, columns] = requests.map((request: Request) => {
+  const results = requests.map((request: Request) => {
     const metadata = Object.entries(request.request_headers!).filter(
       ([key, _]) => key.startsWith("x-metadata")
     );
     // get list of keys from request except for the key: request_headers
-    const keys = Object.keys(request).filter(
-      (key) => key !== "request_headers"
-    );
-    const columns = keys.concat(metadata.map(([key, _]) => key));
-    // new request object without request headers
     const updatedRequest = Object.fromEntries(
       Object.entries(request).filter(
         ([key, _]) => key !== "request_headers"
       ) as any
     );
-    return [
-      {
+    const columnsForThisRequest = Object.keys(updatedRequest).concat(
+      metadata.map(([key, _]) => key)
+    );
+
+    return {
+      request: {
         ...updatedRequest,
         ...Object.fromEntries(metadata),
       },
-      columns,
-    ];
+      columns: columnsForThisRequest,
+    };
   });
+
+  const filteredRequests = results.map((result: any) => result.request);
+
+  const columnsSet: Set<string> = new Set();
+  results.forEach((result: any) => {
+    result.columns.forEach((col: any) => columnsSet.add(col));
+  });
+
+  const columns = Array.from(columnsSet);
 
   const csv = await json2csv(filteredRequests, {
     expandNestedObjects: false,
