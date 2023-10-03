@@ -51,32 +51,33 @@ export default async function handler(
     },
   });
 
-  const filteredRequests = requests.map((request: Request) => {
+  const [filteredRequests, columns] = requests.map((request: Request) => {
     const metadata = Object.entries(request.request_headers!).filter(
       ([key, _]) => key.startsWith("x-metadata")
     );
-    return {
-      ...request,
-      metadata,
-    };
+    // get list of keys from request except for the key: request_headers
+    const keys = Object.keys(request).filter(
+      (key) => key !== "request_headers"
+    );
+    const columns = keys.concat(metadata.map(([key, _]) => key));
+    // new request object without request headers
+    const updatedRequest = Object.fromEntries(
+      Object.entries(request).filter(
+        ([key, _]) => key !== "request_headers"
+      ) as any
+    );
+    return [
+      {
+        ...updatedRequest,
+        ...Object.fromEntries(metadata),
+      },
+      columns,
+    ];
   });
 
   const csv = await json2csv(filteredRequests, {
     expandNestedObjects: false,
-    keys: [
-      "createdAt",
-      "id",
-      "ip",
-      "url",
-      "method",
-      "status",
-      "cost",
-      "cached",
-      "streamed",
-      "metadata",
-      "prompt",
-      "completion",
-    ],
+    keys: columns,
   });
 
   // Send the CSV file to the client
