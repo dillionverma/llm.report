@@ -27,7 +27,7 @@ export default async function handler(
   const startDate = parseISO(start as string);
   const endDate = parseISO(end as string);
 
-  const requests = await prisma.request.findMany({
+  const requests: Request[] = await prisma.request.findMany({
     select: {
       createdAt: true,
       id: true,
@@ -55,36 +55,32 @@ export default async function handler(
     const metadata = Object.entries(request.request_headers!).filter(
       ([key, _]) => key.startsWith("x-metadata")
     );
-    // get list of keys from request except for the key: request_headers
-    const updatedRequest = Object.fromEntries(
-      Object.entries(request).filter(
-        ([key, _]) => key !== "request_headers"
-      ) as any
-    );
-    const columnsForThisRequest = Object.keys(updatedRequest).concat(
-      metadata.map(([key, _]) => key)
-    );
+
+    const { request_headers, ...updatedRequest } = request;
+
+    const columns = [
+      ...Object.keys(updatedRequest),
+      ...metadata.map(([key, _]) => key),
+    ];
 
     return {
       request: {
         ...updatedRequest,
         ...Object.fromEntries(metadata),
       },
-      columns: columnsForThisRequest,
+      columns,
     };
   });
 
   const filteredRequests = results.map((result: any) => result.request);
 
-  const columnsSet: Set<string> = new Set();
-  results.forEach((result: any) => {
-    result.columns.forEach((col: any) => columnsSet.add(col));
-  });
-
-  const columns = Array.from(columnsSet);
+  const columns = [
+    ...new Set(results.flatMap((result: any) => result.columns)),
+  ];
 
   const csv = await json2csv(filteredRequests, {
     expandNestedObjects: false,
+    emptyFieldValue: "",
     keys: columns,
   });
 
