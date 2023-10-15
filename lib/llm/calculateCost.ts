@@ -26,7 +26,7 @@ export const MODEL_COSTS: CostPerUnit = {
   },
   "gpt-4": {
     prompt: 0.03 / 1000,
-    completion: 0.03 / 1000,
+    completion: 0.06 / 1000,
   },
   "gpt-4-32k": {
     prompt: 0.06 / 1000,
