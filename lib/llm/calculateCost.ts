@@ -65,15 +65,15 @@ export const getModelCost = (model: string) => {
 };
 
 export const calculateCost = ({ model, input, output }: CostReq): number => {
-  if (!model) return 0;
+  if (!model || !input || !output) return 0;
   const cost = getModelCost(model)!;
 
   if (typeof cost === "number") {
     if (!input) throw new Error("Input tokens are required");
     return cost * input;
   } else {
-    if (!input || !output)
-      throw new Error("Input and output tokens are required");
+    // if (!input || !output)
+    //   throw new Error("Input and output tokens are required");
 
     const promptCost = cost.prompt * input;
     const completionCost = cost.completion * output;
