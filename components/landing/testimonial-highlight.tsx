@@ -24,7 +24,7 @@ const TestimonialHighlight = () => {
                 <img
                   width={64}
                   height={64}
-                  src="https://pbs.twimg.com/profile_images/1576257734810312704/ucxb4lHy_400x400.jpg"
+                  src="https://pbs.twimg.com/profile_images/1711810659099279360/opBugj2p_400x400.jpg"
                   alt="Guillermo Rauch"
                   className="w-16 h-16 mx-auto rounded-full"
                 />
