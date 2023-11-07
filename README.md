@@ -105,14 +105,6 @@ yarn dx
 
 Open [http://localhost:3000](http://localhost:3000) with your browser!
 
-## Cloud Installation
-
-Head over to [llm.report](https://llm.report) to get started for free or schedule a call with the founders for a demo.
-
-<a href="https://cal.com/dillionverma/llm-report-demo"><img alt="Schedule a meeting" src="https://cal.com/book-with-cal-dark.svg" /></a>
-
-Email: [dillion@llm.report](mailto:dillion@llm.report)
-
 ## Tech Stack
 
 - [Next.js](https://nextjs.org/) – framework
