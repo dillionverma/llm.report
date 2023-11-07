@@ -123,13 +123,15 @@ export const useCostChartData = (
     switch (category) {
       case "Audio models":
         return AUDIO_MODELS;
-      case "GPT-3.5":
+      case "GPT-3.5 Turbo":
         return CHAT_GPT3_MODELS;
       case "Embedding models":
         return EMBEDDING_MODELS;
       case "Fine-tuning models":
         return FINE_TUNED_MODELS;
       case "GPT-4":
+        return CHAT_GPT4_MODELS;
+      case "GPT-4 Turbo":
         return CHAT_GPT4_MODELS;
       case "Image models":
         return IMAGE_RESOLUTIONS;

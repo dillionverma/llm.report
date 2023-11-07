@@ -16,6 +16,22 @@ interface CostReq {
 }
 
 export const MODEL_COSTS: CostPerUnit = {
+  "gpt-4-1106-preview": {
+    prompt: 0.01 / 1000,
+    completion: 0.03 / 1000,
+  },
+  "gpt-4-1106-vision-preview": {
+    prompt: 0.01 / 1000,
+    completion: 0.03 / 1000,
+  },
+  "gpt-3.5-turbo-1106": {
+    prompt: 0.01 / 1000,
+    completion: 0.02 / 1000,
+  },
+  "ft:gpt-3.5-turbo": {
+    prompt: 0.003 / 1000,
+    completion: 0.006 / 1000,
+  },
   "gpt-3.5-turbo": {
     prompt: 0.0015 / 1000,
     completion: 0.002 / 1000,
@@ -53,10 +69,16 @@ export const getModelCost = (model: string) => {
 
   if (model.startsWith("gpt-3.5-turbo-16k")) {
     return MODEL_COSTS["gpt-3.5-turbo-16k"];
+  } else if (model.startsWith("gpt-3.5-turbo-1106")) {
+    return MODEL_COSTS["gpt-3.5-turbo-1106"];
   } else if (model.startsWith("gpt-3.5-turbo")) {
     return MODEL_COSTS["gpt-3.5-turbo"];
+  } else if (model.startsWith("ft:gpt-3.5-turbo")) {
+    return MODEL_COSTS["ft:gpt-3.5-turbo"];
   } else if (model.startsWith("gpt-4-32k")) {
     return MODEL_COSTS["gpt-4-32k"];
+  } else if (model.startsWith("gpt-4-1106")) {
+    return MODEL_COSTS["gpt-4-1106-preview"];
   } else if (model.startsWith("gpt-4")) {
     return MODEL_COSTS["gpt-4"];
   } else {
@@ -72,9 +94,6 @@ export const calculateCost = ({ model, input, output }: CostReq): number => {
     if (!input) throw new Error("Input tokens are required");
     return cost * input;
   } else {
-    // if (!input || !output)
-    //   throw new Error("Input and output tokens are required");
-
     const promptCost = cost.prompt * input;
     const completionCost = cost.completion * output;
     return promptCost + completionCost;

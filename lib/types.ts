@@ -129,9 +129,10 @@ export type Model =
   | "Embedding models"
   | "Fine-tuning models"
   | "GPT-4"
-  | "GPT-3.5"
+  | "GPT-4 Turbo"
+  | "GPT-3.5 Turbo"
   | "InstructGPT"
-  | "GPT base models"
+  | "Base models"
   | "Image models";
 
 export type GPT4Model =
@@ -139,13 +140,16 @@ export type GPT4Model =
   | "gpt-4-0314"
   | "gpt-4-0613"
   | "gpt-4-32k"
-  | "gpt-4-32k-0314";
+  | "gpt-4-32k-0314"
+  | "gpt-4-1106-preview"
+  | "gpt-4-1106-vision-preview";
 
 export type GPT3Model =
   | "gpt-3.5-turbo"
   | "gpt-3.5-turbo-0301"
   | "gpt-3.5-turbo-0613"
-  | "gpt-3.5-turbo-16k-0613";
+  | "gpt-3.5-turbo-16k-0613"
+  | "gpt-3.5-turbo-1106";
 
 export type ChatCompletionModel = GPT3Model | GPT4Model;
 

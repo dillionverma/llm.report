@@ -37,9 +37,10 @@ export const CATEGORIES: Category[] = [
   "Embedding models",
   "Fine-tuning models",
   "GPT-4",
-  "GPT-3.5",
+  "GPT-4 Turbo",
+  "GPT-3.5 Turbo",
   "InstructGPT",
-  "GPT base models",
+  "Base models",
   "Image models",
 ];
 
@@ -55,6 +56,8 @@ export const CHAT_GPT4_MODELS: ChatCompletionModel[] = [
   "gpt-4-0613",
   "gpt-4-32k",
   "gpt-4-32k-0314",
+  "gpt-4-1106-preview",
+  "gpt-4-1106-vision-preview",
 ];
 export const CHAT_GPT3_MODELS: ChatCompletionModel[] = [
   "gpt-3.5-turbo",
@@ -98,7 +101,7 @@ export const EMBEDDING_MODELS: EmbeddingModel[] = [
 export const AUDIO_MODELS: AudioModel[] = ["whisper-1", "whisper-2"];
 
 export const COLORS: Color[] = [
-  // "blue",
+  "blue",
   "purple",
   "amber",
   "rose",
@@ -112,13 +115,14 @@ export const COLORS: Color[] = [
 export const CATEGORY_TO_COLOR: Record<Category, Color> = {
   // "Total Cost ($)": "blue",
   "Audio models": "purple",
-  "GPT-3.5": "amber",
+  "GPT-3.5 Turbo": "amber",
   "Embedding models": "rose",
   "Fine-tuning models": "indigo",
   "GPT-4": "emerald",
+  "GPT-4 Turbo": "blue",
   "Image models": "sky",
   InstructGPT: "lime",
-  "GPT base models": "pink",
+  "Base models": "pink",
 };
 
 export const MODEL_TO_COLOR: Record<Snapshot, Color> = {
@@ -132,12 +136,15 @@ export const MODEL_TO_COLOR: Record<Snapshot, Color> = {
   "gpt-4-32k": "emerald",
   "gpt-4-32k-0314": "emerald",
   "gpt-4-0613": "emerald",
+  "gpt-4-1106-preview": "emerald",
+  "gpt-4-1106-vision-preview": "emerald",
 
   // Chat models per token (GPT-3)
   "gpt-3.5-turbo": "amber",
   "gpt-3.5-turbo-0301": "amber",
   "gpt-3.5-turbo-0613": "amber",
   "gpt-3.5-turbo-16k-0613": "amber",
+  "gpt-3.5-turbo-1106": "amber",
 
   // Embedding models per token
   "text-embedding-ada-002": "rose",
@@ -239,6 +246,8 @@ export const MODEL_COST: { [key in Snapshot]?: number } = {
   "gpt-4-32k": 0.06 / 1000,
   "gpt-4-32k-0314": 0.06 / 1000,
   "gpt-4-0613": 0.06 / 1000,
+  "gpt-4-1106-preview": 0.01 / 1000,
+  "gpt-4-1106-vision-preview": 0.01 / 1000,
 
   // Chat models per token (GPT-3)
   "gpt-3.5-turbo": 0.0015 / 1000,
