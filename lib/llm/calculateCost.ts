@@ -25,8 +25,8 @@ export const MODEL_COSTS: CostPerUnit = {
     completion: 0.03 / 1000,
   },
   "gpt-3.5-turbo-1106": {
-    prompt: 0.01 / 1000,
-    completion: 0.02 / 1000,
+    prompt: 0.001 / 1000,
+    completion: 0.002 / 1000,
   },
   "ft:gpt-3.5-turbo": {
     prompt: 0.003 / 1000,
@@ -37,8 +37,8 @@ export const MODEL_COSTS: CostPerUnit = {
     completion: 0.002 / 1000,
   },
   "gpt-3.5-turbo-16k": {
-    prompt: 0.003 / 1000,
-    completion: 0.004 / 1000,
+    prompt: 0.001 / 1000,
+    completion: 0.002 / 1000,
   },
   "gpt-4": {
     prompt: 0.03 / 1000,
