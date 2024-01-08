@@ -129,6 +129,12 @@ export default async function handler(
                 mode: "insensitive",
               },
             },
+            {
+              model: {
+                contains: `${search}`,
+                mode: "insensitive",
+              },
+            },
           ] as any[],
         }
       : {};
