@@ -53,6 +53,7 @@ import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DataTablePagination } from "./DataTablePagination";
 import { RequestExportButton } from "./RequestExportButton";
 import { Input } from "./ui/input";
+import { useSearchParams } from "next/navigation";
 
 const RenderMarkdown = ({ children }: { children: string }) => {
   return (
@@ -638,8 +639,11 @@ export const endpoints = [
 ];
 
 export function RequestTable({ userId }: { userId?: string }) {
+  const searchParams = useSearchParams();
   const [selectedRequest, setSelectedRequest] = useState<any>(null);
   const [isOpen, setIsOpen] = useState(false);
+
+  const logIdQuery = searchParams?.get('id');
 
   function closeModal() {
     setIsOpen(false);
@@ -740,6 +744,11 @@ export function RequestTable({ userId }: { userId?: string }) {
       .then((data) => {
         setRequests(data.requests);
         setTotalCount(data.totalCount);
+        const log = data.requests.find((r: Request) => r.openai_id === logIdQuery);
+        if (log) {
+          setSelectedRequest(log);
+          setIsOpen(true);
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
