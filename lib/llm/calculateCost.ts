@@ -1,4 +1,31 @@
-import { Snapshot } from "@/lib/types";
+export type GPT4Model =
+  | "gpt-4"
+  | "gpt-4-0314"
+  | "gpt-4-0613"
+  | "gpt-4-32k"
+  | "gpt-4-32k-0314"
+  | "gpt-4-1106-preview"
+  | "gpt-4-1106-vision-preview"
+  | "gpt-4-0125-preview";
+
+export type GPT3Model =
+  | "gpt-3.5-turbo"
+  | "gpt-3.5-turbo-0301"
+  | "gpt-3.5-turbo-0613"
+  | "gpt-3.5-turbo-16k-0613"
+  | "gpt-3.5-turbo-1106";
+
+export type ChatCompletionModel = GPT3Model | GPT4Model;
+
+export type CompletionModel =
+  | "text-ada-001"
+  | "text-babbage-001"
+  | "text-curie-001"
+  | "text-davinci-002"
+  | "text-davinci-003"
+  | "text-davinci:003";
+
+export type Snapshot = ChatCompletionModel | CompletionModel;
 
 export type CompletionModelCost = {
   prompt: number;
@@ -16,6 +43,10 @@ interface CostReq {
 }
 
 export const MODEL_COSTS: CostPerUnit = {
+  "gpt-4-0125-preview": {
+    prompt: 0.01 / 1000,
+    completion: 0.03 / 1000,
+  },
   "gpt-4-1106-preview": {
     prompt: 0.01 / 1000,
     completion: 0.03 / 1000,
@@ -27,10 +58,6 @@ export const MODEL_COSTS: CostPerUnit = {
   "gpt-3.5-turbo-1106": {
     prompt: 0.001 / 1000,
     completion: 0.002 / 1000,
-  },
-  "ft:gpt-3.5-turbo": {
-    prompt: 0.003 / 1000,
-    completion: 0.006 / 1000,
   },
   "gpt-3.5-turbo": {
     prompt: 0.0015 / 1000,
@@ -48,16 +75,6 @@ export const MODEL_COSTS: CostPerUnit = {
     prompt: 0.06 / 1000,
     completion: 0.12 / 1000,
   },
-  // Embedding models per token
-  "text-embedding-ada-002": 0.0001 / 1000,
-  "text-embedding-ada-002-v2": 0.0001 / 1000,
-  // Dalle
-  "1024x1024": 0.02, // per 1 image
-  "512x512": 0.018, // per 1 image
-  "256x256": 0.016, // per 1 image
-  // Audio models per minute
-  "whisper-1": 0.006,
-  "whisper-2": 0.006,
 };
 
 export const getModelCost = (model: string) => {
@@ -79,6 +96,8 @@ export const getModelCost = (model: string) => {
     return MODEL_COSTS["gpt-4-32k"];
   } else if (model.startsWith("gpt-4-1106")) {
     return MODEL_COSTS["gpt-4-1106-preview"];
+  } else if (model.startsWith("gpt-4-0125")) {
+    return MODEL_COSTS["gpt-4-0125-preview"];
   } else if (model.startsWith("gpt-4")) {
     return MODEL_COSTS["gpt-4"];
   } else {

@@ -138,6 +138,7 @@ export const MODEL_TO_COLOR: Record<Snapshot, Color> = {
   "gpt-4-0613": "emerald",
   "gpt-4-1106-preview": "emerald",
   "gpt-4-1106-vision-preview": "emerald",
+  "gpt-4-0125-preview": "emerald",
 
   // Chat models per token (GPT-3)
   "gpt-3.5-turbo": "amber",
@@ -248,6 +249,7 @@ export const MODEL_COST: { [key in Snapshot]?: number } = {
   "gpt-4-0613": 0.06 / 1000,
   "gpt-4-1106-preview": 0.01 / 1000,
   "gpt-4-1106-vision-preview": 0.01 / 1000,
+  "gpt-4-0125-preview": 0.01 / 1000,
 
   // Chat models per token (GPT-3)
   "gpt-3.5-turbo": 0.0015 / 1000,
