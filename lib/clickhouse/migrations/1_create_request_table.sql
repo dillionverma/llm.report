@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS request
     -- ID of the user passed in through header
     user_id Nullable(String),
 
+    app_id Nullable(String),
+
     url String,
     method String,
     status Int64,

@@ -130,6 +130,7 @@ CREATE TABLE "Request" (
     "completion" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "app_id" TEXT,
 
     CONSTRAINT "Request_pkey" PRIMARY KEY ("id")
 );

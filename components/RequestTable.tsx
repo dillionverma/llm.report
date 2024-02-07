@@ -200,6 +200,10 @@ const RequestDialog = ({
                                   label="user id"
                                   value={truncateEmail(request.user_id)}
                                 />
+                                <TR
+                                  label="app id"
+                                  value={truncateEmail(request.app_id)}
+                                />
 
                                 {/* <TableRow
                               label="Request"
@@ -468,6 +472,15 @@ const columns: ColumnDef<Request>[] = [
       return <div>{truncateEmail(value)}</div>;
     },
   },
+  {
+    accessorKey: "app_id",
+    header: "App ID",
+    cell: ({ row }) => {
+      const value = row.getValue("app_id") as string;
+      return <div>{truncateEmail(value)}</div>;
+    },
+  },
+  
   // {
   //   accessorKey: "response_body",
   //   header: "Completion",
@@ -748,6 +761,7 @@ export function RequestTable({ userId }: { userId?: string }) {
         setIsLoading(false);
       });
   }, [debouncedSearch, pageIndex, pageSize, sorting, userId, query]);
+
 
   // const isFiltered =
   //   table.getPreFilteredRowModel().rows.length >

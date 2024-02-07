@@ -35,7 +35,7 @@ const columns: ColumnDef<Request>[] = [
     header: "App Id",
     cell: ({ row }) => {
       const value = row.getValue("app_id") as string;
-      return <div>{value}</div>;
+      return <div>{truncateEmail(value)}</div>;
     },
   },
   {
