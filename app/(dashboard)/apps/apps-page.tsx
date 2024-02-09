@@ -1,6 +1,8 @@
 "use client";
 
 import UserOnboarding from "@/app/(dashboard)/users/user-onboarding";
+import UserCostChart from "@/components/appids/AppCostChart";
+import { AppTable } from "@/components/appids/AppTable";
 import {
   Card,
   CardContent,
@@ -8,8 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import UserCostChart from "@/components/appids/AppCostChart";
-import UserTable from "@/components/users/UserTable";
 import { useCopyCode } from "@/lib/copyCode";
 import { useLogCount } from "@/lib/hooks/useLogCount";
 import { useUserCount } from "@/lib/hooks/useUserCount";
@@ -147,12 +147,12 @@ export default function UsersPage({ code }: { code: any }) {
               <CardHeader>
                 <CardTitle>Usage Summary</CardTitle>
                 <CardDescription>
-                  A usage summary of the top users
+                  A usage summary of the top apps
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Suspense fallback={<>loading...</>}>
-                  <UserTable from={value.from} to={value.to} />
+                  <AppTable from={value.from} to={value.to} />
                 </Suspense>
               </CardContent>
             </Card>

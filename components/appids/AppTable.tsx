@@ -39,14 +39,6 @@ const columns: ColumnDef<Request>[] = [
     },
   },
   {
-    accessorKey: "user_id",
-    header: "User Id",
-    cell: ({ row }) => {
-      const value = row.getValue("user_id") as string;
-      return <div>{truncateEmail(value)}</div>;
-    },
-  },
-  {
     accessorKey: "total_requests",
     header: "# Requests",
     cell: ({ row }) => {
@@ -98,11 +90,11 @@ interface UserTableProps {
   to: Date | undefined;
 }
 
-export function UserTable({ from, to }: UserTableProps) {
+export function AppTable({ from, to }: UserTableProps) {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500); // Debounce the search
-  const [users, setUsers] = useState([]);
+  const [apps, setApps] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -121,7 +113,7 @@ export function UserTable({ from, to }: UserTableProps) {
   );
 
   const table = useReactTable({
-    data: users,
+    data: apps,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -159,15 +151,14 @@ export function UserTable({ from, to }: UserTableProps) {
       ...(to && { end: format(to, "yyyy-MM-dd") }),
     });
 
-    const apiUrl = `/api/v1/users?${params.toString()}`;
+    const apiUrl = `/api/v1/appID?${params.toString()}`;
 
     setIsLoading(true);
 
     fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Data fetched:", data.users);
-        setUsers(data.users);
+        setApps(data.apps);
         setTotalCount(data.totalCount);
       })
       .catch((error) => {
@@ -181,13 +172,12 @@ export function UserTable({ from, to }: UserTableProps) {
   // const isFiltered =
   //   table.getPreFilteredRowModel().rows.length >
   //   table.getFilteredRowModel().rows.length;
-  
 
   return (
     <div>
       <div className="flex items-center justify-between py-4 space-x-2">
         <Input
-          placeholder="Search users"
+          placeholder="Search apps"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
@@ -273,7 +263,7 @@ export function UserTable({ from, to }: UserTableProps) {
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   onClick={() => {
-                    router.push(`/users/${row.original.user_id}`);
+                    router.push(`/apps/${row.original.user_id}`);
                   }}
                   className="cursor-pointer hover:bg-gray-100"
                 >
@@ -308,4 +298,4 @@ export function UserTable({ from, to }: UserTableProps) {
   );
 }
 
-export default UserTable;
+export default AppTable;

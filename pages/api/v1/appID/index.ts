@@ -9,10 +9,9 @@ import { getServerSession } from "next-auth";
 import { z } from "zod";
 
 type ExtendedRequest = Partial<Request> & {
-    app_id?: string; // Assuming app_id can be optional
-    cost: number; // Since you're adding this property manually
+  app_id?: string; // Assuming app_id can be optional
+  cost: number; // Since you're adding this property manually
 };
-
 
 const dateSchema = z
   .string()
@@ -142,54 +141,60 @@ export default async function handler(
           };
         });
 
-        const costsByAppId = filteredUsers.reduce((acc, currentRequest) => {
-            const appId = currentRequest.app_id; // Corrected way to access app_id of the current request
-        
-            if (!appId) return acc; // Skip if app_id is not present
-        
-            if (!acc[appId]) {
-              acc[appId] = {
-                app_id: appId,
-                total_requests: 0,
-                total_prompt_tokens: 0,
-                total_completion_tokens: 0,
-                total_cost: 0,
-              };
-            }
-        
-            acc[appId].total_requests += 1;
-            acc[appId].total_prompt_tokens += currentRequest.prompt_tokens!;
-            acc[appId].total_completion_tokens += currentRequest.completion_tokens!;
-            acc[appId].total_cost += currentRequest.cost;
-        
-            return acc;
-        }, {} as {
-            [key: string]: {
-                app_id: string;
-                total_requests: number;
-                total_prompt_tokens: number;
-                total_completion_tokens: number;
-                total_cost: number;
+      const costsByAppId = filteredUsers.reduce(
+        (acc, currentRequest) => {
+          const appId = currentRequest.app_id; // Corrected way to access app_id of the current request
+
+          if (!appId) return acc; // Skip if app_id is not present
+
+          if (!acc[appId]) {
+            acc[appId] = {
+              app_id: appId,
+              total_requests: 0,
+              total_prompt_tokens: 0,
+              total_completion_tokens: 0,
+              total_cost: 0,
             };
-        });
-        
-        // Sort by total_cost in descending order
-        const costsArray = Object.values(costsByAppId).sort((a, b) => b.total_cost - a.total_cost);
+          }
 
-        // Calculate skip based on pageNumber and pageSize
-        const skip = (pageNumber - 1) * pageSize;
+          acc[appId].total_requests += 1;
+          acc[appId].total_prompt_tokens += currentRequest.prompt_tokens!;
+          acc[appId].total_completion_tokens +=
+            currentRequest.completion_tokens!;
+          acc[appId].total_cost += currentRequest.cost;
 
-        
-        // Implement pagination logic if necessary
-        const paginatedCosts = costsArray.slice(skip, skip + pageSize);
-        
-        const totalCount = costsArray.length;
-        
-        return res.status(200).json({
-            apps: paginatedCosts,
-            totalCount,
-        });
-        
+          return acc;
+        },
+        {} as {
+          [key: string]: {
+            app_id: string;
+            total_requests: number;
+            total_prompt_tokens: number;
+            total_completion_tokens: number;
+            total_cost: number;
+          };
+        }
+      );
+
+      // console.log(costsByAppId);
+
+      // Sort by total_cost in descending order
+      const costsArray = Object.values(costsByAppId).sort(
+        (a, b) => b.total_cost - a.total_cost
+      );
+
+      // Calculate skip based on pageNumber and pageSize
+      const skip = (pageNumber - 1) * pageSize;
+
+      // Implement pagination logic if necessary
+      const paginatedCosts = costsArray.slice(skip, skip + pageSize);
+
+      const totalCount = costsArray.length;
+
+      return res.status(200).json({
+        apps: paginatedCosts,
+        totalCount,
+      });
     } catch (error: any) {
       console.log(error);
       return res.status(500).json({ error: error.message });
