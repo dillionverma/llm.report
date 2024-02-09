@@ -13,6 +13,7 @@ type QueryParameters = {
   pageSize?: number;
   pageNumber?: number;
   filter?: string;
+  app_id?: string; 
 };
 
 const sortingFields = {
@@ -95,6 +96,7 @@ export default async function handler(
       pageSize = 10,
       pageNumber = 1,
       filter = "{}",
+      app_id,
     }: QueryParameters = req.query as unknown as QueryParameters;
 
     const skip = (Number(pageNumber) - 1) * Number(pageSize);
@@ -137,6 +139,7 @@ export default async function handler(
       where: {
         userId,
         ...(user_id && { user_id: decodeURIComponent(user_id) }),
+        ...(app_id && { app_id: decodeURIComponent(app_id) }),
         ...metadataFilter,
         ...searchFilter,
       },
@@ -157,6 +160,7 @@ export default async function handler(
         streamed: true,
         // metadata: true,
         user_id: true,
+        app_id: true,
         completion: true,
         model: true,
         openai_id: true,
@@ -176,6 +180,7 @@ export default async function handler(
       where: {
         userId,
         ...(user_id && { user_id: user_id }),
+        ...(app_id && { app_id: app_id }),
         ...metadataFilter,
         // ...where,
         ...searchFilter,

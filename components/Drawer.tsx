@@ -46,6 +46,12 @@ const HOME_LINKS = [
     badge: "New ✨",
   },
   {
+    text: "Apps",
+    Icon: () => <User className="h-4 w-4" />,
+    href: "/apps",
+    badge: "New ✨",
+  },
+  {
     text: "Installation",
     Icon: () => <Download className="h-4 w-4" />,
     href: "/install",
