@@ -262,10 +262,10 @@ export function AppTable({ from, to }: UserTableProps) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  onClick={() => {
-                    router.push(`/apps/${row.original.user_id}`);
-                  }}
-                  className="cursor-pointer hover:bg-gray-100"
+                  // onClick={() => {
+                  //   router.push(`/apps/${row.original.user_id}`);
+                  // }}
+                  // className="cursor-pointer hover:bg-gray-100"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="whitespace-nowrap py-2">
