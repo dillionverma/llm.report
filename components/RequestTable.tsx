@@ -400,8 +400,11 @@ const columns: ColumnDef<Request>[] = [
     accessorKey: "cost",
     header: "Cost",
     cell: ({ row }) => {
-      const value = row.getValue("cost") as number;
-      return <div>{currencyFormat(value, "USD", 4)}</div>;
+      const value = row.getValue('cost') as number;
+      const isRequestCached = row.getValue('cached') as boolean;
+      const costValue = isRequestCached ? 0 : value;
+
+      return <div>{currencyFormat(costValue, 'USD', 4)}</div>;
     },
   },
   {
