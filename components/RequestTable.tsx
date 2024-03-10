@@ -260,9 +260,9 @@ const RequestDialog = ({
                                         {request.request_body.messages
                                           .map(
                                             (message: any) =>
-                                              `${message.content}`
+                                              `**${message.role}**: ${message.content}`
                                           )
-                                          .join("\n")}
+                                          .join("\n\n")}
                                       </RenderMarkdown>
                                     )}
                                   </div>
@@ -480,7 +480,7 @@ const columns: ColumnDef<Request>[] = [
       return <div>{truncateEmail(value)}</div>;
     },
   },
-  
+
   // {
   //   accessorKey: "response_body",
   //   header: "Completion",
@@ -761,7 +761,6 @@ export function RequestTable({ userId }: { userId?: string }) {
         setIsLoading(false);
       });
   }, [debouncedSearch, pageIndex, pageSize, sorting, userId, query]);
-
 
   // const isFiltered =
   //   table.getPreFilteredRowModel().rows.length >
