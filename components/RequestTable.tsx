@@ -273,17 +273,17 @@ const RequestDialog = ({
                                     {new URL(request.url).pathname ===
                                       "/v1/completions" && (
                                       <>
-                                        {request.response_body.choices[0].text}
+                                        {request.response_body.choices?.[0]
+                                          .text || request.completion}
                                       </>
                                     )}
                                     {new URL(request.url).pathname ===
                                       "/v1/chat/completions" &&
                                       !request.streamed && (
                                         <RenderMarkdown>
-                                          {
-                                            request.response_body.choices[0]
-                                              .message.content
-                                          }
+                                          {request.response_body.choices?.[0]
+                                            .message.content ||
+                                            request.completion}
                                         </RenderMarkdown>
                                       )}
                                     {new URL(request.url).pathname ===
