@@ -18,6 +18,7 @@ import { Input } from "./ui/input";
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 type FormData = z.infer<typeof userAuthSchema>;
+const CALLBACK_URL = "/onboarding";
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
@@ -43,7 +44,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       email: data.email.toLowerCase(),
       password: data.password,
       redirect: false,
-      callbackUrl: "/openai",
+      callbackUrl: CALLBACK_URL,
     });
 
     setIsLoading(false);
@@ -57,7 +58,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     }
 
     if (provider === "credentials") {
-      router.push(signInResult?.url || "/openai");
+      router.push(signInResult?.url || CALLBACK_URL);
     } else {
       toast({
         title: "Check your email",
@@ -151,7 +152,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         className={cn(buttonVariants({ variant: "outline" }))}
         onClick={() => {
           setIsGoogleLoading(true);
-          signIn("google", { callbackUrl: "/openai" });
+          signIn("google", { callbackUrl: CALLBACK_URL });
         }}
         disabled={isLoading || isGoogleLoading}
       >
@@ -167,7 +168,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         className={cn(buttonVariants({ variant: "outline" }))}
         onClick={() => {
           setIsGitHubLoading(true);
-          signIn("github", { callbackUrl: "/openai" });
+          signIn("github", { callbackUrl: CALLBACK_URL });
         }}
         disabled={isLoading || isGitHubLoading}
       >
