@@ -43,3 +43,27 @@ export type UserSubscriptionPlan = SubscriptionPlan &
 export type UserPayments = Pick<User> & {
   payments: Payment[];
 };
+
+export type Request = {
+  id: string,
+  userId: string,
+  openai_id: string,
+  ip: string,
+  url: string,
+  method: string,
+  status: number,
+  cached: boolean,
+  streamed: boolean,
+  user_id: string,
+  model: string,
+  prompt_tokens: number,
+  completion_tokens: number,
+  request_headers: object,
+  request_body: object,
+  response_headers: object,
+  response_body: object,
+  streamed_response_body: string,
+  completion: string,
+  createdAt: number,
+  updatedAt: number,
+};
