@@ -23,11 +23,13 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { LucideMessageCircle } from "lucide-react";
+import { Eye, EyeOff, LucideMessageCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { DataTablePagination } from "../DataTablePagination";
 import { Input } from "../ui/input";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 const columns: ColumnDef<Request>[] = [
   {
@@ -43,7 +45,40 @@ const columns: ColumnDef<Request>[] = [
     header: "User Id",
     cell: ({ row }) => {
       const value = row.getValue("user_id") as string;
-      return <div>{truncateEmail(value)}</div>;
+      const [showEmail, setShowEmail] = useState(false);
+      const toggleEmail = (event: any) => {
+        event.stopPropagation();
+        setShowEmail(!showEmail);
+      };
+      return (
+        <div>
+          <Button variant={"ghost"} onClick={toggleEmail}>
+            {showEmail ? (
+              <>
+                <div className="flex items-center w-fit">
+                  <Link
+                    href={`/users/${row.original.user_id}`}
+                    className="hover:text-indigo-600"
+                  >
+                    {value}
+                  </Link>{" "}
+                  <Button variant={"ghost"} onClick={toggleEmail}>
+                    <EyeOff className="w-4 h-4 ml-3 hover:text-indigo-500" />
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center w-fit">
+                {truncateEmail(value)}{" "}
+                <Button variant={"ghost"} onClick={toggleEmail}>
+                  <Eye className="w-4 h-4 ml-3 hover:text-indigo-500" />
+                </Button>
+              </div>
+            )}
+          </Button>
+          {showEmail && <div>{row.getValue("email")}</div>}
+        </div>
+      );
     },
   },
   {
@@ -207,7 +242,7 @@ export function UserTable({ from, to }: UserTableProps) {
             className="h-8 px-2 lg:px-3"
           >
             Reset
-            <X className="ml-2 h-4 w-4" />
+            <X className="w-4 h-4 ml-2" />
           </Button>
         )} */}
         {/* <div className="flex flex-row space-x-2">
@@ -236,13 +271,13 @@ export function UserTable({ from, to }: UserTableProps) {
           >
             <Button variant="outline" size="sm">
               Export
-              <Download className="ml-2 h-4 w-4" />
+              <Download className="w-4 h-4 ml-2" />
             </Button>
           </CSVLink>
         </div> */}
       </div>
 
-      <div className="rounded-md border">
+      <div className="border rounded-md">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -278,7 +313,7 @@ export function UserTable({ from, to }: UserTableProps) {
                   className="cursor-pointer hover:bg-gray-100"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="whitespace-nowrap py-2">
+                    <TableCell key={cell.id} className="py-2 whitespace-nowrap">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
