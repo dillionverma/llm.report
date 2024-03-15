@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,7 +12,7 @@
     "prebuild": "prisma generate",
     "predev": "prisma generate",
     "docs:dev": "cd docs && mintlify dev",
-    "stripe:webhook": "stripe listen --forward-to localhost:3001/api/v1/stripe/webhook",
+    "stripe:webhook": "stripe listen --forward-to localhost:3000/api/v1/stripe/webhook",
     "stripe:fixtures": "stripe fixtures fixtures/stripe.json",
     "dx": "run-s db:up db:setup dev",
     "db:setup": "run-s db:deploy db:seed",
