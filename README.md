@@ -1,3 +1,6 @@
+> [!CAUTION]
+> Attention: llm.report is no longer actively maintained. This project was unable to find a sustainable business model, and the founders have moved on to other projects. If you are interested in maintaining or further developing this project, [message me on twitter](https://twitter.com/dillionverma)
+
 <a href="https://llm.report">
   <img alt="llm.report – an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts." src="https://cdn.llm.report/openai-demo.gif" width="100%">
   <h1 align="center">llm.report</h1>

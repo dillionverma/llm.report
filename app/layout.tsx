@@ -1,5 +1,4 @@
 import { Analytics } from "@/components/analytics";
-import { CrispChat } from "@/components/crisp-chat";
 import MotionProvider from "@/components/motion-provider";
 import PosthogIdentify from "@/components/posthog-identify";
 import { PHProvider } from "@/components/posthog-provider";
@@ -49,7 +48,7 @@ export default async function RootLayout({
                   >
                     {children}
                     <Analytics />
-                    <CrispChat />
+                    {/* <CrispChat /> */}
                     <WebVitals />
                     <PosthogIdentify />
                     {/* <TailwindIndicator /> */}
