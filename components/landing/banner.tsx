@@ -11,7 +11,8 @@ const Banner = () => {
       >
         <p className="inline-block text-white text-sm">
           <strong>Attention:</strong> llm.report is no longer actively
-          maintained. See Github for more details.
+          maintained. The product will still run in the meantime. See Github for
+          more details.
         </p>
         <ArrowUpRight className="text-white h-3 w-3" />
       </Link>
