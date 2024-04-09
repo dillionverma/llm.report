@@ -771,10 +771,10 @@ export function RequestTable({ userId }: { userId?: string }) {
       <div className="flex items-center justify-between space-x-2">
         <div className="flex flex-row space-x-2 items-center justify-center">
           <Input
-            placeholder="Search prompts or completions..."
+            placeholder="Search prompts or completions or models..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="min-w-[250px]"
+            className="min-w-[300px]"
           />
 
           {/* {isFiltered && (
