@@ -13,7 +13,7 @@ type QueryParameters = {
   pageSize?: number;
   pageNumber?: number;
   filter?: string;
-  app_id?: string; 
+  app_id?: string;
 };
 
 const sortingFields = {
@@ -127,6 +127,12 @@ export default async function handler(
             },
             {
               completion: {
+                contains: `${search}`,
+                mode: "insensitive",
+              },
+            },
+            {
+              openai_id: {
                 contains: `${search}`,
                 mode: "insensitive",
               },
