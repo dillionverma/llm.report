@@ -6,14 +6,16 @@ export type GPT4Model =
   | "gpt-4-32k-0314"
   | "gpt-4-1106-preview"
   | "gpt-4-1106-vision-preview"
-  | "gpt-4-0125-preview";
+  | "gpt-4-0125-preview"
+  | "gpt-4-turbo-2024-04-09";
 
 export type GPT3Model =
   | "gpt-3.5-turbo"
   | "gpt-3.5-turbo-0301"
   | "gpt-3.5-turbo-0613"
   | "gpt-3.5-turbo-16k-0613"
-  | "gpt-3.5-turbo-1106";
+  | "gpt-3.5-turbo-1106"
+  | "gpt-3.5-turbo-0125";
 
 export type ChatCompletionModel = GPT3Model | GPT4Model;
 
@@ -43,6 +45,10 @@ interface CostReq {
 }
 
 export const MODEL_COSTS: CostPerUnit = {
+  "gpt-4-turbo-2024-04-09": {
+    prompt: 0.01 / 1000,
+    completion: 0.03 / 1000,
+  },
   "gpt-4-0125-preview": {
     prompt: 0.01 / 1000,
     completion: 0.03 / 1000,
@@ -54,6 +60,10 @@ export const MODEL_COSTS: CostPerUnit = {
   "gpt-4-1106-vision-preview": {
     prompt: 0.01 / 1000,
     completion: 0.03 / 1000,
+  },
+  "gpt-3.5-turbo-0125": {
+    prompt: 0.0005 / 1000,
+    completion: 0.0015 / 1000,
   },
   "gpt-3.5-turbo-1106": {
     prompt: 0.001 / 1000,
@@ -98,6 +108,8 @@ export const getModelCost = (model: string) => {
     return MODEL_COSTS["gpt-4-1106-preview"];
   } else if (model.startsWith("gpt-4-0125")) {
     return MODEL_COSTS["gpt-4-0125-preview"];
+  } else if (model.startsWith("gpt-4-turbo-2024-04-09")) {
+    return MODEL_COSTS["gpt-4-turbo-2024-04-09"];
   } else if (model.startsWith("gpt-4")) {
     return MODEL_COSTS["gpt-4"];
   } else {

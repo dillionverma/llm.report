@@ -33,7 +33,7 @@ export default async function handler(
         prompt_tokens: 356,
         completion_tokens: 54,
         user_id,
-        model: "gpt-3.5-turbo-0301",
+        model: "gpt-3.5-turbo-0125",
         request_headers: {
           host: "api.cachemyai.com",
           accept: "*/*",
@@ -58,7 +58,7 @@ export default async function handler(
           server: "cloudflare",
           connection: "keep-alive",
           "content-type": "application/json",
-          "openai-model": "gpt-3.5-turbo-0301",
+          "openai-model": "gpt-3.5-turbo-0125",
           "x-request-id": "253c83918a2c94ga8c3et0fc901beccf",
           "cache-control": "public, max-age=2592000",
           "content-length": "692",
@@ -78,7 +78,7 @@ export default async function handler(
 
         response_body: {
           id: "chatcmpl-7GJP6n55ttn97fWiqJlQ82k8oLf5E",
-          model: "gpt-3.5-turbo-0301",
+          model: "gpt-3.5-turbo-0125",
           usage: {
             total_tokens: 166,
             prompt_tokens: 27,

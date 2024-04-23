@@ -64,6 +64,7 @@ export const CHAT_GPT3_MODELS: ChatCompletionModel[] = [
   "gpt-3.5-turbo-0301",
   "gpt-3.5-turbo-0613",
   "gpt-3.5-turbo-16k-0613",
+  "gpt-3.5-turbo-0125",
 ];
 
 export const CHAT_MODELS: ChatCompletionModel[] = [
@@ -139,6 +140,7 @@ export const MODEL_TO_COLOR: Record<Snapshot, Color> = {
   "gpt-4-1106-preview": "emerald",
   "gpt-4-1106-vision-preview": "emerald",
   "gpt-4-0125-preview": "emerald",
+  "gpt-4-turbo-2024-04-09": "emerald",
 
   // Chat models per token (GPT-3)
   "gpt-3.5-turbo": "amber",
@@ -146,6 +148,7 @@ export const MODEL_TO_COLOR: Record<Snapshot, Color> = {
   "gpt-3.5-turbo-0613": "amber",
   "gpt-3.5-turbo-16k-0613": "amber",
   "gpt-3.5-turbo-1106": "amber",
+  "gpt-3.5-turbo-0125": "amber",
 
   // Embedding models per token
   "text-embedding-ada-002": "rose",
@@ -250,8 +253,10 @@ export const MODEL_COST: { [key in Snapshot]?: number } = {
   "gpt-4-1106-preview": 0.01 / 1000,
   "gpt-4-1106-vision-preview": 0.01 / 1000,
   "gpt-4-0125-preview": 0.01 / 1000,
+  "gpt-4-turbo-2024-04-09": 0.01 / 1000,
 
   // Chat models per token (GPT-3)
+  "gpt-3.5-turbo-0125": 0.0005 / 1000,
   "gpt-3.5-turbo": 0.0015 / 1000,
   "gpt-3.5-turbo-0301": 0.0015 / 1000,
   "gpt-3.5-turbo-0613": 0.0015 / 1000,
