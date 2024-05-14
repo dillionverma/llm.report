@@ -144,7 +144,9 @@ export type GPT4Model =
   | "gpt-4-1106-preview"
   | "gpt-4-1106-vision-preview"
   | "gpt-4-0125-preview"
-  | "gpt-4-turbo-2024-04-09";
+  | "gpt-4-turbo-2024-04-09"
+  | "gpt-4o-2024-05-13"
+  | "gpt-4o";
 
 export type GPT3Model =
   | "gpt-3.5-turbo"

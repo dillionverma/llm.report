@@ -7,7 +7,9 @@ export type GPT4Model =
   | "gpt-4-1106-preview"
   | "gpt-4-1106-vision-preview"
   | "gpt-4-0125-preview"
-  | "gpt-4-turbo-2024-04-09";
+  | "gpt-4-turbo-2024-04-09"
+  | "gpt-4o-2024-05-13"
+  | "gpt-4o";
 
 export type GPT3Model =
   | "gpt-3.5-turbo"
@@ -45,6 +47,14 @@ interface CostReq {
 }
 
 export const MODEL_COSTS: CostPerUnit = {
+  "gpt-4o-2024-05-13": {
+    prompt: 0.005 / 1000,
+    completion: 0.015 / 1000,
+  },
+  "gpt-4o": {
+    prompt: 0.005 / 1000,
+    completion: 0.015 / 1000,
+  },
   "gpt-4-turbo-2024-04-09": {
     prompt: 0.01 / 1000,
     completion: 0.03 / 1000,
@@ -108,6 +118,8 @@ export const getModelCost = (model: string) => {
     return MODEL_COSTS["gpt-4-1106-preview"];
   } else if (model.startsWith("gpt-4-0125")) {
     return MODEL_COSTS["gpt-4-0125-preview"];
+  } else if (model.startsWith("gpt-4o")) {
+    return MODEL_COSTS["gpt-4o"];
   } else if (model.startsWith("gpt-4-turbo-2024-04-09")) {
     return MODEL_COSTS["gpt-4-turbo-2024-04-09"];
   } else if (model.startsWith("gpt-4")) {
